@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "title": "RevolutTIME — Magnesium + H₂ Wasserstoff-Brausetabletten",
+    "description": "Wasserstoff-Brausetabletten mit Magnesium. Eurofins-geprüft (bis 1,6 ppm H₂), 0 kcal, Versand aus Hebertshausen bei München mit DHL/Hermes."
+  },
+  "brand": {
+    "name": "RevolutTIME",
+    "product": "Magnesium + H₂"
+  },
+  "header": {
+    "nav": {
+      "product": "Produkt",
+      "usage": "Anwendung",
+      "contact": "Kontakt"
+    },
+    "cart": "Warenkorb",
+    "language": "Sprache",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen"
+  },
+  "hero": {
+    "badge": "Eurofins-geprüft · bis 1,6 ppm H₂",
+    "title": "Molekularer Wasserstoff.",
+    "titleAccent": "Jeden Tag. Frisch gezogen.",
+    "subtitle": "RevolutTIME Magnesium + H₂ — Brausetabletten für angereichertes Wasser. Eine Tablette in 150–200 ml kaltem Wasser, 1–1,5 Minuten — und Ihr Getränk ist bereit.",
+    "ctaBuy": "Jetzt kaufen",
+    "ctaUsage": "So funktioniert's",
+    "chips": {
+      "hydrogen": "Bis 1,6 ppm gelöster H₂",
+      "magnesium": "57–66,7 mg Magnesium pro Tablette",
+      "kcal": "0 kcal · 0 g Zucker",
+      "shipping": "Versand aus Bayern · DHL/Hermes 1–2 Tage"
+    }
+  },
+  "usage": {
+    "title": "Anwendung",
+    "subtitle": "Drei einfache Schritte — und Ihr H₂-Wasser ist fertig.",
+    "step1": {
+      "title": "Auflösen",
+      "text": "Eine Tablette in 150–200 ml stiller (nicht sprudelnder) Wasser geben. Kühles Wasser bei 10–12 °C hält den Wasserstoff am besten."
+    },
+    "step2": {
+      "title": "Warten",
+      "text": "Die Tablette löst sich in 1–1,5 Minuten auf. Die maximale H₂-Konzentration ist nach 3–4 Minuten erreicht."
+    },
+    "step3": {
+      "title": "Trinken",
+      "text": "Sofort nach dem Auflösen trinken. Empfohlen: 3–4 Gläser am Tag für Tonus und Stoffwechsel."
+    }
+  },
+  "variants": {
+    "title": "Wählen Sie Ihr Format",
+    "subtitle": "Eine Packung reicht für bis zu 30 Tage bei 3 Tabletten pro Tag.",
+    "packsLabel": "Packungen",
+    "cta": "In den Warenkorb",
+    "added": "Zum Warenkorb hinzugefügt",
+    "featured": "Beliebtes Format",
+    "perTablet": "{price} pro Tablette",
+    "packs": {
+      "pack-90": {
+        "name": "Packung 90 Tabletten",
+        "note": "Bis zu 30 Tage Versorgung"
+      },
+      "pack-120": {
+        "name": "Packung 120 Tabletten + Box",
+        "note": "Mehr Vorrat + Aufbewahrungsbox"
+      }
+    }
+  },
+  "cart": {
+    "title": "Warenkorb",
+    "empty": "Ihr Warenkorb ist noch leer.",
+    "emptyHint": "Wählen Sie ein Format — 90 oder 120 Tabletten.",
+    "total": "Gesamt",
+    "quantity": "Menge",
+    "remove": "Entfernen",
+    "checkout": "Zur Kasse",
+    "shippingNote": "Versand aus Hebertshausen (Bayern) mit DHL/Hermes. Lieferung in 1–2 Werktagen innerhalb Deutschlands.",
+    "addedToast": "„{name}“ zum Warenkorb hinzugefügt"
+  },
+  "footer": {
+    "about": "Molekularer Wasserstoff mit Magnesium — frisch aufgelöst, jeden Tag. Geprüft von Eurofins, versendet aus Bayern.",
+    "contactsTitle": "Kontakt",
+    "company": "Gewerbe Yuriy Moshenets",
+    "address": "Weilbacher 10, 85241 Hebertshausen, Deutschland",
+    "shipping": "Versand: DHL / Hermes, 1–2 Werktage",
+    "legalTitle": "Rechtliches",
+    "legal": {
+      "impressum": "Impressum",
+      "datenschutz": "Datenschutz",
+      "agb": "AGB",
+      "widerruf": "Widerrufsbelehrung"
+    },
+    "disclaimer": "Nahrungsergänzungsmittel. Die empfohlene Verzehrmenge nicht überschreiten. Außerhalb der Reichweite von kleinen Kindern aufbewahren. Eine ausgewogene und abwechslungsreiche Ernährung und eine gesunde Lebensweise sind wichtig.",
+    "brandOwner": "Marke: YULKK UNITED CORP., USA",
+    "rightsSuffix": "Alle Rechte vorbehalten."
+  }
+}

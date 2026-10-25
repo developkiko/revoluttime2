@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "title": "RevolutTIME — Magnesium + H₂ Hydrogen Effervescent Tablets",
+    "description": "Effervescent tablets with magnesium and molecular hydrogen. Eurofins-tested (up to 1.6 ppm H₂), 0 kcal, shipped from Hebertshausen near Munich via DHL/Hermes."
+  },
+  "brand": {
+    "name": "RevolutTIME",
+    "product": "Magnesium + H₂"
+  },
+  "header": {
+    "nav": {
+      "product": "Product",
+      "usage": "How to use",
+      "contact": "Contact"
+    },
+    "cart": "Cart",
+    "language": "Language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "badge": "Eurofins-tested · up to 1.6 ppm H₂",
+    "title": "Molecular hydrogen.",
+    "titleAccent": "Every day. Fresh.",
+    "subtitle": "RevolutTIME Magnesium + H₂ — effervescent tablets for enriched water. One tablet into 150–200 ml of cold water, 1–1.5 minutes — and your drink is ready.",
+    "ctaBuy": "Buy now",
+    "ctaUsage": "How it works",
+    "chips": {
+      "hydrogen": "Up to 1.6 ppm dissolved H₂",
+      "magnesium": "57–66.7 mg magnesium per tablet",
+      "kcal": "0 kcal · 0 g sugar",
+      "shipping": "Ships from Bavaria · DHL/Hermes 1–2 days"
+    }
+  },
+  "usage": {
+    "title": "How to use",
+    "subtitle": "Three simple steps — and your H₂ water is ready.",
+    "step1": {
+      "title": "Dissolve",
+      "text": "Add one tablet to 150–200 ml of still (non-carbonated) water. Cool water at 10–12 °C keeps the hydrogen best."
+    },
+    "step2": {
+      "title": "Wait",
+      "text": "The tablet dissolves in 1–1.5 minutes. Maximum H₂ concentration is reached at 3–4 minutes."
+    },
+    "step3": {
+      "title": "Drink",
+      "text": "Drink right after it dissolves. Recommended: 3–4 glasses a day for tone and metabolism."
+    }
+  },
+  "variants": {
+    "title": "Choose your format",
+    "subtitle": "One pack lasts up to 30 days at 3 tablets a day.",
+    "packsLabel": "Packs",
+    "cta": "Add to cart",
+    "added": "Added to cart",
+    "featured": "Popular format",
+    "perTablet": "{price} per tablet",
+    "packs": {
+      "pack-90": {
+        "name": "Pack of 90 tablets",
+        "note": "Up to 30-day supply"
+      },
+      "pack-120": {
+        "name": "Pack of 120 tablets + box",
+        "note": "Bigger supply + storage box"
+      }
+    }
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is still empty.",
+    "emptyHint": "Pick a format — 90 or 120 tablets.",
+    "total": "Total",
+    "quantity": "Quantity",
+    "remove": "Remove",
+    "checkout": "Checkout",
+    "shippingNote": "Ships from Hebertshausen (Bavaria) via DHL/Hermes. Delivery within Germany in 1–2 business days.",
+    "addedToast": "“{name}” added to cart"
+  },
+  "footer": {
+    "about": "Molecular hydrogen with magnesium — freshly dissolved, every day. Eurofins-tested, shipped from Bavaria.",
+    "contactsTitle": "Contact",
+    "company": "Gewerbe Yuriy Moshenets",
+    "address": "Weilbacher 10, 85241 Hebertshausen, Deutschland",
+    "shipping": "Shipping: DHL / Hermes, 1–2 business days",
+    "legalTitle": "Legal",
+    "legal": {
+      "impressum": "Impressum",
+      "datenschutz": "Datenschutz",
+      "agb": "AGB",
+      "widerruf": "Widerrufsbelehrung"
+    },
+    "disclaimer": "Food supplement. Do not exceed the recommended daily dose. Keep out of reach of small children. A balanced and varied diet and a healthy lifestyle are important.",
+    "brandOwner": "Brand: YULKK UNITED CORP., USA",
+    "rightsSuffix": "All rights reserved."
+  }
+}
