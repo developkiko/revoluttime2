@@ -1,12 +1,20 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { DropletsIcon, MenuIcon, ShoppingCartIcon } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { GlobeIcon, MenuIcon, ShoppingCartIcon } from "lucide-react";
 
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useCart } from "@/components/cart/CartProvider";
-import { localeLabels, routing } from "@/lib/products";
+import { Logo } from "@/components/layout/Logo";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { routing } from "@/lib/products";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Sheet,
   SheetClose,
@@ -18,25 +26,69 @@ import {
 
 const NAV_ITEMS = [
   { href: "/hydrogen", key: "hydrogen" },
-  { href: "/studio", key: "studio" },
-  { href: "/shop", key: "shop" },
+  { href: "/sport", key: "sport" },
+  { href: "/recreation", key: "recreation" },
+  { href: "/tourism", key: "tourism" },
   { href: "/partner", key: "partner" },
-  { href: "/#contact", key: "contact" },
 ] as const;
 
-function LanguageSwitcher({ className }: { className?: string }) {
-  const pathname = usePathname();
+const LOCALE_NAMES: Record<string, string> = {
+  de: "Deutsch",
+  ru: "Русский",
+  en: "English",
+};
 
+function LanguageSwitcher({ compact = true }: { compact?: boolean }) {
+  const t = useTranslations("header");
+  const locale = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  if (compact) {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="sm" className="gap-1 px-2" aria-label={t("language")}>
+            <GlobeIcon className="size-4" />
+            <span className="text-xs font-semibold uppercase">{locale}</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          {routing.locales.map((loc) => (
+            <DropdownMenuItem
+              key={loc}
+              disabled={loc === locale}
+              onClick={() => router.replace(pathname, { locale: loc })}
+            >
+              {LOCALE_NAMES[loc]}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
+
+  // Expanded variant for the mobile menu.
   return (
-    <nav aria-label="language" className={className}>
-      {routing.locales.map((locale) => (
-        <Button key={locale} variant="ghost" size="sm" asChild>
-          <Link href={pathname} locale={locale} className="px-1.5">
-            {localeLabels[locale]}
-          </Link>
-        </Button>
-      ))}
-    </nav>
+    <div className="flex flex-col gap-1">
+      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        {t("language")}
+      </p>
+      <div className="flex flex-wrap gap-2">
+        {routing.locales.map((loc) => (
+          <Button
+            key={loc}
+            variant={loc === locale ? "default" : "outline"}
+            size="sm"
+            asChild
+          >
+            <Link href={pathname} locale={loc}>
+              {LOCALE_NAMES[loc]}
+            </Link>
+          </Button>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -53,7 +105,6 @@ function CartButton() {
       aria-label={t("cart")}
     >
       <ShoppingCartIcon className="size-4" />
-      <span className="sr-only">{t("cart")}</span>
       <span aria-hidden className="hidden sm:inline">
         {t("cart")}
       </span>
@@ -61,25 +112,8 @@ function CartButton() {
         <span className="absolute -top-1.5 -right-1.5 flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-primary-foreground tabular-nums">
           {totalCount > 99 ? "99+" : totalCount}
         </span>
-      )}    </Button>
-  );
-}
-
-function Logo() {
-  const t = useTranslations("brand");
-  return (
-    <Link href="/" className="flex items-center gap-2">
-      <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-        <DropletsIcon className="size-4" />
-      </span>
-      <span className="text-base font-bold tracking-tight">
-        Revolut
-        <span className="text-primary">TIME</span>
-        <span className="ml-1.5 hidden text-xs font-medium text-muted-foreground sm:inline">
-          {t("product")}
-        </span>
-      </span>
-    </Link>
+      )}
+    </Button>
   );
 }
 
@@ -88,10 +122,12 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-14 w-full max-w-6xl items-center gap-4 px-4">
-        <Logo />
+      <div className="mx-auto flex h-14 w-full max-w-6xl items-center gap-2 px-4">
+        <Link href="/" aria-label="RevolutTIME">
+          <Logo size={22} />
+        </Link>
 
-        <nav className="ml-auto hidden items-center gap-1 md:flex">
+        <nav className="ml-auto hidden items-center gap-0.5 lg:flex">
           {NAV_ITEMS.map((item) => (
             <Button key={item.key} variant="ghost" size="sm" asChild>
               <Link href={item.href}>{t(`nav.${item.key}`)}</Link>
@@ -99,9 +135,9 @@ export function Header() {
           ))}
         </nav>
 
-        <LanguageSwitcher className="ml-auto hidden items-center md:ml-2 md:flex" />
-
-        <div className="ml-auto flex items-center gap-2 md:ml-0">
+        <div className="ml-auto flex items-center gap-1.5 lg:ml-2">
+          <ThemeToggle />
+          <LanguageSwitcher />
           <CartButton />
 
           <Sheet>
@@ -109,19 +145,24 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden"
+                className="lg:hidden"
                 aria-label={t("openMenu")}
               >
                 <MenuIcon />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-72">
+            <SheetContent side="left" className="flex w-72 flex-col">
               <SheetHeader>
-                <SheetTitle className="pt-2">
-                  <Logo />
+                <SheetTitle className="pt-2 text-left">
+                  <Logo size={22} />
                 </SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-1 px-4">
+                <SheetClose asChild>
+                  <Button variant="ghost" className="justify-start" asChild>
+                    <Link href="/">{t("home")}</Link>
+                  </Button>
+                </SheetClose>
                 {NAV_ITEMS.map((item) => (
                   <SheetClose key={item.key} asChild>
                     <Button variant="ghost" className="justify-start" asChild>
@@ -129,9 +170,14 @@ export function Header() {
                     </Button>
                   </SheetClose>
                 ))}
+                <SheetClose asChild>
+                  <Button variant="ghost" className="justify-start" asChild>
+                    <Link href="/#contact">{t("nav.contact")}</Link>
+                  </Button>
+                </SheetClose>
               </nav>
-              <div className="mt-auto px-4 pb-6">
-                <LanguageSwitcher className="flex gap-1" />
+              <div className="mt-auto flex flex-col gap-4 px-4 pb-6">
+                <LanguageSwitcher compact={false} />
               </div>
             </SheetContent>
           </Sheet>

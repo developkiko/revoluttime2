@@ -26,11 +26,13 @@
   "header": {
     "nav": {
       "hydrogen": "Wasserstoff",
-      "studio": "Studio",
-      "shop": "Shop",
+      "sport": "Sport",
+      "recreation": "Erholung",
+      "tourism": "Tourismus",
       "partner": "Partner",
       "contact": "Kontakt"
     },
+    "home": "Startseite",
     "cart": "Warenkorb",
     "language": "Sprache",
     "openMenu": "Menü öffnen",
@@ -38,34 +40,75 @@
   },
   "home": {
     "hero": {
-      "badge": "Add Life with Hydrogen · München",
-      "title": "Aktiv länger leben.",
-      "titleAccent": "Mit der Kraft von H₂.",
-      "subtitle": "RevolutTIME ist ein Ökosystem für aktives Longevity: Wasserstofftabletten, Biohacking-Studio und ein Partnerprogramm mit bis zu 30 % Verdienst. Wählen Sie Ihre Richtung.",
-      "ctaPartner": "Partner werden",
-      "ctaDirections": "Unsere Richtungen",
-      "slideKicker": "Richtung"
+      "slides": {
+        "hydrogen": {
+          "badge": "Eurofins-geprüft · bis 1,6 ppm H₂",
+          "title": "Molekularer Wasserstoff.",
+          "titleAccent": "Jeden Tag. Frisch.",
+          "subtitle": "RevolutTIME Magnesium + H₂ — Brausetabletten für angereichertes Wasser. Eine Tablette in 150–200 ml kaltes Wasser, 1–1,5 Minuten — und Ihr Getränk ist bereit.",
+          "cta": "Tabletten bestellen"
+        },
+        "sport": {
+          "badge": "Sport · Saison gestartet",
+          "title": "Badminton.",
+          "titleAccent": "Bewegung mit Spaß.",
+          "subtitle": "Spielabende und Training für jedes Level in Sporthallen rund um München. Schläger werden gestellt — Termin wählen und vorbeikommen.",
+          "cta": "Termin buchen"
+        },
+        "recreation": {
+          "badge": "Heilkraft der Natur",
+          "title": "Erholung.",
+          "titleAccent": "Im Rhythmus der Natur.",
+          "subtitle": "Routen zur Regeneration, natürliche Heilprogramme und erholsamer Wellnessurlaub im Ausland — mit Terminen und Preis pro Person.",
+          "cta": "Programme ansehen"
+        },
+        "tourism": {
+          "badge": "Sporttourismus",
+          "title": "Läufe und Touren.",
+          "titleAccent": "In Bewegung bleiben.",
+          "subtitle": "Aktive Reisen, Marathons, Wanderungen und Sportevents für Menschen, die Bewegung und Gesundheit wählen.",
+          "cta": "Möglichkeiten ansehen"
+        }
+      },
+      "chips": {
+        "hydrogen": "Bis 1,6 ppm gelöster H₂",
+        "magnesium": "57–66,7 mg Magnesium pro Tablette",
+        "kcal": "0 kcal · 0 g Zucker",
+        "shipping": "Versand aus Bayern · DHL/Hermes 1–2 Tage"
+      }
     },
     "directions": {
-      "title": "Drei Richtungen — ein Ziel",
-      "subtitle": "Aktiv länger leben: zuhause mit Wasserstoffwasser, im Studio mit modernen Technologien und gemeinsam mit Partnern.",
+      "title": "Vier Richtungen — ein Ziel",
+      "subtitle": "Aktiv länger leben: zuhause mit Wasserstoffwasser, auf dem Court, in der Natur und unterwegs.",
       "items": {
         "hydrogen": {
-          "title": "Wasserstofftabletten",
-          "text": "Magnesium + H₂ — Wasserstoffwasser in 2 Minuten. Eurofins-geprüft, 0 kcal, frisch gelöst.",
+          "title": "Innovationen für die Gesundheit",
+          "text": "Wir bauen die Richtung molekularer Wasserstoff aus. Unsere Produkte helfen, Energie, Regeneration und allgemeines Wohlbefinden zu unterstützen.",
           "cta": "Mehr erfahren"
         },
-        "studio": {
-          "title": "RevolutTIME Studio",
-          "text": "Fitness · Biohacking · Recovery: Hydrogen Breathing, Red Light, Nano-Suit-Training und mehr.",
-          "cta": "Zum Studio"
+        "tablets": {
+          "title": "Die Brausetablette mit H₂",
+          "text": "Eine eigene Seite über Zusammensetzung, Aufnahme, den Vergleich mit Apotheken-Magnesiumformen und Empfindungen nach der Einnahme.",
+          "cta": "Seite öffnen"
         },
-        "partner": {
-          "title": "Partnerprogramm",
-          "text": "Empfehlen Sie RevolutTIME und verdienen Sie bis zu 30 % Provision — lebenslang, in 6 Ebenen (A–F).",
-          "cta": "Teilnehmen"
+        "recreation": {
+          "title": "Heilkraft-Naturerholung",
+          "text": "Wir stellen Routen für Regeneration, natürliche Heilprogramme und komfortable Kuraufenthalte im Ausland zusammen.",
+          "cta": "Anfrage senden"
+        },
+        "tourism": {
+          "title": "Sporttourismus",
+          "text": "Wir organisieren aktive Reisen, Marathons, Wanderungen und Sportevents für Menschen, die Bewegung und Gesundheit wählen.",
+          "cta": "Möglichkeiten ansehen"
         }
       }
+    },
+    "diagram": {
+      "you": "Sie",
+      "referral1": "Partner 1",
+      "referral2": "Partner 2",
+      "referral3": "Partner 3",
+      "referral4": "Partner 4"
     },
     "partnerTeaser": {
       "title": "Verdienen Sie mit RevolutTIME",
@@ -243,6 +286,123 @@
       "button": "Partner werden (WhatsApp)"
     }
   },
+  "sport": {
+    "hero": {
+      "title": "Sport",
+      "subtitle": "Kurse und Spielformate von RevolutTIME: Badminton ist offen, weitere Arten folgen. Termine, Plätze und Preise auf jeder Artikelseite."
+    }
+  },
+  "recreation": {
+    "hero": {
+      "title": "Heilkraft-Naturerholung",
+      "subtitle": "Wir stellen Routen für Regeneration, natürliche Heilprogramme und komfortable Kuraufenthalte im Ausland zusammen."
+    }
+  },
+  "tourism": {
+    "hero": {
+      "title": "Sporttourismus",
+      "subtitle": "Aktive Reisen, Marathons, Wanderungen und Sportevents für Menschen, die Bewegung und Gesundheit wählen."
+    }
+  },
+  "section": {
+    "comingSoon": "In Vorbereitung",
+    "datesAvailable": "{count} Termine frei",
+    "openOffer": "Details",
+    "backToSection": "Alle Angebote des Bereichs",
+    "maxPeoplePerDate": "bis zu {count} Personen pro Termin",
+    "alsoInSection": "Weitere Angebote"
+  },
+  "booking": {
+    "pickDate": "Termin wählen",
+    "people": "Teilnehmer",
+    "maxPeople": "max. {count}",
+    "perPerson": "{price} / Person",
+    "cta": "Buchen — in den Warenkorb",
+    "addedToast": "Ticket „{title}“ liegt im Warenkorb",
+    "comingSoon": "Termine werden vorbereitet",
+    "comingSoonHint": "Schreiben Sie uns über die Kontakte im Footer — wir informieren Sie, sobald die Buchung öffnet."
+  },
+  "tablets": {
+    "meta": {
+      "title": "Die Brausetablette mit H₂ — Zusammensetzung & Aufnahme | RevolutTIME",
+      "description": "Zusammensetzung der Magnesium-H₂-Tablette, Lösungsdauer und Aufnahme, ein ehrlicher Vergleich mit Apotheken-Magnesiumformen und Empfindungen nach der Einnahme."
+    },
+    "badge": "Produkt der Richtung Wasserstoff",
+    "title": "Die Brausetablette mit H₂",
+    "subtitle": "Woraus sie besteht, wie sie aufgenommen wird, was sie von Apotheken-Magnesiumformen unterscheidet — und was Menschen spüren, die sie täglich trinken.",
+    "cta": "Preise ansehen",
+    "heroCta": "Preise ansehen",
+    "footnoteLink": "Anmerkungen (*)",
+    "composition": {
+      "title": "Zusammensetzung",
+      "subtitle": "Kurze Formel ohne Schnickschnack — alles auf dem Etikett, alles verständlich.",
+      "perTablet": "Pro Tablette (Masse 0,31 g).",
+      "items": {
+        "magnesium": "Magnesium",
+        "citricAcid": "Zitronensäure",
+        "malicAcid": "Apfelsäure",
+        "cellulose": "Mikrokristalline Cellulose"
+      }
+    },
+    "absorption": {
+      "title": "Aufnahme",
+      "subtitle": "Die Tablette arbeitet in drei Takten — vom Sprudeln bis zum letzten Schluck.",
+      "items": {
+        "dissolve": {
+          "title": "Lösung",
+          "text": "Vollständige Lösung in 1–1,5 Minuten in 150–200 ml kaltem Wasser. Kaltes Wasser hält mehr H₂."
+        },
+        "peak": {
+          "title": "Konzentrationsmaximum",
+          "text": "Der höchste Gehalt an gelöstem Wasserstoff wird nach 3–4 Minuten erreicht: bis zu 1,6 ppm laut Eurofins-Analyse."
+        },
+        "drinkNow": {
+          "title": "Sofort trinken",
+          "text": "H₂ ist leicht und entweicht schnell — das Getränk wird frisch getrunken, gerade so erhalten Sie das Maximum."
+        }
+      }
+    },
+    "comparison": {
+      "title": "Vergleich mit Apotheken-Magnesiumformen",
+      "subtitle": "Die Magnesiumform bestimmt die Aufnahme. Unsere Tablette kombiniert die Magnesiumquelle mit der Reaktion, die H₂ erzeugt.",
+      "items": {
+        "oxide": {
+          "title": "Magnesiumoxid",
+          "text": "Die günstigste Apothekenform mit geringer Bioverfügbarkeit — oft mit Magen-Darm-Beschwerden verbunden."
+        },
+        "citrate": {
+          "title": "Magnesiumcitrat",
+          "text": "Eine gut aufnehmbare Form. In unserer Tablette bindet dasselbe Zitronensäure das Magnesium in Lösung."
+        },
+        "ours": {
+          "title": "Magnesium + H₂",
+          "text": "Magnesium + Zitronen- und Apfelsäure: beim Lösen entstehen Magnesiumcitrat/-malat in Trinkform plus molekularer Wasserstoff."
+        }
+      }
+    },
+    "feel": {
+      "title": "Empfindungen nach der Einnahme",
+      "subtitle": "Was Menschen berichten, die Wasserstoffwasser regelmäßig trinken*.",
+      "items": [
+        "Leichtigkeit und Frische statt „schweren“ Wassers — viele beschreiben das Getränk als mild perlend, ohne Säure und Metallgeschmack.",
+        "Gleichmäßige Energie über den Tag* — ohne starken Auf und Ab wie bei Koffein.",
+        "Angenehme Regeneration nach dem Training* — Magnesium wirkt auf Muskeln und Nervensystem, Wasserstoff auf das schnelle Erholungsgefühl."
+      ]
+    },
+    "cta": {
+      "title": "Selbst ausprobieren",
+      "text": "Packungen mit 90 und 120 Tabletten — Versand aus Bayern in 1–2 Tagen.",
+      "button": "Zum Shop"
+    },
+    "footnotes": {
+      "title": "Anmerkungen (*)",
+      "items": [
+        "Empfindungen nach der Einnahme sind subjektive Erfahrungsberichte und Praxisbeobachtungen, keine Heilaussagen. Das Produkt ist nicht zur Diagnose, Behandlung oder Vorbeugung von Krankheiten bestimmt.",
+        "RevolutTIME Magnesium + H₂ ist ein Nahrungsergänzungsmittel. Es ersetzt keine ausgewogene Ernährung und gesunde Lebensweise. Die empfohlene Tagesdosis nicht überschreiten.",
+        "Der Vergleich der Magnesiumformen dient der Information auf Basis öffentlicher Daten zur Bioverfügbarkeit und ist keine Werbung für Arzneimittel — die Formulierungen sind mit den HWG-Anforderungen abgeglichen."
+      ]
+    }
+  },
   "usage": {
     "title": "Anwendung",
     "subtitle": "Drei einfache Schritte — und Ihr H₂-Wasser ist fertig.",
@@ -293,8 +453,10 @@
     "about": "RevolutTIME — Ökosystem für aktives Longevity: Wasserstofftabletten, Biohacking-Studio und Partnerprogramm. Geprüft von Eurofins, versendet aus Bayern.",
     "directionsTitle": "Richtungen",
     "directions": {
-      "hydrogen": "Wasserstofftabletten",
-      "studio": "RevolutTIME Studio",
+      "hydrogen": "Wasserstoff & Tabletten",
+      "sport": "Sport",
+      "recreation": "Heilkraft-Naturerholung",
+      "tourism": "Sporttourismus",
       "partner": "Partnerprogramm"
     },
     "contactsTitle": "Kontakt",

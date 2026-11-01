@@ -1,18 +1,16 @@
 import { getTranslations } from "next-intl/server";
-import {
-  DropletsIcon,
-  MapPinIcon,
-  PhoneIcon,
-  TruckIcon,
-} from "lucide-react";
+import { MapPinIcon, PhoneIcon, TruckIcon } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { CurrentYear } from "@/components/layout/CurrentYear";
+import { Logo } from "@/components/layout/Logo";
 import { SITE } from "@/lib/products";
 
 const DIRECTION_LINKS = [
   { href: "/hydrogen", key: "hydrogen" },
-  { href: "/studio", key: "studio" },
+  { href: "/sport", key: "sport" },
+  { href: "/recreation", key: "recreation" },
+  { href: "/tourism", key: "tourism" },
   { href: "/partner", key: "partner" },
 ] as const;
 
@@ -30,12 +28,9 @@ export async function Footer() {
     <footer id="contact" className="scroll-mt-16 border-t bg-muted/40">
       <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-12 md:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-3">
-          <p className="flex items-center gap-2 text-base font-bold tracking-tight">
-            <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <DropletsIcon className="size-4" />
-            </span>
-            Revolut<span className="text-primary">TIME</span>
-          </p>
+          <Link href="/" aria-label="RevolutTIME" className="w-fit">
+            <Logo size={26} float />
+          </Link>
           <p className="text-sm leading-relaxed text-muted-foreground">
             {t("about")}
           </p>

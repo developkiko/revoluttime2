@@ -11,6 +11,7 @@ import { CartProvider } from "@/components/cart/CartProvider";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ThemeProvider } from "@/components/layout/ThemeToggle";
 import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -45,6 +46,7 @@ export default async function LangLayout({
   return (
     <html
       lang={lang}
+      suppressHydrationWarning
       className={cn(
         "h-full antialiased font-sans",
         inter.variable,
@@ -53,13 +55,15 @@ export default async function LangLayout({
     >
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
-          <CartProvider>
-            <Header />
-            <main className="flex flex-1 flex-col">{children}</main>
-            <Footer />
-            <CartDrawer />
-            <Toaster position="bottom-right" />
-          </CartProvider>
+          <ThemeProvider>
+            <CartProvider>
+              <Header />
+              <main className="flex flex-1 flex-col">{children}</main>
+              <Footer />
+              <CartDrawer />
+              <Toaster position="bottom-right" />
+            </CartProvider>
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

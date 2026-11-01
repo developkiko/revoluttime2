@@ -2,30 +2,82 @@
 
 import * as React from "react";
 import { getPack, type PackId } from "@/lib/products";
+import { getOfferSlot } from "@/lib/catalog";
 
-export interface CartItem {
+export interface PackCartItem {
+  kind: "pack";
   packId: PackId;
   quantity: number;
 }
 
+/** A bookable offer (sport session, tour, event) for a chosen date. */
+export interface TicketCartItem {
+  kind: "ticket";
+  offerSlug: string;
+  slotId: string;
+  people: number;
+}
+
+export type CartItem = PackCartItem | TicketCartItem;
+
 interface CartContextValue {
   /** Cart lines from localStorage; empty until hydration completes. */
   items: CartItem[];
+  /** Packs + booked people — drives the header badge. */
   totalCount: number;
   totalPriceCents: number;
   isOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
-  add: (packId: PackId, quantity?: number) => void;
-  setQuantity: (packId: PackId, quantity: number) => void;
-  remove: (packId: PackId) => void;
+  addPack: (packId: PackId, quantity?: number) => void;
+  addTicket: (offerSlug: string, slotId: string, people: number) => void;
+  setQuantity: (key: string, quantity: number) => void;
+  remove: (key: string) => void;
   clear: () => void;
 }
 
 const CartContext = React.createContext<CartContextValue | null>(null);
 
-const STORAGE_KEY = "revoluttime-cart-v1";
+const STORAGE_KEY = "revoluttime-cart-v2";
 const EMPTY_ITEMS: CartItem[] = [];
+
+/** Stable per-line identity (kind + ids), used by steppers in the drawer. */
+export function cartItemKey(item: CartItem): string {
+  return item.kind === "pack"
+    ? `pack:${item.packId}`
+    : `ticket:${item.offerSlug}:${item.slotId}`;
+}
+
+function priceOf(item: CartItem): number {
+  if (item.kind === "pack") return getPack(item.packId).priceCents * item.quantity;
+  const slot = getOfferSlot(item.offerSlug, item.slotId);
+  return slot ? slot.priceCents * item.people : 0;
+}
+
+function countOf(item: CartItem): number {
+  return item.kind === "pack" ? item.quantity : item.people;
+}
+
+function isValidItem(value: unknown): value is CartItem {
+  if (typeof value !== "object" || value === null) return false;
+  const item = value as Record<string, unknown>;
+  if (item.kind === "pack") {
+    return (
+      typeof item.packId === "string" && typeof item.quantity === "number" && item.quantity > 0
+    );
+  }
+  if (item.kind === "ticket") {
+    return (
+      typeof item.offerSlug === "string" &&
+      typeof item.slotId === "string" &&
+      typeof item.people === "number" &&
+      item.people > 0 &&
+      // drop tickets whose offer/slot was removed from the catalog
+      getOfferSlot(item.offerSlug, item.slotId) !== undefined
+    );
+  }
+  return false;
+}
 
 /**
  * localStorage acts as an external store read via useSyncExternalStore,
@@ -42,14 +94,7 @@ const cartStore = (() => {
     try {
       const parsed: unknown = JSON.parse(raw);
       if (!Array.isArray(parsed)) return EMPTY_ITEMS;
-      return parsed.filter(
-        (item): item is CartItem =>
-          typeof item === "object" &&
-          item !== null &&
-          typeof (item as CartItem).packId === "string" &&
-          typeof (item as CartItem).quantity === "number" &&
-          (item as CartItem).quantity > 0
-      );
+      return parsed.filter(isValidItem);
     } catch {
       return EMPTY_ITEMS;
     }
@@ -98,6 +143,22 @@ function getServerSnapshot(): CartItem[] {
   return EMPTY_ITEMS;
 }
 
+function mergeItem(items: CartItem[], incoming: CartItem): CartItem[] {
+  const key = cartItemKey(incoming);
+  const index = items.findIndex((item) => cartItemKey(item) === key);
+  if (index === -1) return [...items, incoming];
+  return items.map((item, i) => {
+    if (i !== index) return item;
+    if (item.kind === "pack" && incoming.kind === "pack") {
+      return { ...item, quantity: item.quantity + incoming.quantity };
+    }
+    if (item.kind === "ticket" && incoming.kind === "ticket") {
+      return { ...item, people: item.people + incoming.people };
+    }
+    return item;
+  });
+}
+
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const items = React.useSyncExternalStore(
     cartStore.subscribe,
@@ -108,40 +169,49 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const { totalCount, totalPriceCents } = React.useMemo(
     () => ({
-      totalCount: items.reduce((sum, item) => sum + item.quantity, 0),
-      totalPriceCents: items.reduce(
-        (sum, item) => sum + getPack(item.packId).priceCents * item.quantity,
-        0
-      ),
+      totalCount: items.reduce((sum, item) => sum + countOf(item), 0),
+      totalPriceCents: items.reduce((sum, item) => sum + priceOf(item), 0),
     }),
     [items]
   );
 
-  const add = React.useCallback((packId: PackId, quantity = 1) => {
-    const current = cartStore.getSnapshot();
-    const existing = current.find((item) => item.packId === packId);
+  const addPack = React.useCallback((packId: PackId, quantity = 1) => {
     cartStore.writeItems(
-      existing
-        ? current.map((item) =>
-            item.packId === packId
-              ? { ...item, quantity: item.quantity + quantity }
-              : item
-          )
-        : [...current, { packId, quantity }]
+      mergeItem(cartStore.getSnapshot(), { kind: "pack", packId, quantity })
     );
   }, []);
 
-  const setQuantity = React.useCallback((packId: PackId, quantity: number) => {
+  const addTicket = React.useCallback(
+    (offerSlug: string, slotId: string, people: number) => {
+      cartStore.writeItems(
+        mergeItem(cartStore.getSnapshot(), {
+          kind: "ticket",
+          offerSlug,
+          slotId,
+          people,
+        })
+      );
+    },
+    []
+  );
+
+  const setQuantity = React.useCallback((key: string, quantity: number) => {
     const next = cartStore
       .getSnapshot()
-      .map((item) => (item.packId === packId ? { ...item, quantity } : item))
-      .filter((item) => item.quantity > 0);
+      .map((item) =>
+        cartItemKey(item) === key
+          ? item.kind === "pack"
+            ? { ...item, quantity }
+            : { ...item, people: quantity }
+          : item
+      )
+      .filter((item) => countOf(item) > 0);
     cartStore.writeItems(next);
   }, []);
 
-  const remove = React.useCallback((packId: PackId) => {
+  const remove = React.useCallback((key: string) => {
     cartStore.writeItems(
-      cartStore.getSnapshot().filter((item) => item.packId !== packId)
+      cartStore.getSnapshot().filter((item) => cartItemKey(item) !== key)
     );
   }, []);
 
@@ -155,12 +225,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       isOpen,
       openCart: () => setIsOpen(true),
       closeCart: () => setIsOpen(false),
-      add,
+      addPack,
+      addTicket,
       setQuantity,
       remove,
       clear,
     }),
-    [items, totalCount, totalPriceCents, isOpen, add, setQuantity, remove, clear]
+    [items, totalCount, totalPriceCents, isOpen, addPack, addTicket, setQuantity, remove, clear]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

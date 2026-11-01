@@ -15,7 +15,7 @@ function PackCard({ packId }: { packId: PackId }) {
   const t = useTranslations("variants");
   const tCart = useTranslations("cart");
   const locale = useLocale() as Locale;
-  const { add, openCart } = useCart();
+  const { addPack, openCart } = useCart();
 
   const pack = PACK_VARIANTS.find((variant) => variant.id === packId)!;
   const [quantity, setQuantity] = React.useState(1);
@@ -26,7 +26,7 @@ function PackCard({ packId }: { packId: PackId }) {
   );
 
   function handleAdd() {
-    add(pack.id, quantity);
+    addPack(pack.id, quantity);
     toast.success(tCart("addedToast", { name: t(`packs.${pack.id}.name` as never) }), {
       action: {
         label: tCart("title"),

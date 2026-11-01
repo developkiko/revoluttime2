@@ -26,11 +26,13 @@
   "header": {
     "nav": {
       "hydrogen": "Hydrogen",
-      "studio": "Studio",
-      "shop": "Shop",
+      "sport": "Sport",
+      "recreation": "Recreation",
+      "tourism": "Tourism",
       "partner": "Partners",
       "contact": "Contact"
     },
+    "home": "Home",
     "cart": "Cart",
     "language": "Language",
     "openMenu": "Open menu",
@@ -38,34 +40,75 @@
   },
   "home": {
     "hero": {
-      "badge": "Add Life with Hydrogen · Munich",
-      "title": "Active longevity.",
-      "titleAccent": "Powered by H₂.",
-      "subtitle": "RevolutTIME is an ecosystem for active longevity: hydrogen tablets, a biohacking studio and a partner program with up to 30% earnings. Choose your direction.",
-      "ctaPartner": "Become a partner",
-      "ctaDirections": "Our directions",
-      "slideKicker": "Direction"
+      "slides": {
+        "hydrogen": {
+          "badge": "Eurofins-tested · up to 1.6 ppm H₂",
+          "title": "Molecular hydrogen.",
+          "titleAccent": "Every day. Fresh.",
+          "subtitle": "RevolutTIME Magnesium + H₂ — effervescent tablets for enriched water. One tablet into 150–200 ml of cold water, 1–1.5 minutes — and your drink is ready.",
+          "cta": "Order tablets"
+        },
+        "sport": {
+          "badge": "Sport · season open",
+          "title": "Badminton.",
+          "titleAccent": "Movement with fun.",
+          "subtitle": "Game nights and training for every level in sports halls around Munich. Rackets provided — pick a date and come along.",
+          "cta": "Book a game"
+        },
+        "recreation": {
+          "badge": "Nature-powered recovery",
+          "title": "Recovery.",
+          "titleAccent": "In nature's rhythm.",
+          "subtitle": "Recovery routes, natural healing programs and comfortable wellness stays abroad — with dates and per-person pricing.",
+          "cta": "View programs"
+        },
+        "tourism": {
+          "badge": "Sports tourism",
+          "title": "Races and hikes.",
+          "titleAccent": "Stay in motion.",
+          "subtitle": "Active travel, marathons, hikes and sports events for people who choose movement and health.",
+          "cta": "View opportunities"
+        }
+      },
+      "chips": {
+        "hydrogen": "Up to 1.6 ppm dissolved H₂",
+        "magnesium": "57–66.7 mg magnesium per tablet",
+        "kcal": "0 kcal · 0 g sugar",
+        "shipping": "Ships from Bavaria · DHL/Hermes 1–2 days"
+      }
     },
     "directions": {
-      "title": "Three directions — one goal",
-      "subtitle": "Live actively, longer: at home with hydrogen water, at the studio with modern technology, and together with a partner team.",
+      "title": "Four directions — one goal",
+      "subtitle": "Live actively, longer: at home with hydrogen water, on the court, in nature and on the move.",
       "items": {
         "hydrogen": {
-          "title": "Hydrogen tablets",
-          "text": "Magnesium + H₂ — hydrogen water in 2 minutes. Eurofins-tested, 0 kcal, freshly dissolved every day.",
+          "title": "Innovations for health",
+          "text": "We are building the molecular hydrogen direction. Our products help support energy, recovery and general wellbeing.",
           "cta": "Learn more"
         },
-        "studio": {
-          "title": "RevolutTIME Studio",
-          "text": "Fitness · biohacking · recovery: Hydrogen Breathing, Red Light, Nano Suit Training and more.",
-          "cta": "Visit the studio"
+        "tablets": {
+          "title": "The H₂ effervescent tablet",
+          "text": "A dedicated page about composition, absorption, a comparison with pharmacy magnesium forms and how it feels after taking it.",
+          "cta": "Open the page"
         },
-        "partner": {
-          "title": "Partner program",
-          "text": "Recommend RevolutTIME and earn up to 30% commission — for life, across 6 levels (A–F).",
-          "cta": "Join in"
+        "recreation": {
+          "title": "Nature-powered recovery",
+          "text": "We select routes for recovery, natural healing programs and comfortable wellness stays abroad.",
+          "cta": "Send a request"
+        },
+        "tourism": {
+          "title": "Sports tourism",
+          "text": "We organize active travel, marathons, hikes and sports events for people who choose movement and health.",
+          "cta": "View opportunities"
         }
       }
+    },
+    "diagram": {
+      "you": "You",
+      "referral1": "Partner 1",
+      "referral2": "Partner 2",
+      "referral3": "Partner 3",
+      "referral4": "Partner 4"
     },
     "partnerTeaser": {
       "title": "Earn with RevolutTIME",
@@ -243,6 +286,123 @@
       "button": "Become a partner (WhatsApp)"
     }
   },
+  "sport": {
+    "hero": {
+      "title": "Sport",
+      "subtitle": "RevolutTIME courses and play formats: badminton is open, more types are being added. Dates, spots and prices on each type's page."
+    }
+  },
+  "recreation": {
+    "hero": {
+      "title": "Nature-powered recovery",
+      "subtitle": "We select routes for recovery, natural healing programs and comfortable wellness stays abroad."
+    }
+  },
+  "tourism": {
+    "hero": {
+      "title": "Sports tourism",
+      "subtitle": "Active travel, marathons, hikes and sports events for people who choose movement and health."
+    }
+  },
+  "section": {
+    "comingSoon": "In preparation",
+    "datesAvailable": "{count} dates open",
+    "openOffer": "Details",
+    "backToSection": "All offers in this section",
+    "maxPeoplePerDate": "up to {count} people per date",
+    "alsoInSection": "More in this section"
+  },
+  "booking": {
+    "pickDate": "Pick a date",
+    "people": "Participants",
+    "maxPeople": "max {count}",
+    "perPerson": "{price} / person",
+    "cta": "Book — add to cart",
+    "addedToast": "Ticket “{title}” added to cart",
+    "comingSoon": "Schedule in the works",
+    "comingSoonHint": "Reach out via the contacts in the footer — we will let you know when booking opens."
+  },
+  "tablets": {
+    "meta": {
+      "title": "The H₂ effervescent tablet — composition & absorption | RevolutTIME",
+      "description": "What's inside the Magnesium + H₂ tablet, how fast it dissolves and absorbs, an honest comparison with pharmacy magnesium forms, and how it feels to take it."
+    },
+    "badge": "Product of the hydrogen direction",
+    "title": "The H₂ effervescent tablet",
+    "subtitle": "What it's made of, how it absorbs, how it differs from pharmacy magnesium forms — and what people who drink it daily feel.",
+    "cta": "See prices",
+    "heroCta": "See prices",
+    "footnoteLink": "Notes (*)",
+    "composition": {
+      "title": "Composition",
+      "subtitle": "A short formula with nothing extra — everything on the label, everything clear.",
+      "perTablet": "Per tablet (mass 0.31 g).",
+      "items": {
+        "magnesium": "Magnesium",
+        "citricAcid": "Citric acid",
+        "malicAcid": "Malic acid",
+        "cellulose": "Microcrystalline cellulose"
+      }
+    },
+    "absorption": {
+      "title": "Absorption",
+      "subtitle": "The tablet works in three beats — from the fizz to the last sip.",
+      "items": {
+        "dissolve": {
+          "title": "Dissolving",
+          "text": "Fully dissolved in 1–1.5 minutes in 150–200 ml of cold water. Cold water holds more H₂."
+        },
+        "peak": {
+          "title": "Concentration peak",
+          "text": "The highest level of dissolved hydrogen comes at 3–4 minutes: up to 1.6 ppm according to the Eurofins analysis."
+        },
+        "drinkNow": {
+          "title": "Drink it fresh",
+          "text": "H₂ is light and escapes quickly — the drink is consumed fresh, which is exactly how you get the maximum."
+        }
+      }
+    },
+    "comparison": {
+      "title": "Compared to pharmacy magnesium forms",
+      "subtitle": "The magnesium form defines absorption. Our tablet combines the magnesium source with the reaction that creates H₂.",
+      "items": {
+        "oxide": {
+          "title": "Magnesium oxide",
+          "text": "The cheapest pharmacy form with low bioavailability — often accompanied by GI discomfort."
+        },
+        "citrate": {
+          "title": "Magnesium citrate",
+          "text": "A well-absorbed form. In our tablet, the same citric acid binds the magnesium in solution."
+        },
+        "ours": {
+          "title": "Magnesium + H₂",
+          "text": "Magnesium + citric and malic acids: when dissolved, it forms magnesium citrate/malate in drinkable form plus molecular hydrogen."
+        }
+      }
+    },
+    "feel": {
+      "title": "How it feels",
+      "subtitle": "What people who drink hydrogen water regularly report*.",
+      "items": [
+        "Lightness and freshness instead of “heavy” water — many describe the drink as mildly sparkling, with no acidity or metallic taste.",
+        "Smooth energy through the day* — without the sharp ups and downs of caffeine.",
+        "A pleasant recovery feel after workouts* — magnesium works on muscles and the nervous system, hydrogen on the quick sense of recovery."
+      ]
+    },
+    "cta": {
+      "title": "Try it yourself",
+      "text": "Packs of 90 and 120 tablets — delivered from Bavaria in 1–2 days.",
+      "button": "Go to shop"
+    },
+    "footnotes": {
+      "title": "Notes (*)",
+      "items": [
+        "How it feels after taking it is the subjective experience of users and practice observations, not medical claims. The product is not intended to diagnose, treat or prevent any disease.",
+        "RevolutTIME Magnesium + H₂ is a food supplement. It does not replace a balanced diet and a healthy lifestyle. Do not exceed the recommended daily dose.",
+        "The magnesium-form comparison is provided for informational purposes based on public bioavailability data and is not advertising of medicinal products — the wording has been checked against HWG requirements."
+      ]
+    }
+  },
   "usage": {
     "title": "How to use",
     "subtitle": "Three simple steps — and your H₂ water is ready.",
@@ -293,8 +453,10 @@
     "about": "RevolutTIME — an ecosystem for active longevity: hydrogen tablets, a biohacking studio and a partner program. Eurofins-tested, shipped from Bavaria.",
     "directionsTitle": "Directions",
     "directions": {
-      "hydrogen": "Hydrogen tablets",
-      "studio": "RevolutTIME Studio",
+      "hydrogen": "Hydrogen & tablets",
+      "sport": "Sport",
+      "recreation": "Nature-powered recovery",
+      "tourism": "Sports tourism",
       "partner": "Partner program"
     },
     "contactsTitle": "Contact",
