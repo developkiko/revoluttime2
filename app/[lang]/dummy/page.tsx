@@ -14,6 +14,7 @@ import { LevelsCascade } from "@/components/partner/LevelsCascade";
 import { PartnerSteps } from "@/components/partner/PartnerSteps";
 import { ReferralDiagram } from "@/components/home/ReferralDiagram";
 import { UsageSection } from "@/components/home/UsageSection";
+import { AdminDemoButton } from "@/components/admin/AdminDemoButton";
 import { getOffer } from "@/lib/catalog";
 import { BookingWidget } from "@/components/booking/BookingWidget";
 
@@ -75,6 +76,11 @@ export default async function DummyPage({
           {t("contactSubtitle")}
         </p>
         <ContactWidget />
+      </section>
+
+      {/* Admin demo sign-in */}
+      <section className="mx-auto w-full max-w-6xl px-4 pb-4">
+        <AdminDemoButton />
       </section>
 
       {/* Partner steps + pentagon */}

@@ -89,6 +89,7 @@ function ProvidersPanel({ onDone }: { onDone?: () => void }) {
 
 function UserMenu({ email, name, onDone }: { email: string; name: string; onDone?: () => void }) {
   const t = useTranslations("auth");
+  const isAdmin = email === "admin@revoluttime.de";
 
   return (
     <div className="flex flex-col gap-3">
@@ -105,11 +106,29 @@ function UserMenu({ email, name, onDone }: { email: string; name: string; onDone
       </div>
 
       <Button variant="outline" className="w-full justify-start" asChild>
-        <Link href="/partner" onClick={onDone}>
+        <Link href="/cabinet" onClick={onDone}>
           <UserRoundIcon />
           {t("cabinet")}
         </Link>
       </Button>
+      <Button variant="ghost" className="w-full justify-start" asChild>
+        <Link href="/cabinet#profile" onClick={onDone}>
+          <UserIcon />
+          {t("profile")}
+        </Link>
+      </Button>
+      <Button variant="ghost" className="w-full justify-start" asChild>
+        <Link href="/cabinet#balance" onClick={onDone}>
+          {t("balanceLink")}
+        </Link>
+      </Button>
+      {isAdmin && (
+        <Button variant="ghost" className="w-full justify-start" asChild>
+          <Link href="/admin" onClick={onDone}>
+            {t("adminLink")}
+          </Link>
+        </Button>
+      )}
 
       <Button
         variant="outline"

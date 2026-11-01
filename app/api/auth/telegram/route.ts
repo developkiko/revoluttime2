@@ -66,6 +66,7 @@ export async function POST(request: Request) {
     email: `${data.id}@telegram.revoluttime`,
     name: [data.first_name, data.last_name].filter(Boolean).join(" ") || data.username || `tg:${data.id}`,
     provider: "telegram",
+    picture: data.photo_url,
   };
 
   const ok = await setSessionCookie(user);

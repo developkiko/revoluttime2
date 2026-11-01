@@ -10,6 +10,10 @@ export interface SessionUser {
   email: string;
   name: string;
   provider: "telegram" | "google";
+  /** Provider avatar URL (Telegram photo_url / Google picture) if present. */
+  picture?: string;
+  /** Demo-mode admin flag (see /api/auth/dev-admin). */
+  isAdmin?: boolean;
 }
 
 const COOKIE_NAME = "rt_session";
@@ -56,7 +60,13 @@ export function verifySession(
     if (!data?.email || typeof data.exp !== "number" || data.exp < Date.now()) {
       return null;
     }
-    return { email: data.email, name: data.name, provider: data.provider };
+    return {
+      email: data.email,
+      name: data.name,
+      provider: data.provider,
+      picture: typeof data.picture === "string" ? data.picture : undefined,
+      isAdmin: data.isAdmin === true,
+    };
   } catch {
     return null;
   }

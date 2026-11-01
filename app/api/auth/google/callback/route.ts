@@ -10,6 +10,7 @@ interface GoogleTokens {
 interface GoogleUserInfo {
   email?: string;
   name?: string;
+  picture?: string;
 }
 
 export async function GET(request: Request) {
@@ -64,6 +65,7 @@ export async function GET(request: Request) {
     email: userinfo.email,
     name: userinfo.name ?? userinfo.email.split("@")[0],
     provider: "google",
+    picture: userinfo.picture,
   };
   const ok = await setSessionCookie(user);
   if (!ok) return fail("unconfigured");
