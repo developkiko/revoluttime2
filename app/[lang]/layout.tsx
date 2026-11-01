@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import * as React from "react";
 import { Geist_Mono, Inter } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -12,6 +13,7 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/layout/ThemeToggle";
+import { LoginNotice } from "@/components/layout/LoginNotice";
 import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -60,9 +62,12 @@ export default async function LangLayout({
               <Header />
               <main className="flex flex-1 flex-col">{children}</main>
               <Footer />
-              <CartDrawer />
-              {/* Queue behavior: one visible toast at a time. */}
-              <Toaster position="bottom-right" visibleToasts={1} />
+            <CartDrawer />
+            {/* Queue behavior: one visible toast at a time. */}
+            <Toaster position="bottom-right" visibleToasts={1} />
+            <React.Suspense fallback={null}>
+              <LoginNotice />
+            </React.Suspense>
             </CartProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

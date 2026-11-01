@@ -4,46 +4,29 @@ import * as React from "react";
 
 export interface AuthUser {
   email: string;
-  name?: string;
+  name: string;
+  provider: "telegram" | "google";
 }
 
 /**
- * Client-side auth session store.
- *
- * TODO(auth API): replace the mock `signIn` with the real endpoint once the
- * API is provided — keep the same AuthUser shape and the subscribe/getSnapshot
- * contract, and move token storage to httpOnly cookies.
+ * Client session store. The source of truth is the httpOnly session cookie;
+ * the store hydrates from /api/auth/me and mirrors it for the UI.
  */
 const authStore = (() => {
-  const STORAGE_KEY = "revoluttime-auth-v1";
   let userCache: AuthUser | null = null;
-  let rawCache = "";
-  let memoryVersion = 0;
   const listeners = new Set<() => void>();
 
-  function parseUser(raw: string): AuthUser | null {
-    if (!raw) return null;
-    try {
-      const parsed = JSON.parse(raw) as Record<string, unknown>;
-      if (typeof parsed.email !== "string" || !parsed.email.includes("@")) {
-        return null;
-      }
-      return {
-        email: parsed.email,
-        name:
-          typeof parsed.name === "string" ? (parsed.name as string) : undefined,
-      };
-    } catch {
-      return null;
-    }
+  function writeUser(user: AuthUser | null) {
+    userCache = user;
+    listeners.forEach((listener) => listener());
+  }
+
+  function subscribe(listener: () => void): () => void {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
   }
 
   function getSnapshot(): AuthUser | null {
-    const raw = window.localStorage.getItem(STORAGE_KEY) ?? "";
-    if (raw !== rawCache) {
-      rawCache = raw;
-      userCache = parseUser(raw);
-    }
     return userCache;
   }
 
@@ -51,49 +34,37 @@ const authStore = (() => {
     return null;
   }
 
-  function writeUser(user: AuthUser | null) {
-    try {
-      const raw = user ? JSON.stringify(user) : "";
-      if (user) window.localStorage.setItem(STORAGE_KEY, raw);
-      else window.localStorage.removeItem(STORAGE_KEY);
-      rawCache = raw;
-      userCache = user;
-    } catch {
-      rawCache = `memory:${++memoryVersion}`;
-      userCache = user;
-    }
-    listeners.forEach((listener) => listener());
-  }
-
-  function subscribe(listener: () => void): () => void {
-    listeners.add(listener);
-    const onStorage = (event: StorageEvent) => {
-      if (event.key === STORAGE_KEY) listener();
-    };
-    window.addEventListener("storage", onStorage);
-    return () => {
-      listeners.delete(listener);
-      window.removeEventListener("storage", onStorage);
-    };
-  }
-
   return { getSnapshot, getServerSnapshot, subscribe, writeUser };
 })();
 
+export async function refreshSessionUser(): Promise<void> {
+  try {
+    const response = await fetch("/api/auth/me", { cache: "no-store" });
+    const data = (await response.json()) as { user: AuthUser | null };
+    authStore.writeUser(data.user);
+  } catch {
+    authStore.writeUser(null);
+  }
+}
+
+export async function signOut(): Promise<void> {
+  try {
+    await fetch("/api/auth/logout", { method: "POST" });
+  } finally {
+    authStore.writeUser(null);
+  }
+}
+
 export function useAuthUser(): AuthUser | null {
-  return React.useSyncExternalStore(
+  const user = React.useSyncExternalStore(
     authStore.subscribe,
     authStore.getSnapshot,
     authStore.getServerSnapshot
   );
-}
 
-/** Mock sign-in. TODO(auth API): POST credentials, store the returned session. */
-export async function mockSignIn(email: string): Promise<void> {
-  await new Promise((resolve) => setTimeout(resolve, 700));
-  authStore.writeUser({ email, name: email.split("@")[0] });
-}
+  React.useEffect(() => {
+    refreshSessionUser();
+  }, []);
 
-export function mockSignOut(): void {
-  authStore.writeUser(null);
+  return user;
 }
