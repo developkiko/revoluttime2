@@ -41,9 +41,10 @@
       "badge": "Add Life with Hydrogen · Munich",
       "title": "Active longevity.",
       "titleAccent": "Powered by H₂.",
-      "subtitle": "RevolutTIME combines three directions: Magnesium + H₂ effervescent tablets for fresh hydrogen water, the RevolutTIME Studio for fitness, biohacking and recovery, and a partner program for extra income.",
-      "ctaShop": "To the tablets",
-      "ctaDirections": "Our directions"
+      "subtitle": "RevolutTIME is an ecosystem for active longevity: hydrogen tablets, a biohacking studio and a partner program with up to 30% earnings. Choose your direction.",
+      "ctaPartner": "Become a partner",
+      "ctaDirections": "Our directions",
+      "slideKicker": "Direction"
     },
     "directions": {
       "title": "Three directions — one goal",
@@ -66,12 +67,6 @@
         }
       }
     },
-    "shopTeaser": {
-      "title": "Magnesium + H₂ tablets",
-      "subtitle": "The RevolutTIME classic — Eurofins-tested, 0 kcal, ships from Bavaria.",
-      "cta": "Go to shop",
-      "details": "{tablets} tablets"
-    },
     "partnerTeaser": {
       "title": "Earn with RevolutTIME",
       "text": "Up to 30% commission, lifetime bonuses across 6 levels (A–F), payouts to card, crypto or Telegram.",
@@ -89,21 +84,33 @@
     },
     "science": {
       "title": "Why hydrogen water?",
-      "subtitle": "Three reasons why such a small tablet means so much.",
+      "subtitle": "Four reasons why such a small tablet means so much.",
       "cards": {
         "antioxidant": {
           "title": "Gentle antioxidant",
-          "text": "Molecular hydrogen (H₂) is considered a selective antioxidant in research — one of the most actively studied topics in wellness science."
+          "text": "Molecular hydrogen (H₂) is considered a selective antioxidant in research: it supports vascular health and microcirculation*. One of the most actively studied topics in wellness science."
+        },
+        "heart": {
+          "title": "Heart and vessels",
+          "text": "Magnesium contributes to normal heart and nervous system function, while regular consumption of hydrogen water supports the cardiovascular system*."
+        },
+        "blood": {
+          "title": "Blood cleansing",
+          "text": "According to studies and years of consumption experience, hydrogen water contributes to gentle blood cleansing and improved overall wellbeing*."
         },
         "magnesium": {
           "title": "Magnesium included",
           "text": "Magnesium contributes to the reduction of tiredness and fatigue and to normal muscle and nervous system function."
-        },
-        "fresh": {
-          "title": "Always fresh",
-          "text": "H₂ escapes quickly — the tablet releases the hydrogen right in your glass. Up to 1.6 ppm according to the Eurofins analysis."
         }
       }
+    },
+    "footnotes": {
+      "title": "Notes (*)",
+      "items": [
+        "Statements marked with an asterisk (*) describe the effects of molecular hydrogen and magnesium in the context of general wellbeing (wellness) and published scientific research. They are not medical claims: the product is not intended to diagnose, treat or prevent any disease.",
+        "RevolutTIME Magnesium + H₂ is a food supplement. It does not replace a balanced, varied diet and a healthy lifestyle. Do not exceed the recommended daily dose. Keep out of reach of small children.",
+        "The wording on this page has been reviewed for compliance with the German Heilmittelwerbegesetz (HWG, Act on the Advertising of Medicinal Products) and food law requirements: the product is not presented as a medicinal product, so the advertising ban on medicinal claims is not violated."
+      ]
     },
     "cta": {
       "title": "Ready for hydrogen water?",

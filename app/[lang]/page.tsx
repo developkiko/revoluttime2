@@ -2,8 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 
 import { HeroSection } from "@/components/home/HeroSection";
 import { DirectionsSection } from "@/components/home/DirectionsSection";
-import { ProductTeaser } from "@/components/home/ProductTeaser";
-import { PartnerTeaser } from "@/components/home/PartnerTeaser";
+import { PartnerSection } from "@/components/home/PartnerSection";
 
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
@@ -13,8 +12,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
     <>
       <HeroSection />
       <DirectionsSection />
-      <ProductTeaser />
-      <PartnerTeaser />
+      <PartnerSection />
     </>
   );
 }

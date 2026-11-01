@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { AtomIcon, DropletsIcon, SparklesIcon } from "lucide-react";
+import { AtomIcon, DropletsIcon, HeartPulseIcon, SparklesIcon } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -10,9 +10,10 @@ import { UsageSection } from "@/components/home/UsageSection";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 
 const SCIENCE_CARDS = [
-  { key: "antioxidant", icon: AtomIcon },
-  { key: "magnesium", icon: SparklesIcon },
-  { key: "fresh", icon: DropletsIcon },
+  { key: "antioxidant", icon: AtomIcon, asterisk: true },
+  { key: "heart", icon: HeartPulseIcon, asterisk: true },
+  { key: "blood", icon: DropletsIcon, asterisk: true },
+  { key: "magnesium", icon: SparklesIcon, asterisk: false },
 ] as const;
 
 export async function generateMetadata(
@@ -83,8 +84,8 @@ export default async function HydrogenPage({
           <p className="mt-2 max-w-xl text-muted-foreground">
             {t("science.subtitle")}
           </p>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {SCIENCE_CARDS.map(({ key, icon: Icon }) => (
+          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {SCIENCE_CARDS.map(({ key, icon: Icon, asterisk }) => (
               <Card key={key}>
                 <CardContent className="flex flex-col gap-3 p-6">
                   <span className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -92,6 +93,15 @@ export default async function HydrogenPage({
                   </span>
                   <h3 className="text-lg font-semibold">
                     {t(`science.cards.${key}.title`)}
+                    {asterisk && (
+                      <a
+                        href="#footnotes"
+                        aria-label={t("footnotes.title")}
+                        className="align-super text-sm text-primary underline-offset-4 hover:underline"
+                      >
+                        *
+                      </a>
+                    )}
                   </h3>
                   <p className="text-sm leading-relaxed text-muted-foreground">
                     {t(`science.cards.${key}.text`)}
@@ -111,6 +121,19 @@ export default async function HydrogenPage({
         buttonLabel={t("cta.button")}
         href="/shop"
       />
+
+      <section id="footnotes" className="scroll-mt-16 border-t bg-muted/60">
+        <div className="mx-auto w-full max-w-6xl px-4 py-10">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            {t("footnotes.title")}
+          </h2>
+          <ol className="mt-4 list-decimal space-y-2 pl-5 text-xs leading-relaxed text-muted-foreground">
+            {t.raw("footnotes.items").map((item: string, index: number) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ol>
+        </div>
+      </section>
     </>
   );
 }

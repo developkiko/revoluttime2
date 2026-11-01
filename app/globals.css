@@ -123,6 +123,8 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Clip horizontal overhang (e.g. cart badge) without breaking sticky headers. */
+    overflow-x: clip;
   }
   html {
     @apply font-sans;

@@ -41,9 +41,10 @@
       "badge": "Add Life with Hydrogen · München",
       "title": "Aktiv länger leben.",
       "titleAccent": "Mit der Kraft von H₂.",
-      "subtitle": "RevolutTIME vereint drei Richtungen: Magnesium-H₂-Brausetabletten für frisches Wasserstoffwasser, das RevolutTIME Studio für Fitness, Biohacking und Recovery sowie ein Partnerprogramm für zusätzliche Einnahmen.",
-      "ctaShop": "Zu den Tabletten",
-      "ctaDirections": "Unsere Richtungen"
+      "subtitle": "RevolutTIME ist ein Ökosystem für aktives Longevity: Wasserstofftabletten, Biohacking-Studio und ein Partnerprogramm mit bis zu 30 % Verdienst. Wählen Sie Ihre Richtung.",
+      "ctaPartner": "Partner werden",
+      "ctaDirections": "Unsere Richtungen",
+      "slideKicker": "Richtung"
     },
     "directions": {
       "title": "Drei Richtungen — ein Ziel",
@@ -66,16 +67,10 @@
         }
       }
     },
-    "shopTeaser": {
-      "title": "Magnesium + H₂ Tabletten",
-      "subtitle": "Der Klassiker von RevolutTIME — Eurofins-geprüft, 0 kcal, Versand aus Bayern.",
-      "cta": "Zum Shop",
-      "details": "{tablets} Tabletten"
-    },
     "partnerTeaser": {
       "title": "Verdienen Sie mit RevolutTIME",
       "text": "Bis zu 30 % Provision, lebenslange Boni in 6 Ebenen (A–F), Auszahlung auf Karte, in Krypto oder Telegram.",
-      "cta": "Zum Partnerprogramm"
+      "cta": "Mehr übers Partnerprogramm"
     }
   },
   "hydrogen": {
@@ -89,21 +84,33 @@
     },
     "science": {
       "title": "Warum Wasserstoffwasser?",
-      "subtitle": "Drei Gründe, warum eine kleine Tablette so viel bewirken kann.",
+      "subtitle": "Vier Gründe, warum eine kleine Tablette so viel bewirken kann.",
       "cards": {
         "antioxidant": {
           "title": "Sanftes Antioxidans",
-          "text": "Molekularer Wasserstoff (H₂) gilt in der Forschung als selektives Antioxidans und gehört zu den am intensivsten untersuchten Themen der Wellness-Wissenschaft."
+          "text": "Molekularer Wasserstoff (H₂) gilt in der Forschung als selektives Antioxidans: Er stützt die Gesundheit der Gefäße und die Mikrozirkulation*. Eines der am intensivsten untersuchten Themen der Wellness-Wissenschaft."
+        },
+        "heart": {
+          "title": "Herz und Gefäße",
+          "text": "Magnesium trägt zur normalen Herzfunktion und Funktion des Nervensystems bei; regelmäßiger Konsum von Wasserstoffwasser unterstützt das Herz-Kreislauf-System*."
+        },
+        "blood": {
+          "title": "Blutreinigung",
+          "text": "Laut Studien und langjähriger Anwendungserfahrung trägt Wasserstoffwasser zu einer sanften Blutreinigung und mehr allgemeinem Wohlbefinden bei*."
         },
         "magnesium": {
           "title": "Magnesium inklusive",
           "text": "Magnesium trägt zur Verringerung von Müdigkeit und Ermüdung bei sowie zur normalen Funktion von Muskeln und Nervensystem."
-        },
-        "fresh": {
-          "title": "Immer frisch",
-          "text": "H₂ entweicht schnell — die Tablette setzt den Wasserstoff erst im Glas frei. Bis zu 1,6 ppm laut Eurofins-Analyse."
         }
       }
+    },
+    "footnotes": {
+      "title": "Anmerkungen (*)",
+      "items": [
+        "Mit Sternchen (*) gekennzeichnete Aussagen beschreiben die Wirkungen von molekularem Wasserstoff und Magnesium im Kontext von allgemeinem Wohlbefinden (Wellness) und publizierten wissenschaftlichen Untersuchungen. Es sind keine Heilaussagen: Das Produkt ist nicht zur Diagnose, Behandlung oder Vorbeugung von Krankheiten bestimmt.",
+        "RevolutTIME Magnesium + H₂ ist ein Nahrungsergänzungsmittel. Es ersetzt keine ausgewogene, abwechslungsreiche Ernährung und keine gesunde Lebensweise. Die empfohlene Tagesdosis nicht überschreiten. Außerhalb der Reichweite von kleinen Kindern aufbewahren.",
+        "Die Formulierungen dieser Seite sind auf Vereinbarkeit mit dem deutschen Heilmittelwerbegesetz (HWG) und den lebensmittelrechtlichen Vorgaben geprüft: Das Produkt wird nicht als Arzneimittel dargestellt, daher wird das Werbeverbot für arzneiliche Angaben nicht verletzt."
+      ]
     },
     "cta": {
       "title": "Bereit für Wasserstoffwasser?",
