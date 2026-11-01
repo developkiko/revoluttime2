@@ -1,7 +1,23 @@
 {
   "meta": {
-    "title": "RevolutTIME — Magnesium + H₂ Wasserstoff-Brausetabletten",
-    "description": "Wasserstoff-Brausetabletten mit Magnesium. Eurofins-geprüft (bis 1,6 ppm H₂), 0 kcal, Versand aus Hebertshausen bei München mit DHL/Hermes."
+    "title": "RevolutTIME — Wasserstoff, Biohacking & Partnerprogramm",
+    "description": "RevolutTIME: Magnesium-H₂-Brausetabletten für Wasserstoffwasser, das RevolutTIME Studio (Fitness · Biohacking · Recovery) und ein Partnerprogramm mit bis zu 30 % Provision. Versand aus Hebertshausen bei München.",
+    "shop": {
+      "title": "Shop — Magnesium + H₂ Brausetabletten | RevolutTIME",
+      "description": "RevolutTIME Magnesium + H₂ bestellen: 90 oder 120 Brausetabletten mit Aufbewahrungsbox. Eurofins-geprüft (bis 1,6 ppm H₂), Versand aus Bayern mit DHL/Hermes."
+    },
+    "hydrogen": {
+      "title": "Molekularer Wasserstoff — Wirkung & Anwendung | RevolutTIME",
+      "description": "Was ist molekularer Wasserstoff? So machen Sie zuhause Wasserstoffwasser mit Magnesium — eine Tablette, 150–200 ml kaltes Wasser, 1–2 Minuten."
+    },
+    "studio": {
+      "title": "RevolutTIME Studio — Fitness · Biohacking · Recovery",
+      "description": "RevolutTIME Studio: Hydrogen Breathing, Red Light Wellness, Nano Suit Training, Vibration & Lymph Flow, Krafttraining und Recovery. Termine auf DE · RU · EN."
+    },
+    "partner": {
+      "title": "Partnerprogramm — bis zu 30 % Provision | RevolutTIME",
+      "description": "Werden Sie RevolutTIME-Partner: empfehlen Sie unsere Produkte und verdienen Sie an jedem Verkauf — in 6 Ebenen (A–F), lebenslang, mit schneller Auszahlung."
+    }
   },
   "brand": {
     "name": "RevolutTIME",
@@ -9,8 +25,10 @@
   },
   "header": {
     "nav": {
-      "product": "Produkt",
-      "usage": "Anwendung",
+      "hydrogen": "Wasserstoff",
+      "studio": "Studio",
+      "shop": "Shop",
+      "partner": "Partner",
       "contact": "Kontakt"
     },
     "cart": "Warenkorb",
@@ -18,18 +36,204 @@
     "openMenu": "Menü öffnen",
     "closeMenu": "Menü schließen"
   },
-  "hero": {
-    "badge": "Eurofins-geprüft · bis 1,6 ppm H₂",
-    "title": "Molekularer Wasserstoff.",
-    "titleAccent": "Jeden Tag. Frisch gezogen.",
-    "subtitle": "RevolutTIME Magnesium + H₂ — Brausetabletten für angereichertes Wasser. Eine Tablette in 150–200 ml kaltem Wasser, 1–1,5 Minuten — und Ihr Getränk ist bereit.",
-    "ctaBuy": "Jetzt kaufen",
-    "ctaUsage": "So funktioniert's",
-    "chips": {
-      "hydrogen": "Bis 1,6 ppm gelöster H₂",
-      "magnesium": "57–66,7 mg Magnesium pro Tablette",
-      "kcal": "0 kcal · 0 g Zucker",
-      "shipping": "Versand aus Bayern · DHL/Hermes 1–2 Tage"
+  "home": {
+    "hero": {
+      "badge": "Add Life with Hydrogen · München",
+      "title": "Aktiv länger leben.",
+      "titleAccent": "Mit der Kraft von H₂.",
+      "subtitle": "RevolutTIME vereint drei Richtungen: Magnesium-H₂-Brausetabletten für frisches Wasserstoffwasser, das RevolutTIME Studio für Fitness, Biohacking und Recovery sowie ein Partnerprogramm für zusätzliche Einnahmen.",
+      "ctaShop": "Zu den Tabletten",
+      "ctaDirections": "Unsere Richtungen"
+    },
+    "directions": {
+      "title": "Drei Richtungen — ein Ziel",
+      "subtitle": "Aktiv länger leben: zuhause mit Wasserstoffwasser, im Studio mit modernen Technologien und gemeinsam mit Partnern.",
+      "items": {
+        "hydrogen": {
+          "title": "Wasserstofftabletten",
+          "text": "Magnesium + H₂ — Wasserstoffwasser in 2 Minuten. Eurofins-geprüft, 0 kcal, frisch gelöst.",
+          "cta": "Mehr erfahren"
+        },
+        "studio": {
+          "title": "RevolutTIME Studio",
+          "text": "Fitness · Biohacking · Recovery: Hydrogen Breathing, Red Light, Nano-Suit-Training und mehr.",
+          "cta": "Zum Studio"
+        },
+        "partner": {
+          "title": "Partnerprogramm",
+          "text": "Empfehlen Sie RevolutTIME und verdienen Sie bis zu 30 % Provision — lebenslang, in 6 Ebenen (A–F).",
+          "cta": "Teilnehmen"
+        }
+      }
+    },
+    "shopTeaser": {
+      "title": "Magnesium + H₂ Tabletten",
+      "subtitle": "Der Klassiker von RevolutTIME — Eurofins-geprüft, 0 kcal, Versand aus Bayern.",
+      "cta": "Zum Shop",
+      "details": "{tablets} Tabletten"
+    },
+    "partnerTeaser": {
+      "title": "Verdienen Sie mit RevolutTIME",
+      "text": "Bis zu 30 % Provision, lebenslange Boni in 6 Ebenen (A–F), Auszahlung auf Karte, in Krypto oder Telegram.",
+      "cta": "Zum Partnerprogramm"
+    }
+  },
+  "hydrogen": {
+    "hero": {
+      "badge": "Eurofins-geprüft · bis 1,6 ppm H₂",
+      "title": "Molekularer Wasserstoff.",
+      "titleAccent": "Frisch in Ihrem Glas.",
+      "subtitle": "Eine Tablette in 150–200 ml kaltem Wasser — und nach 1–2 Minuten haben Sie erfrischendes Wasserstoffwasser mit Magnesium. Zuhause, im Büro, unterwegs.",
+      "ctaShop": "Jetzt bestellen",
+      "ctaUsage": "So geht's"
+    },
+    "science": {
+      "title": "Warum Wasserstoffwasser?",
+      "subtitle": "Drei Gründe, warum eine kleine Tablette so viel bewirken kann.",
+      "cards": {
+        "antioxidant": {
+          "title": "Sanftes Antioxidans",
+          "text": "Molekularer Wasserstoff (H₂) gilt in der Forschung als selektives Antioxidans und gehört zu den am intensivsten untersuchten Themen der Wellness-Wissenschaft."
+        },
+        "magnesium": {
+          "title": "Magnesium inklusive",
+          "text": "Magnesium trägt zur Verringerung von Müdigkeit und Ermüdung bei sowie zur normalen Funktion von Muskeln und Nervensystem."
+        },
+        "fresh": {
+          "title": "Immer frisch",
+          "text": "H₂ entweicht schnell — die Tablette setzt den Wasserstoff erst im Glas frei. Bis zu 1,6 ppm laut Eurofins-Analyse."
+        }
+      }
+    },
+    "cta": {
+      "title": "Bereit für Wasserstoffwasser?",
+      "text": "Wählen Sie Ihr Format — 90 oder 120 Tabletten mit Aufbewahrungsbox.",
+      "button": "Zum Shop"
+    }
+  },
+  "shop": {
+    "hero": {
+      "title": "Magnesium + H₂ Tabletten",
+      "subtitle": "Der Klassiker von RevolutTIME: zwei Formate zur Wahl, Eurofins-geprüft, Versand aus Bayern mit DHL/Hermes.",
+      "perk1": "Eurofins-Analyse: bis 1,6 ppm H₂",
+      "perk2": "Aufbewahrungsbox inklusive",
+      "perk3": "Versand 1–2 Werktage (DE)"
+    }
+  },
+  "studio": {
+    "hero": {
+      "badge": "München · nach Vereinbarung",
+      "title": "RevolutTIME Studio.",
+      "titleAccent": "Fitness · Biohacking · Recovery.",
+      "subtitle": "Innovative Technologien für Tonus, Form und aktives Longevity. Individuelle Sessions in entspannter Atmosphäre — auf Deutsch, Russisch und Englisch."
+    },
+    "servicesTitle": "Unsere Sessions",
+    "servicesSubtitle": "Sechs Richtungen — kombinierbar zu Ihrem persönlichen Programm.",
+    "services": {
+      "breathing": {
+        "title": "Hydrogen Breathing",
+        "text": "Wasserstoff-Atemsessions zur Entspannung und für frische Energie."
+      },
+      "redlight": {
+        "title": "Red Light Wellness",
+        "text": "Sanfte Lichtsessions für Wohlbefinden und aktive Regeneration."
+      },
+      "nano": {
+        "title": "Nano Suit Training",
+        "text": "Ganzkörper-Training im Nano-Anzug — effizient und zeitsparend."
+      },
+      "vibration": {
+        "title": "Vibration & Lymph Flow",
+        "text": "Vibrationstraining zur Aktivierung von Kreislauf und Lymphfluss."
+      },
+      "strength": {
+        "title": "Strength & Muscle",
+        "text": "Krafttraining und langfristige Formpflege mit Betreuung."
+      },
+      "recovery": {
+        "title": "Recovery Support",
+        "text": "Aktive Erholungsprogramme — für mehr Energie zwischen den Trainingseinheiten."
+      }
+    },
+    "info": {
+      "title": "Gute zu wissen",
+      "booking": "Termine nach Vereinbarung",
+      "languages": "Betreuung auf DE · RU · EN",
+      "location": "Deutschland, Raum München (Adresse auf Anfrage)"
+    },
+    "cta": {
+      "title": "Bereit für eine Session?",
+      "text": "Schreiben Sie uns auf WhatsApp — wir finden einen Termin, der zu Ihnen passt.",
+      "button": "WhatsApp schreiben"
+    }
+  },
+  "partner": {
+    "hero": {
+      "badge": "Empfehlen & verdienen",
+      "title": "Partnerprogramm",
+      "titleAccent": "Bis zu 30 % Provision.",
+      "subtitle": "Teilen Sie Ihre persönliche Empfehlung — und verdienen Sie an jedem Verkauf. Sechs Ebenen tief (A–F), lebenslange Boni, schnelle Auszahlung."
+    },
+    "how": {
+      "title": "So funktioniert's",
+      "steps": {
+        "step1": {
+          "title": "Registrieren",
+          "text": "Melden Sie sich in wenigen Minuten an — per WhatsApp oder Telegram."
+        },
+        "step2": {
+          "title": "Link erhalten",
+          "text": "Sie bekommen Ihre persönliche Empfehlungs-Link und Werbematerialien."
+        },
+        "step3": {
+          "title": "Einladen",
+          "text": "Empfehlen Sie RevolutTIME an Freunde, Familie und Ihr Publikum."
+        },
+        "step4": {
+          "title": "Verdienen",
+          "text": "An jedem Verkauf über Ihre Struktur verdienen Sie mit — automatisch."
+        }
+      }
+    },
+    "benefits": {
+      "title": "Warum RevolutTIME?",
+      "items": {
+        "commission": {
+          "title": "Bis zu 30 % Provision",
+          "text": "Attraktive Vergütung auf jede vermittelte Bestellung."
+        },
+        "lifetime": {
+          "title": "Lebenslanges Netting",
+          "text": "Ihre Struktur bleibt Ihnen erhalten — Boni laufen dauerhaft weiter."
+        },
+        "instant": {
+          "title": "Schnelle Auszahlung",
+          "text": "Verdientes Geld landet ohne lange Wartezeiten bei Ihnen."
+        },
+        "transparent": {
+          "title": "Transparente Statistik",
+          "text": "Klicks, Bestellungen und Boni jederzeit einsehbar."
+        }
+      }
+    },
+    "levels": {
+      "title": "6 Ebenen — von A bis F",
+      "subtitle": "Ihr Netzwerk wächst in die Tiefe: von direkten Käufern (Ebene A) bis zur sechsten Generation (Ebene F). In jeder Ebene werden Boni berechnet.",
+      "levelA": "Ebene A — Ihre direkten Kunden",
+      "levelB": "Ebene B — Kunden Ihrer Partner",
+      "levelC": "Ebene C — dritte Generation",
+      "levelD": "Ebene D — vierte Generation",
+      "levelE": "Ebene E — fünfte Generation",
+      "levelF": "Ebene F — sechste Generation"
+    },
+    "payouts": {
+      "title": "Auszahlungen",
+      "text": "Sie entscheiden, wie Sie Ihr Geld erhalten: auf die Bankkarte, in Kryptowährung oder via Telegram."
+    },
+    "cta": {
+      "title": "Bereit durchzustarten?",
+      "text": "Schreiben Sie uns — wir registrieren Sie und übergeben Ihre Empfehlungs-Link samt Startmaterialien.",
+      "button": "Partner werden (WhatsApp)"
     }
   },
   "usage": {
@@ -79,10 +283,17 @@
     "addedToast": "„{name}“ zum Warenkorb hinzugefügt"
   },
   "footer": {
-    "about": "Molekularer Wasserstoff mit Magnesium — frisch aufgelöst, jeden Tag. Geprüft von Eurofins, versendet aus Bayern.",
+    "about": "RevolutTIME — Ökosystem für aktives Longevity: Wasserstofftabletten, Biohacking-Studio und Partnerprogramm. Geprüft von Eurofins, versendet aus Bayern.",
+    "directionsTitle": "Richtungen",
+    "directions": {
+      "hydrogen": "Wasserstofftabletten",
+      "studio": "RevolutTIME Studio",
+      "partner": "Partnerprogramm"
+    },
     "contactsTitle": "Kontakt",
     "company": "Gewerbe Yuriy Moshenets",
     "address": "Weilbacher 10, 85241 Hebertshausen, Deutschland",
+    "phone": "Tel. / WhatsApp: +49 175 9590916",
     "shipping": "Versand: DHL / Hermes, 1–2 Werktage",
     "legalTitle": "Rechtliches",
     "legal": {

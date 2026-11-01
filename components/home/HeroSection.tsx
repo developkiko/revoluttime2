@@ -3,25 +3,13 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import {
-  ArrowRightIcon,
-  BadgeCheckIcon,
-  CupSodaIcon,
-  LeafIcon,
-  TruckIcon,
-} from "lucide-react";
+import { BadgeCheckIcon, SparklesIcon } from "lucide-react";
 
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 
-const CHIPS = [
-  { key: "hydrogen", icon: CupSodaIcon },
-  { key: "magnesium", icon: BadgeCheckIcon },
-  { key: "kcal", icon: LeafIcon },
-  { key: "shipping", icon: TruckIcon },
-] as const;
-
 export function HeroSection() {
-  const t = useTranslations("hero");
+  const t = useTranslations("home.hero");
 
   return (
     <section className="relative overflow-hidden">
@@ -39,7 +27,7 @@ export function HeroSection() {
           className="flex flex-col items-start gap-6"
         >
           <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
-            <BadgeCheckIcon className="size-3.5 text-primary" />
+            <SparklesIcon className="size-3.5 text-primary" />
             {t("badge")}
           </p>
 
@@ -54,27 +42,15 @@ export function HeroSection() {
 
           <div className="flex flex-wrap gap-3">
             <Button size="lg" asChild>
-              <a href="#variants">
-                {t("ctaBuy")}
-                <ArrowRightIcon data-icon="inline-end" />
-              </a>
+              <Link href="/shop">
+                {t("ctaShop")}
+                <BadgeCheckIcon data-icon="inline-end" />
+              </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <a href="#usage">{t("ctaUsage")}</a>
+              <a href="#directions">{t("ctaDirections")}</a>
             </Button>
           </div>
-
-          <ul className="mt-2 grid w-full gap-2 sm:grid-cols-2">
-            {CHIPS.map(({ key, icon: Icon }) => (
-              <li
-                key={key}
-                className="flex items-center gap-2 rounded-lg border bg-card px-3 py-2 text-sm text-muted-foreground"
-              >
-                <Icon className="size-4 shrink-0 text-primary" />
-                {t(`chips.${key}`)}
-              </li>
-            ))}
-          </ul>
         </motion.div>
 
         <motion.div

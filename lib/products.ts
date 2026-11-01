@@ -4,6 +4,13 @@ export type { Locale };
 
 export type PackId = "pack-90" | "pack-120";
 
+/** Brand-wide contacts (from the RevolutTIME business card). */
+export const SITE = {
+  phoneDisplay: "+49 175 9590916",
+  phoneHref: "tel:+491759590916",
+  whatsapp: "https://wa.me/491759590916",
+} as const;
+
 export interface PackVariant {
   id: PackId;
   /** Number of effervescent tablets in the pack. */

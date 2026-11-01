@@ -17,8 +17,10 @@ import {
 } from "@/components/ui/sheet";
 
 const NAV_ITEMS = [
-  { href: "/#variants", key: "product" },
-  { href: "/#usage", key: "usage" },
+  { href: "/hydrogen", key: "hydrogen" },
+  { href: "/studio", key: "studio" },
+  { href: "/shop", key: "shop" },
+  { href: "/partner", key: "partner" },
   { href: "/#contact", key: "contact" },
 ] as const;
 
@@ -92,7 +94,7 @@ export function Header() {
         <nav className="ml-auto hidden items-center gap-1 md:flex">
           {NAV_ITEMS.map((item) => (
             <Button key={item.key} variant="ghost" size="sm" asChild>
-              <a href={item.href}>{t(`nav.${item.key}`)}</a>
+              <Link href={item.href}>{t(`nav.${item.key}`)}</Link>
             </Button>
           ))}
         </nav>
@@ -123,7 +125,7 @@ export function Header() {
                 {NAV_ITEMS.map((item) => (
                   <SheetClose key={item.key} asChild>
                     <Button variant="ghost" className="justify-start" asChild>
-                      <a href={item.href}>{t(`nav.${item.key}`)}</a>
+                      <Link href={item.href}>{t(`nav.${item.key}`)}</Link>
                     </Button>
                   </SheetClose>
                 ))}

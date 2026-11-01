@@ -1,7 +1,23 @@
 {
   "meta": {
-    "title": "RevolutTIME — Magnesium + H₂ Hydrogen Effervescent Tablets",
-    "description": "Effervescent tablets with magnesium and molecular hydrogen. Eurofins-tested (up to 1.6 ppm H₂), 0 kcal, shipped from Hebertshausen near Munich via DHL/Hermes."
+    "title": "RevolutTIME — Hydrogen, Biohacking & Partner Program",
+    "description": "RevolutTIME: Magnesium + H₂ effervescent tablets for hydrogen water, the RevolutTIME Studio (fitness · biohacking · recovery) and a partner program with up to 30% commission. Shipping from Hebertshausen near Munich.",
+    "shop": {
+      "title": "Shop — Magnesium + H₂ Effervescent Tablets | RevolutTIME",
+      "description": "Order RevolutTIME Magnesium + H₂: 90 or 120 effervescent tablets with a storage box. Eurofins-tested (up to 1.6 ppm H₂), shipped from Bavaria via DHL/Hermes."
+    },
+    "hydrogen": {
+      "title": "Molecular Hydrogen — Benefits & How to Use | RevolutTIME",
+      "description": "What is molecular hydrogen? Make hydrogen-rich water with magnesium at home: one tablet, 150–200 ml of cold water, 1–2 minutes."
+    },
+    "studio": {
+      "title": "RevolutTIME Studio — Fitness · Biohacking · Recovery",
+      "description": "RevolutTIME Studio: Hydrogen Breathing, Red Light Wellness, Nano Suit Training, Vibration & Lymph Flow, strength training and recovery. Sessions in DE · RU · EN."
+    },
+    "partner": {
+      "title": "Partner Program — up to 30% commission | RevolutTIME",
+      "description": "Become a RevolutTIME partner: recommend our products and earn on every sale — across 6 levels (A–F), for life, with fast payouts."
+    }
   },
   "brand": {
     "name": "RevolutTIME",
@@ -9,8 +25,10 @@
   },
   "header": {
     "nav": {
-      "product": "Product",
-      "usage": "How to use",
+      "hydrogen": "Hydrogen",
+      "studio": "Studio",
+      "shop": "Shop",
+      "partner": "Partners",
       "contact": "Contact"
     },
     "cart": "Cart",
@@ -18,18 +36,204 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
-  "hero": {
-    "badge": "Eurofins-tested · up to 1.6 ppm H₂",
-    "title": "Molecular hydrogen.",
-    "titleAccent": "Every day. Fresh.",
-    "subtitle": "RevolutTIME Magnesium + H₂ — effervescent tablets for enriched water. One tablet into 150–200 ml of cold water, 1–1.5 minutes — and your drink is ready.",
-    "ctaBuy": "Buy now",
-    "ctaUsage": "How it works",
-    "chips": {
-      "hydrogen": "Up to 1.6 ppm dissolved H₂",
-      "magnesium": "57–66.7 mg magnesium per tablet",
-      "kcal": "0 kcal · 0 g sugar",
-      "shipping": "Ships from Bavaria · DHL/Hermes 1–2 days"
+  "home": {
+    "hero": {
+      "badge": "Add Life with Hydrogen · Munich",
+      "title": "Active longevity.",
+      "titleAccent": "Powered by H₂.",
+      "subtitle": "RevolutTIME combines three directions: Magnesium + H₂ effervescent tablets for fresh hydrogen water, the RevolutTIME Studio for fitness, biohacking and recovery, and a partner program for extra income.",
+      "ctaShop": "To the tablets",
+      "ctaDirections": "Our directions"
+    },
+    "directions": {
+      "title": "Three directions — one goal",
+      "subtitle": "Live actively, longer: at home with hydrogen water, at the studio with modern technology, and together with a partner team.",
+      "items": {
+        "hydrogen": {
+          "title": "Hydrogen tablets",
+          "text": "Magnesium + H₂ — hydrogen water in 2 minutes. Eurofins-tested, 0 kcal, freshly dissolved every day.",
+          "cta": "Learn more"
+        },
+        "studio": {
+          "title": "RevolutTIME Studio",
+          "text": "Fitness · biohacking · recovery: Hydrogen Breathing, Red Light, Nano Suit Training and more.",
+          "cta": "Visit the studio"
+        },
+        "partner": {
+          "title": "Partner program",
+          "text": "Recommend RevolutTIME and earn up to 30% commission — for life, across 6 levels (A–F).",
+          "cta": "Join in"
+        }
+      }
+    },
+    "shopTeaser": {
+      "title": "Magnesium + H₂ tablets",
+      "subtitle": "The RevolutTIME classic — Eurofins-tested, 0 kcal, ships from Bavaria.",
+      "cta": "Go to shop",
+      "details": "{tablets} tablets"
+    },
+    "partnerTeaser": {
+      "title": "Earn with RevolutTIME",
+      "text": "Up to 30% commission, lifetime bonuses across 6 levels (A–F), payouts to card, crypto or Telegram.",
+      "cta": "About the program"
+    }
+  },
+  "hydrogen": {
+    "hero": {
+      "badge": "Eurofins-tested · up to 1.6 ppm H₂",
+      "title": "Molecular hydrogen.",
+      "titleAccent": "Fresh — right in your glass.",
+      "subtitle": "One tablet into 150–200 ml of cold water — and in 1–2 minutes you have refreshing hydrogen water with magnesium. At home, at work, on the go.",
+      "ctaShop": "Order now",
+      "ctaUsage": "How to use"
+    },
+    "science": {
+      "title": "Why hydrogen water?",
+      "subtitle": "Three reasons why such a small tablet means so much.",
+      "cards": {
+        "antioxidant": {
+          "title": "Gentle antioxidant",
+          "text": "Molecular hydrogen (H₂) is considered a selective antioxidant in research — one of the most actively studied topics in wellness science."
+        },
+        "magnesium": {
+          "title": "Magnesium included",
+          "text": "Magnesium contributes to the reduction of tiredness and fatigue and to normal muscle and nervous system function."
+        },
+        "fresh": {
+          "title": "Always fresh",
+          "text": "H₂ escapes quickly — the tablet releases the hydrogen right in your glass. Up to 1.6 ppm according to the Eurofins analysis."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready for hydrogen water?",
+      "text": "Choose your format — 90 or 120 tablets with a storage box.",
+      "button": "Go to shop"
+    }
+  },
+  "shop": {
+    "hero": {
+      "title": "Magnesium + H₂ tablets",
+      "subtitle": "The RevolutTIME classic: two formats to choose from, Eurofins-tested, shipped from Bavaria via DHL/Hermes.",
+      "perk1": "Eurofins analysis: up to 1.6 ppm H₂",
+      "perk2": "Storage box included",
+      "perk3": "Shipping in 1–2 business days (DE)"
+    }
+  },
+  "studio": {
+    "hero": {
+      "badge": "Munich · by appointment",
+      "title": "RevolutTIME Studio.",
+      "titleAccent": "Fitness · Biohacking · Recovery.",
+      "subtitle": "Innovative technologies for tone, shape and active longevity. Individual sessions in a relaxed atmosphere — in German, Russian and English."
+    },
+    "servicesTitle": "Our sessions",
+    "servicesSubtitle": "Six directions — combinable into your personal program.",
+    "services": {
+      "breathing": {
+        "title": "Hydrogen Breathing",
+        "text": "Hydrogen breathing sessions for relaxation and fresh energy."
+      },
+      "redlight": {
+        "title": "Red Light Wellness",
+        "text": "Gentle light sessions for wellbeing and active recovery."
+      },
+      "nano": {
+        "title": "Nano Suit Training",
+        "text": "Full-body training in a nano suit — efficient and time-saving."
+      },
+      "vibration": {
+        "title": "Vibration & Lymph Flow",
+        "text": "Vibration training to activate circulation and lymph flow."
+      },
+      "strength": {
+        "title": "Strength & Muscle",
+        "text": "Strength training and long-term shape maintenance with coaching."
+      },
+      "recovery": {
+        "title": "Recovery Support",
+        "text": "Active recovery programs — more energy between workouts."
+      }
+    },
+    "info": {
+      "title": "Good to know",
+      "booking": "Sessions by appointment",
+      "languages": "Coaching in DE · RU · EN",
+      "location": "Germany, Munich area (address on request)"
+    },
+    "cta": {
+      "title": "Ready for a session?",
+      "text": "Message us on WhatsApp — we will find a time that suits you.",
+      "button": "Write on WhatsApp"
+    }
+  },
+  "partner": {
+    "hero": {
+      "badge": "Recommend & earn",
+      "title": "Partner program",
+      "titleAccent": "Up to 30% commission.",
+      "subtitle": "Share your personal recommendation — and earn on every sale. Six levels deep (A–F), lifetime bonuses, fast payouts."
+    },
+    "how": {
+      "title": "How it works",
+      "steps": {
+        "step1": {
+          "title": "Register",
+          "text": "Sign up in a couple of minutes — via WhatsApp or Telegram."
+        },
+        "step2": {
+          "title": "Get your link",
+          "text": "You receive your personal referral link and marketing materials."
+        },
+        "step3": {
+          "title": "Invite",
+          "text": "Recommend RevolutTIME to friends, family and your audience."
+        },
+        "step4": {
+          "title": "Earn",
+          "text": "Every sale through your structure earns you income — automatically."
+        }
+      }
+    },
+    "benefits": {
+      "title": "Why RevolutTIME?",
+      "items": {
+        "commission": {
+          "title": "Up to 30% commission",
+          "text": "An attractive reward on every referred order."
+        },
+        "lifetime": {
+          "title": "Lifetime accrual",
+          "text": "Your structure stays with you — bonuses keep flowing permanently."
+        },
+        "instant": {
+          "title": "Fast payouts",
+          "text": "Your earnings arrive without long waiting times."
+        },
+        "transparent": {
+          "title": "Transparent statistics",
+          "text": "Clicks, orders and bonuses visible at any moment."
+        }
+      }
+    },
+    "levels": {
+      "title": "6 levels — from A to F",
+      "subtitle": "Your network grows deep: from direct buyers (level A) to the sixth generation (level F). Bonuses are calculated at every level.",
+      "levelA": "Level A — your direct customers",
+      "levelB": "Level B — your partners' customers",
+      "levelC": "Level C — third generation",
+      "levelD": "Level D — fourth generation",
+      "levelE": "Level E — fifth generation",
+      "levelF": "Level F — sixth generation"
+    },
+    "payouts": {
+      "title": "Payouts",
+      "text": "You decide how to receive your money: to a bank card, in cryptocurrency or via Telegram."
+    },
+    "cta": {
+      "title": "Ready to start?",
+      "text": "Message us — we will register you and hand over your referral link with starter materials.",
+      "button": "Become a partner (WhatsApp)"
     }
   },
   "usage": {
@@ -79,10 +283,17 @@
     "addedToast": "“{name}” added to cart"
   },
   "footer": {
-    "about": "Molecular hydrogen with magnesium — freshly dissolved, every day. Eurofins-tested, shipped from Bavaria.",
+    "about": "RevolutTIME — an ecosystem for active longevity: hydrogen tablets, a biohacking studio and a partner program. Eurofins-tested, shipped from Bavaria.",
+    "directionsTitle": "Directions",
+    "directions": {
+      "hydrogen": "Hydrogen tablets",
+      "studio": "RevolutTIME Studio",
+      "partner": "Partner program"
+    },
     "contactsTitle": "Contact",
     "company": "Gewerbe Yuriy Moshenets",
     "address": "Weilbacher 10, 85241 Hebertshausen, Deutschland",
+    "phone": "Tel. / WhatsApp: +49 175 9590916",
     "shipping": "Shipping: DHL / Hermes, 1–2 business days",
     "legalTitle": "Legal",
     "legal": {
