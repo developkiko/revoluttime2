@@ -286,6 +286,25 @@
       "button": "Partner werden (WhatsApp)"
     }
   },
+  "auth": {
+    "account": "Konto",
+    "signInTitle": "Anmelden",
+    "signInSubtitle": "Partner-Cabinet und Bestellhistorie — bald.",
+    "email": "E-Mail",
+    "emailRequired": "Bitte E-Mail angeben",
+    "emailInvalid": "Ungültige E-Mail",
+    "password": "Passwort",
+    "passwordRequired": "Mindestens 6 Zeichen",
+    "submit": "Anmelden",
+    "signingIn": "Anmeldung läuft…",
+    "or": "oder",
+    "telegramCta": "Mit Telegram anmelden",
+    "telegramHint": "Die Telegram-Schaltfläche wird aktiv, sobald der Bot angebunden ist — wir informieren hier.",
+    "welcomeToast": "Willkommen!",
+    "signedOutToast": "Sie haben sich abgemeldet",
+    "cabinet": "Partner-Cabinet",
+    "logout": "Abmelden"
+  },
   "sport": {
     "hero": {
       "title": "Sport",

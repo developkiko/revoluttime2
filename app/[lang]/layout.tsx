@@ -61,7 +61,8 @@ export default async function LangLayout({
               <main className="flex flex-1 flex-col">{children}</main>
               <Footer />
               <CartDrawer />
-              <Toaster position="bottom-right" />
+              {/* Queue behavior: one visible toast at a time. */}
+              <Toaster position="bottom-right" visibleToasts={1} />
             </CartProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

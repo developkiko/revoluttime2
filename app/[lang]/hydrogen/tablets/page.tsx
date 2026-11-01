@@ -176,7 +176,7 @@ export default async function TabletsPage({
                 </p>
                 <h3 className="mt-2 font-semibold">
                   {t(`comparison.items.${key}.title`)}
-                  {ours && " ✓"}
+                  {ours && <span className="ml-1 text-primary">✓</span>}
                 </h3>
                 <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                   {t(`comparison.items.${key}.text`)}

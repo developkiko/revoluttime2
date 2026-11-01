@@ -9,6 +9,8 @@ export const SITE = {
   phoneDisplay: "+49 175 9590916",
   phoneHref: "tel:+491759590916",
   whatsapp: "https://wa.me/491759590916",
+  // TODO(auth API): replace with the real Telegram bot/channel link.
+  telegram: "https://t.me/revoluttime",
 } as const;
 
 export interface PackVariant {

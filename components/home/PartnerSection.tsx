@@ -3,24 +3,14 @@ import {
   ArrowRightIcon,
   BarChart3Icon,
   InfinityIcon,
-  LinkIcon,
   PercentIcon,
-  Share2Icon,
-  UserPlusIcon,
-  WalletIcon,
   ZapIcon,
 } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { ReferralDiagram } from "@/components/home/ReferralDiagram";
-
-const HOW_STEPS = [
-  { key: "step1", icon: UserPlusIcon },
-  { key: "step2", icon: LinkIcon },
-  { key: "step3", icon: Share2Icon },
-  { key: "step4", icon: WalletIcon },
-] as const;
+import { PartnerSteps } from "@/components/partner/PartnerSteps";
 
 const BENEFITS = [
   { key: "commission", icon: PercentIcon },
@@ -55,26 +45,7 @@ export async function PartnerSection() {
 
         <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
           <div className="flex flex-col gap-6">
-            <ol className="grid gap-3 sm:grid-cols-2">
-              {HOW_STEPS.map(({ key, icon: Icon }, index) => (
-                <li key={key} className="rounded-2xl border bg-card p-4">
-                  <div className="flex items-center gap-2">
-                    <span className="flex size-8 items-center justify-center rounded-full bg-primary/10 text-primary">
-                      <Icon className="size-4" />
-                    </span>
-                    <span className="text-sm font-medium text-muted-foreground">
-                      {index + 1}/4
-                    </span>
-                  </div>
-                  <h3 className="mt-2 font-semibold">
-                    {t(`how.steps.${key}.title`)}
-                  </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    {t(`how.steps.${key}.text`)}
-                  </p>
-                </li>
-              ))}
-            </ol>
+            <PartnerSteps />
 
             <ul className="grid gap-2 sm:grid-cols-2">
               {BENEFITS.map(({ key, icon: Icon }) => (

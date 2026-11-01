@@ -5,6 +5,7 @@ import { GlobeIcon, MenuIcon, ShoppingCartIcon } from "lucide-react";
 
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useCart } from "@/components/cart/CartProvider";
+import { AuthPanel } from "@/components/layout/AuthPanel";
 import { Logo } from "@/components/layout/Logo";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { routing } from "@/lib/products";
@@ -138,6 +139,7 @@ export function Header() {
         <div className="ml-auto flex items-center gap-1.5 lg:ml-2">
           <ThemeToggle />
           <LanguageSwitcher />
+          <AuthPanel />
           <CartButton />
 
           <Sheet>

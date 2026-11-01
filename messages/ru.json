@@ -286,6 +286,25 @@
       "button": "Стать партнёром (WhatsApp)"
     }
   },
+  "auth": {
+    "account": "Аккаунт",
+    "signInTitle": "Вход в аккаунт",
+    "signInSubtitle": "Кабинет партнёра и история заказов — скоро.",
+    "email": "Email",
+    "emailRequired": "Укажите email",
+    "emailInvalid": "Некорректный email",
+    "password": "Пароль",
+    "passwordRequired": "Минимум 6 символов",
+    "submit": "Войти",
+    "signingIn": "Входим…",
+    "or": "или",
+    "telegramCta": "Войти через Telegram",
+    "telegramHint": "Кнопка Telegram заработает после подключения бота — уведомим здесь же.",
+    "welcomeToast": "Добро пожаловать!",
+    "signedOutToast": "Вы вышли из аккаунта",
+    "cabinet": "Кабинет партнёра",
+    "logout": "Выйти"
+  },
   "sport": {
     "hero": {
       "title": "Спорт",

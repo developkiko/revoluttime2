@@ -3,24 +3,14 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   BarChart3Icon,
   InfinityIcon,
-  LinkIcon,
   PercentIcon,
-  Share2Icon,
-  UserPlusIcon,
-  WalletIcon,
   ZapIcon,
 } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { CtaBanner } from "@/components/layout/CtaBanner";
+import { PartnerSteps } from "@/components/partner/PartnerSteps";
 import { SITE } from "@/lib/products";
-
-const HOW_STEPS = [
-  { key: "step1", icon: UserPlusIcon },
-  { key: "step2", icon: LinkIcon },
-  { key: "step3", icon: Share2Icon },
-  { key: "step4", icon: WalletIcon },
-] as const;
 
 const BENEFITS = [
   { key: "commission", icon: PercentIcon },
@@ -72,26 +62,9 @@ export default async function PartnerPage({
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
             {t("how.title")}
           </h2>
-          <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {HOW_STEPS.map(({ key, icon: Icon }, index) => (
-              <li key={key} className="rounded-2xl border bg-card p-5">
-                <div className="flex items-center gap-2">
-                  <span className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <Icon className="size-4" />
-                  </span>
-                  <span className="text-sm font-medium text-muted-foreground">
-                    {index + 1}/4
-                  </span>
-                </div>
-                <h3 className="mt-3 font-semibold">
-                  {t(`how.steps.${key}.title`)}
-                </h3>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                  {t(`how.steps.${key}.text`)}
-                </p>
-              </li>
-            ))}
-          </ol>
+          <div className="mt-8 sm:max-w-2xl">
+            <PartnerSteps />
+          </div>
         </div>
       </section>
 
