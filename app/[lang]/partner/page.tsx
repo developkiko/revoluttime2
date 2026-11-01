@@ -10,6 +10,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 import { PartnerSteps } from "@/components/partner/PartnerSteps";
+import { LevelsCascade } from "@/components/partner/LevelsCascade";
 import { SITE } from "@/lib/products";
 
 const BENEFITS = [
@@ -18,8 +19,6 @@ const BENEFITS = [
   { key: "instant", icon: ZapIcon },
   { key: "transparent", icon: BarChart3Icon },
 ] as const;
-
-const LEVELS = ["A", "B", "C", "D", "E", "F"] as const;
 
 export async function generateMetadata(
   props: PageProps<"/[lang]/partner">
@@ -109,20 +108,9 @@ export default async function PartnerPage({
               </p>
             </div>
           </div>
-          <ol className="flex flex-col gap-2 self-center">
-            {LEVELS.map((level, index) => (
-              <li
-                key={level}
-                className="flex items-center gap-3 rounded-lg border bg-card px-4 py-2.5 text-sm font-medium shadow-xs"
-                style={{ marginInlineStart: `${index * 20}px` }}
-              >
-                <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/10 font-bold text-primary">
-                  {level}
-                </span>
-                {t(`levels.level${level}`)}
-              </li>
-            ))}
-          </ol>
+          <div className="self-center lg:self-end">
+            <LevelsCascade />
+          </div>
         </div>
       </section>
 

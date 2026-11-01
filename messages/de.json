@@ -286,6 +286,39 @@
       "button": "Partner werden (WhatsApp)"
     }
   },
+  "dummy": {
+    "badge": "Interne Sandbox",
+    "title": "Demo aller Komponenten",
+    "subtitle": "Bauseite: hier sind alle Blöcke und Funktionen der Website versammelt — für Design- und Verhaltenschecks vor der Veröffentlichung.",
+    "pieceLogo": "Logo & Themes",
+    "pieceSteps": "Partner-Schritte",
+    "pieceLevels": "Kaskade A–F",
+    "pieceBooking": "Buchung",
+    "pieceContact": "Kontakt",
+    "contactTitle": "Kontakt-Widget",
+    "contactSubtitle": "Das Formular sendet im Mock-Modus; der Endpunkt kommt mit der API.",
+    "stepsTitle": "Partner-Schritte (Animation, Hover)",
+    "diagramTitle": "Referral-Pentagon",
+    "levelsTitle": "Ebenen A–F (Farbe + Hover)",
+    "bookingTitle": "Buchung (Ticket in den Warenkorb)"
+  },
+  "contact": {
+    "infoTitle": "Kontakt",
+    "telegramNote": "Wir antworten in Telegram",
+    "areaNote": "Raum München, Deutschland",
+    "name": "Name",
+    "namePlaceholder": "Wie dürfen wir Sie nennen",
+    "nameRequired": "Bitte Namen angeben",
+    "email": "E-Mail",
+    "emailRequired": "Bitte E-Mail angeben",
+    "emailInvalid": "Ungültige E-Mail",
+    "message": "Nachricht",
+    "messagePlaceholder": "Womit können wir helfen?",
+    "messageRequired": "Mindestens 10 Zeichen",
+    "submit": "Senden",
+    "sending": "Wird gesendet…",
+    "sentToast": "Nachricht gesendet — wir antworten zu Geschäftszeiten"
+  },
   "auth": {
     "account": "Konto",
     "signInTitle": "Anmelden",

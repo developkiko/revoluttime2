@@ -286,6 +286,39 @@
       "button": "Стать партнёром (WhatsApp)"
     }
   },
+  "dummy": {
+    "badge": "Внутренняя песочница",
+    "title": "Демо всех компонентов",
+    "subtitle": "Страница сборки: здесь собраны все блоки и функции сайта — для проверки дизайна и поведения перед публикацией.",
+    "pieceLogo": "Логотип и темы",
+    "pieceSteps": "Шаги партнёрки",
+    "pieceLevels": "Каскад A–F",
+    "pieceBooking": "Бронирование",
+    "pieceContact": "Контакты",
+    "contactTitle": "Виджет контактов",
+    "contactSubtitle": "Форма отправляет в мок-режиме; эндпоинт подключим с API.",
+    "stepsTitle": "Шаги партнёрки (анимации, ховер)",
+    "diagramTitle": "Пентагон рефералов",
+    "levelsTitle": "Уровни A–F (цвет + ховер)",
+    "bookingTitle": "Бронирование (билет в корзину)"
+  },
+  "contact": {
+    "infoTitle": "Связаться с нами",
+    "telegramNote": "Отвечаем в Telegram",
+    "areaNote": "район Мюнхена, Германия",
+    "name": "Имя",
+    "namePlaceholder": "Как к вам обращаться",
+    "nameRequired": "Укажите имя",
+    "email": "Email",
+    "emailRequired": "Укажите email",
+    "emailInvalid": "Некорректный email",
+    "message": "Сообщение",
+    "messagePlaceholder": "Чем помочь?",
+    "messageRequired": "Минимум 10 символов",
+    "submit": "Отправить",
+    "sending": "Отправляем…",
+    "sentToast": "Сообщение отправлено — ответим в рабочее время"
+  },
   "auth": {
     "account": "Аккаунт",
     "signInTitle": "Вход в аккаунт",

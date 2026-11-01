@@ -286,6 +286,39 @@
       "button": "Become a partner (WhatsApp)"
     }
   },
+  "dummy": {
+    "badge": "Internal sandbox",
+    "title": "Component demo",
+    "subtitle": "Assembly page: every block and function of the site lives here — for design and behavior checks before release.",
+    "pieceLogo": "Logo & themes",
+    "pieceSteps": "Partner steps",
+    "pieceLevels": "A–F cascade",
+    "pieceBooking": "Booking",
+    "pieceContact": "Contact",
+    "contactTitle": "Contact widget",
+    "contactSubtitle": "The form submits in mock mode; the endpoint will be connected with the API.",
+    "stepsTitle": "Partner steps (animation, hover)",
+    "diagramTitle": "Referral pentagon",
+    "levelsTitle": "Levels A–F (color + hover)",
+    "bookingTitle": "Booking (ticket to cart)"
+  },
+  "contact": {
+    "infoTitle": "Contact us",
+    "telegramNote": "We answer in Telegram",
+    "areaNote": "Munich area, Germany",
+    "name": "Name",
+    "namePlaceholder": "How should we address you",
+    "nameRequired": "Enter your name",
+    "email": "Email",
+    "emailRequired": "Enter your email",
+    "emailInvalid": "Invalid email",
+    "message": "Message",
+    "messagePlaceholder": "How can we help?",
+    "messageRequired": "At least 10 characters",
+    "submit": "Send",
+    "sending": "Sending…",
+    "sentToast": "Message sent — we reply during business hours"
+  },
   "auth": {
     "account": "Account",
     "signInTitle": "Sign in",
