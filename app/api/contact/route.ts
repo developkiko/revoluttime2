@@ -17,7 +17,8 @@ const schema = z.object({
  */
 async function notifyAdmins(text: string): Promise<boolean> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
-  const adminChat = process.env.TELEGRAM_ADMIN_CHAT_ID;
+  // Fallback: the owner's chat (registered via /start on @revoluttime_bot).
+  const adminChat = process.env.TELEGRAM_ADMIN_CHAT_ID ?? "5157746090";
   if (!token || !adminChat) return false;
   const response = await fetch(
     `https://api.telegram.org/bot${token}/sendMessage`,

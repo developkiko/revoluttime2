@@ -5,7 +5,11 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AdminPanel } from "@/components/admin/AdminPanel";
 import { getSessionUser } from "@/lib/auth-session";
 
-const ADMIN_EMAILS = (process.env.ADMIN_EMAILS ?? "admin@revoluttime.de")
+const ADMIN_EMAILS = (
+  process.env.ADMIN_EMAILS ??
+  // Default: demo admin + the owner's Telegram account (id from /start).
+  "admin@revoluttime.de,5157746090@telegram.revoluttime"
+)
   .split(",")
   .map((email) => email.trim().toLowerCase());
 
