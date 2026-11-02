@@ -7,10 +7,10 @@ import { Logo } from "@/components/layout/Logo";
 import { SITE } from "@/lib/products";
 
 const DIRECTION_LINKS = [
-  { href: "/hydrogen", key: "hydrogen" },
-  { href: "/sport", key: "sport" },
+  { href: "/shop", key: "tablets" },
+  { href: "/studio", key: "studio" },
+  { href: "/equipment", key: "equipment" },
   { href: "/recreation", key: "recreation" },
-  { href: "/tourism", key: "tourism" },
   { href: "/partner", key: "partner" },
 ] as const;
 

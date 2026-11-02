@@ -10,7 +10,7 @@
  * Until the panel exists this file holds the seed content.
  */
 
-export type SectionKey = "sport" | "recreation" | "tourism";
+export type SectionKey = "sport" | "recreation" | "tourism" | "equipment";
 
 export interface LocalizedText {
   de: string;
@@ -47,9 +47,10 @@ export const SECTION_META: Record<
   SectionKey,
   { href: string; icon: string }
 > = {
-  sport: { href: "/sport", icon: "trophy" },
+  sport: { href: "/recreation", icon: "trophy" },
   recreation: { href: "/recreation", icon: "mountain" },
-  tourism: { href: "/tourism", icon: "bike" },
+  tourism: { href: "/recreation", icon: "bike" },
+  equipment: { href: "/equipment", icon: "wrench" },
 };
 
 export const CATALOG_OFFERS: CatalogOffer[] = [
@@ -192,6 +193,72 @@ export const CATALOG_OFFERS: CatalogOffer[] = [
       { id: "hik-0710", date: "2027-07-10", maxPeople: 12, priceCents: 54900 },
       { id: "hik-0814", date: "2027-08-14", maxPeople: 12, priceCents: 54900 },
     ],
+  },
+  {
+    slug: "h2-bottle",
+    section: "equipment",
+    title: {
+      de: "H₂-Wasserstoffflasche",
+      ru: "Водородная бутылка H₂",
+      en: "H₂ hydrogen bottle",
+    },
+    summary: {
+      de: "Trinkflasche mit SPE/PEM-Technologie — bis 1,6 ppm H₂ unterwegs. Akku und USB-C-Laden.",
+      ru: "Бутылка с технологией SPE/PEM — до 1,6 ppm H₂ в дороге. Аккумулятор, зарядка USB-C.",
+      en: "Bottle with SPE/PEM technology — up to 1.6 ppm H₂ on the go. Rechargeable via USB-C.",
+    },
+    description: {
+      de: "Die H₂-Flasche macht überall Wasserstoffwasser: Eine Füllung dauert wenige Minuten.\n\nTechnische Daten und Preis auf Anfrage — schreiben Sie uns, wir beraten individuell.",
+      ru: "Водородная бутылка делает H₂-воду где угодно: один цикл насыщения — несколько минут.\n\nХарактеристики и цену уточняйте по запросу — напишите нам, проконсультируем индивидуально.",
+      en: "The H₂ bottle makes hydrogen water anywhere: one saturation cycle takes just a few minutes.\n\nSpecifications and price on request — write to us for personal advice.",
+    },
+    images: [],
+    slots: [],
+    comingSoon: true,
+  },
+  {
+    slug: "h2-generator",
+    section: "equipment",
+    title: {
+      de: "H₂-Inhalationsgerät",
+      ru: "Ингалятор с молекулярным водородом",
+      en: "H₂ inhalation device",
+    },
+    summary: {
+      de: "Stationäres Gerät für H₂-Inhalationen zuhause oder im Studio.",
+      ru: "Стационарный прибор для водородных ингаляций дома или в студии.",
+      en: "Stationary device for hydrogen inhalation sessions at home or in the studio.",
+    },
+    description: {
+      de: "Für tägliche H₂-Inhalationssessions — die Technik aus dem RevolutTIME Studio für zuhause.\n\nModell, Leistung und Preis auf Anfrage — wir beraten Sie persönlich per WhatsApp oder Telefon.",
+      ru: "Для ежедневных водородных ингаляций — технология из студии RevolutTIME у вас дома.\n\nМодель, характеристики и цену уточняйте — проконсультируем лично по WhatsApp или телефону.",
+      en: "For daily hydrogen inhalation sessions — the technology from the RevolutTIME studio at your home.\n\nModel, specifications and price on request — personal advice via WhatsApp or phone.",
+    },
+    images: [],
+    slots: [],
+    comingSoon: true,
+  },
+  {
+    slug: "h2-water-bar",
+    section: "equipment",
+    title: {
+      de: "H₂-Wasserbar für Büros",
+      ru: "H₂-водяная станция для офисов",
+      en: "H₂ water station for offices",
+    },
+    summary: {
+      de: "Wasserstoffwasser für Teams: Station für Büro, Studio oder Café.",
+      ru: "Водородная вода для команд: станция для офиса, студии или кафе.",
+      en: "Hydrogen water for teams: a station for offices, studios or cafés.",
+    },
+    description: {
+      de: "Eine stationäre Station liefert frisches Wasserstoffwasser für das ganze Team — inklusive Einweisung und Wartungsplan.\n\nKonfiguration und Preis auf Anfrage.",
+      ru: "Стационарная станция даёт свежую водородную воду всей команде — с обучением и планом обслуживания.\n\nКонфигурацию и цену уточняйте по запросу.",
+      en: "A stationary station delivers fresh hydrogen water for the whole team — including training and a maintenance plan.\n\nConfiguration and price on request.",
+    },
+    images: [],
+    slots: [],
+    comingSoon: true,
   },
 ];
 

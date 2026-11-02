@@ -9,11 +9,12 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   CupSodaIcon,
+  DumbbellIcon,
   LeafIcon,
   MountainIcon,
-  TrophyIcon,
-  BikeIcon,
   TruckIcon,
+  UsersIcon,
+  WrenchIcon,
 } from "lucide-react";
 import * as React from "react";
 
@@ -22,27 +23,37 @@ import { Button } from "@/components/ui/button";
 
 const SLIDE_INTERVAL_MS = 7000;
 
-const SLIDE_KEYS = ["hydrogen", "sport", "recreation", "tourism"] as const;
+const SLIDE_KEYS = [
+  "hydrogen",
+  "studio",
+  "equipment",
+  "recreation",
+  "partner",
+] as const;
 type SlideKey = (typeof SLIDE_KEYS)[number];
 
 const SLIDE_MEDIA: Record<SlideKey, { image?: string }> = {
   hydrogen: { image: "/imgs/product/tabs-hero.jpg" },
-  sport: {},
+  studio: { image: "/imgs/brand/add-life.jpg" },
+  equipment: {},
   recreation: {},
-  tourism: {},
+  partner: {},
 };
 
-const SLIDE_ICONS: Record<Exclude<SlideKey, "hydrogen">, React.ReactNode> = {
-  sport: <TrophyIcon className="size-16" />,
+const SLIDE_ICONS: Record<SlideKey, React.ReactNode> = {
+  hydrogen: <CupSodaIcon className="size-16" />,
+  studio: <DumbbellIcon className="size-16" />,
+  equipment: <WrenchIcon className="size-16" />,
   recreation: <MountainIcon className="size-16" />,
-  tourism: <BikeIcon className="size-16" />,
+  partner: <UsersIcon className="size-16" />,
 };
 
 const SLIDE_HREF: Record<SlideKey, string> = {
   hydrogen: "/shop",
-  sport: "/sport",
+  studio: "/studio",
+  equipment: "/equipment",
   recreation: "/recreation",
-  tourism: "/tourism",
+  partner: "/partner",
 };
 
 const HYDROGEN_CHIPS = [

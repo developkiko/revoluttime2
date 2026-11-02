@@ -26,10 +26,10 @@ import {
 } from "@/components/ui/sheet";
 
 const NAV_ITEMS = [
-  { href: "/hydrogen", key: "hydrogen" },
-  { href: "/sport", key: "sport" },
+  { href: "/shop", key: "tablets" },
+  { href: "/studio", key: "studio" },
+  { href: "/equipment", key: "equipment" },
   { href: "/recreation", key: "recreation" },
-  { href: "/tourism", key: "tourism" },
   { href: "/partner", key: "partner" },
 ] as const;
 

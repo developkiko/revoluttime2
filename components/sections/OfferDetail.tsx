@@ -4,34 +4,33 @@ import { getLocale, getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { BookingWidget, OfferCover } from "@/components/booking/BookingWidget";
-import { SECTION_META, getOffer, offersBySection, type SectionKey } from "@/lib/catalog";
+import { getOffer, offersBySection } from "@/lib/catalog";
 import { offerHref } from "@/components/sections/SectionOffers";
 import type { Locale } from "@/lib/products";
 
 interface OfferDetailProps {
-  section: SectionKey;
   slug: string;
   lang: string;
 }
 
-export async function OfferDetail({ section, slug, lang }: OfferDetailProps) {
+export async function OfferDetail({ slug, lang }: OfferDetailProps) {
   setRequestLocale(lang);
   const t = await getTranslations("section");
   const locale = (await getLocale()) as Locale;
   const offer = getOffer(slug);
 
-  if (!offer || offer.section !== section) {
+  if (!offer) {
     return null;
   }
 
-  const others = offersBySection(section).filter((o) => o.slug !== slug);
+  const others = offersBySection(offer.section).filter((o) => o.slug !== slug);
 
   return (
     <>
       <section className="border-b bg-muted/40">
         <div className="mx-auto w-full max-w-6xl px-4 py-12">
           <Button variant="ghost" size="sm" className="-ml-2 mb-4" asChild>
-            <Link href={SECTION_META[section].href}>
+            <Link href="/recreation">
               <ArrowLeftIcon data-icon="inline-start" />
               {t("backToSection")}
             </Link>

@@ -1,10 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import {
   ArrowRightIcon,
-  BikeIcon,
+  CoinsIcon,
   DropletsIcon,
   MountainIcon,
-  PillIcon,
+  SparklesIcon,
+  WrenchIcon,
   type LucideIcon,
 } from "lucide-react";
 
@@ -15,15 +16,15 @@ interface Direction {
   key: string;
   href: string;
   icon: LucideIcon;
-  /** Card 2 is a sub-page of card 1 → visually grouped. */
-  sub?: boolean;
 }
 
+/** The five company directions as defined by the owner. */
 const DIRECTIONS: Direction[] = [
-  { key: "hydrogen", href: "/hydrogen", icon: DropletsIcon },
-  { key: "tablets", href: "/hydrogen/tablets", icon: PillIcon, sub: true },
+  { key: "tablets", href: "/shop", icon: DropletsIcon },
+  { key: "studio", href: "/studio", icon: SparklesIcon },
+  { key: "equipment", href: "/equipment", icon: WrenchIcon },
   { key: "recreation", href: "/recreation", icon: MountainIcon },
-  { key: "tourism", href: "/tourism", icon: BikeIcon },
+  { key: "partner", href: "/partner", icon: CoinsIcon },
 ];
 
 export async function DirectionsSection() {
@@ -37,23 +38,14 @@ export async function DirectionsSection() {
         </h2>
         <p className="mt-2 max-w-2xl text-muted-foreground">{t("subtitle")}</p>
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {DIRECTIONS.map(({ key, href, icon: Icon, sub }) => (
-            <Card
-              key={key}
-              className={sub ? "border-dashed bg-transparent shadow-none" : undefined}
-            >
-              <CardContent className="flex h-full flex-col gap-3 p-6">
-                <span
-                  className={`flex size-11 items-center justify-center rounded-xl ${
-                    sub
-                      ? "bg-card text-primary ring-1 ring-border"
-                      : "bg-primary/10 text-primary"
-                  }`}
-                >
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {DIRECTIONS.map(({ key, href, icon: Icon }) => (
+            <Card key={key} className="group transition-shadow hover:shadow-md">
+              <CardContent className="flex h-full flex-col gap-3 p-5">
+                <span className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
                   <Icon className="size-5" />
                 </span>
-                <h3 className="text-lg font-semibold leading-snug">
+                <h3 className="font-semibold leading-snug">
                   {t(`items.${key}.title`)}
                 </h3>
                 <p className="flex-1 text-sm leading-relaxed text-muted-foreground">

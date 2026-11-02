@@ -25,10 +25,10 @@
   },
   "header": {
     "nav": {
-      "hydrogen": "Hydrogen",
-      "sport": "Sport",
-      "recreation": "Recreation",
-      "tourism": "Tourism",
+      "tablets": "Tablets",
+      "studio": "Studio",
+      "equipment": "Equipment",
+      "recreation": "Recreation & sport",
       "partner": "Partners",
       "contact": "Contact"
     },
@@ -48,26 +48,33 @@
           "subtitle": "RevolutTIME Magnesium + H₂ — effervescent tablets for enriched water. One tablet into 150–200 ml of cold water, 1–1.5 minutes — and your drink is ready.",
           "cta": "Order tablets"
         },
-        "sport": {
-          "badge": "Sport · season open",
-          "title": "Badminton.",
-          "titleAccent": "Movement with fun.",
-          "subtitle": "Game nights and training for every level in sports halls around Munich. Rackets provided — pick a date and come along.",
-          "cta": "Book a game"
+        "studio": {
+          "badge": "Fitness · biohacking · recovery",
+          "title": "RevolutTIME Studio.",
+          "titleAccent": "Technology for tone.",
+          "subtitle": "Hydrogen Breathing, Red Light Wellness, Nano Suit Training, vibration training and recovery — individual sessions in DE · RU · EN.",
+          "cta": "Visit the studio"
+        },
+        "equipment": {
+          "badge": "Equipment sales",
+          "title": "H₂ equipment.",
+          "titleAccent": "For home and business.",
+          "subtitle": "Hydrogen bottles, inhalation devices and office stations — advice, selection and price on request.",
+          "cta": "View equipment"
         },
         "recreation": {
-          "badge": "Nature-powered recovery",
-          "title": "Recovery.",
-          "titleAccent": "In nature's rhythm.",
-          "subtitle": "Recovery routes, natural healing programs and comfortable wellness stays abroad — with dates and per-person pricing.",
+          "badge": "Active sports recreation",
+          "title": "Badminton, spas, hikes.",
+          "titleAccent": "Movement that pays off.",
+          "subtitle": "Game nights, thermal weekends, races and trekking — pick a date, the number of participants and book in a minute.",
           "cta": "View programs"
         },
-        "tourism": {
-          "badge": "Sports tourism",
-          "title": "Races and hikes.",
-          "titleAccent": "Stay in motion.",
-          "subtitle": "Active travel, marathons, hikes and sports events for people who choose movement and health.",
-          "cta": "View opportunities"
+        "partner": {
+          "badge": "Partner program · money makes money",
+          "title": "Partner program.",
+          "titleAccent": "Up to 30% commission.",
+          "subtitle": "Your referral — your income: six levels deep (A–F), lifetime bonuses and payouts to card, crypto or Telegram.",
+          "cta": "Become a partner"
         }
       },
       "chips": {
@@ -78,28 +85,33 @@
       }
     },
     "directions": {
-      "title": "Four directions — one goal",
-      "subtitle": "Live actively, longer: at home with hydrogen water, on the court, in nature and on the move.",
+      "title": "Five directions — one goal",
+      "subtitle": "Active longevity: hydrogen tablets, a biohacking studio, equipment, active sports recreation and a partner program where money makes money.",
       "items": {
-        "hydrogen": {
-          "title": "Innovations for health",
-          "text": "We are building the molecular hydrogen direction. Our products help support energy, recovery and general wellbeing.",
-          "cta": "Learn more"
-        },
         "tablets": {
-          "title": "The H₂ effervescent tablet",
-          "text": "A dedicated page about composition, absorption, a comparison with pharmacy magnesium forms and how it feels after taking it.",
-          "cta": "Open the page"
+          "title": "Magnesium + H₂ tablets",
+          "text": "Effervescent tablets with molecular hydrogen: composition, absorption and a comparison with pharmacy magnesium forms — plus online ordering.",
+          "cta": "Order"
+        },
+        "studio": {
+          "title": "Fitness biohacking studio",
+          "text": "Hydrogen Breathing, Red Light Wellness, nano suit, vibration training and recovery — technology for tone and shape.",
+          "cta": "Visit the studio"
+        },
+        "equipment": {
+          "title": "Equipment sales",
+          "text": "Hydrogen bottles, inhalation devices and office stations. Selection, advice and price on request.",
+          "cta": "View"
         },
         "recreation": {
-          "title": "Nature-powered recovery",
-          "text": "We select routes for recovery, natural healing programs and comfortable wellness stays abroad.",
-          "cta": "Send a request"
-        },
-        "tourism": {
-          "title": "Sports tourism",
-          "text": "We organize active travel, marathons, hikes and sports events for people who choose movement and health.",
+          "title": "Active sports recreation",
+          "text": "Badminton, thermal weekends, races and hikes — dates, spots and per-person prices.",
           "cta": "View opportunities"
+        },
+        "partner": {
+          "title": "Partner program",
+          "text": "Money makes money: up to 30% commission, 6 levels (A–F), lifetime bonuses and fast payouts.",
+          "cta": "Become a partner"
         }
       }
     },
@@ -111,7 +123,7 @@
       "referral4": "Partner 4"
     },
     "partnerTeaser": {
-      "title": "Earn with RevolutTIME",
+      "title": "Money makes money",
       "text": "Up to 30% commission, lifetime bonuses across 6 levels (A–F), payouts to card, crypto or Telegram.",
       "cta": "About the program"
     }
@@ -219,7 +231,7 @@
   },
   "partner": {
     "hero": {
-      "badge": "Recommend & earn",
+      "badge": "Money makes money",
       "title": "Partner program",
       "titleAccent": "Up to 30% commission.",
       "subtitle": "Share your personal recommendation — and earn on every sale. Six levels deep (A–F), lifetime bonuses, fast payouts."
@@ -446,10 +458,27 @@
       "subtitle": "RevolutTIME courses and play formats: badminton is open, more types are being added. Dates, spots and prices on each type's page."
     }
   },
+  "equipment": {
+    "title": "Equipment sales",
+    "subtitle": "Hydrogen bottles, inhalation devices and office stations — technology proven in our studio. Selection and price on request.",
+    "hero": {
+      "title": "Equipment sales | RevolutTIME",
+      "subtitle": "Hydrogen bottles, inhalation devices and office stations. Selection and price on request."
+    },
+    "onRequest": "Price on request",
+    "consultNote": "We will find the right equipment for your home, travels, studio or the whole team. Write a few lines — we reply during business hours.",
+    "consultCta": "Request a consultation",
+    "formTitle": "Equipment request",
+    "cta": {
+      "title": "Want to earn on equipment?",
+      "text": "Partners earn commission on every equipment sale made through their recommendation — up to 30%.",
+      "button": "Become a partner"
+    }
+  },
   "recreation": {
     "hero": {
-      "title": "Nature-powered recovery",
-      "subtitle": "We select routes for recovery, natural healing programs and comfortable wellness stays abroad."
+      "title": "Active sports recreation",
+      "subtitle": "Badminton, thermal weekends, races and hikes — pick a date, the number of participants and book in a minute."
     }
   },
   "tourism": {
@@ -660,10 +689,10 @@
     "about": "RevolutTIME — an ecosystem for active longevity: hydrogen tablets, a biohacking studio and a partner program. Eurofins-tested, shipped from Bavaria.",
     "directionsTitle": "Directions",
     "directions": {
-      "hydrogen": "Hydrogen & tablets",
-      "sport": "Sport",
-      "recreation": "Nature-powered recovery",
-      "tourism": "Sports tourism",
+      "tablets": "Magnesium + H₂ tablets",
+      "studio": "Fitness biohacking studio",
+      "equipment": "Equipment sales",
+      "recreation": "Active sports recreation",
       "partner": "Partner program"
     },
     "contactsTitle": "Contact",

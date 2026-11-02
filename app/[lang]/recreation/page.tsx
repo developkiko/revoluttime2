@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import { MountainIcon } from "lucide-react";
+import { BikeIcon } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { OffersGrid } from "@/components/sections/SectionOffers";
-import { offersBySection } from "@/lib/catalog";
+import {
+  offersBySection,
+  type SectionKey,
+} from "@/lib/catalog";
+
+/** All actively sports recreation offers: sport, nature recovery, tourism. */
+const RECREATION_SECTIONS: SectionKey[] = ["sport", "recreation", "tourism"];
 
 export async function generateMetadata(
   props: PageProps<"/[lang]/recreation">
@@ -20,6 +26,10 @@ export default async function RecreationPage({
   setRequestLocale(lang);
   const t = await getTranslations("recreation.hero");
 
+  const offers = RECREATION_SECTIONS.flatMap((section) =>
+    offersBySection(section)
+  );
+
   return (
     <>
       <section className="border-b bg-muted/40">
@@ -31,7 +41,7 @@ export default async function RecreationPage({
         </div>
       </section>
       <section className="mx-auto w-full max-w-6xl px-4 py-12">
-        <OffersGrid offers={offersBySection("recreation")} icon={MountainIcon} />
+        <OffersGrid offers={offers} icon={BikeIcon} />
       </section>
     </>
   );

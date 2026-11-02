@@ -25,10 +25,10 @@
   },
   "header": {
     "nav": {
-      "hydrogen": "Wasserstoff",
-      "sport": "Sport",
-      "recreation": "Erholung",
-      "tourism": "Tourismus",
+      "tablets": "Tabletten",
+      "studio": "Studio",
+      "equipment": "Equipment",
+      "recreation": "Erholung & Sport",
       "partner": "Partner",
       "contact": "Kontakt"
     },
@@ -48,26 +48,33 @@
           "subtitle": "RevolutTIME Magnesium + H₂ — Brausetabletten für angereichertes Wasser. Eine Tablette in 150–200 ml kaltes Wasser, 1–1,5 Minuten — und Ihr Getränk ist bereit.",
           "cta": "Tabletten bestellen"
         },
-        "sport": {
-          "badge": "Sport · Saison gestartet",
-          "title": "Badminton.",
-          "titleAccent": "Bewegung mit Spaß.",
-          "subtitle": "Spielabende und Training für jedes Level in Sporthallen rund um München. Schläger werden gestellt — Termin wählen und vorbeikommen.",
-          "cta": "Termin buchen"
+        "studio": {
+          "badge": "Fitness · Biohacking · Recovery",
+          "title": "RevolutTIME Studio.",
+          "titleAccent": "Technologie für Tonus.",
+          "subtitle": "Hydrogen Breathing, Red Light Wellness, Nano-Suit-Training, Vibrationstraining und Recovery — individuelle Sessions auf DE · RU · EN.",
+          "cta": "Zum Studio"
+        },
+        "equipment": {
+          "badge": "Equipment-Verkauf",
+          "title": "H₂-Equipment.",
+          "titleAccent": "Für Zuhause und Business.",
+          "subtitle": "Wasserstoffflaschen, Inhalationsgeräte und Stationen für Büros — Beratung, Auswahl und Preis auf Anfrage.",
+          "cta": "Equipment ansehen"
         },
         "recreation": {
-          "badge": "Heilkraft der Natur",
-          "title": "Erholung.",
-          "titleAccent": "Im Rhythmus der Natur.",
-          "subtitle": "Routen zur Regeneration, natürliche Heilprogramme und erholsamer Wellnessurlaub im Ausland — mit Terminen und Preis pro Person.",
+          "badge": "Aktiver Sporturlaub",
+          "title": "Badminton, Thermen, Touren.",
+          "titleAccent": "Bewegung mit Nutzen.",
+          "subtitle": "Spielabende, Thermal-Wochenenden, Läufe und Wanderungen — Termin und Personenanzahl wählen, in einer Minute buchen.",
           "cta": "Programme ansehen"
         },
-        "tourism": {
-          "badge": "Sporttourismus",
-          "title": "Läufe und Touren.",
-          "titleAccent": "In Bewegung bleiben.",
-          "subtitle": "Aktive Reisen, Marathons, Wanderungen und Sportevents für Menschen, die Bewegung und Gesundheit wählen.",
-          "cta": "Möglichkeiten ansehen"
+        "partner": {
+          "badge": "Partnerprogramm · Geld macht Geld",
+          "title": "Partnerprogramm.",
+          "titleAccent": "Bis zu 30 % Provision.",
+          "subtitle": "Ihre Empfehlung — Ihr Einkommen: sechs Ebenen tief (A–F), lebenslange Boni und Auszahlung auf Karte, in Krypto oder Telegram.",
+          "cta": "Partner werden"
         }
       },
       "chips": {
@@ -78,28 +85,33 @@
       }
     },
     "directions": {
-      "title": "Vier Richtungen — ein Ziel",
-      "subtitle": "Aktiv länger leben: zuhause mit Wasserstoffwasser, auf dem Court, in der Natur und unterwegs.",
+      "title": "Fünf Richtungen — ein Ziel",
+      "subtitle": "Aktives Longevity: H₂-Tabletten, Biohacking-Studio, Equipment, aktiver Sporturlaub und ein Partnerprogramm, in dem Geld Geld macht.",
       "items": {
-        "hydrogen": {
-          "title": "Innovationen für die Gesundheit",
-          "text": "Wir bauen die Richtung molekularer Wasserstoff aus. Unsere Produkte helfen, Energie, Regeneration und allgemeines Wohlbefinden zu unterstützen.",
-          "cta": "Mehr erfahren"
-        },
         "tablets": {
-          "title": "Die Brausetablette mit H₂",
-          "text": "Eine eigene Seite über Zusammensetzung, Aufnahme, den Vergleich mit Apotheken-Magnesiumformen und Empfindungen nach der Einnahme.",
-          "cta": "Seite öffnen"
+          "title": "Tabletten Magnesium + H₂",
+          "text": "Brausetabletten mit molekularem Wasserstoff: Zusammensetzung, Aufnahme und Vergleich mit Apotheken-Magnesiumformen — plus Online-Bestellung.",
+          "cta": "Bestellen"
+        },
+        "studio": {
+          "title": "Fitness-Biohacking-Studio",
+          "text": "Hydrogen Breathing, Red Light Wellness, Nano-Suit, Vibrationstraining und Recovery — Technologie für Tonus und Form.",
+          "cta": "Zum Studio"
+        },
+        "equipment": {
+          "title": "Equipment-Verkauf",
+          "text": "Wasserstoffflaschen, Inhalationsgeräte und Stationen für Büros. Auswahl, Beratung und Preis auf Anfrage.",
+          "cta": "Ansehen"
         },
         "recreation": {
-          "title": "Heilkraft-Naturerholung",
-          "text": "Wir stellen Routen für Regeneration, natürliche Heilprogramme und komfortable Kuraufenthalte im Ausland zusammen.",
-          "cta": "Anfrage senden"
-        },
-        "tourism": {
-          "title": "Sporttourismus",
-          "text": "Wir organisieren aktive Reisen, Marathons, Wanderungen und Sportevents für Menschen, die Bewegung und Gesundheit wählen.",
+          "title": "Aktiver Sporturlaub",
+          "text": "Badminton, Thermal-Wochenende, Läufe und Wanderungen — Termine, Plätze und Preise pro Person.",
           "cta": "Möglichkeiten ansehen"
+        },
+        "partner": {
+          "title": "Partnerprogramm",
+          "text": "Geld macht Geld: bis zu 30 % Provision, 6 Ebenen (A–F), lebenslange Boni und schnelle Auszahlung.",
+          "cta": "Partner werden"
         }
       }
     },
@@ -111,7 +123,7 @@
       "referral4": "Partner 4"
     },
     "partnerTeaser": {
-      "title": "Verdienen Sie mit RevolutTIME",
+      "title": "Geld macht Geld",
       "text": "Bis zu 30 % Provision, lebenslange Boni in 6 Ebenen (A–F), Auszahlung auf Karte, in Krypto oder Telegram.",
       "cta": "Mehr übers Partnerprogramm"
     }
@@ -219,7 +231,7 @@
   },
   "partner": {
     "hero": {
-      "badge": "Empfehlen & verdienen",
+      "badge": "Geld macht Geld",
       "title": "Partnerprogramm",
       "titleAccent": "Bis zu 30 % Provision.",
       "subtitle": "Teilen Sie Ihre persönliche Empfehlung — und verdienen Sie an jedem Verkauf. Sechs Ebenen tief (A–F), lebenslange Boni, schnelle Auszahlung."
@@ -446,10 +458,27 @@
       "subtitle": "Kurse und Spielformate von RevolutTIME: Badminton ist offen, weitere Arten folgen. Termine, Plätze und Preise auf jeder Artikelseite."
     }
   },
+  "equipment": {
+    "title": "Equipment-Verkauf",
+    "subtitle": "Wasserstoffflaschen, Inhalationsgeräte und Stationen für Büros — Technik, die in unserem Studio erprobt ist. Beratung und Preis auf Anfrage.",
+    "hero": {
+      "title": "Equipment-Verkauf",
+      "subtitle": "Wasserstoffflaschen, Inhalationsgeräte und Stationen für Büros — Technik, die in unserem Studio erprobt ist. Beratung und Preis auf Anfrage."
+    },
+    "onRequest": "Preis auf Anfrage",
+    "consultNote": "Wir finden das passende Equipment für Zuhause, unterwegs, das Studio oder das ganze Team. Schreiben Sie ein paar Zeilen — wir antworten zu Geschäftszeiten.",
+    "consultCta": "Beratung anfragen",
+    "formTitle": "Equipment-Anfrage",
+    "cta": {
+      "title": "Möchten Sie mit Equipment verdienen?",
+      "text": "Partner erhalten Provision für jede Equipment-Verkaufsempfehlung — bis zu 30 %.",
+      "button": "Partner werden"
+    }
+  },
   "recreation": {
     "hero": {
-      "title": "Heilkraft-Naturerholung",
-      "subtitle": "Wir stellen Routen für Regeneration, natürliche Heilprogramme und komfortable Kuraufenthalte im Ausland zusammen."
+      "title": "Aktiver Sporturlaub",
+      "subtitle": "Badminton, Thermal-Wochenende, Läufe und Wanderungen — Termin und Personenanzahl wählen und in einer Minute buchen."
     }
   },
   "tourism": {
@@ -660,10 +689,10 @@
     "about": "RevolutTIME — Ökosystem für aktives Longevity: Wasserstofftabletten, Biohacking-Studio und Partnerprogramm. Geprüft von Eurofins, versendet aus Bayern.",
     "directionsTitle": "Richtungen",
     "directions": {
-      "hydrogen": "Wasserstoff & Tabletten",
-      "sport": "Sport",
-      "recreation": "Heilkraft-Naturerholung",
-      "tourism": "Sporttourismus",
+      "tablets": "Tabletten Magnesium + H₂",
+      "studio": "Fitness-Biohacking-Studio",
+      "equipment": "Equipment-Verkauf",
+      "recreation": "Aktiver Sporturlaub",
       "partner": "Partnerprogramm"
     },
     "contactsTitle": "Kontakt",
