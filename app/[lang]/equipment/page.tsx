@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   ArrowRightIcon,
+  ArrowUpRightIcon,
   CheckIcon,
   MailIcon,
   WrenchIcon,
