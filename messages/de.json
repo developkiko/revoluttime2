@@ -466,6 +466,23 @@
       "subtitle": "Wasserstoffflaschen, Inhalationsgeräte und Stationen für Büros — Technik, die in unserem Studio erprobt ist. Beratung und Preis auf Anfrage."
     },
     "onRequest": "Preis auf Anfrage",
+    "suppliersLabel": "Hersteller",
+    "starter": {
+      "title": "Minimaler Studio-Start",
+      "subtitle": "Vier Positionen, die sich bereits als Recovery, Longevity, Biohacking, Anti-Aging und Performance verkaufen lassen.",
+      "items": {
+        "ems": "EMS-Training von miha bodytec",
+        "redLight": "Großes Red-Light-Panel",
+        "inhaler": "H₂-Inhalator mit 1500–3000 ml/min",
+        "ownTablets": "Wasserstofftabletten — eigenes Produkt (OEM)"
+      },
+      "area": "Passt schon in kleine Räume von 30–50 m²."
+    },
+    "oem": {
+      "title": "Tabletten unter Ihrer Marke (OEM)",
+      "text": "Die meisten Marken produzieren Tabletten nicht selbst, sondern beauftragen OEM-Hersteller unter ihrer eigenen Marke (Private Label Hydrogen Tablets). Wir helfen beim Hersteller-Matching und beim Start des eigenen RevolutTIME-Produkts unter Ihrer Marke.",
+      "cta": "OEM besprechen"
+    },
     "consultNote": "Wir finden das passende Equipment für Zuhause, unterwegs, das Studio oder das ganze Team. Schreiben Sie ein paar Zeilen — wir antworten zu Geschäftszeiten.",
     "consultCta": "Beratung anfragen",
     "formTitle": "Equipment-Anfrage",

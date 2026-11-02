@@ -41,6 +41,8 @@ export interface CatalogOffer {
   /** Available booking dates; empty + comingSoon → "in preparation". */
   slots: BookingSlot[];
   comingSoon?: boolean;
+  /** Equipment suppliers / manufacturers (used by the equipment page). */
+  suppliers?: Array<{ name: string; url: string }>;
 }
 
 export const SECTION_META: Record<
@@ -195,70 +197,107 @@ export const CATALOG_OFFERS: CatalogOffer[] = [
     ],
   },
   {
-    slug: "h2-bottle",
+    slug: "h2-inhaler",
     section: "equipment",
     title: {
-      de: "H₂-Wasserstoffflasche",
-      ru: "Водородная бутылка H₂",
-      en: "H₂ hydrogen bottle",
+      de: "H₂-Inhalator (900–3600 ml/min)",
+      ru: "Водородный ингалятор (900–3600 мл/мин)",
+      en: "H₂ inhalation device (900–3600 ml/min)",
     },
     summary: {
-      de: "Trinkflasche mit SPE/PEM-Technologie — bis 1,6 ppm H₂ unterwegs. Akku und USB-C-Laden.",
-      ru: "Бутылка с технологией SPE/PEM — до 1,6 ppm H₂ в дороге. Аккумулятор, зарядка USB-C.",
-      en: "Bottle with SPE/PEM technology — up to 1.6 ppm H₂ on the go. Rechargeable via USB-C.",
+      de: "Stationäre H₂-Inhalatoren für Zuhause oder Studio — Modelle von 900 bis 3600 ml/min, geeignet für die kommerzielle Nutzung.",
+      ru: "Стационарные H₂-ингаляторы для дома и студии — модели от 900 до 3600 мл/мин, подходят для коммерческого использования.",
+      en: "Stationary H₂ inhalation devices for home or studio — models from 900 to 3600 ml/min, suitable for commercial use.",
     },
     description: {
-      de: "Die H₂-Flasche macht überall Wasserstoffwasser: Eine Füllung dauert wenige Minuten.\n\nTechnische Daten und Preis auf Anfrage — schreiben Sie uns, wir beraten individuell.",
-      ru: "Водородная бутылка делает H₂-воду где угодно: один цикл насыщения — несколько минут.\n\nХарактеристики и цену уточняйте по запросу — напишите нам, проконсультируем индивидуально.",
-      en: "The H₂ bottle makes hydrogen water anywhere: one saturation cycle takes just a few minutes.\n\nSpecifications and price on request — write to us for personal advice.",
+      de: "Inhalationsgeräte sind die Basis jeder H₂-Praxis: tägliche Sessions für Kundschaft, einstellbare Durchflussrate, Dauerbetrieb für Studios.\n\nWir arbeiten mit geprüften Herstellern — Hydrogen Wellness und H2Medical (Geräte von 900 bis 3600 ml/min). Modell, Konfiguration und Preis auf Anfrage.",
+      ru: "Ингаляторы — основа любой H₂-практики: ежедневные сессии для клиентов, настраиваемый поток, режим работы под студию.\n\nМы работаем с проверенными производителями — Hydrogen Wellness и H2Medical (аппараты от 900 до 3600 мл/мин). Модель, комплектацию и цену уточняйте по запросу.",
+      en: "Inhalation devices are the core of any H₂ practice: daily client sessions, adjustable flow rate, studio-grade duty cycle.\n\nWe work with proven manufacturers — Hydrogen Wellness and H2Medical (devices from 900 to 3600 ml/min). Model, configuration and price on request.",
     },
     images: [],
     slots: [],
     comingSoon: true,
+    suppliers: [
+      { name: "H2Medical", url: "https://h2medical.org/hydrogen-inhalers.html" },
+      { name: "Hydrogen Wellness", url: "https://hydrogenwellness.co/" },
+    ],
   },
   {
-    slug: "h2-generator",
+    slug: "ems-bodytec",
     section: "equipment",
     title: {
-      de: "H₂-Inhalationsgerät",
-      ru: "Ингалятор с молекулярным водородом",
-      en: "H₂ inhalation device",
+      de: "EMS-Training mit miha bodytec",
+      ru: "EMS-тренировки с miha bodytec",
+      en: "EMS training with miha bodytec",
     },
     summary: {
-      de: "Stationäres Gerät für H₂-Inhalationen zuhause oder im Studio.",
-      ru: "Стационарный прибор для водородных ингаляций дома или в студии.",
-      en: "Stationary device for hydrogen inhalation sessions at home or in the studio.",
+      de: "EMS-Kostüm-Training mit dem bekannten deutschen Hersteller miha bodytec — der Standard für Studios.",
+      ru: "EMS-тренировки в костюме от известного немецкого производителя miha bodytec — стандарт для студий.",
+      en: "EMS suit training from the renowned German manufacturer miha bodytec — the studio standard.",
     },
     description: {
-      de: "Für tägliche H₂-Inhalationssessions — die Technik aus dem RevolutTIME Studio für zuhause.\n\nModell, Leistung und Preis auf Anfrage — wir beraten Sie persönlich per WhatsApp oder Telefon.",
-      ru: "Для ежедневных водородных ингаляций — технология из студии RevolutTIME у вас дома.\n\nМодель, характеристики и цену уточняйте — проконсультируем лично по WhatsApp или телефону.",
-      en: "For daily hydrogen inhalation sessions — the technology from the RevolutTIME studio at your home.\n\nModel, specifications and price on request — personal advice via WhatsApp or phone.",
+      de: "EMS-Training ermöglicht ein ganzkörperliches Krafttraining in 20 Minuten pro Einheit — ideal für Studios mit wenig Fläche und hohem Kundendurchlauf.\n\nmiha bodytec ist einer der bekanntesten EMS-Hersteller Deutschlands. Konfiguration (Kostüm, Steuergerät, Schulung) und Preis auf Anfrage.",
+      ru: "EMS-тренировки дают тренировку всего тела за 20 минут — идеально для студий с небольшой площадью и высоким потоком клиентов.\n\nmiha bodytec — один из самых известных EMS-производителей Германии. Конфигурация (костюм, пульт, обучение) и цена по запросу.",
+      en: "EMS training delivers a full-body strength session in 20 minutes — ideal for studios with limited space and high client flow.\n\nmiha bodytec is one of Germany's best-known EMS manufacturers. Configuration (suit, control unit, training) and price on request.",
     },
     images: [],
     slots: [],
     comingSoon: true,
+    suppliers: [
+      { name: "miha bodytec", url: "https://www.miha-bodytec.com/en/home" },
+    ],
   },
   {
-    slug: "h2-water-bar",
+    slug: "red-light-panels",
     section: "equipment",
     title: {
-      de: "H₂-Wasserbar für Büros",
-      ru: "H₂-водяная станция для офисов",
-      en: "H₂ water station for offices",
+      de: "Red-Light-Panels & Kapseln",
+      ru: "Red Light панели и капсулы",
+      en: "Red light panels & capsules",
     },
     summary: {
-      de: "Wasserstoffwasser für Teams: Station für Büro, Studio oder Café.",
-      ru: "Водородная вода для команд: станция для офиса, студии или кафе.",
-      en: "Hydrogen water for teams: a station for offices, studios or cafés.",
+      de: "Professionelle Red-Light-Systeme: Panels, Kapseln und vollformatige Anlagen für Fitness- und Studios.",
+      ru: "Профессиональные системы Red Light: панели, капсулы и полноразмерные решения для фитнес-центров и студий.",
+      en: "Professional red light systems: panels, capsules and full-size solutions for fitness centers and studios.",
     },
     description: {
-      de: "Eine stationäre Station liefert frisches Wasserstoffwasser für das ganze Team — inklusive Einweisung und Wartungsplan.\n\nKonfiguration und Preis auf Anfrage.",
-      ru: "Стационарная станция даёт свежую водородную воду всей команде — с обучением и планом обслуживания.\n\nКонфигурацию и цену уточняйте по запросу.",
-      en: "A stationary station delivers fresh hydrogen water for the whole team — including training and a maintenance plan.\n\nConfiguration and price on request.",
+      de: "Red-Light-Therapie ist eines der gefragtesten Wellness-Verfahren: Regeneration, Hautbild und Energie — je nach System einzeln oder in Kombination mit EMS und H₂.\n\nWir arbeiten mit IDEATHERAPY und SunPlus Therapy (Panels, Kapseln, vollformatige Systeme). Konfiguration und Preis auf Anfrage.",
+      ru: "Red Light Therapy — одна из самых востребованных wellness-процедур: восстановление, состояние кожи и энергия — в зависимости от системы, отдельно или в связке с EMS и H₂.\n\nРаботаем с IDEATHERAPY и SunPlus Therapy (панели, капсулы, полноразмерные системы). Конфигурацию и цену уточняйте по запросу.",
+      en: "Red light therapy is one of the most in-demand wellness procedures: recovery, skin condition and energy — depending on the system, standalone or combined with EMS and H₂.\n\nWe work with IDEATHERAPY and SunPlus Therapy (panels, capsules, full-size systems). Configuration and price on request.",
     },
     images: [],
     slots: [],
     comingSoon: true,
+    suppliers: [
+      { name: "IDEATHERAPY", url: "https://www.ideatherapy.com/" },
+      { name: "SunPlus Therapy", url: "https://sunplustherapy.com/" },
+    ],
+  },
+  {
+    slug: "vibration-platform",
+    section: "equipment",
+    title: {
+      de: "Vibrationsplattform (Lymphfluss)",
+      ru: "Виброплатформа (лимфодренаж)",
+      en: "Vibration platform (lymph flow)",
+    },
+    summary: {
+      de: "Professionelle Vibrationsplattformen für Lymphfluss und Tiefenmuskulatur — Hypervibe oder LifePro.",
+      ru: "Профессиональные виброплатформы для лимфотока и глубоких мышц — Hypervibe или LifePro.",
+      en: "Professional vibration platforms for lymph flow and deep muscles — Hypervibe or LifePro.",
+    },
+    description: {
+      de: "Vibrationstraining aktiviert Lymphfluss und tiefe Muskelgruppen in wenigen Minuten — die perfekte Ergänzung zu EMS und H₂-Sessions.\n\nFür kommerzielle Nutzung empfehlen wir Hypervibe (robuste Studioqualität); alternativ LifePro Rumblex 4D bzw. LifePro Waver. Modell und Preis auf Anfrage.",
+      ru: "Вибротренинг активирует лимфоток и глубокие мышечные группы за считанные минуты — идеальное дополнение к EMS и H₂-сессиям.\n\nДля коммерческого использования рекомендуем Hypervibe (надёжное студийное качество); альтернативы — LifePro Rumblex 4D и LifePro Waver. Модель и цену уточняйте по запросу.",
+      en: "Vibration training activates lymph flow and deep muscle groups in minutes — the perfect complement to EMS and H₂ sessions.\n\nFor commercial use we recommend Hypervibe (robust studio quality); alternatives are LifePro Rumblex 4D and LifePro Waver. Model and price on request.",
+    },
+    images: [],
+    slots: [],
+    comingSoon: true,
+    suppliers: [
+      { name: "Hypervibe", url: "https://hypervibe.com/" },
+      { name: "LifePro", url: "https://lifeprofitness.com/" },
+    ],
   },
 ];
 

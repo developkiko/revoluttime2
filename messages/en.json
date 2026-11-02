@@ -466,6 +466,23 @@
       "subtitle": "Hydrogen bottles, inhalation devices and office stations. Selection and price on request."
     },
     "onRequest": "Price on request",
+    "suppliersLabel": "Suppliers",
+    "starter": {
+      "title": "Minimal studio starter",
+      "subtitle": "Four positions you can already sell as Recovery, Longevity, Biohacking, Anti-Aging and Performance.",
+      "items": {
+        "ems": "EMS training from miha bodytec",
+        "redLight": "Large red light panel",
+        "inhaler": "H₂ inhaler at 1500–3000 ml/min",
+        "ownTablets": "Hydrogen tablets — own product (OEM)"
+      },
+      "area": "Fits even a small 30–50 m² space."
+    },
+    "oem": {
+      "title": "Tablets under your own brand (OEM)",
+      "text": "Most brands do not manufacture tablets themselves — they order OEM manufacturing under their own label (Private Label Hydrogen Tablets). We help you match a manufacturer and launch your own RevolutTIME product under your brand.",
+      "cta": "Discuss OEM"
+    },
     "consultNote": "We will find the right equipment for your home, travels, studio or the whole team. Write a few lines — we reply during business hours.",
     "consultCta": "Request a consultation",
     "formTitle": "Equipment request",
