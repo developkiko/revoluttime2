@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -26,7 +26,6 @@ type FormValues = { name: string; email: string; message: string };
  */
 export function ContactWidget() {
   const t = useTranslations("contact");
-  const locale = useLocale();
 
   const schema = z.object({
     name: z.string().min(2, t("nameRequired")),
@@ -45,10 +44,21 @@ export function ContactWidget() {
   });
 
   async function onSubmit(values: FormValues) {
-    // mock — имитация отправки; реальный эндпоинт появится с API
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    console.info("[contact] payload", { locale, ...values });
-    toast.success(t("sentToast"));
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+    if (!response.ok) {
+      toast.error(t("errorToast"));
+      return;
+    }
+    const result = (await response.json()) as { delivered?: boolean };
+    if (result.delivered) {
+      toast.success(t("sentToast"));
+    } else {
+      toast.info(t("queuedToast"));
+    }
     reset();
   }
 

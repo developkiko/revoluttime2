@@ -394,6 +394,10 @@
       "email": "Email",
       "provider": "Provider",
       "joined": "Joined"
+    },
+    "messagesTab": {
+      "loading": "Loading…",
+      "empty": "No messages yet — the /equipment form and the contact widget land here and in the admins' Telegram."
     }
   },
   "dummy": {
@@ -430,7 +434,9 @@
     "messageRequired": "At least 10 characters",
     "submit": "Send",
     "sending": "Sending…",
-    "sentToast": "Message sent — we reply during business hours"
+    "sentToast": "Message sent to the admins in Telegram",
+    "queuedToast": "Request received — the Telegram notification is being connected, we will reach out",
+    "errorToast": "Failed to send — try again or message us on WhatsApp"
   },
   "auth": {
     "account": "Account",

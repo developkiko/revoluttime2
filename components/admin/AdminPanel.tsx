@@ -18,10 +18,10 @@ import {
   isOfferOverridden,
   resetAdminOffer,
   saveAdminOffer,
-  useAdminMessages,
   useAdminOffers,
   type AdminOfferDraft,
 } from "@/lib/admin-store";
+import type { ContactMessage } from "@/lib/contact-inbox";
 import { formatPrice, type Locale } from "@/lib/products";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -257,10 +257,48 @@ function OfferForm({
   );
 }
 
+function MessagesTab() {
+  const t = useTranslations("admin.messagesTab");
+  const [messages, setMessages] = React.useState<ContactMessage[] | null>(null);
+
+  React.useEffect(() => {
+    fetch("/api/admin/messages")
+      .then((r) => (r.ok ? r.json() : { messages: [] }))
+      .then((data) => setMessages(data.messages))
+      .catch(() => setMessages([]));
+  }, []);
+
+  if (messages === null) {
+    return <p className="text-sm text-muted-foreground">{t("loading")}</p>;
+  }
+  if (messages.length === 0) {
+    return (
+      <p className="rounded-xl border bg-card p-4 text-sm text-muted-foreground">
+        {t("empty")}
+      </p>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-3">
+      {messages.map((m) => (
+        <div key={m.id} className="rounded-xl border bg-card p-4">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="font-medium">
+              {m.name} <span className="text-muted-foreground">· {m.email}</span>
+            </p>
+            <p className="text-xs tabular-nums text-muted-foreground">{m.date}</p>
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">{m.message}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function AdminPanel() {
   const t = useTranslations("admin");
   const locale = useLocale() as Locale;
-  const messages = useAdminMessages();
   const [tab, setTab] = React.useState<Tab>("overview");
 
   return (
@@ -331,21 +369,7 @@ export function AdminPanel() {
           </div>
         )}
 
-        {tab === "messages" && (
-          <div className="flex flex-col gap-3">
-            {messages.map((m) => (
-              <div key={m.id} className="rounded-xl border bg-card p-4">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="font-medium">
-                    {m.name} <span className="text-muted-foreground">· {m.email}</span>
-                  </p>
-                  <p className="text-xs tabular-nums text-muted-foreground">{m.date}</p>
-                </div>
-                <p className="mt-1 text-sm text-muted-foreground">{m.message}</p>
-              </div>
-            ))}
-          </div>
-        )}
+        {tab === "messages" && <MessagesTab />}
       </div>
     </div>
   );

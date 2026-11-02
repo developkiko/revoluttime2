@@ -394,6 +394,10 @@
       "email": "E-Mail",
       "provider": "Provider",
       "joined": "Registriert"
+    },
+    "messagesTab": {
+      "loading": "Wird geladen…",
+      "empty": "Noch keine Nachrichten — das Formular auf /equipment und das Kontakt-Widget landen hier und bei den Admins in Telegram."
     }
   },
   "dummy": {
@@ -430,7 +434,9 @@
     "messageRequired": "Mindestens 10 Zeichen",
     "submit": "Senden",
     "sending": "Wird gesendet…",
-    "sentToast": "Nachricht gesendet — wir antworten zu Geschäftszeiten"
+    "sentToast": "Nachricht an die Admins in Telegram gesendet",
+    "queuedToast": "Anfrage erhalten — die Telegram-Benachrichtigung wird verbunden, wir melden uns",
+    "errorToast": "Senden fehlgeschlagen — bitte erneut versuchen oder per WhatsApp schreiben"
   },
   "auth": {
     "account": "Konto",
