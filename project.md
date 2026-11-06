@@ -38,7 +38,8 @@
 8. Правило владельца: **все изменения → сразу все 3 локали (de+ru+en) → коммит → push**.
 9. Валидация JSON переводов: `node -e "JSON.parse(...)"` перед билдом.
 10. Кириллица в `curl` на Windows ломает UTF-8 — Telegram API звать через `node -e "fetch(...)"`.
-11. Vercel MCP не видит этот проект (403/404 на deployments/env) — деплой перезапускать **пустым коммитом** в main.
+11. **Vercel MCP авторизован (developkiko, нужная team по умолчанию), но API не отдаёт проекты этой команды**: `GET /v9/projects/{id}` → 404, списки проектов пустые, deployments → 403. Vercel CLI тоже бесполезен: `VERCEL_TOKEN` в окружении невалиден. Деплой перезапускать **пустым коммитом** в main; чинить доступ — переподключить Vercel-интеграцию с полными scopes или свежий токен.
+12. **Turbopack кеширует CSS между сборками**: правки `app/globals.css` могут не попасть в `next build` (JS-модули пересобираются, CSS — нет). При «стили не применились» — `rm -rf .next` и пересборка.
 
 ## Дерево проекта (корень = репозиторий)
 
@@ -63,7 +64,7 @@ revoluttime/                     ← здесь .env.local, .gitignore, AGENTS.m
 │   ├── shop/ProductVariants.tsx ← карточки фасовок 90/120 + корзина
 │   ├── cart/                    ← CartProvider (useSyncExternalStore+localStorage; pack|ticket), CartDrawer
 │   ├── booking/BookingWidget.tsx← выбор даты + участники + цена → билет в корзину
-│   ├── sections/                ← OffersGrid, OfferDetail (общие для списков/деталей броней)
+│   ├── sections/                ← SectionOffers, OfferDetail (общие для списков/деталей броней)
 │   ├── partner/                 ← PartnerSteps (цветные анимированные), LevelsCascade (A–F)
 │   ├── contact/ContactWidget.tsx← форма → /api/contact
 │   ├── cabinet/                 ← ProfileCard (аватар/имя/экспорт/удаление), ReferralLink, WithdrawButton
@@ -71,11 +72,11 @@ revoluttime/                     ← здесь .env.local, .gitignore, AGENTS.m
 │   └── ui/                      ← shadcn: button, card, input, sheet, dialog, dropdown-menu, popover, skeleton, sonner…
 ├── app/
 │   ├── api/
-│   │   ├── auth/telegram/webhook/  ← POST: бот; /start отвечает chat_id
 │   │   ├── auth/google/start|callback/ ← OAuth code flow
 │   │   ├── auth/telegram/          ← POST: HMAC-проверка Login Widget → сессия
 │   │   ├── auth/me, auth/logout, auth/dev-admin (демо-админ; отключается AUTH_DEMO_MODE=false)
-│   │   ├── contact/                ← POST: заявка → Telegram админам + инбокс
+│   │   ├── telegram/webhook/       ← POST: бот; /start отвечает chat_id
+│   │   ├── contact/                ← заявка формы → Telegram админам + инбокс
 │   │   └── admin/messages/         ← GET: инбокс (только isAdmin)
 │   └── [lang]/
 │       ├── layout.tsx  ← КОРНЕВОЙ layout: <html lang>, шрифты, ThemeProvider, NextIntlClientProvider, CartProvider, Header/Footer/CartDrawer/Toaster/LoginNotice
@@ -91,7 +92,7 @@ revoluttime/                     ← здесь .env.local, .gitignore, AGENTS.m
 │       ├── admin/      ← админка (гейт: ADMIN_EMAILS)
 │       ├── dummy/      ← песочница всех компонентов (noindex)
 │       └── legal/[slug]/ ← impressum | datenschutz | agb | widerruf
-├── public/imgs/                ← product/ (таблетки), brand/ (бокс ADD LIFE)
+├── public/imgs/                ← product/ (таблетки), brand/ (бокс ADD LIFE + revoluttime-hero.svg — точная SVG-копия hero-логотипа, текст → кривые)
 ├── messages/*.json, i18n/, proxy.ts
 └── AGENTS.md                   ← автоген Next.js, не трогать
 ```

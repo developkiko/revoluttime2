@@ -1,7 +1,7 @@
 # RevolutTIME — devlog
 
-Хронология разработки нового сайта (все даты 01–02.11.2026). Коммиты в `main` → автодеплой на Vercel.
-Хэши актуальны на момент завершения сессии; текущий HEAD — `fcf101f` (+ фикс иконки `2c76897`).
+Хронология разработки нового сайта. Коммиты в `main` → автодеплой на Vercel.
+Последние коммиты — см. `git log`; логотип-исходник — `c60e5db`.
 
 ## 01.11.2026
 
@@ -84,4 +84,15 @@
 - cacheComponents: `new Date()` запрещён при пререндере → клиентские useSyncExternalStore-паттерны.
 - react-hooks v6: setState в useEffect → useSyncExternalStore.
 - Turbopack: `getOfferSlot` должен импортироваться из правильного модуля (проверять импорты после рефакторинга).
+- Turbopack кеширует CSS между сборками: правки `globals.css` могут не попасть в `next build` (JS пересобирается, CSS — нет) → `rm -rf .next` перед пересборкой (грабля №12 в project.md).
+- opentype.js `toPathData` может выдать NaN на отдельных Q-командах (баг оптимизации) → сериализовать команды пути самостоятельно.
 - Windows/Git Bash: кириллица в curl-JSON ломается → слать через node fetch.
+
+## 06.11.2026
+
+### `c60e5db` — точная копия логотипа revolut-first-eight (CSS + SVG)
+- Шрифты Poppins (600/900, latin) из исходника `F:\WebstormProjects\revoluttime` скопированы в `public/fonts/`, импорт `poppins.css` в globals.css.
+- Секция «Original-Logo» на /dummy: точная копия `.logo-wrap` (классы `src8-*`): шапочный вариант (custom-head-logo, 24px, обводка 2px) и hero (custom-logo, 10vw, float-анимация, обводка 4px). Значения выверены по computed styles живого сайта (computed, а не исходный CSS — в Tailwind-утилитах исходника часть правил перекрывается специфичностью).
+- Выверен нюанс исходника: у `h1.fg` 45°-градиент заголовков (gold-text-animation) задан, но невидим — перекрыт непрозрачным цветом текста #1A2438; «синева» на глифах — это полосы нижнего слоя div.bg, выглядывающие из-за scaleY(1.05) и сдвига fg на -2px (пиксель-проверено на живом сайте).
+- SVG-копия hero: `public/imgs/brand/revoluttime-hero.svg` — Poppins → кривые (opentype.js, baseline 152/190 по метрикам hhea), полосы 105° → linearGradient spreadMethod=repeat (один период 12% оси), scaleY(1.05)+drop-shadow как в CSS; fg — сплошная #1A2438.
+- Vercel MCP перепроверен: авторизация ок (developkiko, team по умолчанию верная), но API команду не отдаёт: проекты — пустой список, `GET /v9/projects/{id}` → 404, deployments → 403; CLI бесполезен (`VERCEL_TOKEN` в окружении невалиден). Диагноз уточнён в project.md (грабля №11).
