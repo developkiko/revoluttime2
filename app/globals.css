@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "../public/fonts/poppins.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -274,5 +275,106 @@ a.rt-logo:hover {
   50% {
     stroke-opacity: 0.8;
     stroke-dashoffset: 12px;
+  }
+}
+
+/* ── Exact copy of the .logo-wrap wordmark from revolut-first-eight
+      (source: F:\WebstormProjects\revoluttime — utilities logo-gradients,
+      custom-logo, custom-head-logo in src/app/globals.css; values verified
+      against computed styles of https://revolut-first-eight.vercel.app) ── */
+.src8-logo-wrap {
+  display: grid;
+  place-content: center;
+  grid-template-areas: "overlap";
+  font-family: "Poppins", sans-serif;
+}
+.src8-logo-wrap > div,
+.src8-logo-wrap > h1 {
+  display: block;
+  grid-area: overlap;
+  margin: 0;
+  font-weight: 300; /* source: font-light; Poppins ships 600/900 → renders 600 */
+  letter-spacing: 2px;
+  line-height: 1;
+  background-clip: text;
+  -webkit-background-clip: text;
+  transition-property: all;
+  transition-delay: 100ms;
+  transition-timing-function: linear;
+}
+.src8-logo-wrap b {
+  font-weight: 900;
+}
+.src8-logo-wrap .bg {
+  user-select: none;
+  background-image: repeating-linear-gradient(
+    105deg,
+    #056ea8 0,
+    #083d5c 5%,
+    #056ea8 12%
+  );
+  color: transparent;
+  filter: drop-shadow(5px 15px 15px black);
+  transform-origin: top;
+  transform: scaleY(1.05);
+}
+
+/* header variant — custom-head-logo (.fg is a div) */
+.src8-head .src8-logo-wrap > div {
+  font-size: 1.5rem; /* source header: a.logo text-2xl */
+  -webkit-text-stroke: 2px transparent;
+}
+.src8-head .src8-logo-wrap .fg {
+  background-image: repeating-linear-gradient(
+    5deg,
+    #056ea8 0,
+    #0a5d8c 23%,
+    #056ea8 31%
+  );
+  color: #0b1326;
+  transform: scale(1);
+}
+
+/* hero variant — custom-logo (.fg is an h1 → old site's h1 rule swaps in the
+   45° heading gradient, background-size 400%) */
+.src8-hero .src8-logo-wrap {
+  animation: src8-float 3s ease-in-out infinite;
+}
+.src8-hero .src8-logo-wrap:hover {
+  animation-play-state: paused;
+  transform: translateY(-20px) scale(1.05);
+}
+.src8-hero .src8-logo-wrap > div,
+.src8-hero .src8-logo-wrap > h1 {
+  font-size: 10vw;
+  -webkit-text-stroke: 4px transparent;
+}
+.src8-hero .src8-logo-wrap .fg {
+  color: #1a2438;
+  background-image: linear-gradient(
+    45deg,
+    #056ea8,
+    #0a8fd6,
+    #056ea8,
+    #0a7bb8,
+    #0a5d8c,
+    #0a8fd6,
+    #056ea8,
+    #0a7bb8,
+    #0a5d8c,
+    #0a8fd6
+  );
+  background-size: 400% 100%;
+  background-position: 0 0;
+  transform: translateY(-2px);
+  filter: drop-shadow(0 3px 3px rgb(0 0 0 / 0.12));
+}
+@keyframes src8-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
   }
 }

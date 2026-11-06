@@ -69,6 +69,48 @@ export default async function DummyPage({
         </div>
       </section>
 
+      {/* Exact copy of the .logo-wrap wordmark (revolut-first-eight source) */}
+      <section className="border-y bg-[#0b1326] text-white">
+        <div className="mx-auto w-full max-w-6xl px-4 py-12">
+          <h2 className="text-xl font-bold tracking-tight">
+            {t("logoTitle")}
+          </h2>
+          <p className="mt-1 text-sm text-white/60">{t("logoSubtitle")}</p>
+
+          <div className="src8-head mt-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/40">
+              {t("logoHeaderLabel")}
+            </p>
+            <div className="src8-logo-wrap mt-3">
+              <div className="bg">Revolut<b>TIME</b></div>
+              <div className="fg">Revolut<b>TIME</b></div>
+            </div>
+          </div>
+
+          <div className="src8-hero mt-14">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/40">
+              {t("logoHeroLabel")}
+            </p>
+            <div className="src8-logo-wrap mt-3">
+              <div className="bg">Revolut<b>TIME</b></div>
+              <h1 className="fg">Revolut<b>TIME</b></h1>
+            </div>
+          </div>
+
+          <div className="mt-14">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/40">
+              {t("logoSvgLabel")}
+            </p>
+            {/* eslint-disable-next-line @next/next/no-img-element -- static asset */}
+            <img
+              src="/imgs/brand/revoluttime-hero.svg"
+              alt="RevolutTIME"
+              className="mx-auto mt-3 block w-[65vw] max-w-none"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Contact widget */}
       <section className="mx-auto w-full max-w-6xl px-4 py-12">
         <h2 className="text-xl font-bold tracking-tight">{t("contactTitle")}</h2>
