@@ -38,7 +38,7 @@
 8. Правило владельца: **все изменения → сразу все 3 локали (de+ru+en) → коммит → push**.
 9. Валидация JSON переводов: `node -e "JSON.parse(...)"` перед билдом.
 10. Кириллица в `curl` на Windows ломает UTF-8 — Telegram API звать через `node -e "fetch(...)"`.
-11. **Vercel MCP авторизован (developkiko, нужная team по умолчанию), но API не отдаёт проекты этой команды**: `GET /v9/projects/{id}` → 404, списки проектов пустые, deployments → 403. Vercel CLI тоже бесполезен: `VERCEL_TOKEN` в окружении невалиден. Деплой перезапускать **пустым коммитом** в main; чинить доступ — переподключить Vercel-интеграцию с полными scopes или свежий токен.
+11. **Vercel MCP работает, НО на личном (Hobby) аккаунте не передавай `teamId` в инструменты MCP**: с явным teamId запросы ломаются — `get_project` → 404 «Project not found», `list_projects` → пусто, `list_deployments` → 403. Без teamId (дефолтный scope сессии = своя команда) видно всё: 14 проектов, деплои, env. Vercel CLI при этом нерабочий: `VERCEL_TOKEN` в окружении невалиден. «Разбудить» деплой по-прежнему можно пустым коммитом в main.
 12. **Turbopack кеширует CSS между сборками**: правки `app/globals.css` могут не попасть в `next build` (JS-модули пересобираются, CSS — нет). При «стили не применились» — `rm -rf .next` и пересборка.
 
 ## Дерево проекта (корень = репозиторий)
@@ -128,7 +128,7 @@ revoluttime/                     ← здесь .env.local, .gitignore, AGENTS.m
 | Сервис | Детали |
 |---|---|
 | **Vercel** | проект `revolut-time` (id `prj_fByD65LZUCP3K84JexOgF1IVs5Q6`), team `team_TWbuf03uGZI1HmKdbpyzJvNR`; прод: https://revolut-time.vercel.app; git: `developkiko/revoluttime2` → main. ⚠️ Vercel MCP не имеет доступа к деплоям/env этого проекта (403/404) |
-| **Supabase** | `sb-revolut-db` → https://qyksdgzguhtjhnrswiib.supabase.co — проект поднят, НО в код не подключён (нет ключей в env, нет таблиц) |
+| **Supabase** | `sb-revolut-db` → https://qyksdgzguhtjhnrswiib.supabase.co — проект поднят; ключи интеграции УЖЕ заведены в Vercel env (SUPABASE_URL/anon/service_role + POSTGRES_* от маркетплейс-интеграции), но в код не подключены и таблиц нет |
 | **Telegram** | бот @revoluttime_bot (токен в .env.local); webhook → `/api/telegram/webhook`; чат владельца **5157746090** (туда падают заявки формы); для Login Widget нужен `/setdomain` в BotFather |
 | **Google OAuth** | клиент `375681716439-2fjf695spkeoba8tnsaji618g00n1b15...` (проект hunefo в консоли); redirect: `<origin>/api/auth/google/callback`; статус Testing → добавить test users или Publish |
 | **Контакты владельца** | +49 175 9590916 (WhatsApp/Tel) — визитка; адрес Hebertshausen |
@@ -141,7 +141,7 @@ NEXT_PUBLIC_GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET,
 AUTH_SESSION_SECRET, TELEGRAM_ADMIN_CHAT_ID=5157746090,
 ADMIN_EMAILS=admin@revoluttime.de,5157746090@telegram.revoluttime
 ```
-Плюс от Supabase-интеграции: NEXT_PUBLIC_SUPABASE_URL, ключи (проверить наличие в Vercel).
+Плюс в Vercel env уже лежат ключи Supabase-интеграции (SUPABASE_URL/ключи, POSTGRES_*). ⚠️ TELEGRAM_ADMIN_CHAT_ID и ADMIN_EMAILS в Vercel env отсутствуют — на проде работают дефолты из кода (владелец 5157746090).
 
 ## Ссылки
 
