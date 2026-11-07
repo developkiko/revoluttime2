@@ -1,0 +1,10 @@
+{
+  "name": "RevolutTIME",
+  "short_name": "RevolutTIME",
+  "description": "RevolutTIME — ecosystem for active longevity: Magnesium + H₂ tablets, biohacking studio and partner program.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#090D16",
+  "background_color": "#090D16"
+}

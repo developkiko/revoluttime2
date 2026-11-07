@@ -15,6 +15,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/layout/ThemeToggle";
 import { LoginNotice } from "@/components/layout/LoginNotice";
 import { Toaster } from "@/components/ui/sonner";
+import { CookieBanner } from "@/components/layout/CookieBanner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
@@ -65,6 +66,7 @@ export default async function LangLayout({
             <CartDrawer />
             {/* Queue behavior: one visible toast at a time. */}
             <Toaster position="bottom-right" visibleToasts={1} />
+            <CookieBanner />
             <React.Suspense fallback={null}>
               <LoginNotice />
             </React.Suspense>

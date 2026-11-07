@@ -620,8 +620,8 @@
     "impressum": {
       "title": "Imprint",
       "sections": [
-        { "h": "Information according to § 5 DDG", "p": "Gewerbe Yuriy Moshenets\nWeilbacher 10\n85241 Hebertshausen\nDeutschland" },
-        { "h": "Contact", "p": "Phone / WhatsApp: +49 175 9590916\nE-Mail: info@revoluttime.de" },
+        { "h": "Information according to § 5 DDG", "p": "Gewerbe Yuriy Moshenets\nWeilbacher Str. 10\n85241 Hebertshausen\nDeutschland" },
+        { "h": "Contact", "p": "Phone / WhatsApp: +49 175 9590916\nE-Mail: karakymg@gmail.com" },
         { "h": "VAT", "p": "According to § 19 UStG (small business rule) no VAT is charged and therefore not shown." },
         { "h": "Responsible for the content according to § 18 Abs. 2 MStV", "p": "Yuriy Moshenets, address as above." },
         { "h": "EU dispute resolution", "p": "We are neither obliged nor willing to participate in dispute resolution proceedings before a consumer arbitration board." },
@@ -631,7 +631,7 @@
     "datenschutz": {
       "title": "Privacy Policy",
       "sections": [
-        { "h": "1. Controller", "p": "Responsible for data processing on this website:\nGewerbe Yuriy Moshenets, Weilbacher 10, 85241 Hebertshausen, Deutschland\nPhone / WhatsApp: +49 175 9590916 · E-Mail: info@revoluttime.de" },
+        { "h": "1. Controller", "p": "Responsible for data processing on this website:\nGewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, Deutschland\nPhone / WhatsApp: +49 175 9590916 · E-Mail: karakymg@gmail.com" },
         { "h": "2. General", "p": "We process personal data exclusively within the scope of the GDPR and BDSG. Legal bases: consent (Art. 6 (1)(a) GDPR), contract performance (Art. 6 (1)(b)), legitimate interest (Art. 6 (1)(f)) and legal obligations (Art. 6 (1)(c))." },
         { "h": "3. Hosting and server logs", "p": "The website is hosted by Vercel Inc., USA. Every request processes technically necessary log data (IP address, date and time, page accessed, browser type). The legal basis is our legitimate interest in a secure and stable website (Art. 6 (1)(f)). Logs are deleted automatically after a short period." },
         { "h": "4. Cookies and local storage", "p": "Your cart and sign-in are stored in a technically necessary session cookie or the local storage (localStorage) of your browser. No tracking or advertising analytics takes place." },
@@ -645,7 +645,7 @@
       "title": "Terms and Conditions",
       "sections": [
         { "h": "1. Scope", "p": "These terms apply to all contracts between Gewerbe Yuriy Moshenets (the “Seller”) and consumers or businesses regarding the goods (food supplements) and services offered on this website." },
-        { "h": "2. Contracting party", "p": "Contracting partner: Gewerbe Yuriy Moshenets, Weilbacher 10, 85241 Hebertshausen, Deutschland. The RevolutTIME brand is operated by YULKK UNITED CORP., USA." },
+        { "h": "2. Contracting party", "p": "Contracting partner: Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, Deutschland. The RevolutTIME brand is operated by YULKK UNITED CORP., USA." },
         { "h": "3. Conclusion of contract", "p": "The product presentation in the shop is not a legally binding offer but an invitation to order. By submitting your order you make a binding offer. The contract is concluded upon the confirmation of receipt or shipping confirmation sent by e-mail." },
         { "h": "4. Prices and payment", "p": "All prices are final prices in Euro. According to § 19 UStG (small business rule) no VAT is charged. Payment is made using the payment methods offered in the order process." },
         { "h": "5. Delivery", "p": "Delivery within Germany is handled by DHL or Hermes, usually within 1–2 business days after payment. Shipments to other countries are handled on request." },
@@ -660,9 +660,9 @@
       "title": "Withdrawal Instructions",
       "sections": [
         { "h": "Right of withdrawal", "p": "Consumers have the right to withdraw from this contract within fourteen days without giving any reason. The period begins on the day on which you or a third party named by you took possession of the goods." },
-        { "h": "Exercising the withdrawal", "p": "To exercise the right of withdrawal, inform us (Gewerbe Yuriy Moshenets, Weilbacher 10, 85241 Hebertshausen, phone/WhatsApp: +49 175 9590916, e-mail: info@revoluttime.de) by means of a clear statement of your decision." },
+        { "h": "Exercising the withdrawal", "p": "To exercise the right of withdrawal, inform us (Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, phone/WhatsApp: +49 175 9590916, e-mail: karakymg@gmail.com) by means of a clear statement of your decision." },
         { "h": "Consequences of withdrawal", "p": "After receiving your notice we will refund all payments including standard delivery costs within fourteen days. We may withhold the refund until we have received the goods back or you have supplied evidence of having sent them back." },
-        { "h": "Return of goods", "p": "Send the goods to: Gewerbe Yuriy Moshenets, Weilbacher 10, 85241 Hebertshausen. You bear the return costs if the goods are reusable in the supplied condition and are sent back properly packaged." },
+        { "h": "Return of goods", "p": "Send the goods to: Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen. You bear the return costs if the goods are reusable in the supplied condition and are sent back properly packaged." },
         { "h": "Exclusion of the right of withdrawal", "p": "The right of withdrawal does not apply to contracts for the delivery of goods that are unsuitable for return for reasons of health protection or hygiene if their seal has been removed after delivery (§ 312g (2) No. 3 BGB). Please note: an opened package of food supplements cannot be taken back for this reason." }
       ]
     }
@@ -733,6 +733,13 @@
     "cancelText": "No problem — your cart is saved. You can restart the payment any time.",
     "backToCart": "Back to checkout"
   },
+  "cookie": {
+    "title": "Cookies",
+    "text": "We use essential cookies for the cart, language and sign-in. Third-party analytics cookies load only after your consent.",
+    "learnMore": "Privacy policy",
+    "acceptAll": "Accept all",
+    "essential": "Essential only"
+  },
   "footer": {
     "about": "RevolutTIME — an ecosystem for active longevity: hydrogen tablets, a biohacking studio and a partner program. Eurofins-tested, shipped from Bavaria.",
     "directionsTitle": "Directions",
@@ -745,7 +752,7 @@
     },
     "contactsTitle": "Contact",
     "company": "Gewerbe Yuriy Moshenets",
-    "address": "Weilbacher 10, 85241 Hebertshausen, Deutschland",
+    "address": "Weilbacher Str. 10, 85241 Hebertshausen, Deutschland",
     "phone": "Tel. / WhatsApp: +49 175 9590916",
     "shipping": "Shipping: DHL / Hermes, 1–2 business days",
     "legalTitle": "Legal",
