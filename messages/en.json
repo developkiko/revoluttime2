@@ -288,7 +288,16 @@
       "levelE": "Level E — fifth generation",
       "levelF": "Level F — sixth generation"
     },
-    "payouts": {
+    "fund": {
+    "title": "The partner fund — distributed transparently",
+    "subtitle": "30% of the net amount of every tablet order flows into the partner fund and is distributed by the A–F level plan — lifetime, on every purchase in your network.",
+    "colLevel": "Level",
+    "colShare": "Share of fund",
+    "levelName": "Level {level}",
+    "fundRow": "Partner fund total",
+    "footnote": "All prices are end-customer prices. Gemäß § 19 UStG (Kleinunternehmerregelung) werden alle Provisionen von Nettobeträgen berechnet — no VAT is charged or shown. Values: preliminary calculation, subject to change."
+  },
+  "payouts": {
       "title": "Payouts",
       "text": "You decide how to receive your money: to a bank card, in cryptocurrency or via Telegram."
     },

@@ -288,7 +288,16 @@
       "levelE": "Ebene E — fünfte Generation",
       "levelF": "Ebene F — sechste Generation"
     },
-    "payouts": {
+    "fund": {
+    "title": "Der Partnerfonds — transparent verteilt",
+    "subtitle": "30 % des Netto-Betrags jeder Tabletten-Bestellung fließen in den Partnerfonds und werden nach dem Level-Plan A–F verteilt — lebenslang, bei jedem Einkauf deiner Netzwerks.",
+    "colLevel": "Level",
+    "colShare": "Anteil am Fonds",
+    "levelName": "Level {level}",
+    "fundRow": "Partnerfonds gesamt",
+    "footnote": "Alle Preise sind Endkundenpreise. Gemäß § 19 UStG (Kleinunternehmerregelung) werden alle Provisionen von Nettobeträgen berechnet — es wird keine Umsatzsteuer berechnet und ausgewiesen. Werte: vorläufige Kalkulation, Änderungen vorbehalten."
+  },
+  "payouts": {
       "title": "Auszahlungen",
       "text": "Sie entscheiden, wie Sie Ihr Geld erhalten: auf die Bankkarte, in Kryptowährung oder via Telegram."
     },
