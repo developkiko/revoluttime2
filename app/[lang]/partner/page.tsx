@@ -9,8 +9,8 @@ import {
 
 import { Card, CardContent } from "@/components/ui/card";
 import { CtaBanner } from "@/components/layout/CtaBanner";
-import { PartnerSteps } from "@/components/partner/PartnerSteps";
-import { LevelsCascade } from "@/components/partner/LevelsCascade";
+import { PartnerStepsLazy } from "@/components/partner/PartnerStepsLazy";
+import { LevelsCascadeLazy } from "@/components/partner/LevelsCascadeLazy";
 import { SITE } from "@/lib/products";
 
 const BENEFITS = [
@@ -62,7 +62,7 @@ export default async function PartnerPage({
             {t("how.title")}
           </h2>
           <div className="mt-8 sm:max-w-2xl">
-            <PartnerSteps />
+            <PartnerStepsLazy />
           </div>
         </div>
       </section>
@@ -109,7 +109,7 @@ export default async function PartnerPage({
             </div>
           </div>
           <div className="self-center lg:self-end">
-            <LevelsCascade />
+            <LevelsCascadeLazy />
           </div>
         </div>
       </section>

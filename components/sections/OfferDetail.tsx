@@ -3,7 +3,8 @@ import { getLocale, getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { BookingWidget, OfferCover } from "@/components/booking/BookingWidget";
+import { BookingWidgetLazy } from "@/components/booking/BookingWidgetLazy";
+import { OfferCover } from "@/components/booking/BookingWidget";
 import { getOffer, offersBySection } from "@/lib/catalog";
 import { offerHref } from "@/components/sections/SectionOffers";
 import type { Locale } from "@/lib/products";
@@ -77,7 +78,7 @@ export async function OfferDetail({ slug, lang }: OfferDetailProps) {
         </div>
 
         <div className="self-start lg:sticky lg:top-20">
-          <BookingWidget offer={offer} />
+          <BookingWidgetLazy offer={offer} />
         </div>
       </section>
 

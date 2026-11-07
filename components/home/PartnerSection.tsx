@@ -10,7 +10,7 @@ import {
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { ReferralDiagram } from "@/components/home/ReferralDiagram";
-import { PartnerSteps } from "@/components/partner/PartnerSteps";
+import { PartnerStepsLazy } from "@/components/partner/PartnerStepsLazy";
 
 const BENEFITS = [
   { key: "commission", icon: PercentIcon },
@@ -45,7 +45,7 @@ export async function PartnerSection() {
 
         <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
           <div className="flex flex-col gap-6">
-            <PartnerSteps />
+            <PartnerStepsLazy />
 
             <ul className="grid gap-2 sm:grid-cols-2">
               {BENEFITS.map(({ key, icon: Icon }) => (

@@ -10,7 +10,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ContactWidget } from "@/components/contact/ContactWidget";
+import { ContactWidgetLazy } from "@/components/contact/ContactWidgetLazy";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 import { offersBySection } from "@/lib/catalog";
 
@@ -184,7 +184,7 @@ export default async function EquipmentPage({
           <MailIcon className="size-5 text-primary" />
           {t("formTitle")}
         </h2>
-        <ContactWidget />
+        <ContactWidgetLazy />
       </section>
 
       <CtaBanner

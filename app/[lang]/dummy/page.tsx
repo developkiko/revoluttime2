@@ -9,14 +9,14 @@ import {
   TrophyIcon,
 } from "lucide-react";
 
-import { ContactWidget } from "@/components/contact/ContactWidget";
-import { LevelsCascade } from "@/components/partner/LevelsCascade";
-import { PartnerSteps } from "@/components/partner/PartnerSteps";
+import { ContactWidgetLazy } from "@/components/contact/ContactWidgetLazy";
+import { LevelsCascadeLazy } from "@/components/partner/LevelsCascadeLazy";
+import { PartnerStepsLazy } from "@/components/partner/PartnerStepsLazy";
 import { ReferralDiagram } from "@/components/home/ReferralDiagram";
 import { UsageSection } from "@/components/home/UsageSection";
 import { AdminDemoButton } from "@/components/admin/AdminDemoButton";
 import { getOffer } from "@/lib/catalog";
-import { BookingWidget } from "@/components/booking/BookingWidget";
+import { BookingWidgetLazy } from "@/components/booking/BookingWidgetLazy";
 
 export async function generateMetadata(
   props: PageProps<"/[lang]/dummy">
@@ -117,7 +117,7 @@ export default async function DummyPage({
         <p className="mb-6 mt-1 text-sm text-muted-foreground">
           {t("contactSubtitle")}
         </p>
-        <ContactWidget />
+        <ContactWidgetLazy />
       </section>
 
       {/* Admin demo sign-in */}
@@ -133,7 +133,7 @@ export default async function DummyPage({
               {t("stepsTitle")}
             </h2>
             <div className="mt-6">
-              <PartnerSteps />
+              <PartnerStepsLazy />
             </div>
           </div>
           <div className="flex flex-col gap-6">
@@ -152,7 +152,7 @@ export default async function DummyPage({
             {t("levelsTitle")}
           </h2>
           <div className="mt-6">
-            <LevelsCascade />
+            <LevelsCascadeLazy />
           </div>
         </div>
         <div>
@@ -160,7 +160,7 @@ export default async function DummyPage({
             {t("bookingTitle")}
           </h2>
           <div className="mt-6">
-            <BookingWidget offer={badminton} />
+            <BookingWidgetLazy offer={badminton} />
           </div>
         </div>
       </section>

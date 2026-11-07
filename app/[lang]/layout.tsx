@@ -9,7 +9,7 @@ import { routing } from "@/i18n/routing";
 import "../globals.css";
 import { cn } from "@/lib/utils";
 import { CartProvider } from "@/components/cart/CartProvider";
-import { CartDrawer } from "@/components/cart/CartDrawer";
+import { CartDrawerLazy } from "@/components/cart/CartDrawerLazy";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/layout/ThemeToggle";
@@ -65,7 +65,7 @@ export default async function LangLayout({
               <Header />
               <main className="flex flex-1 flex-col">{children}</main>
               <Footer />
-            <CartDrawer />
+            <CartDrawerLazy />
             {/* Queue behavior: one visible toast at a time. */}
             <Toaster position="bottom-right" visibleToasts={1} />
             <CookieBanner />
