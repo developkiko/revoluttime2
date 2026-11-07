@@ -713,6 +713,26 @@
     "shippingNote": "Ships from Hebertshausen (Bavaria) via DHL/Hermes. Delivery within Germany in 1–2 business days.",
     "addedToast": "“{name}” added to cart"
   },
+  "checkout": {
+    "title": "Checkout",
+    "subtitle": "Review your order and pay securely via Stripe.",
+    "itemsTitle": "Your order",
+    "total": "Total",
+    "empty": "Your cart is empty.",
+    "backToShop": "Back to products",
+    "ticketsNote": "Booked sessions & trips are not payable online yet — they stay in your cart and are confirmed via WhatsApp/Telegram.",
+    "pay": "Go to payment",
+    "paying": "Redirecting to Stripe…",
+    "note": "Secure payment via Stripe (card, PayPal, Revolut). Ships from Hebertshausen within 1–2 business days. Kleinunternehmer per § 19 UStG — no VAT charged.",
+    "notConfigured": "Online payment is not enabled yet. Please order via WhatsApp or Telegram.",
+    "error": "Could not start the payment. Please try again.",
+    "orderId": "Reference",
+    "successTitle": "Thanks for your order!",
+    "successText": "Your payment went through. Shipping details will arrive by e-mail; parcels leave Hebertshausen within 1–2 business days.",
+    "cancelTitle": "Payment cancelled",
+    "cancelText": "No problem — your cart is saved. You can restart the payment any time.",
+    "backToCart": "Back to checkout"
+  },
   "footer": {
     "about": "RevolutTIME — an ecosystem for active longevity: hydrogen tablets, a biohacking studio and a partner program. Eurofins-tested, shipped from Bavaria.",
     "directionsTitle": "Directions",

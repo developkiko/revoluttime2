@@ -713,6 +713,26 @@
     "shippingNote": "Versand aus Hebertshausen (Bayern) mit DHL/Hermes. Lieferung in 1–2 Werktagen innerhalb Deutschlands.",
     "addedToast": "„{name}“ zum Warenkorb hinzugefügt"
   },
+  "checkout": {
+    "title": "Kasse",
+    "subtitle": "Prüfe deine Bestellung und bezahle sicher mit Stripe.",
+    "itemsTitle": "Deine Bestellung",
+    "total": "Gesamt",
+    "empty": "Dein Warenkorb ist leer.",
+    "backToShop": "Zu den Produkten",
+    "ticketsNote": "Gebuchte Termine & Ausflüge sind aktuell nicht online bezahlbar — sie bleiben im Warenkorb und werden per WhatsApp/Telegram bestätigt.",
+    "pay": "Zur Zahlung",
+    "paying": "Weiterleitung zu Stripe…",
+    "note": "Sichere Zahlung via Stripe (Karte, PayPal, Revolut). Versand aus Hebertshausen in 1–2 Werktagen. Kleinunternehmer gem. § 19 UStG — keine USt. ausgewiesen.",
+    "notConfigured": "Online-Zahlung ist noch nicht aktiviert. Bestelle kurz per WhatsApp oder Telegram.",
+    "error": "Zahlung konnte nicht gestartet werden. Bitte versuche es erneut.",
+    "orderId": "Referenz",
+    "successTitle": "Danke für deine Bestellung!",
+    "successText": "Deine Zahlung war erfolgreich. Versanddetails erhältst du per E-Mail; die Ware kommt in 1–2 Werktagen aus Hebertshausen.",
+    "cancelTitle": "Zahlung abgebrochen",
+    "cancelText": "Kein Problem — dein Warenkorb bleibt gespeichert. Du kannst die Zahlung jederzeit erneut starten.",
+    "backToCart": "Zurück zur Kasse"
+  },
   "footer": {
     "about": "RevolutTIME — Ökosystem für aktives Longevity: Wasserstofftabletten, Biohacking-Studio und Partnerprogramm. Geprüft von Eurofins, versendet aus Bayern.",
     "directionsTitle": "Richtungen",

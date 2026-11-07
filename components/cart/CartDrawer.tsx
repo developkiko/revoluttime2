@@ -211,7 +211,9 @@ export function CartDrawer() {
                 </span>
               </div>
               <Button size="lg" className="w-full" asChild>
-                <Link href="/checkout">{t("checkout")}</Link>
+                <Link href="/checkout" onClick={closeCart}>
+                  {t("checkout")}
+                </Link>
               </Button>
               <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <TruckIcon className="size-3.5 shrink-0" />
