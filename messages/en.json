@@ -620,12 +620,12 @@
     "impressum": {
       "title": "Imprint",
       "sections": [
-        { "h": "Information according to § 5 DDG", "p": "Gewerbe Yuriy Moshenets\nWeilbacher Str. 10\n85241 Hebertshausen\nDeutschland" },
+        { "h": "Information according to § 5 DDG", "p": "Gewerbe Yuriy Moshenets (service provider)\nWeilbacher Str. 10\n85241 Hebertshausen\nDeutschland\n\nWarehouse & logistics: Weilbacher Str. 10, 85241 Hebertshausen, Deutschland.\nRevolutTIME brand operator: YULKK UNITED CORP., 39 Cobblers Ln, Staten Island, NY 10304, USA (Company Reg. 81-4691539)." },
         { "h": "Contact", "p": "Phone / WhatsApp: +49 175 9590916\nE-Mail: karakymg@gmail.com" },
         { "h": "VAT", "p": "According to § 19 UStG (small business rule) no VAT is charged and therefore not shown." },
         { "h": "Responsible for the content according to § 18 Abs. 2 MStV", "p": "Yuriy Moshenets, address as above." },
         { "h": "EU dispute resolution", "p": "We are neither obliged nor willing to participate in dispute resolution proceedings before a consumer arbitration board." },
-        { "h": "Trademark and copyright", "p": "The RevolutTIME brand is operated by YULKK UNITED CORP., 39 Cobblers Lane, Staten Island, NY 10304, USA. EU distributor: Gewerbe Yuriy Moshenets (see above). All content on this website is protected by copyright." }
+        { "h": "Trademark and copyright", "p": "The RevolutTIME brand is operated by YULKK UNITED CORP., 39 Cobblers Ln, Staten Island, NY 10304, USA (Company Reg. 81-4691539). EU distributor: Gewerbe Yuriy Moshenets (see above). All content on this website is protected by copyright." }
       ]
     },
     "datenschutz": {

@@ -620,12 +620,12 @@
     "impressum": {
       "title": "Impressum — данные владельца сайта",
       "sections": [
-        { "h": "Данные согласно § 5 DDG", "p": "Gewerbe Yuriy Moshenets\nWeilbacher Str. 10\n85241 Hebertshausen\nDeutschland" },
+        { "h": "Данные согласно § 5 DDG", "p": "Gewerbe Yuriy Moshenets (поставщик услуг)\nWeilbacher Str. 10\n85241 Hebertshausen\nDeutschland\n\nСклад и логистика: Weilbacher Str. 10, 85241 Hebertshausen, Германия.\nВладелец бренда RevolutTIME: YULKK UNITED CORP., 39 Cobblers Ln, Staten Island, NY 10304, США (Company Reg. 81-4691539)." },
         { "h": "Контакты", "p": "Телефон / WhatsApp: +49 175 9590916\nE-Mail: karakymg@gmail.com" },
         { "h": "НДС", "p": "Согласно § 19 UStG (положение о малых предприятиях) НДС не начисляется и не указывается." },
         { "h": "Ответственный за контент (§ 18 Abs. 2 MStV)", "p": "Yuriy Moshenets, адрес как выше." },
         { "h": "Разрешение споров ЕС", "p": "Мы не обязаны и не готовы участвовать в процедурах разрешения споров с привлечением органов по урегулированию споров с потребителями." },
-        { "h": "Права на бренд и контент", "p": "Бренд RevolutTIME принадлежит YULKK UNITED CORP., 39 Cobblers Lane, Staten Island, NY 10304, США. Дистрибьютор в ЕС: Gewerbe Yuriy Moshenets (см. выше). Все материалы сайта защищены авторским правом." }
+        { "h": "Права на бренд и контент", "p": "Бренд RevolutTIME принадлежит YULKK UNITED CORP., 39 Cobblers Ln, Staten Island, NY 10304, США (Company Reg. 81-4691539). Дистрибьютор в ЕС: Gewerbe Yuriy Moshenets (см. выше). Все материалы сайта защищены авторским правом." }
       ]
     },
     "datenschutz": {

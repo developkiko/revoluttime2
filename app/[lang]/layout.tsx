@@ -16,6 +16,8 @@ import { ThemeProvider } from "@/components/layout/ThemeToggle";
 import { LoginNotice } from "@/components/layout/LoginNotice";
 import { Toaster } from "@/components/ui/sonner";
 import { CookieBanner } from "@/components/layout/CookieBanner";
+import { AnalyticsGate } from "@/components/layout/AnalyticsGate";
+import { RefCapture } from "@/components/layout/RefCapture";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
@@ -67,6 +69,8 @@ export default async function LangLayout({
             {/* Queue behavior: one visible toast at a time. */}
             <Toaster position="bottom-right" visibleToasts={1} />
             <CookieBanner />
+            <AnalyticsGate />
+            <RefCapture />
             <React.Suspense fallback={null}>
               <LoginNotice />
             </React.Suspense>

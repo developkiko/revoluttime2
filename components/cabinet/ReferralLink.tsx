@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
+import { AnalyticsEvents, track } from "@/lib/analytics/events";
 
 import { Button } from "@/components/ui/button";
 import { CopyIcon } from "lucide-react";
@@ -26,6 +27,7 @@ export function ReferralLink({ email }: { email: string }) {
   const link = `${window.location.origin}/${locale}?ref=${code}`;
 
   async function copy() {
+    track(AnalyticsEvents.PARTNER_LINK_CLICK, { code });
     try {
       await navigator.clipboard.writeText(link);
       setCopied(true);

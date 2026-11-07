@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import * as React from "react";
 
 import { useCart } from "@/components/cart/CartProvider";
+import { AnalyticsEvents, track } from "@/lib/analytics/events";
 import { formatPrice, PACK_VARIANTS, type Locale, type PackId } from "@/lib/products";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -113,6 +114,10 @@ function PackCard({ packId }: { packId: PackId }) {
 
 export function ProductVariants() {
   const t = useTranslations("variants");
+
+  React.useEffect(() => {
+    track(AnalyticsEvents.PRODUCT_VIEW);
+  }, []);
 
   return (
     <section id="variants" className="scroll-mt-16">

@@ -13,6 +13,7 @@ import {
   type PackCartItem,
 } from "@/components/cart/CartProvider";
 import { formatPrice, getPack, type Locale } from "@/lib/products";
+import { AnalyticsEvents, track } from "@/lib/analytics/events";
 
 /**
  * Order summary + hand-off to Stripe Checkout (server session in /api/checkout).
@@ -31,6 +32,7 @@ export function CheckoutView() {
   async function startPayment() {
     if (pending) return;
     setPending(true);
+    track(AnalyticsEvents.CHECKOUT_START, { total_cents: totalPriceCents, lines: packs.length });
     try {
       const response = await fetch("/api/checkout", {
         method: "POST",

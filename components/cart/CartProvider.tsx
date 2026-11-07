@@ -3,6 +3,7 @@
 import * as React from "react";
 import { getPack, type PackId } from "@/lib/products";
 import { getOfferSlot } from "@/lib/catalog";
+import { AnalyticsEvents, track } from "@/lib/analytics/events";
 
 export interface PackCartItem {
   kind: "pack";
@@ -179,10 +180,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     cartStore.writeItems(
       mergeItem(cartStore.getSnapshot(), { kind: "pack", packId, quantity })
     );
+    track(AnalyticsEvents.PRODUCT_ADD_TO_CART, { kind: "pack", pack_id: packId, quantity });
   }, []);
 
   const addTicket = React.useCallback(
     (offerSlug: string, slotId: string, people: number) => {
+      track(AnalyticsEvents.PRODUCT_ADD_TO_CART, {
+        kind: "ticket",
+        offer_slug: offerSlug,
+        people,
+      });
       cartStore.writeItems(
         mergeItem(cartStore.getSnapshot(), {
           kind: "ticket",
