@@ -749,6 +749,40 @@
     "acceptAll": "Accept all",
     "essential": "Essential only"
   },
+  "encyclopedia": {
+    "title": "Science Encyclopedia",
+    "subtitle": "Reliable knowledge about hydrogen, magnesium and recovery — every claim backed by a study card and an evidence status (HWG-compliant).",
+    "badge": "Evidence-per-Claim",
+    "searchPlaceholder": "Search articles…",
+    "categories": {
+      "all": "All",
+      "fundamentals": "Fundamentals",
+      "human_biology": "Human biology",
+      "studies": "Studies",
+      "equipment": "Equipment"
+    },
+    "noResults": "No articles found.",
+    "readMore": "Read",
+    "claimsTitle": "Key claims and evidence",
+    "hwgTitle": "Medical notice (HWG)",
+    "hwgText": "This content is for information only and does not replace medical advice, diagnosis or treatment. Effect statements are phrased cautiously and rely on the cited studies; human studies are partly small and preliminary. Food supplements are not a substitute for a balanced diet. Please consult a doctor for health concerns.",
+    "meta": {
+      "author": "Editorial",
+      "reviewer": "Scientific review",
+      "lastReviewed": "Last reviewed"
+    },
+    "evidence": {
+      "highConsensus": "High consensus",
+      "preliminaryPromising": "Preliminary promising",
+      "insufficientData": "Insufficient data"
+    },
+    "studyTypes": {
+      "humanClinical": "Human trial",
+      "animalStudy": "Animal study",
+      "inVitro": "Laboratory / cell",
+      "metaAnalysis": "Meta-analysis"
+    }
+  },
   "footer": {
     "about": "RevolutTIME — an ecosystem for active longevity: hydrogen tablets, a biohacking studio and a partner program. Eurofins-tested, shipped from Bavaria.",
     "directionsTitle": "Directions",

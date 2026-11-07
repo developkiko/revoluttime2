@@ -749,6 +749,40 @@
     "acceptAll": "Alle akzeptieren",
     "essential": "Nur notwendige"
   },
+  "encyclopedia": {
+    "title": "Wissenschafts-Lexikon",
+    "subtitle": "Fundiertes Wissen zu Wasserstoff, Magnesium und Regeneration — jede Behauptung mit Studienkarte und Evidenz-Status (HWG-konform).",
+    "badge": "Evidence-per-Claim",
+    "searchPlaceholder": "Artikel suchen…",
+    "categories": {
+      "all": "Alle",
+      "fundamentals": "Grundlagen",
+      "human_biology": "Humanbiologie",
+      "studies": "Studien",
+      "equipment": "Equipment"
+    },
+    "noResults": "Keine Artikel gefunden.",
+    "readMore": "Weiterlesen",
+    "claimsTitle": "Kernaussagen und Evidenz",
+    "hwgTitle": "Medizinischer Hinweis (HWG)",
+    "hwgText": "Die Inhalte dienen ausschließlich der Information und ersetzen keine medizinische Beratung, Diagnose oder Behandlung. Aussagen zu Wirkungen werden in einem vorsichtigen Sprachgebrauch formuliert und beruhen auf den zitierten Studien; Humanstudien sind teilweise klein und vorläufig. Nahrungsergänzungsmittel sind kein Ersatz für eine ausgewogene Ernährung. Bei gesundheitlichen Beschwerden bitte ärztlichen Rat einholen.",
+    "meta": {
+      "author": "Redaktion",
+      "reviewer": "Wissenschaftliche Prüfung",
+      "lastReviewed": "Zuletzt geprüft"
+    },
+    "evidence": {
+      "highConsensus": "Hoher Konsens",
+      "preliminaryPromising": "Vorläufig vielversprechend",
+      "insufficientData": "Unzureichende Daten"
+    },
+    "studyTypes": {
+      "humanClinical": "Humanstudie",
+      "animalStudy": "Tierstudie",
+      "inVitro": "Labor-/Zellstudie",
+      "metaAnalysis": "Meta-Analyse"
+    }
+  },
   "footer": {
     "about": "RevolutTIME — Ökosystem für aktives Longevity: Wasserstofftabletten, Biohacking-Studio und Partnerprogramm. Geprüft von Eurofins, versendet aus Bayern.",
     "directionsTitle": "Richtungen",

@@ -69,7 +69,10 @@ export default async function LangLayout({
             {/* Queue behavior: one visible toast at a time. */}
             <Toaster position="bottom-right" visibleToasts={1} />
             <CookieBanner />
-            <AnalyticsGate />
+            {/* AnalyticsGate reads pathname -> needs a Suspense boundary for static prerenders */}
+            <React.Suspense fallback={null}>
+              <AnalyticsGate />
+            </React.Suspense>
             <RefCapture />
             <React.Suspense fallback={null}>
               <LoginNotice />
