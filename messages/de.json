@@ -885,7 +885,8 @@
       "studio": "Fitness-Biohacking-Studio",
       "equipment": "Equipment-Verkauf",
       "recreation": "Aktiver Sporturlaub",
-      "partner": "Partnerprogramm"
+      "partner": "Partnerprogramm",
+      "journey": "Discovery Journey"
     },
     "contactsTitle": "Kontakt",
     "company": "Gewerbe Yuriy Moshenets",
@@ -902,5 +903,109 @@
     "disclaimer": "Nahrungsergänzungsmittel. Die empfohlene Verzehrmenge nicht überschreiten. Außerhalb der Reichweite von kleinen Kindern aufbewahren. Eine ausgewogene und abwechslungsreiche Ernährung und eine gesunde Lebensweise sind wichtig.",
     "brandOwner": "Marke: YULKK UNITED CORP., USA",
     "rightsSuffix": "Alle Rechte vorbehalten."
+  },
+  "journey": {
+    "meta": {
+      "title": "Discovery Journey — Dein persönlicher Einstieg",
+      "description": "Drei Fragen zu Ziel, Erfahrung und Format — und Du erhältst Deinen persönlichen RevolutTIME-Programmvorschlag als PDF."
+    },
+    "badge": "Interaktiver Onboarding-Guide",
+    "title": "Finde Dein Programm in 3 Fragen",
+    "subtitle": "Ziel, Erfahrung, Wunschformat — daraus bauen wir Deinen persönlichen Einstiegspfad zusammen und Du erhältst ihn als PDF zum Mitnehmen.",
+    "progress": "Schritt {step} von {total}",
+    "back": "Zurück",
+    "stepsHint": "Dauert ca. eine Minute. Deine Angaben werden nur zur Erstellung Deines Programms genutzt.",
+    "steps": {
+      "goal": {
+        "title": "Was ist Dein Hauptziel?",
+        "options": {
+          "energy": "Mehr Energie im Alltag",
+          "recovery": "Bessere Regeneration",
+          "balance": "Ausgewogene Grundversorgung",
+          "sport": "Sportliche Leistungsfähigkeit"
+        }
+      },
+      "experience": {
+        "title": "Wie erfahren bist Du mit H₂ und Magnesium?",
+        "options": {
+          "newcomer": "Neu — ich fange gerade an",
+          "experienced": "Erfahren — ich kenne die Basics"
+        }
+      },
+      "format": {
+        "title": "Welches Format passt zu Dir?",
+        "options": {
+          "tablets": "Tabletten für zu Hause",
+          "studio": "Anwendungen im Studio",
+          "recreation": "Aktivprogramm draußen"
+        }
+      },
+      "contact": {
+        "title": "Fast fertig — Dein Kontakt für das Programm",
+        "name": "Name (optional)",
+        "namePlaceholder": "Vor- oder Spitzname",
+        "email": "E-Mail",
+        "consent": "Ich stimme zu, dass meine Angaben zur Erstellung des Programms gespeichert und dem RevolutTIME-Team übermittelt werden (siehe Datenschutzerklärung).",
+        "submit": "Programm erstellen"
+      }
+    },
+    "results": {
+      "badge": "Dein Vorschlag",
+      "intro": "Auf Basis Deiner Antworten empfehlen wir folgenden Einstiegspfad:",
+      "contactLine": "Erstellt für {name} ({email}) — {date}",
+      "footnote": "Hinweis: Diese Empfehlung ist Information und ersetzt keine medizinische Beratung. Bei Vorerkrankungen oder Medikation bitte ärztlich abklären.",
+      "download": "Programm als PDF",
+      "downloading": "PDF wird erstellt …",
+      "downloadSuccess": "PDF wurde heruntergeladen!",
+      "downloadError": "PDF-Erstellung fehlgeschlagen — bitte später erneut versuchen.",
+      "restart": "Neu starten",
+      "programs": {
+        "balance-start": {
+          "title": "Balance-Start: Grundversorgung aufbauen",
+          "description": "Sanfter Einstieg mit den Tabletten: erst die Basis mit Magnesium stabilisieren, H₂ als tägliche Begleitung verstehen und die Wirkung dokumentiert beobachten.",
+          "bullets": [
+            "2–4 Wochen Magnesium + H₂-Tabletten täglich zur Basisversorgung",
+            "Studienlage zur Einordnung in der Encyclopedia lesen",
+            "Wirkung dokumentieren: Energie, Schlaf, Krämpfe in kurzen Notizen",
+            "Anschließend Studio- oder Aktivmodule ergänzen, wenn die Basis steht"
+          ]
+        },
+        "performance-recovery": {
+          "title": "Performance und Recovery: für Training und Alltag",
+          "description": "Für aktive Menschen: Magnesium für Muskeln und Nerven, H₂ als Forschungsthema im Regenerationskontext — mit realistischen Erwartungen.",
+          "bullets": [
+            "Tabletten an Trainingstagen — Morgendosis vor der Einheit",
+            "Regeneration dokumentieren: Muskelkater, Schlaf, Belastbarkeit",
+            "Studienlage zu H₂ und Sport in der Encyclopedia nachlesen",
+            "Optional: Studio-Module (z. B. Rotlicht, Vibration) ergänzen"
+          ]
+        },
+        "mind-body-studio": {
+          "title": "Mind und Body: Anwendungen im Studio",
+          "description": "Dein Fokus liegt auf geführten Anwendungen: Atemarbeit, Rotlicht, Vibration und mehr — kombiniert mit einer stabilen Basis aus Magnesium und H₂ zu Hause.",
+          "bullets": [
+            "Studio-Beratungstermin vereinbaren (WhatsApp-Kontakt)",
+            "Magnesium + H₂-Tabletten als tägliche Basis",
+            "Anwendungen im Zweiwochenrhythmus planen",
+            "Wirkung in kurzen Notizen verfolgen"
+          ]
+        },
+        "active-outdoor": {
+          "title": "Aktiv draußen: Erlebnis plus Grundversorgung",
+          "description": "Bewegung an der frischen Luft als Fundament — Badminton-Events und Aktivprogramme, ergänzt durch Magnesium und H₂ als tägliche Basis.",
+          "bullets": [
+            "Nächstes Badminton-Event im Freizeitbereich sichern",
+            "Magnesium + H₂-Tabletten als tägliche Basis",
+            "Trinkroutine: H₂-Wasser frisch zubereitet einnehmen",
+            "Wochenbilanz ziehen: Energie, Schlaf, Belastbarkeit"
+          ]
+        }
+      }
+    },
+    "encyclopediaHint": "Möchtest Du die Studienlage selbst prüfen? In der Encyclopedia findest Du alle Artikel mit PubMed-Quellen und Evidenz-Bewertung.",
+    "encyclopediaLink": "Zur Encyclopedia",
+    "pdf": {
+      "header": "RevolutTIME — Discovery Journey"
+    }
   }
 }

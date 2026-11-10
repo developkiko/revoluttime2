@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { CATALOG_OFFERS } from "@/lib/catalog";
+import { ENCYCLOPEDIA_ARTICLES } from "@/lib/encyclopedia";
 
 const BASE = (
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? "https://revolut-time.vercel.app"
@@ -8,6 +9,7 @@ const BASE = (
 
 const STATIC_PATHS = [
   "",
+  "/journey",
   "/shop",
   "/hydrogen",
   "/hydrogen/tablets",
@@ -16,8 +18,7 @@ const STATIC_PATHS = [
   "/recreation",
   "/partner",
   "/encyclopedia",
-  "/encyclopedia/molecular-hydrogen-basics",
-  "/encyclopedia/magnesium-h2-synergy",
+  ...ENCYCLOPEDIA_ARTICLES.map((article) => `/encyclopedia/${article.slug}`),
   "/legal/impressum",
   "/legal/datenschutz",
   "/legal/agb",

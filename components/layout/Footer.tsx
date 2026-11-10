@@ -7,6 +7,7 @@ import { Logo } from "@/components/layout/Logo";
 import { SITE } from "@/lib/products";
 
 const DIRECTION_LINKS = [
+  { href: "/journey", key: "journey" },
   { href: "/shop", key: "tablets" },
   { href: "/studio", key: "studio" },
   { href: "/equipment", key: "equipment" },

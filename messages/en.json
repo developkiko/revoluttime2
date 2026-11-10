@@ -885,7 +885,8 @@
       "studio": "Fitness biohacking studio",
       "equipment": "Equipment sales",
       "recreation": "Active sports recreation",
-      "partner": "Partner program"
+      "partner": "Partner program",
+      "journey": "Discovery Journey"
     },
     "contactsTitle": "Contact",
     "company": "Gewerbe Yuriy Moshenets",
@@ -902,5 +903,109 @@
     "disclaimer": "Food supplement. Do not exceed the recommended daily dose. Keep out of reach of small children. A balanced and varied diet and a healthy lifestyle are important.",
     "brandOwner": "Brand: YULKK UNITED CORP., USA",
     "rightsSuffix": "All rights reserved."
+  },
+  "journey": {
+    "meta": {
+      "title": "Discovery Journey — your personal starting point",
+      "description": "Three questions on goal, experience and format — and you get your personal RevolutTIME program recommendation as a PDF."
+    },
+    "badge": "Interactive onboarding guide",
+    "title": "Find your program in 3 questions",
+    "subtitle": "Goal, experience, preferred format — we assemble your personal starting path from that, ready to take along as a PDF.",
+    "progress": "Step {step} of {total}",
+    "back": "Back",
+    "stepsHint": "Takes about a minute. Your answers are only used to build your program.",
+    "steps": {
+      "goal": {
+        "title": "What is your main goal?",
+        "options": {
+          "energy": "More energy in everyday life",
+          "recovery": "Better recovery",
+          "balance": "Balanced baseline support",
+          "sport": "Athletic performance"
+        }
+      },
+      "experience": {
+        "title": "How familiar are you with H₂ and magnesium?",
+        "options": {
+          "newcomer": "New — just getting started",
+          "experienced": "Experienced — I know the basics"
+        }
+      },
+      "format": {
+        "title": "Which format suits you?",
+        "options": {
+          "tablets": "Tablets at home",
+          "studio": "Applications at the studio",
+          "recreation": "Outdoor activity program"
+        }
+      },
+      "contact": {
+        "title": "Almost done — your contact for the program",
+        "name": "Name (optional)",
+        "namePlaceholder": "First name or nickname",
+        "email": "E-mail",
+        "consent": "I agree that my details are stored to create my program and shared with the RevolutTIME team (see the privacy policy).",
+        "submit": "Create program"
+      }
+    },
+    "results": {
+      "badge": "Your recommendation",
+      "intro": "Based on your answers, we recommend the following starting path:",
+      "contactLine": "Created for {name} ({email}) — {date}",
+      "footnote": "Note: this recommendation is informational and does not replace medical advice. With pre-existing conditions or medication, please consult a doctor first.",
+      "download": "Program as PDF",
+      "downloading": "Generating PDF …",
+      "downloadSuccess": "PDF has been downloaded!",
+      "downloadError": "PDF generation failed — please try again later.",
+      "restart": "Start over",
+      "programs": {
+        "balance-start": {
+          "title": "Balance start: building the baseline",
+          "description": "A gentle start with the tablets: stabilize the magnesium base first, understand H₂ as a daily companion and observe the effects in a documented way.",
+          "bullets": [
+            "2–4 weeks of daily magnesium + H₂ tablets for baseline support",
+            "Read the key studies for context in the encyclopedia",
+            "Document effects: energy, sleep, cramps in short notes",
+            "Add studio or activity modules once the baseline is set"
+          ]
+        },
+        "performance-recovery": {
+          "title": "Performance and recovery: for training and everyday life",
+          "description": "For active people: magnesium for muscles and nerves, H₂ as a research topic in the recovery context — with realistic expectations.",
+          "bullets": [
+            "Tablets on training days — morning dose before the session",
+            "Document recovery: soreness, sleep, workload tolerance",
+            "Read up on H₂ and sport in the encyclopedia",
+            "Optional: studio modules (e.g., red light, vibration)"
+          ]
+        },
+        "mind-body-studio": {
+          "title": "Mind and body: applications at the studio",
+          "description": "Your focus is guided applications: breathwork, red light, vibration and more — combined with a stable magnesium + H₂ baseline at home.",
+          "bullets": [
+            "Book a studio consultation (WhatsApp contact)",
+            "Magnesium + H₂ tablets as a daily baseline",
+            "Plan applications in a two-week rhythm",
+            "Track effects in short notes"
+          ]
+        },
+        "active-outdoor": {
+          "title": "Active outdoors: experience plus baseline",
+          "description": "Movement in fresh air as the foundation — badminton events and activity programs, complemented by magnesium and H₂ as a daily baseline.",
+          "bullets": [
+            "Secure the next badminton event in the recreation section",
+            "Magnesium + H₂ tablets as a daily baseline",
+            "Drinking routine: take HRW freshly prepared",
+            "Weekly review: energy, sleep, resilience"
+          ]
+        }
+      }
+    },
+    "encyclopediaHint": "Want to review the studies yourself? The encyclopedia lists every article with PubMed sources and an evidence rating.",
+    "encyclopediaLink": "Go to the encyclopedia",
+    "pdf": {
+      "header": "RevolutTIME — Discovery Journey"
+    }
   }
 }
