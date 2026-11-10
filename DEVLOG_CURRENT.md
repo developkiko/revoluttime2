@@ -37,6 +37,7 @@
 | `3d0c1cc`, `2c6fe3a` | пустые ретраи деплоя (упали на provisioning — см. ниже) + `.gitignore: .vercel` |
 | **CLI-deploy** | Прод обновлён вручную через `vercel deploy --prod` (билд `revolut-time-het7m111j`), после удаления битой Supabase-интеграции |
 | `6b0f727` | **Supabase переприкручен**: новый проект `revtime` (eu-west-3), миграции init+grants прогнаны, env на Vercel, **E2E-проверено: прод читает статьи из БД** (probe-статья появилась/исчезла в каталоге корректно) |
+| `b4735c9` | **P2 frontend batch**: свайпы Hero (Pointer Events, touch+мышь, touch-pan-y), видео `/videos/tbltv1.mp4` на /hydrogen/tablets (autoplay muted loop, `tablets.demo` ×3 локали), фоны `/images/wall/` в Hero/Studio/Equipment/Recreation (низкая opacity + градиент), **/api/webhooks/stripe** (constructEventAsync → upsert orders + pending ledger 14д + Telegram) через `lib/telegram.ts` (общий notifyAdminChat, contact API отрефакторен) |
 
 ## 4. Хроника сессии 10.11 (важно для понимания)
 
@@ -53,7 +54,7 @@
 1. ✅ БД `revtime` (eu-west-3): миграции `20261110000000_init.sql` + `20261110000001_grants.sql` прогнаны; сид (research 3 / claims 4 / articles 6 / article_claims 12 / products 2); RLS+гранты проверены (anon читает опубликованное, INSERT 401).
 2. ✅ E2E: prod-каталог показывает статьи из БД (probe-метод: временная статья в БД появилась на /de/encyclopedia и исчезла после удаления).
 3. ➡ **ШАГ 2**: энциклопедия до 10+ статей. Контент добавлять СИНХРОННО: `lib/encyclopedia.ts` (сид-фолбэк) + SQL в `20261110000000_init.sql` (перепрогонять init на новой БД) — или писать в БД напрямую через пулер. Фильтр по evidence level в UI.
-4. ➡ **ШАГ 3**: `/api/webhooks/stripe` (verify signature) → insert `orders` + `financial_ledger` (pending, unlocks_at = NOW()+14д) → Telegram-уведомление (@revoluttime_bot, chat 5157746090). Для записи нужен от владельца **`sb_secret_…` (service_role)** → `SUPABASE_SERVICE_ROLE_KEY` в Vercel.
+4. ➡ **ШАГ 3 (код готов, ждёт ключей)**: `/api/webhooks/stripe` написан (constructEventAsync → upsert `orders` по stripe_session_id + pending-запись в `financial_ledger` (фонд 30% из mlm-calculator, unlocks_at = +14д) → Telegram). Активируется тремя env в Vercel: `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` (Stripe Dashboard → Developers → Webhooks → endpoint `https://revolut-time.vercel.app/api/webhooks/stripe`, событие checkout.session.completed + async_payment_succeeded) + `SUPABASE_SERVICE_ROLE_KEY` (= `sb_secret_…`). Без ключей отдаёт 503 — Stripe сам ретраит. beneficiary_id в ledger пока null (profiles/auth ещё нет — бэкфилл позже).
 5. Известный кворк: несуществующий slug энциклопедии = 404-контент при HTTP 200 (cacheComponents/PPR не даёт `dynamicParams`) — кандидат в P2.2.
 
 ## 6. ENV-переменные
