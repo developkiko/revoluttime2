@@ -8,7 +8,7 @@
 - **Tailwind v4** (CSS-first, конфиг в `app/globals.css`) + **shadcn** (импорты из пакетов `radix-ui` и `cn`)
 - **next-intl**: de (дефолт) / ru / en — любые тексты сразу в `messages/{de,ru,en}.json`; ESLint react-hooks v6: запрещены setState в useEffect и `location.href=` (использовать `location.assign`)
 - **Vercel**: проект `revolut-time` (`prj_fByD65LZUCP3K84JexOgF1IVs5Q6`), team `team_TWbuf03uGZI1HmKdbpyzJvNR` (Hobby); git `developkiko/revoluttime2` → main = автодеплой
-- **Supabase УДАЛЁН владельцем** (решение 10.11.2026): проект `sb-revolut-db` снесён, маркетплейс-интеграция на Vercel отвязана, env-ключи удалены из Vercel и из локального `.env.local`
+- **Supabase**: старый `sb-revolut-db` владелец удалил; **создан новый проект `revtime`** (`jzjezfewouleamrsnzla`, регион **eu-west-3 Paris**). Подключён БЕЗ маркетплейс-интеграции (она валила деплои) — ключи вручную в Vercel env. Ключи нового формата: `sb_publishable_…` (роль anon); для записи из вебхука позже понадобится `sb_secret_…` (service_role). Прямой хост `db.<ref>` — IPv6-only, с Windows не резолвится → для миграций использовать **пулер `aws-0-eu-west-3.pooler.supabase.com:5432`, юзер `postgres.<ref>`** (в `.env.local`). Новые проекты Supabase не дают anon GRANTы по умолчанию → миграция `20261110000001_grants.sql` обязательна.
 - Хранилища: корзина `revoluttime-cart-v2`, профиль `revoluttime-profile-v1:<email>`, consent `rt_cookie_consent` (`granted|essential`), реф `rt_ref` (cookie 30д) — все через useSyncExternalStore-сторы
 
 **Грабли (полный список в project.md):** `new Date()` запрещён при пререндере; NEXT_PUBLIC_* запекаются при сборке; Turbopack кеширует CSS → после правок globals.css `rm -rf .next`; Vercel MCP — НЕ передавать teamId (личный Hobby-аккаунт, иначе 404/403); кириллица в curl на Windows — только через node fetch; зомби-`next start` держит порт 3000 после TaskStop.
@@ -36,6 +36,7 @@
 | `85e6005` | chore: чистка неиспользуемого import в contact API |
 | `3d0c1cc`, `2c6fe3a` | пустые ретраи деплоя (упали на provisioning — см. ниже) + `.gitignore: .vercel` |
 | **CLI-deploy** | Прод обновлён вручную через `vercel deploy --prod` (билд `revolut-time-het7m111j`), после удаления битой Supabase-интеграции |
+| `6b0f727` | **Supabase переприкручен**: новый проект `revtime` (eu-west-3), миграции init+grants прогнаны, env на Vercel, **E2E-проверено: прод читает статьи из БД** (probe-статья появилась/исчезла в каталоге корректно) |
 
 ## 4. Хроника сессии 10.11 (важно для понимания)
 
@@ -47,12 +48,12 @@
 
 ## 5. Точная точка остановки
 
-**Спринт P2 пересобран под «без БД»:**
+**Supabase переприкручен, прод читает из БД. Спринт P2 продолжается:**
 
-1. ✅ Прод = свежий билд `revolut-time.vercel.app` (CLI-деплой). Сайт полностью на статических сидах — это штатный режим кода (загрузчики `lib/encyclopedia-db.ts` спят без env).
-2. ❓ **Git-автодеплой**: сайдкар убран — надо проверить, что новый пуш доезжает до прода сам (CLI-деплой был ручным). Если нет — проверить link (`gitProviderOptions.createDeployments` был `disabled`) в Dashboard → Settings → Git.
-3. ➡ **ШАГ 2 (не зависит от БД)**: энциклопедия до 10+ статей — контент пишется в статический сид (`lib/encyclopedia.ts`) ×3 локали, фильтр по evidence level.
-4. ➡ **ШАГ 3**: `/api/webhooks/stripe` (verify signature) — был план «insert orders + financial_ledger в Supabase»; **требуется решение владельца о хранилище** (новый Supabase-проект / файл-сторе / отложить). Telegram-уведомление админу (@revoluttime_bot, chat 5157746090) не зависит от БД — можно делать сразу.
+1. ✅ БД `revtime` (eu-west-3): миграции `20261110000000_init.sql` + `20261110000001_grants.sql` прогнаны; сид (research 3 / claims 4 / articles 6 / article_claims 12 / products 2); RLS+гранты проверены (anon читает опубликованное, INSERT 401).
+2. ✅ E2E: prod-каталог показывает статьи из БД (probe-метод: временная статья в БД появилась на /de/encyclopedia и исчезла после удаления).
+3. ➡ **ШАГ 2**: энциклопедия до 10+ статей. Контент добавлять СИНХРОННО: `lib/encyclopedia.ts` (сид-фолбэк) + SQL в `20261110000000_init.sql` (перепрогонять init на новой БД) — или писать в БД напрямую через пулер. Фильтр по evidence level в UI.
+4. ➡ **ШАГ 3**: `/api/webhooks/stripe` (verify signature) → insert `orders` + `financial_ledger` (pending, unlocks_at = NOW()+14д) → Telegram-уведомление (@revoluttime_bot, chat 5157746090). Для записи нужен от владельца **`sb_secret_…` (service_role)** → `SUPABASE_SERVICE_ROLE_KEY` в Vercel.
 5. Известный кворк: несуществующий slug энциклопедии = 404-контент при HTTP 200 (cacheComponents/PPR не даёт `dynamicParams`) — кандидат в P2.2.
 
 ## 6. ENV-переменные
@@ -61,9 +62,9 @@
 - `STRIPE_SECRET_KEY` — включает оплату (сейчас /api/checkout отдаёт 503 stripe_not_configured)
 - `NEXT_PUBLIC_POSTHOG_KEY` (+ опц. `NEXT_PUBLIC_POSTHOG_HOST`, дефолт eu) — включает аналитику (гейт по consent)
 
-**Есть на Vercel:** TELEGRAM_BOT_TOKEN, NEXT_PUBLIC_TELEGRAM_BOT_NAME, NEXT_PUBLIC_GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, AUTH_SESSION_SECRET.
-**Есть локально (`.env.local`, не в git):** те же + ADMIN_EMAILS + TELEGRAM_ADMIN_CHAT_ID.
-**Supabase-*: удалены везде** (локально и на Vercel) — БД больше нет.
+**Есть на Vercel:** NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY (новый проект `revtime`), TELEGRAM_BOT_TOKEN, NEXT_PUBLIC_TELEGRAM_BOT_NAME, NEXT_PUBLIC_GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, AUTH_SESSION_SECRET.
+**Есть локально (`.env.local`, не в git):** те же + ADMIN_EMAILS + TELEGRAM_ADMIN_CHAT_ID + POSTGRES_URL_NON_POOLING (пулер eu-west-3, для миграций).
+**Нужен позже (ШАГ 3):** `SUPABASE_SERVICE_ROLE_KEY` = `sb_secret_…` из Settings → API → Secret keys.
 **Рекомендовано добавить:** `NEXT_PUBLIC_SITE_URL=https://revolut-time.vercel.app` (дефолт в sitemap уже совпадает с прод-доменом).
 
 ## 7. Правила работы (из чата владельца)

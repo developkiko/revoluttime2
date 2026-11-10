@@ -5,18 +5,18 @@
 ## Спринты
 - ✅ **P0 — безопасность, закон, монетизация** (2f94f25, 78bf060, 2061e6f): Stripe Checkout (/checkout + /api/checkout + success/cancel), CookieBanner (TDDDG §25, gate `lib/consent.ts`), robots.txt + sitemap.xml + manifest.json, Impressum с реальным email и US Corp (Company Reg. 81-4691539), `?ref=` capture (cookie 30д + localStorage), PostHog за consent-гейтом, типизированные события (`lib/analytics/events.ts`).
 - ✅ **P1 — бандл, юнит-экономика, контент-хаб** (7ff9566, ae6f20b, 913d912): 7 компонентов в lazy-чанки (главная 341→284 КБ gz; флор стека ~250), `lib/mlm-calculator.ts` + сетка A–F с евро-суммами на /partner, /encyclopedia (поиск, фильтры категорий, EvidenceBadge, ResearchCard, 2 статьи, HWG-дисклеймеры).
-- 🟡 **P2 — энциклопедия 10+, Telegram-уведомления** — активен (пересобран: Supabase удалён владельцем 10.11):
-  - ✅ шаг 1: миграция DDL+RLS+сид + клиенты + DB-first загрузчики с фолбэком (ca01bd2) — **миграция была успешно прогнана и проверена (RLS, сид-каунты)**; затем владелец удалил Supabase-проект → БД-часть заморожена, код спит (null-client → статический сид), сайт работает на `lib/encyclopedia.ts`. Миграция `supabase/migrations/20261110000000_init.sql` осталась в репо на случай возврата БД.
-  - ⚙️ 10.11 починен прод-деплой: 6 падений «Resource provisioning timed out» = застрявший сайдкар Supabase-маркетплейс-интеграции; после удаления интеграции деплой прошёл, прод обновлён (CLI-деплой).
-  - ❌ шаг 2: энциклопедия до 10+ статей (статический сид ×3 локали), фильтр по уровню доказательности.
-  - ❌ шаг 3: `/api/webhooks/stripe` (verify signature) → Telegram-уведомление админу (бот @revoluttime_bot, chat 5157746090). Запись orders/financial_ledger — **нужно решение владельца о хранилище** (БД удалена; варианты: новый Supabase / файл-сторе / отложить).
+- 🟡 **P2 — Supabase, энциклопедия 10+, Telegram-уведомления** — активен:
+  - ✅ шаг 1 (10.11, переприкручен): новый проект Supabase **`revtime`** (`jzjezfewouleamrsnzla`, eu-west-3, БЕЗ маркетплейс-интеграции — ключи вручную в Vercel env); миграции `20261110000000_init.sql` + `20261110000001_grants.sql` прогнаны (гранты обязательны: новые проекты Supabase не дают anon SELECT по умолчанию); сид и RLS проверены; **E2E: прод читает статьи из БД** (probe-метод). DB-first загрузчики с фолбэком на статический сид (ca01bd2 + 6b0f727).
+  - ⚙️ 10.11 починен прод-деплой: 6 падений «Resource provisioning timed out» = застрявший сайдкар Supabase-маркетплейс-интеграции; после удаления интеграции деплой прошёл, git-автодеплой восстановлен.
+  - ❌ шаг 2: энциклопедия до 10+ статей (сид `lib/encyclopedia.ts` + БД синхронно, ×3 локали), фильтр по уровню доказательности.
+  - ❌ шаг 3: `/api/webhooks/stripe` (verify signature) → orders + financial_ledger (pending 14д) → Telegram-уведомление админу (бот @revoluttime_bot, chat 5157746090). Для записи нужен от владельца `sb_secret_…` (service_role).
 
 ## Инфраструктура
 - ✅ Next.js 16.4.3 + React 19.3 + Tailwind v4 (CSS-first) + shadcn (radix-ui pkg) + next-intl de/ru/en
 - ✅ Темы, скелетоны, sonner (очередь по 1), lazy-чанки: hero/partner-steps/levels/cart-drawer/contact/booking/auth-popover
-- ✅ Vercel проект `revolut-time` (домен revolut-time.vercel.app); прод обновлён 10.11 (CLI-деплой), смоук зелёный
-- ❌ Supabase — **удалён владельцем** (интеграция с Vercel снята, env вычищены); миграции в репо сохранены на будущее
-- ❓ Git-автодеплой: проверить на следующем пушe (после удаления сайдкара; `gitProviderOptions.createDeployments` был disabled)
+- ✅ Vercel проект `revolut-time` (домен revolut-time.vercel.app); git-автодеплой проверен (6844792+)
+- ✅ Supabase `revtime` (eu-west-3, без маркетплейс-интеграции): init+grants миграции применены, prod читает БД; доступ с Windows — только через пулер `aws-0-eu-west-3.pooler.supabase.com` (прямой хост IPv6-only)
+- 🟡 Старый проект `revoluttime` (revoluttime.vercel.app) — не трогать, отдельный сайт; после случайного CLI-деплоя откачен на билд 23.10
 
 ## Направление 1 — Таблетки
 - ✅ /shop: фасовки 90 (18,99 €) и 120+бокс (24,99 €), корзина, применение
@@ -34,7 +34,7 @@
 
 ## Направление 4 — Активный отдых
 - ✅ /recreation + /recreation/[slug] (BookingWidget, билет в корзину; 9 slug-ов)
-- 🟡 Слоты в статичном seed (lib/catalog.ts) → перенос в БД (отложено: БД удалена; badminton_events в DDL готов при возврате Supabase)
+- 🟡 Слоты в статичном seed (lib/catalog.ts) → перенос в БД (badminton_events уже в DDL)
 
 ## Направление 5 — Рефералка
 - ✅ /partner: шаги, каскад A–F, сетка фонда (30% → 5,70/7,50 €; A12/B6/C4/D3/E3/F2 % фонда) + §19-сноска
@@ -45,7 +45,7 @@
 
 ## Админка
 - 🟡 /admin: демо-цифры, офферы (локальный оверлей), сообщения (инбокс в памяти)
-- ❌ Настоящая админка на БД (CRUD + роли) — отложено до решения о хранилище
+- ❌ Настоящая админка на Supabase (CRUD + роли)
 
 ## Юридическое
 - ✅ Impressum (karakymg@gmail.com, Weilbacher Str. 10, YULKK UNITED CORP. + Reg. 81-4691539, Kleinunternehmer §19), Datenschutz, AGB, Widerruf (de/ru/en)
@@ -61,5 +61,6 @@
 
 ## ENV (Vercel → Settings → Environment Variables)
 - ❌ Нужны: `STRIPE_SECRET_KEY` (оплата live), `NEXT_PUBLIC_POSTHOG_KEY` (+ опц. `NEXT_PUBLIC_POSTHOG_HOST`)
-- ✅ Есть: TELEGRAM_BOT_TOKEN, NEXT_PUBLIC_TELEGRAM_BOT_NAME, GOOGLE_CLIENT_*, AUTH_SESSION_SECRET (Supabase-набор удалён вместе с БД)
+- ✅ Есть: NEXT_PUBLIC_SUPABASE_URL/ANON_KEY (проект revtime, без интеграции), TELEGRAM_BOT_TOKEN, NEXT_PUBLIC_TELEGRAM_BOT_NAME, GOOGLE_CLIENT_*, AUTH_SESSION_SECRET
+- ❌ Нужен позже (ШАГ 3): SUPABASE_SERVICE_ROLE_KEY = `sb_secret_…` (Settings → API → Secret keys)
 - 💡 Рекомендовано: ADMIN_EMAILS, TELEGRAM_ADMIN_CHAT_ID (на проде дефолты кода), NEXT_PUBLIC_SITE_URL
