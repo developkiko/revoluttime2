@@ -1,58 +1,64 @@
-# RevolutTIME — roadmap (статус на 02.11.2026)
+# RevolutTIME — roadmap (статус на 10.11.2026)
 
-Легенда: ✅ готово и на проде · 🟡 сделано в демо/мок-режиме (ждёт API/БД) · ❌ не начато
+Легенда: ✅ готово и на проде · 🟡 сделано в демо/мок-режиме (ждёт API/БД/ключей) · ❌ не начато
+
+## Спринты
+- ✅ **P0 — безопасность, закон, монетизация** (2f94f25, 78bf060, 2061e6f): Stripe Checkout (/checkout + /api/checkout + success/cancel), CookieBanner (TDDDG §25, gate `lib/consent.ts`), robots.txt + sitemap.xml + manifest.json, Impressum с реальным email и US Corp (Company Reg. 81-4691539), `?ref=` capture (cookie 30д + localStorage), PostHog за consent-гейтом, типизированные события (`lib/analytics/events.ts`).
+- ✅ **P1 — бандл, юнит-экономика, контент-хаб** (7ff9566, ae6f20b, 913d912): 7 компонентов в lazy-чанки (главная 341→284 КБ gz; флор стека ~250), `lib/mlm-calculator.ts` + сетка A–F с евро-суммами на /partner, /encyclopedia (поиск, фильтры категорий, EvidenceBadge, ResearchCard, 2 статьи, HWG-дисклеймеры).
+- 🟡 **P2 — Supabase, энциклопедия 10+, Telegram-уведомления** — активен:
+  - ✅ шаг 1 в коде (ca01bd2): миграция DDL+RLS+сид (`supabase/migrations/20261110000000_init.sql`), клиенты (`lib/supabase/{client,server}.ts`), DB-first загрузчики с фолбэком (`lib/encyclopedia-db.ts`), раннер `scripts/run-migration.mjs`.
+  - ⛔ **БЛОКЕР: Supabase проект Suspended** — владелец должен нажать Restore в дашборде; затем `node --env-file=.env.local scripts/run-migration.mjs supabase/migrations/20261110000000_init.sql` + проверка.
+  - ❌ шаг 2: энциклопедия до 10+ статей, фильтр по уровню доказательности, revalidate контента.
+  - ❌ шаг 3: `/api/webhooks/stripe` → orders + financial_ledger (pending 14д) → Telegram-уведомление админу (бот @revoluttime_bot, chat 5157746090).
 
 ## Инфраструктура
-- ✅ Next.js 16.4.3 + Tailwind v4 + shadcn (radix-vega), деплой на Vercel из main
-- ✅ next-intl: de/ru/en, proxy.ts, все тексты в messages/*.json (правило: любое изменение → все 3 локали)
-- ✅ Тема dark/light, скелетоны loading.tsx, тосты sonner (очередь по 1)
-- ✅ Env в Vercel: 5 auth-ключей добавлены владельцем; рекомендуется добавить ещё TELEGRAM_ADMIN_CHAT_ID и ADMIN_EMAILS
-- 🟡 Supabase `sb-revolut-db` — проект поднят, ключи интеграции уже в Vercel env; **в код не подключён** (зависимости стоят, таблиц нет)
+- ✅ Next.js 16.4.3 + React 19.3 + Tailwind v4 (CSS-first) + shadcn (radix-ui pkg) + next-intl de/ru/en, Vercel из main
+- ✅ Темы, скелетоны, sonner (очередь по 1), lazy-чанки: hero/partner-steps/levels/cart-drawer/contact/booking/auth-popover
+- ✅ Supabase-интеграция на Vercel: env-ключи注入ятся автоматически; локально — в .env.local (не в git)
+- 🟡 Supabase `sb-revolut-db` — **Suspended, ждёт Restore**; таблиц нет до миграции
 
-## Направление 1 — Таблетки (Магний + H₂)
+## Направление 1 — Таблетки
 - ✅ /shop: фасовки 90 (18,99 €) и 120+бокс (24,99 €), корзина, применение
-- ✅ /hydrogen: наука (4 карточки, заявления со звёздочкой* → сноски HWG внизу страницы)
-- ✅ /hydrogen/tablets: состав, усвоение, сравнение с аптечными формами магния, ощущения*
-- ❌ Checkout: страница `/checkout` ещё НЕ СУЩЕСТВУЕТ — кнопка «К оплате» в корзине ведёт в 404. Нужен заказ + платёж (PayPal/Stripe/Revolut) + запись заказов в Supabase
-- ❌ Реальные фото таблеток в карточках (сейчас фото упаковки из imgs)
+- ✅ /checkout: summary + Stripe Checkout Session (цены из серверного каталога, DE/AT/CH, metadata.ref)
+- 🟡 Оплата live: код готов, нужен `STRIPE_SECRET_KEY` в Vercel → Redeploy; без ключа — 503 + тост «через WhatsApp/Telegram»
+- ✅ /hydrogen + /hydrogen/tablets (HWG-сноски)
 
-## Направление 2 — Студия (фитнес биохакинг)
-- ✅ /studio: 6 услуг (Hydrogen Breathing, Red Light, Nano Suit, Vibration, Strength, Recovery) + инфо + CTA WhatsApp
-- ❌ Онлайн-запись на сессии студии (сейчас CTA в WhatsApp); поставщики оборудования по списку владельца — на /equipment
+## Направление 2 — Студия
+- ✅ /studio: 6 услуг + CTA WhatsApp
+- ❌ Онлайн-запись на сессии
 
 ## Направление 3 — Оборудование
-- ✅ /equipment: 4 позиции с поставщиками (H2Medical/Hydrogen Wellness, miha bodytec, IDEATHERAPY/SunPlus, Hypervibe/LifePro), старт-набор студии, OEM-блок, форма заявки (мок → Telegram)
-- ❌ Фото оборудования от поставщиков (поля images[] уже поддержаны карточками)
-- ❌ Карточки-детали /equipment/[slug] (сейчас плоский список + заявка)
+- ✅ /equipment: 4 поставщика, старт-набор, OEM, заявка (мок → Telegram)
+- ❌ Фото от поставщиков; карточки /equipment/[slug]
 
-## Направление 4 — Активно спортивный отдых
-- ✅ /recreation: единый список броней (бадминтон, теннис «готовится», термы, озёра, забег, хайкинг)
-- ✅ /recreation/[slug]: детали + BookingWidget (слоты: дата/макс. людей/цена; люди ≤ max; билет в корзину)
-- 🟡 Слоты хранятся в статичном seed (lib/catalog.ts) — админка правит локальный оверлей; перенос в Supabase = шаг «админка настоящая»
+## Направление 4 — Активный отдых
+- ✅ /recreation + /recreation/[slug] (BookingWidget, билет в корзину; 9 slug-ов)
+- 🟡 Слоты в статичном seed (lib/catalog.ts) → перенос в Supabase (badminton_events уже в DDL)
 
-## Направление 5 — Реферальная программа
-- ✅ /partner: «Деньги делают деньги», 4 шага, выгоды (до 30%, пожизненно, выплаты), каскад A–F, пентагон рефералов, CTA WhatsApp
-- ✅ /cabinet: баланс, профиль (аватар из Google/Telegram или свой файл; имя), реф-ссылка, покупки, бонусы, тестовые партнёры, экспорт JSON, удаление аккаунта
-- ✅ Вход: Telegram Login Widget (@revoluttime_bot) + Google OAuth; сессия — подписанная cookie
-- ❌ Регистрация/логин по email+пароль (ждёт API аккаунтов от владельца)
-- ❌ Реальная структура A–F: расчёт бонусов (mlm-calculator), реф-параметр `?ref=` пока нигде не сохраняется
-- ❌ Выплаты: кнопка «Вывести» — демо-тост
-- ❌ Кабинет/профиль/бонусы — демо-данные из lib/partner-demo.ts (формы совпадают с будущими таблицами Supabase)
+## Направление 5 — Рефералка
+- ✅ /partner: шаги, каскад A–F, сетка фонда (30% → 5,70/7,50 €; A12/B6/C4/D3/E3/F2 % фонда) + §19-сноска
+- ✅ /cabinet: профиль, реф-ссылка, покупки/бонусы (демо-данные), экспорт, удаление
+- ✅ `?ref=` → cookie rt_ref 30д → Stripe metadata.ref/client_reference_id
+- ❌ Реальный расчёт выплат: financial_ledger (таблица в DDL, запись — в P2.3 вебхуке)
+- ❌ Email+пароль вход (ждёт API аккаунтов); Telegram+Google работают
 
 ## Админка
-- 🟡 /admin (доступ: ADMIN_EMAILS, демо-вход с /dummy): обзор (демо-цифры), офферы (правки названий/слотов/comingSoon — локальный оверлей), пользователи (мок), сообщения (инбокс в памяти сервера — эфемерный)
-- ❌ Настоящая админка на Supabase (offers/slots/users/orders/messages CRUD) + авторизация по ролям
-- ❌ Товары оборудования в админке (сейчас только бронируемый каталог)
+- 🟡 /admin: демо-цифры, офферы (локальный оверлей), сообщения (инбокс в памяти)
+- ❌ Настоящая админка на Supabase (CRUD + роли)
 
-## Юридическое (de — обязательно, ru/en — переводы)
-- ✅ /legal/impressum, datenschutz, agb, widerruf (+ пометка «немецкая версия обязательна» на ru/en; учтены БАД, брони, внешние входы)
-- ❌ Заменить email-заглушку info@revoluttime.de в Impressum на реальную
-- ❌ Проверка юристом (Kleinunternehmer § 19 UStG, исключение возврата вскрытых БАД — сверить с фактами)
+## Юридическое
+- ✅ Impressum (karakymg@gmail.com, Weilbacher Str. 10, YULKK UNITED CORP. + Reg. 81-4691539, Kleinunternehmer §19), Datenschutz, AGB, Widerruf (de/ru/en)
+- ✅ CookieBanner (rt_cookie_consent: granted/essential; аналитика гейтится hasAnalyticsConsent())
 
-## Техдолг и мелочи
-- ❌ Supabase: ключи в env + таблицы (profiles, orders, bonus_transactions, partners, contact_messages, offers, booking_slots) и перенос всех демо-сторов
-- ❌ Vercel Blob для аватаров (сейчас dataURL в localStorage)
-- ❌ SEO: sitemap.xml, robots.txt, OG-картинки; канонические ссылки между локалями
-- ❌ 404-страница со своим дизайном; обработка /sport и /tourism редиректами на /recreation (сейчас просто 404)
-- ❌ Email в футере (сейчас только телефон/Telegram)
-- 💡 Идея: слайдер hero → слайдер «комплексов партнёрки» (массив слайдов уже готов к замене на фид)
+## Техдолг
+- ✅ robots.txt, sitemap.xml (66+ URL), manifest.json
+- ❌ SEO: OG-картинки, hreflang-каноникал между локалями
+- ❌ Vercel Blob для аватаров (dataURL в localStorage)
+- ❌ Email-вход в кабинет
+- 🟡 Soft-404: несуществующий slug энциклопедии отдаёт 404-контент с HTTP 200 (cacheComponents/PPR) — доработать
+- 💡 Слайдер hero → «комплексы партнёрки» (массив готов к фиду)
+
+## ENV (Vercel → Settings → Environment Variables)
+- ❌ Нужны: `STRIPE_SECRET_KEY` (оплата live), `NEXT_PUBLIC_POSTHOG_KEY` (+ опц. `NEXT_PUBLIC_POSTHOG_HOST`)
+- ✅ Есть: Supabase-набор (интеграция), TELEGRAM_BOT_TOKEN, NEXT_PUBLIC_TELEGRAM_BOT_NAME, GOOGLE_CLIENT_*, AUTH_SESSION_SECRET
+- 💡 Рекомендовано: ADMIN_EMAILS, TELEGRAM_ADMIN_CHAT_ID (на проде дефолты кода), NEXT_PUBLIC_SITE_URL
