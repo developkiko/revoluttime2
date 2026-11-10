@@ -51,6 +51,15 @@ export default async function StudioPage({
       <section className="relative overflow-hidden bg-muted/40">
         <div
           aria-hidden
+          className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.15]"
+          style={{ backgroundImage: "url('/images/wall/studio-bg-1.jpg')" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background"
+        />
+        <div
+          aria-hidden
           className="pointer-events-none absolute -top-40 left-[-10%] size-[32rem] rounded-full bg-primary/10 blur-3xl"
         />
         <div className="mx-auto w-full max-w-6xl px-4 py-16">

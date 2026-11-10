@@ -7,6 +7,7 @@ import {
   ClockIcon,
   FlaskConicalIcon,
   PillIcon,
+  VideoIcon,
 } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
@@ -154,6 +155,34 @@ export default async function TabletsPage({
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-4 py-14">
+        <h2 className="flex items-center gap-2 text-2xl font-bold tracking-tight">
+          <VideoIcon className="size-5 text-primary" />
+          {t("demo.title")}
+        </h2>
+        <p className="mt-2 max-w-2xl text-muted-foreground">
+          {t("demo.subtitle")}
+        </p>
+        <div className="mx-auto mt-6 w-full max-w-sm">
+          <div className="overflow-hidden rounded-3xl border bg-card shadow-lg">
+            <video
+              src="/videos/tbltv1.mp4"
+              className="aspect-[9/16] w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+              preload="metadata"
+              aria-label={t("demo.title")}
+            />
+          </div>
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            {t("demo.caption")}
+          </p>
         </div>
       </section>
 

@@ -22,6 +22,8 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 
 const SLIDE_INTERVAL_MS = 7000;
+/** Horizontal drag distance (px) that counts as a swipe. */
+const SWIPE_THRESHOLD_PX = 48;
 
 const SLIDE_KEYS = [
   "hydrogen",
@@ -107,11 +109,71 @@ export function HeroSection() {
     return () => window.clearInterval(timer);
   }, [nextSlide]);
 
+  // Swipe support: touch (pan-y keeps vertical scrolling native) and mouse
+  // drag on desktop. A drag past the threshold suppresses the trailing click
+  // so swiping over a CTA does not navigate.
+  const dragStart = React.useRef<{ x: number; y: number } | null>(null);
+  const dragDistance = React.useRef(0);
+
+  const onPointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    dragStart.current = { x: event.clientX, y: event.clientY };
+    dragDistance.current = 0;
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }, []);
+
+  const onPointerMove = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragStart.current) return;
+    const distance = Math.hypot(
+      event.clientX - dragStart.current.x,
+      event.clientY - dragStart.current.y,
+    );
+    dragDistance.current = Math.max(dragDistance.current, distance);
+  }, []);
+
+  const onPointerUp = React.useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      const start = dragStart.current;
+      dragStart.current = null;
+      event.currentTarget.releasePointerCapture(event.pointerId);
+      if (!start) return;
+      const dx = event.clientX - start.x;
+      const dy = event.clientY - start.y;
+      if (Math.abs(dx) < SWIPE_THRESHOLD_PX || Math.abs(dx) <= Math.abs(dy)) return;
+      if (dx < 0) {
+        nextSlide();
+      } else {
+        setSlide(([current]) => [
+          (current - 1 + SLIDE_KEYS.length) % SLIDE_KEYS.length,
+          -1,
+        ]);
+      }
+    },
+    [nextSlide],
+  );
+
+  const onClickCapture = React.useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    if (dragDistance.current >= SWIPE_THRESHOLD_PX) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    dragDistance.current = 0;
+  }, []);
+
   const key = SLIDE_KEYS[index];
   const isHydrogen = key === "hydrogen";
 
   return (
     <section className="relative overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.15]"
+        style={{ backgroundImage: "url('/images/wall/hero-bg-1.jpg')" }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background"
+      />
       <div
         aria-hidden
         className="pointer-events-none absolute -top-40 right-[-10%] size-[32rem] rounded-full bg-primary/10 blur-3xl"
@@ -136,7 +198,14 @@ export function HeroSection() {
           <ChevronRightIcon className="size-5" />
         </button>
 
-        <div className="mx-auto min-h-[34rem] max-w-4xl md:min-h-[30rem]">
+        <div
+          className="mx-auto min-h-[34rem] max-w-4xl touch-pan-y select-none md:min-h-[30rem]"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}
+          onClickCapture={onClickCapture}
+        >
           <AnimatePresence mode="wait" custom={direction} initial={false}>
             <motion.div
               key={key}

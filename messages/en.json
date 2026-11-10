@@ -289,15 +289,15 @@
       "levelF": "Level F — sixth generation"
     },
     "fund": {
-    "title": "The partner fund — distributed transparently",
-    "subtitle": "30% of the net amount of every tablet order flows into the partner fund and is distributed by the A–F level plan — lifetime, on every purchase in your network.",
-    "colLevel": "Level",
-    "colShare": "Share of fund",
-    "levelName": "Level {level}",
-    "fundRow": "Partner fund total",
-    "footnote": "All prices are end-customer prices. Gemäß § 19 UStG (Kleinunternehmerregelung) werden alle Provisionen von Nettobeträgen berechnet — no VAT is charged or shown. Values: preliminary calculation, subject to change."
-  },
-  "payouts": {
+      "title": "The partner fund — distributed transparently",
+      "subtitle": "30% of the net amount of every tablet order flows into the partner fund and is distributed by the A–F level plan — lifetime, on every purchase in your network.",
+      "colLevel": "Level",
+      "colShare": "Share of fund",
+      "levelName": "Level {level}",
+      "fundRow": "Partner fund total",
+      "footnote": "All prices are end-customer prices. Gemäß § 19 UStG (Kleinunternehmerregelung) werden alle Provisionen von Nettobeträgen berechnet — no VAT is charged or shown. Values: preliminary calculation, subject to change."
+    },
+    "payouts": {
       "title": "Payouts",
       "text": "You decide how to receive your money: to a bank card, in cryptocurrency or via Telegram."
     },
@@ -308,7 +308,9 @@
     }
   },
   "cabinet": {
-    "meta": { "title": "Partner cabinet | RevolutTIME" },
+    "meta": {
+      "title": "Partner cabinet | RevolutTIME"
+    },
     "title": "Partner cabinet",
     "loginRequired": "The cabinet opens after sign-in",
     "loginHint": "Click the account icon in the header and sign in via Telegram or Google.",
@@ -360,7 +362,9 @@
     }
   },
   "admin": {
-    "meta": { "title": "Admin panel | RevolutTIME" },
+    "meta": {
+      "title": "Admin panel | RevolutTIME"
+    },
     "title": "Admin panel",
     "noAccess": "Administrators only",
     "noAccessHint": "Sign in via the demo button on /dummy or add your email to ADMIN_EMAILS.",
@@ -378,7 +382,7 @@
     "offers": {
       "demoNote": "Demo mode: offer and slot edits stay local.",
       "edited": "edited",
-      "comingSoon": "In preparation",
+      "comingSoon": "Mark as “in preparation”",
       "slots": "slots",
       "edit": "Edit",
       "reset": "Reset edits",
@@ -388,7 +392,6 @@
       "titleRu": "Title (RU)",
       "titleDe": "Title (DE)",
       "titleEn": "Title (EN)",
-      "comingSoon": "Mark as “in preparation”",
       "slotsTitle": "Booking slots",
       "addSlot": "Add slot",
       "noSlots": "No slots yet",
@@ -550,7 +553,11 @@
     "badge": "Product of the hydrogen direction",
     "title": "The H₂ effervescent tablet",
     "subtitle": "What it's made of, how it absorbs, how it differs from pharmacy magnesium forms — and what people who drink it daily feel.",
-    "cta": "See prices",
+    "cta": {
+      "title": "Try it yourself",
+      "text": "Packs of 90 and 120 tablets — delivered from Bavaria in 1–2 days.",
+      "button": "Go to shop"
+    },
     "heroCta": "See prices",
     "footnoteLink": "Notes (*)",
     "composition": {
@@ -609,11 +616,6 @@
         "A pleasant recovery feel after workouts* — magnesium works on muscles and the nervous system, hydrogen on the quick sense of recovery."
       ]
     },
-    "cta": {
-      "title": "Try it yourself",
-      "text": "Packs of 90 and 120 tablets — delivered from Bavaria in 1–2 days.",
-      "button": "Go to shop"
-    },
     "footnotes": {
       "title": "Notes (*)",
       "items": [
@@ -621,6 +623,11 @@
         "RevolutTIME Magnesium + H₂ is a food supplement. It does not replace a balanced diet and a healthy lifestyle. Do not exceed the recommended daily dose.",
         "The magnesium-form comparison is provided for informational purposes based on public bioavailability data and is not advertising of medicinal products — the wording has been checked against HWG requirements."
       ]
+    },
+    "demo": {
+      "title": "How the tablet works",
+      "subtitle": "A short demonstration: the tablet dissolves in water, releasing magnesium and molecular hydrogen.",
+      "caption": "Video is silent — sound and controls are on the player."
     }
   },
   "legal": {
@@ -629,50 +636,137 @@
     "impressum": {
       "title": "Imprint",
       "sections": [
-        { "h": "Information according to § 5 DDG", "p": "Gewerbe Yuriy Moshenets (service provider)\nWeilbacher Str. 10\n85241 Hebertshausen\nDeutschland\n\nWarehouse & logistics: Weilbacher Str. 10, 85241 Hebertshausen, Deutschland.\nRevolutTIME brand operator: YULKK UNITED CORP., 39 Cobblers Ln, Staten Island, NY 10304, USA (Company Reg. 81-4691539)." },
-        { "h": "Contact", "p": "Phone / WhatsApp: +49 175 9590916\nE-Mail: karakymg@gmail.com" },
-        { "h": "VAT", "p": "According to § 19 UStG (small business rule) no VAT is charged and therefore not shown." },
-        { "h": "Responsible for the content according to § 18 Abs. 2 MStV", "p": "Yuriy Moshenets, address as above." },
-        { "h": "EU dispute resolution", "p": "We are neither obliged nor willing to participate in dispute resolution proceedings before a consumer arbitration board." },
-        { "h": "Trademark and copyright", "p": "The RevolutTIME brand is operated by YULKK UNITED CORP., 39 Cobblers Ln, Staten Island, NY 10304, USA (Company Reg. 81-4691539). EU distributor: Gewerbe Yuriy Moshenets (see above). All content on this website is protected by copyright." }
+        {
+          "h": "Information according to § 5 DDG",
+          "p": "Gewerbe Yuriy Moshenets (service provider)\nWeilbacher Str. 10\n85241 Hebertshausen\nDeutschland\n\nWarehouse & logistics: Weilbacher Str. 10, 85241 Hebertshausen, Deutschland.\nRevolutTIME brand operator: YULKK UNITED CORP., 39 Cobblers Ln, Staten Island, NY 10304, USA (Company Reg. 81-4691539)."
+        },
+        {
+          "h": "Contact",
+          "p": "Phone / WhatsApp: +49 175 9590916\nE-Mail: karakymg@gmail.com"
+        },
+        {
+          "h": "VAT",
+          "p": "According to § 19 UStG (small business rule) no VAT is charged and therefore not shown."
+        },
+        {
+          "h": "Responsible for the content according to § 18 Abs. 2 MStV",
+          "p": "Yuriy Moshenets, address as above."
+        },
+        {
+          "h": "EU dispute resolution",
+          "p": "We are neither obliged nor willing to participate in dispute resolution proceedings before a consumer arbitration board."
+        },
+        {
+          "h": "Trademark and copyright",
+          "p": "The RevolutTIME brand is operated by YULKK UNITED CORP., 39 Cobblers Ln, Staten Island, NY 10304, USA (Company Reg. 81-4691539). EU distributor: Gewerbe Yuriy Moshenets (see above). All content on this website is protected by copyright."
+        }
       ]
     },
     "datenschutz": {
       "title": "Privacy Policy",
       "sections": [
-        { "h": "1. Controller", "p": "Responsible for data processing on this website:\nGewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, Deutschland\nPhone / WhatsApp: +49 175 9590916 · E-Mail: karakymg@gmail.com" },
-        { "h": "2. General", "p": "We process personal data exclusively within the scope of the GDPR and BDSG. Legal bases: consent (Art. 6 (1)(a) GDPR), contract performance (Art. 6 (1)(b)), legitimate interest (Art. 6 (1)(f)) and legal obligations (Art. 6 (1)(c))." },
-        { "h": "3. Hosting and server logs", "p": "The website is hosted by Vercel Inc., USA. Every request processes technically necessary log data (IP address, date and time, page accessed, browser type). The legal basis is our legitimate interest in a secure and stable website (Art. 6 (1)(f)). Logs are deleted automatically after a short period." },
-        { "h": "4. Cookies and local storage", "p": "Your cart and sign-in are stored in a technically necessary session cookie or the local storage (localStorage) of your browser. No tracking or advertising analytics takes place." },
-        { "h": "5. Contact, booking and order data", "p": "When you contact us via the form, WhatsApp, Telegram or place an order, we process your details (name, e-mail, message, order and delivery data) to handle your request or perform the contract (Art. 6 (1)(b)). When booking studio sessions, trips and events, we also process the name, contact details and the number of participants. For delivery, your address is passed to the shipping carrier (DHL or Hermes); payments are processed by the respective payment provider." },
-        { "h": "6. External sign-in (Telegram / Google)", "p": "Sign-in uses the login services of Telegram or Google. These services transmit the data you have released there (name, e-mail address if available, profile picture). We receive only this information and never store passwords. The providers' privacy policies additionally apply (telegram.org, policies.google.com). Legal basis: contract performance or your wish to sign in (Art. 6 (1)(b))." },
-        { "h": "7. Storage period", "p": "We store personal data only as long as necessary for the stated purposes or as long as statutory retention obligations (e.g. commercial/tax retention for orders) apply. Afterwards the data is deleted." },
-        { "h": "8. Your rights", "p": "You have the right of access (Art. 15), rectification (Art. 16), erasure (Art. 17), restriction of processing (Art. 18), data portability (Art. 20) and objection (Art. 21 GDPR). You may also lodge a complaint with the competent supervisory authority: Bayerisches Landesamt für Datenschutzaufsicht (BayLDA), Promenade 27, 91522 Ansbach, Germany.\nFor access or deletion requests simply contact us using the details above." }
+        {
+          "h": "1. Controller",
+          "p": "Responsible for data processing on this website:\nGewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, Deutschland\nPhone / WhatsApp: +49 175 9590916 · E-Mail: karakymg@gmail.com"
+        },
+        {
+          "h": "2. General",
+          "p": "We process personal data exclusively within the scope of the GDPR and BDSG. Legal bases: consent (Art. 6 (1)(a) GDPR), contract performance (Art. 6 (1)(b)), legitimate interest (Art. 6 (1)(f)) and legal obligations (Art. 6 (1)(c))."
+        },
+        {
+          "h": "3. Hosting and server logs",
+          "p": "The website is hosted by Vercel Inc., USA. Every request processes technically necessary log data (IP address, date and time, page accessed, browser type). The legal basis is our legitimate interest in a secure and stable website (Art. 6 (1)(f)). Logs are deleted automatically after a short period."
+        },
+        {
+          "h": "4. Cookies and local storage",
+          "p": "Your cart and sign-in are stored in a technically necessary session cookie or the local storage (localStorage) of your browser. No tracking or advertising analytics takes place."
+        },
+        {
+          "h": "5. Contact, booking and order data",
+          "p": "When you contact us via the form, WhatsApp, Telegram or place an order, we process your details (name, e-mail, message, order and delivery data) to handle your request or perform the contract (Art. 6 (1)(b)). When booking studio sessions, trips and events, we also process the name, contact details and the number of participants. For delivery, your address is passed to the shipping carrier (DHL or Hermes); payments are processed by the respective payment provider."
+        },
+        {
+          "h": "6. External sign-in (Telegram / Google)",
+          "p": "Sign-in uses the login services of Telegram or Google. These services transmit the data you have released there (name, e-mail address if available, profile picture). We receive only this information and never store passwords. The providers' privacy policies additionally apply (telegram.org, policies.google.com). Legal basis: contract performance or your wish to sign in (Art. 6 (1)(b))."
+        },
+        {
+          "h": "7. Storage period",
+          "p": "We store personal data only as long as necessary for the stated purposes or as long as statutory retention obligations (e.g. commercial/tax retention for orders) apply. Afterwards the data is deleted."
+        },
+        {
+          "h": "8. Your rights",
+          "p": "You have the right of access (Art. 15), rectification (Art. 16), erasure (Art. 17), restriction of processing (Art. 18), data portability (Art. 20) and objection (Art. 21 GDPR). You may also lodge a complaint with the competent supervisory authority: Bayerisches Landesamt für Datenschutzaufsicht (BayLDA), Promenade 27, 91522 Ansbach, Germany.\nFor access or deletion requests simply contact us using the details above."
+        }
       ]
     },
     "agb": {
       "title": "Terms and Conditions",
       "sections": [
-        { "h": "1. Scope", "p": "These terms apply to all contracts between Gewerbe Yuriy Moshenets (the “Seller”) and consumers or businesses regarding the goods (food supplements) and services offered on this website." },
-        { "h": "2. Contracting party", "p": "Contracting partner: Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, Deutschland. The RevolutTIME brand is operated by YULKK UNITED CORP., USA." },
-        { "h": "3. Conclusion of contract", "p": "The product presentation in the shop is not a legally binding offer but an invitation to order. By submitting your order you make a binding offer. The contract is concluded upon the confirmation of receipt or shipping confirmation sent by e-mail." },
-        { "h": "4. Prices and payment", "p": "All prices are final prices in Euro. According to § 19 UStG (small business rule) no VAT is charged. Payment is made using the payment methods offered in the order process." },
-        { "h": "5. Delivery", "p": "Delivery within Germany is handled by DHL or Hermes, usually within 1–2 business days after payment. Shipments to other countries are handled on request." },
-        { "h": "6. Right of withdrawal", "p": "Consumers have a fourteen-day right of withdrawal in accordance with the separate withdrawal instructions. For opened packages of food supplements, the exception stated there applies for reasons of health protection and hygiene." },
-        { "h": "7. Liability for defects", "p": "Statutory liability for defects (§§ 434 ff. BGB) applies with a limitation period of two years from the transfer of risk." },
-        { "h": "8. Limitation of liability", "p": "We are liable without limitation for intent and gross negligence as well as for injury to life, body or health. In case of simple negligence, liability is limited to the violation of essential contractual obligations and to the foreseeable, typical damage." },
-        { "h": "9. Law and language", "p": "German law applies, excluding the UN Convention on Contracts for the International Sale of Goods. The language of the contract is German." },
-        { "h": "10. Trademark and copyright", "p": "All content and media on this website as well as the RevolutTIME brand (YULKK UNITED CORP., USA) are protected by copyright and trademark law. Any use requires our prior consent." }
+        {
+          "h": "1. Scope",
+          "p": "These terms apply to all contracts between Gewerbe Yuriy Moshenets (the “Seller”) and consumers or businesses regarding the goods (food supplements) and services offered on this website."
+        },
+        {
+          "h": "2. Contracting party",
+          "p": "Contracting partner: Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, Deutschland. The RevolutTIME brand is operated by YULKK UNITED CORP., USA."
+        },
+        {
+          "h": "3. Conclusion of contract",
+          "p": "The product presentation in the shop is not a legally binding offer but an invitation to order. By submitting your order you make a binding offer. The contract is concluded upon the confirmation of receipt or shipping confirmation sent by e-mail."
+        },
+        {
+          "h": "4. Prices and payment",
+          "p": "All prices are final prices in Euro. According to § 19 UStG (small business rule) no VAT is charged. Payment is made using the payment methods offered in the order process."
+        },
+        {
+          "h": "5. Delivery",
+          "p": "Delivery within Germany is handled by DHL or Hermes, usually within 1–2 business days after payment. Shipments to other countries are handled on request."
+        },
+        {
+          "h": "6. Right of withdrawal",
+          "p": "Consumers have a fourteen-day right of withdrawal in accordance with the separate withdrawal instructions. For opened packages of food supplements, the exception stated there applies for reasons of health protection and hygiene."
+        },
+        {
+          "h": "7. Liability for defects",
+          "p": "Statutory liability for defects (§§ 434 ff. BGB) applies with a limitation period of two years from the transfer of risk."
+        },
+        {
+          "h": "8. Limitation of liability",
+          "p": "We are liable without limitation for intent and gross negligence as well as for injury to life, body or health. In case of simple negligence, liability is limited to the violation of essential contractual obligations and to the foreseeable, typical damage."
+        },
+        {
+          "h": "9. Law and language",
+          "p": "German law applies, excluding the UN Convention on Contracts for the International Sale of Goods. The language of the contract is German."
+        },
+        {
+          "h": "10. Trademark and copyright",
+          "p": "All content and media on this website as well as the RevolutTIME brand (YULKK UNITED CORP., USA) are protected by copyright and trademark law. Any use requires our prior consent."
+        }
       ]
     },
     "widerruf": {
       "title": "Withdrawal Instructions",
       "sections": [
-        { "h": "Right of withdrawal", "p": "Consumers have the right to withdraw from this contract within fourteen days without giving any reason. The period begins on the day on which you or a third party named by you took possession of the goods." },
-        { "h": "Exercising the withdrawal", "p": "To exercise the right of withdrawal, inform us (Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, phone/WhatsApp: +49 175 9590916, e-mail: karakymg@gmail.com) by means of a clear statement of your decision." },
-        { "h": "Consequences of withdrawal", "p": "After receiving your notice we will refund all payments including standard delivery costs within fourteen days. We may withhold the refund until we have received the goods back or you have supplied evidence of having sent them back." },
-        { "h": "Return of goods", "p": "Send the goods to: Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen. You bear the return costs if the goods are reusable in the supplied condition and are sent back properly packaged." },
-        { "h": "Exclusion of the right of withdrawal", "p": "The right of withdrawal does not apply to contracts for the delivery of goods that are unsuitable for return for reasons of health protection or hygiene if their seal has been removed after delivery (§ 312g (2) No. 3 BGB). Please note: an opened package of food supplements cannot be taken back for this reason." }
+        {
+          "h": "Right of withdrawal",
+          "p": "Consumers have the right to withdraw from this contract within fourteen days without giving any reason. The period begins on the day on which you or a third party named by you took possession of the goods."
+        },
+        {
+          "h": "Exercising the withdrawal",
+          "p": "To exercise the right of withdrawal, inform us (Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, phone/WhatsApp: +49 175 9590916, e-mail: karakymg@gmail.com) by means of a clear statement of your decision."
+        },
+        {
+          "h": "Consequences of withdrawal",
+          "p": "After receiving your notice we will refund all payments including standard delivery costs within fourteen days. We may withhold the refund until we have received the goods back or you have supplied evidence of having sent them back."
+        },
+        {
+          "h": "Return of goods",
+          "p": "Send the goods to: Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen. You bear the return costs if the goods are reusable in the supplied condition and are sent back properly packaged."
+        },
+        {
+          "h": "Exclusion of the right of withdrawal",
+          "p": "The right of withdrawal does not apply to contracts for the delivery of goods that are unsuitable for return for reasons of health protection or hygiene if their seal has been removed after delivery (§ 312g (2) No. 3 BGB). Please note: an opened package of food supplements cannot be taken back for this reason."
+        }
       ]
     }
   },

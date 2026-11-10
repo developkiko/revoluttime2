@@ -289,15 +289,15 @@
       "levelF": "Ebene F — sechste Generation"
     },
     "fund": {
-    "title": "Der Partnerfonds — transparent verteilt",
-    "subtitle": "30 % des Netto-Betrags jeder Tabletten-Bestellung fließen in den Partnerfonds und werden nach dem Level-Plan A–F verteilt — lebenslang, bei jedem Einkauf deiner Netzwerks.",
-    "colLevel": "Level",
-    "colShare": "Anteil am Fonds",
-    "levelName": "Level {level}",
-    "fundRow": "Partnerfonds gesamt",
-    "footnote": "Alle Preise sind Endkundenpreise. Gemäß § 19 UStG (Kleinunternehmerregelung) werden alle Provisionen von Nettobeträgen berechnet — es wird keine Umsatzsteuer berechnet und ausgewiesen. Werte: vorläufige Kalkulation, Änderungen vorbehalten."
-  },
-  "payouts": {
+      "title": "Der Partnerfonds — transparent verteilt",
+      "subtitle": "30 % des Netto-Betrags jeder Tabletten-Bestellung fließen in den Partnerfonds und werden nach dem Level-Plan A–F verteilt — lebenslang, bei jedem Einkauf deiner Netzwerks.",
+      "colLevel": "Level",
+      "colShare": "Anteil am Fonds",
+      "levelName": "Level {level}",
+      "fundRow": "Partnerfonds gesamt",
+      "footnote": "Alle Preise sind Endkundenpreise. Gemäß § 19 UStG (Kleinunternehmerregelung) werden alle Provisionen von Nettobeträgen berechnet — es wird keine Umsatzsteuer berechnet und ausgewiesen. Werte: vorläufige Kalkulation, Änderungen vorbehalten."
+    },
+    "payouts": {
       "title": "Auszahlungen",
       "text": "Sie entscheiden, wie Sie Ihr Geld erhalten: auf die Bankkarte, in Kryptowährung oder via Telegram."
     },
@@ -308,7 +308,9 @@
     }
   },
   "cabinet": {
-    "meta": { "title": "Partner-Cabinet | RevolutTIME" },
+    "meta": {
+      "title": "Partner-Cabinet | RevolutTIME"
+    },
     "title": "Partner-Cabinet",
     "loginRequired": "Der Cabinet ist nach der Anmeldung verfügbar",
     "loginHint": "Klicken Sie auf das Konto-Symbol in der Kopfzeile und melden Sie sich per Telegram oder Google an.",
@@ -360,7 +362,9 @@
     }
   },
   "admin": {
-    "meta": { "title": "Admin-Panel | RevolutTIME" },
+    "meta": {
+      "title": "Admin-Panel | RevolutTIME"
+    },
     "title": "Admin-Panel",
     "noAccess": "Zugriff nur für Administratoren",
     "noAccessHint": "Melden Sie sich über die Demo-Schaltfläche auf /dummy an oder legen Sie Ihre E-Mail in ADMIN_EMAILS ab.",
@@ -378,7 +382,7 @@
     "offers": {
       "demoNote": "Demo-Modus: Angebots- und Slot-Änderungen bleiben lokal.",
       "edited": "geändert",
-      "comingSoon": "In Vorbereitung",
+      "comingSoon": "Als „in Vorbereitung“ markieren",
       "slots": "Termine",
       "edit": "Bearbeiten",
       "reset": "Zurücksetzen",
@@ -388,7 +392,6 @@
       "titleRu": "Titel (RU)",
       "titleDe": "Titel (DE)",
       "titleEn": "Titel (EN)",
-      "comingSoon": "Als „in Vorbereitung“ markieren",
       "slotsTitle": "Buchungstermine",
       "addSlot": "Termin hinzufügen",
       "noSlots": "Noch keine Termine",
@@ -550,7 +553,11 @@
     "badge": "Produkt der Richtung Wasserstoff",
     "title": "Die Brausetablette mit H₂",
     "subtitle": "Woraus sie besteht, wie sie aufgenommen wird, was sie von Apotheken-Magnesiumformen unterscheidet — und was Menschen spüren, die sie täglich trinken.",
-    "cta": "Preise ansehen",
+    "cta": {
+      "title": "Selbst ausprobieren",
+      "text": "Packungen mit 90 und 120 Tabletten — Versand aus Bayern in 1–2 Tagen.",
+      "button": "Zum Shop"
+    },
     "heroCta": "Preise ansehen",
     "footnoteLink": "Anmerkungen (*)",
     "composition": {
@@ -609,11 +616,6 @@
         "Angenehme Regeneration nach dem Training* — Magnesium wirkt auf Muskeln und Nervensystem, Wasserstoff auf das schnelle Erholungsgefühl."
       ]
     },
-    "cta": {
-      "title": "Selbst ausprobieren",
-      "text": "Packungen mit 90 und 120 Tabletten — Versand aus Bayern in 1–2 Tagen.",
-      "button": "Zum Shop"
-    },
     "footnotes": {
       "title": "Anmerkungen (*)",
       "items": [
@@ -621,6 +623,11 @@
         "RevolutTIME Magnesium + H₂ ist ein Nahrungsergänzungsmittel. Es ersetzt keine ausgewogene Ernährung und gesunde Lebensweise. Die empfohlene Tagesdosis nicht überschreiten.",
         "Der Vergleich der Magnesiumformen dient der Information auf Basis öffentlicher Daten zur Bioverfügbarkeit und ist keine Werbung für Arzneimittel — die Formulierungen sind mit den HWG-Anforderungen abgeglichen."
       ]
+    },
+    "demo": {
+      "title": "So arbeitet die Tablette",
+      "subtitle": "Kurzdemonstration: Die Tablette löst sich im Wasser auf und setzt Magnesium sowie molekularen Wasserstoff frei.",
+      "caption": "Video ohne Ton — Ton und Bedienung über den Player."
     }
   },
   "legal": {
@@ -629,50 +636,137 @@
     "impressum": {
       "title": "Impressum",
       "sections": [
-        { "h": "Angaben gemäß § 5 DDG", "p": "Gewerbe Yuriy Moshenets (Diensteanbieter)\nWeilbacher Str. 10\n85241 Hebertshausen\nDeutschland\n\nLager & Logistik: Weilbacher Str. 10, 85241 Hebertshausen, Deutschland.\nBetreiber der Marke RevolutTIME: YULKK UNITED CORP., 39 Cobblers Ln, Staten Island, NY 10304, USA (Company Reg. 81-4691539)." },
-        { "h": "Kontakt", "p": "Telefon / WhatsApp: +49 175 9590916\nE-Mail: karakymg@gmail.com" },
-        { "h": "Umsatzsteuer", "p": "Gemäß § 19 UStG (Kleinunternehmerregelung) wird keine Umsatzsteuer berechnet und daher auch nicht ausgewiesen." },
-        { "h": "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV", "p": "Yuriy Moshenets, Anschrift wie oben." },
-        { "h": "EU-Streitschlichtung", "p": "Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen." },
-        { "h": "Marken- und Urheberrechte", "p": "Die Marke RevolutTIME wird von YULKK UNITED CORP., 39 Cobblers Ln, Staten Island, NY 10304, USA (Company Reg. 81-4691539), geführt. Distributor in der EU: Gewerbe Yuriy Moshenets (siehe oben). Alle Inhalte dieser Website sind urheberrechtlich geschützt." }
+        {
+          "h": "Angaben gemäß § 5 DDG",
+          "p": "Gewerbe Yuriy Moshenets (Diensteanbieter)\nWeilbacher Str. 10\n85241 Hebertshausen\nDeutschland\n\nLager & Logistik: Weilbacher Str. 10, 85241 Hebertshausen, Deutschland.\nBetreiber der Marke RevolutTIME: YULKK UNITED CORP., 39 Cobblers Ln, Staten Island, NY 10304, USA (Company Reg. 81-4691539)."
+        },
+        {
+          "h": "Kontakt",
+          "p": "Telefon / WhatsApp: +49 175 9590916\nE-Mail: karakymg@gmail.com"
+        },
+        {
+          "h": "Umsatzsteuer",
+          "p": "Gemäß § 19 UStG (Kleinunternehmerregelung) wird keine Umsatzsteuer berechnet und daher auch nicht ausgewiesen."
+        },
+        {
+          "h": "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV",
+          "p": "Yuriy Moshenets, Anschrift wie oben."
+        },
+        {
+          "h": "EU-Streitschlichtung",
+          "p": "Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+        },
+        {
+          "h": "Marken- und Urheberrechte",
+          "p": "Die Marke RevolutTIME wird von YULKK UNITED CORP., 39 Cobblers Ln, Staten Island, NY 10304, USA (Company Reg. 81-4691539), geführt. Distributor in der EU: Gewerbe Yuriy Moshenets (siehe oben). Alle Inhalte dieser Website sind urheberrechtlich geschützt."
+        }
       ]
     },
     "datenschutz": {
       "title": "Datenschutzerklärung",
       "sections": [
-        { "h": "1. Verantwortlicher", "p": "Verantwortlich für die Datenverarbeitung auf dieser Website ist:\nGewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, Deutschland\nTelefon / WhatsApp: +49 175 9590916 · E-Mail: karakymg@gmail.com" },
-        { "h": "2. Allgemeines", "p": "Wir verarbeiten personenbezogene Daten ausschließlich im Rahmen der DSGVO und des BDSG. Rechtsgrundlagen sind im Einzelnen: Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), Vertragserfüllung (Art. 6 Abs. 1 lit. b), berechtigtes Interesse (Art. 6 Abs. 1 lit. f) sowie gesetzliche Pflichten (Art. 6 Abs. 1 lit. c)." },
-        { "h": "3. Hosting und Server-Logfiles", "p": "Die Website wird bei Vercel Inc., 440 N Barranca Ave #4134, Covina, CA 91723, USA, gehostet. Bei jedem Aufruf werden technisch notwendige Logdaten (IP-Adresse, Datum und Uhrzeit, abgerufene Seite, Browsertyp) verarbeitet. Rechtsgrundlage ist unser berechtigtes Interesse am sicheren und stabilen Betrieb der Website (Art. 6 Abs. 1 lit. f). Die Logdaten werden nach kurzer Zeit automatisch gelöscht." },
-        { "h": "4. Cookies und lokaler Speicher", "p": "Der Warenkorb sowie Ihre Anmeldung werden technisch notwendig in einem Session-Cookie bzw. im lokalen Speicher (localStorage) Ihres Browsers gespeichert. Es findet kein Tracking und keine Werbeanalyse statt." },
-        { "h": "5. Kontakt-, Buchungs- und Bestelldaten", "p": "Wenn Sie uns über das Kontaktformular, per WhatsApp, Telegram oder über eine Bestellung kontaktieren, verarbeiten wir Ihre Angaben (Name, E-Mail, Nachricht, Bestell- und Lieferdaten) zur Bearbeitung Ihrer Anfrage bzw. zur Vertragserfüllung (Art. 6 Abs. 1 lit. b). Bei Buchungen von Studio-Sessions, Ausflügen und Veranstaltungen verarbeiten wir Name, Kontaktdaten und die Anzahl der Teilnehmer ebenfalls zur Vertragserfüllung. Zur Lieferung geben wir Ihre Adresse an das beauftragte Versandunternehmen (DHL bzw. Hermes) weiter; Zahlungen werden über den jeweiligen Zahlungsdienstleister abgewickelt." },
-        { "h": "6. Externe Anmeldung (Telegram / Google)", "p": "Die Anmeldung erfolgt über die Login-Dienste von Telegram bzw. Google. Dabei übermitteln diese Dienste die von Ihnen dort freigegebenen Daten (Name, ggf. E-Mail-Adresse und Profilbild). Wir erhalten ausschließlich diese Angaben und speichern kein Passwort. Es gelten zusätzlich die Datenschutzrichtlinien der jeweiligen Anbieter (Telegram: telegram.org; Google: policies.google.com). Rechtsgrundlage ist die Vertragserfüllung bzw. Ihr Einwilligungswunsch (Art. 6 Abs. 1 lit. b)." },
-        { "h": "7. Speicherdauer", "p": "Wir speichern personenbezogene Daten nur so lange, wie es für die genannten Zwecke erforderlich ist oder gesetzliche Aufbewahrungspflichten (z. B. HGB/AO für Bestelldaten) bestehen. Danach werden die Daten gelöscht." },
-        { "h": "8. Ihre Rechte", "p": "Sie haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21 DSGVO). Zudem können Sie sich bei der zuständigen Aufsichtsbehörde beschweren: Bayerisches Landesamt für Datenschutzaufsicht (BayLDA), Promenade 27, 91522 Ansbach.\nWenden Sie sich für Auskünfte oder Löschungen einfach an die oben genannten Kontaktdaten." }
+        {
+          "h": "1. Verantwortlicher",
+          "p": "Verantwortlich für die Datenverarbeitung auf dieser Website ist:\nGewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, Deutschland\nTelefon / WhatsApp: +49 175 9590916 · E-Mail: karakymg@gmail.com"
+        },
+        {
+          "h": "2. Allgemeines",
+          "p": "Wir verarbeiten personenbezogene Daten ausschließlich im Rahmen der DSGVO und des BDSG. Rechtsgrundlagen sind im Einzelnen: Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), Vertragserfüllung (Art. 6 Abs. 1 lit. b), berechtigtes Interesse (Art. 6 Abs. 1 lit. f) sowie gesetzliche Pflichten (Art. 6 Abs. 1 lit. c)."
+        },
+        {
+          "h": "3. Hosting und Server-Logfiles",
+          "p": "Die Website wird bei Vercel Inc., 440 N Barranca Ave #4134, Covina, CA 91723, USA, gehostet. Bei jedem Aufruf werden technisch notwendige Logdaten (IP-Adresse, Datum und Uhrzeit, abgerufene Seite, Browsertyp) verarbeitet. Rechtsgrundlage ist unser berechtigtes Interesse am sicheren und stabilen Betrieb der Website (Art. 6 Abs. 1 lit. f). Die Logdaten werden nach kurzer Zeit automatisch gelöscht."
+        },
+        {
+          "h": "4. Cookies und lokaler Speicher",
+          "p": "Der Warenkorb sowie Ihre Anmeldung werden technisch notwendig in einem Session-Cookie bzw. im lokalen Speicher (localStorage) Ihres Browsers gespeichert. Es findet kein Tracking und keine Werbeanalyse statt."
+        },
+        {
+          "h": "5. Kontakt-, Buchungs- und Bestelldaten",
+          "p": "Wenn Sie uns über das Kontaktformular, per WhatsApp, Telegram oder über eine Bestellung kontaktieren, verarbeiten wir Ihre Angaben (Name, E-Mail, Nachricht, Bestell- und Lieferdaten) zur Bearbeitung Ihrer Anfrage bzw. zur Vertragserfüllung (Art. 6 Abs. 1 lit. b). Bei Buchungen von Studio-Sessions, Ausflügen und Veranstaltungen verarbeiten wir Name, Kontaktdaten und die Anzahl der Teilnehmer ebenfalls zur Vertragserfüllung. Zur Lieferung geben wir Ihre Adresse an das beauftragte Versandunternehmen (DHL bzw. Hermes) weiter; Zahlungen werden über den jeweiligen Zahlungsdienstleister abgewickelt."
+        },
+        {
+          "h": "6. Externe Anmeldung (Telegram / Google)",
+          "p": "Die Anmeldung erfolgt über die Login-Dienste von Telegram bzw. Google. Dabei übermitteln diese Dienste die von Ihnen dort freigegebenen Daten (Name, ggf. E-Mail-Adresse und Profilbild). Wir erhalten ausschließlich diese Angaben und speichern kein Passwort. Es gelten zusätzlich die Datenschutzrichtlinien der jeweiligen Anbieter (Telegram: telegram.org; Google: policies.google.com). Rechtsgrundlage ist die Vertragserfüllung bzw. Ihr Einwilligungswunsch (Art. 6 Abs. 1 lit. b)."
+        },
+        {
+          "h": "7. Speicherdauer",
+          "p": "Wir speichern personenbezogene Daten nur so lange, wie es für die genannten Zwecke erforderlich ist oder gesetzliche Aufbewahrungspflichten (z. B. HGB/AO für Bestelldaten) bestehen. Danach werden die Daten gelöscht."
+        },
+        {
+          "h": "8. Ihre Rechte",
+          "p": "Sie haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21 DSGVO). Zudem können Sie sich bei der zuständigen Aufsichtsbehörde beschweren: Bayerisches Landesamt für Datenschutzaufsicht (BayLDA), Promenade 27, 91522 Ansbach.\nWenden Sie sich für Auskünfte oder Löschungen einfach an die oben genannten Kontaktdaten."
+        }
       ]
     },
     "agb": {
       "title": "Allgemeine Geschäftsbedingungen",
       "sections": [
-        { "h": "1. Geltungsbereich", "p": "Diese Bedingungen gelten für alle Verträge zwischen dem Gewerbe Yuriy Moshenets (nachfolgend „Verkäufer“) und Verbrauchern bzw. Unternehmern über die auf dieser Website angebotenen Waren (Nahrungsergänzungsmittel) und Leistungen." },
-        { "h": "2. Vertragspartner", "p": "Vertragsschließender Partner ist: Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, Deutschland. Die Marke RevolutTIME wird von YULKK UNITED CORP., USA, geführt." },
-        { "h": "3. Vertragsschluss", "p": "Die Darstellung der Produkte im Shop stellt kein rechtlich bindendes Angebot dar, sondern eine Aufforderung zur Bestellung. Mit Absenden der Bestellung geben Sie ein verbindliches Angebot ab. Der Vertrag kommt mit der Zugangsbestätigung bzw. Lieferbestätigung per E-Mail zustande." },
-        { "h": "4. Preise und Zahlung", "p": "Alle Preise sind Endpreise in Euro. Gemäß § 19 UStG (Kleinunternehmerregelung) wird keine Umsatzsteuer berechnet. Die Zahlung erfolgt über die im Bestellprozess angebotenen Zahlungsmethoden." },
-        { "h": "5. Lieferung", "p": "Der Versand erfolgt innerhalb Deutschlands mit DHL bzw. Hermes in der Regel innerhalb von 1–2 Werktagen nach Zahlungseingang. Sendungen in andere Länder werden auf Anfrage abgewickelt." },
-        { "h": "6. Widerrufsrecht", "p": "Verbraucher haben ein vierzehntägiges Widerrufsrecht nach Maßgabe der separaten Widerrufsbelehrung. Für entsiegelte Verpackungen von Nahrungsergänzungsmitteln gilt die dort genannte Ausnahme aus Gründen des Gesundheitsschutzes und der Hygiene." },
-        { "h": "7. Mängelhaftung", "p": "Es gilt die gesetzliche Mängelhaftung (§§ 434 ff. BGB) mit einer Verjährungsfrist von zwei Jahren ab Gefahrübergang." },
-        { "h": "8. Haftung", "p": "Wir haften unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie bei Verletzung von Leben, Körper und Gesundheit. Bei einfacher Fahrlässigkeit haften wir nur für die Verletzung wesentlicher Vertragspflichten und begrenzt auf den vorhersehbaren, typischen Schaden." },
-        { "h": "9. Recht und Sprache", "p": "Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts. Vertragssprache ist Deutsch. Gerichtsstand gegenüber Unternehmern ist der Sitz des Verkäufers." },
-        { "h": "10. Urheber- und Markenrechte", "p": "Alle Inhalte, Texte und Bildmaterialien dieser Website sowie die Marke RevolutTIME (YULKK UNITED CORP., USA) sind urheberrechtlich bzw. markenrechtlich geschützt. Jede Verwendung bedarf unserer vorherigen Zustimmung." }
+        {
+          "h": "1. Geltungsbereich",
+          "p": "Diese Bedingungen gelten für alle Verträge zwischen dem Gewerbe Yuriy Moshenets (nachfolgend „Verkäufer“) und Verbrauchern bzw. Unternehmern über die auf dieser Website angebotenen Waren (Nahrungsergänzungsmittel) und Leistungen."
+        },
+        {
+          "h": "2. Vertragspartner",
+          "p": "Vertragsschließender Partner ist: Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, Deutschland. Die Marke RevolutTIME wird von YULKK UNITED CORP., USA, geführt."
+        },
+        {
+          "h": "3. Vertragsschluss",
+          "p": "Die Darstellung der Produkte im Shop stellt kein rechtlich bindendes Angebot dar, sondern eine Aufforderung zur Bestellung. Mit Absenden der Bestellung geben Sie ein verbindliches Angebot ab. Der Vertrag kommt mit der Zugangsbestätigung bzw. Lieferbestätigung per E-Mail zustande."
+        },
+        {
+          "h": "4. Preise und Zahlung",
+          "p": "Alle Preise sind Endpreise in Euro. Gemäß § 19 UStG (Kleinunternehmerregelung) wird keine Umsatzsteuer berechnet. Die Zahlung erfolgt über die im Bestellprozess angebotenen Zahlungsmethoden."
+        },
+        {
+          "h": "5. Lieferung",
+          "p": "Der Versand erfolgt innerhalb Deutschlands mit DHL bzw. Hermes in der Regel innerhalb von 1–2 Werktagen nach Zahlungseingang. Sendungen in andere Länder werden auf Anfrage abgewickelt."
+        },
+        {
+          "h": "6. Widerrufsrecht",
+          "p": "Verbraucher haben ein vierzehntägiges Widerrufsrecht nach Maßgabe der separaten Widerrufsbelehrung. Für entsiegelte Verpackungen von Nahrungsergänzungsmitteln gilt die dort genannte Ausnahme aus Gründen des Gesundheitsschutzes und der Hygiene."
+        },
+        {
+          "h": "7. Mängelhaftung",
+          "p": "Es gilt die gesetzliche Mängelhaftung (§§ 434 ff. BGB) mit einer Verjährungsfrist von zwei Jahren ab Gefahrübergang."
+        },
+        {
+          "h": "8. Haftung",
+          "p": "Wir haften unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie bei Verletzung von Leben, Körper und Gesundheit. Bei einfacher Fahrlässigkeit haften wir nur für die Verletzung wesentlicher Vertragspflichten und begrenzt auf den vorhersehbaren, typischen Schaden."
+        },
+        {
+          "h": "9. Recht und Sprache",
+          "p": "Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts. Vertragssprache ist Deutsch. Gerichtsstand gegenüber Unternehmern ist der Sitz des Verkäufers."
+        },
+        {
+          "h": "10. Urheber- und Markenrechte",
+          "p": "Alle Inhalte, Texte und Bildmaterialien dieser Website sowie die Marke RevolutTIME (YULKK UNITED CORP., USA) sind urheberrechtlich bzw. markenrechtlich geschützt. Jede Verwendung bedarf unserer vorherigen Zustimmung."
+        }
       ]
     },
     "widerruf": {
       "title": "Widerrufsbelehrung",
       "sections": [
-        { "h": "Widerrufsrecht", "p": "Verbraucher haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Frist beginnt mit dem Tag, an dem Sie oder ein von Ihnen benannter Dritter die Waren in Besitz genommen haben." },
-        { "h": "Ausübung des Widerrufs", "p": "Um den Widerruf auszuüben, informieren Sie uns (Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, Telefon/WhatsApp: +49 175 9590916, E-Mail: karakymg@gmail.com) mittels einer eindeutigen Erklärung über Ihre Entscheidung." },
-        { "h": "Folgen des Widerrufs", "p": "Nach Eingang Ihrer Widerrufsanzeige erstatten wir alle Zahlungen einschließlich der Standard-Lieferkosten innerhalb von vierzehn Tagen. Für die Erstattung können wir die Rückerstattung erst vornehmen, wenn wir die Ware zurückerhalten haben oder Sie einen Nachweis über die Rücksendung erbracht haben." },
-        { "h": "Rücksendung", "p": "Senden Sie die Waren an: Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen. Die Kosten der Rücksendung tragen Sie, wenn die Ware in der beschaffenen Weise wiederverwendbar ist und ordnungsgemäß verpackt zurückgesandt wird." },
-        { "h": "Ausschluss des Widerrufsrechts", "p": "Das Widerrufsrecht besteht nicht bei Verträgen zur Lieferung von Waren, die aus Gründen des Gesundheitsschutzes oder der Hygiene nicht zur Rückgabe geeignet sind, wenn ihre Versiegelung nach der Lieferung entfernt wurde (§ 312g Abs. 2 Nr. 3 BGB). Bitte beachten Sie: Eine angebrochene oder entsiegelte Packung Nahrungsergänzungsmittel kann aus diesem Grund nicht zurückgenommen werden." }
+        {
+          "h": "Widerrufsrecht",
+          "p": "Verbraucher haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Frist beginnt mit dem Tag, an dem Sie oder ein von Ihnen benannter Dritter die Waren in Besitz genommen haben."
+        },
+        {
+          "h": "Ausübung des Widerrufs",
+          "p": "Um den Widerruf auszuüben, informieren Sie uns (Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen, Telefon/WhatsApp: +49 175 9590916, E-Mail: karakymg@gmail.com) mittels einer eindeutigen Erklärung über Ihre Entscheidung."
+        },
+        {
+          "h": "Folgen des Widerrufs",
+          "p": "Nach Eingang Ihrer Widerrufsanzeige erstatten wir alle Zahlungen einschließlich der Standard-Lieferkosten innerhalb von vierzehn Tagen. Für die Erstattung können wir die Rückerstattung erst vornehmen, wenn wir die Ware zurückerhalten haben oder Sie einen Nachweis über die Rücksendung erbracht haben."
+        },
+        {
+          "h": "Rücksendung",
+          "p": "Senden Sie die Waren an: Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen. Die Kosten der Rücksendung tragen Sie, wenn die Ware in der beschaffenen Weise wiederverwendbar ist und ordnungsgemäß verpackt zurückgesandt wird."
+        },
+        {
+          "h": "Ausschluss des Widerrufsrechts",
+          "p": "Das Widerrufsrecht besteht nicht bei Verträgen zur Lieferung von Waren, die aus Gründen des Gesundheitsschutzes oder der Hygiene nicht zur Rückgabe geeignet sind, wenn ihre Versiegelung nach der Lieferung entfernt wurde (§ 312g Abs. 2 Nr. 3 BGB). Bitte beachten Sie: Eine angebrochene oder entsiegelte Packung Nahrungsergänzungsmittel kann aus diesem Grund nicht zurückgenommen werden."
+        }
       ]
     }
   },
