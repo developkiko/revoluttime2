@@ -1,9 +1,12 @@
 import type { Locale } from "@/lib/products";
+import expansionJson from "@/lib/encyclopedia-expansion.json";
 
 /**
- * Encyclopedia MVP catalog — static seed mirroring the blueprint's Supabase
+ * Encyclopedia catalog — static seed mirroring the blueprint's Supabase
  * schema (research_papers / scientific_claims / encyclopedia_articles).
- * Swap for real tables later; the shapes already match.
+ * Base batch (2 pilot articles) + expansion batch (lib/encyclopedia-expansion.json,
+ * the single source of truth for new content — scripts/generate-expansion-sql.mjs
+ * emits the matching Supabase migration from it).
  */
 
 export type StudyType = "human_clinical" | "animal_study" | "in_vitro" | "meta_analysis";
@@ -47,7 +50,7 @@ export interface EncyclopediaArticle {
   claims: ScientificClaim[];
 }
 
-export const RESEARCH_PAPERS: ResearchPaper[] = [
+const BASE_RESEARCH_PAPERS: ResearchPaper[] = [
   {
     id: "ohsawa-2007",
     doiPmid: "10.1038/nm1577",
@@ -87,7 +90,7 @@ export const RESEARCH_PAPERS: ResearchPaper[] = [
 const paper = (id: string): ResearchPaper =>
   RESEARCH_PAPERS.find((p) => p.id === id)!;
 
-export const ENCYCLOPEDIA_ARTICLES: EncyclopediaArticle[] = [
+const BASE_ENCYCLOPEDIA_ARTICLES: EncyclopediaArticle[] = [
   {
     slug: "molecular-hydrogen-basics",
     category: "fundamentals",
@@ -206,6 +209,24 @@ export const ENCYCLOPEDIA_ARTICLES: EncyclopediaArticle[] = [
       },
     ],
   },
+];
+
+/** Expansion batch (single source of truth for both seed and SQL migration). */
+const expansion = expansionJson as unknown as {
+  papers: ResearchPaper[];
+  articles: EncyclopediaArticle[];
+};
+
+/** All research papers: base batch + expansion batch. */
+export const RESEARCH_PAPERS: ResearchPaper[] = [
+  ...BASE_RESEARCH_PAPERS,
+  ...expansion.papers,
+];
+
+/** All articles: base batch + expansion batch. */
+export const ENCYCLOPEDIA_ARTICLES: EncyclopediaArticle[] = [
+  ...BASE_ENCYCLOPEDIA_ARTICLES,
+  ...expansion.articles,
 ];
 
 export function getArticle(slug: string): EncyclopediaArticle | undefined {
