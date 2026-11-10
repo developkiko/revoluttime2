@@ -7,20 +7,20 @@ import { BookOpenIcon, SearchIcon } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import {
   ARTICLE_CATEGORIES,
-  ENCYCLOPEDIA_ARTICLES,
   type ArticleCategory,
+  type EncyclopediaArticle,
 } from "@/lib/encyclopedia";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { EvidenceBadge } from "@/components/encyclopedia/EvidenceBadge";
 
-export function EncyclopediaCatalog() {
+export function EncyclopediaCatalog({ articles }: { articles: EncyclopediaArticle[] }) {
   const t = useTranslations("encyclopedia");
   const locale = useLocale() as "de" | "ru" | "en";
   const [query, setQuery] = React.useState("");
   const [category, setCategory] = React.useState<ArticleCategory | "all">("all");
 
-  const articles = ENCYCLOPEDIA_ARTICLES.filter((article) => {
+  const filtered = articles.filter((article) => {
     const inCategory = category === "all" || article.category === category;
     const q = query.trim().toLowerCase();
     const inQuery =
@@ -74,13 +74,13 @@ export function EncyclopediaCatalog() {
       </div>
 
       {/* Article grid */}
-      {articles.length === 0 ? (
+      {filtered.length === 0 ? (
         <p className="mt-10 text-center text-sm text-muted-foreground">
           {t("noResults")}
         </p>
       ) : (
         <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {articles.map((article) => (
+          {filtered.map((article) => (
             <Card key={article.slug} className="flex flex-col">
               <CardHeader className="gap-2">
                 <span className="inline-flex w-fit items-center gap-1.5 rounded-full border bg-muted/50 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">

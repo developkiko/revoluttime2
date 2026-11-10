@@ -5,7 +5,9 @@ import { ShieldAlertIcon } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { EvidenceBadge } from "@/components/encyclopedia/EvidenceBadge";
 import { ResearchCard } from "@/components/encyclopedia/ResearchCard";
-import { ENCYCLOPEDIA_ARTICLES, getArticle, getResearch } from "@/lib/encyclopedia";
+import { ENCYCLOPEDIA_ARTICLES, getResearch } from "@/lib/encyclopedia";
+import { loadArticle } from "@/lib/encyclopedia-db";
+import type { Locale } from "@/lib/products";
 import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
@@ -16,9 +18,8 @@ type Props = PageProps<"/[lang]/encyclopedia/[slug]">;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, slug } = await params;
-  const article = getArticle(slug);
-  const t = await getTranslations({ locale: lang, namespace: "encyclopedia" });
-  if (!article) return { title: t("title") };
+  const article = await loadArticle(lang as Locale, slug);
+  if (!article) notFound();
   return {
     title: article.title[lang as "de"],
     description: article.summary[lang as "de"],
@@ -29,7 +30,7 @@ export default async function EncyclopediaArticlePage({ params }: Props) {
   const { lang, slug } = await params;
   setRequestLocale(lang);
   const locale = lang as "de" | "ru" | "en";
-  const article = getArticle(slug);
+  const article = await loadArticle(locale, slug);
   if (!article) notFound();
 
   const t = await getTranslations("encyclopedia");

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { EncyclopediaCatalog } from "@/components/encyclopedia/EncyclopediaCatalog";
+import { listArticles } from "@/lib/encyclopedia-db";
+import type { Locale } from "@/lib/products";
 
 export async function generateMetadata(
   props: PageProps<"/[lang]/encyclopedia">,
@@ -17,6 +19,7 @@ export default async function EncyclopediaPage({
   const { lang } = await params;
   setRequestLocale(lang);
   const t = await getTranslations("encyclopedia");
+  const articles = await listArticles(lang as Locale);
 
   return (
     <>
@@ -33,7 +36,7 @@ export default async function EncyclopediaPage({
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-4 py-12">
-        <EncyclopediaCatalog />
+        <EncyclopediaCatalog articles={articles} />
       </section>
     </>
   );
