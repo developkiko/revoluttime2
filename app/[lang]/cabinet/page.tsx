@@ -17,15 +17,15 @@ import { formatPrice, type Locale } from "@/lib/products";
 import { ProfileCard } from "@/components/cabinet/ProfileCard";
 import { ReferralLink } from "@/components/cabinet/ReferralLink";
 import { WithdrawButton } from "@/components/cabinet/WithdrawButton";
+import { PartnerNetworkLazy } from "@/components/partner/PartnerNetworkLazy";
 import { getSessionUser } from "@/lib/auth-session";
 
 const LEVEL_CHIP: Record<string, string> = {
-  A: "bg-sky-500",
-  B: "bg-violet-500",
-  C: "bg-amber-500",
-  D: "bg-emerald-500",
-  E: "bg-rose-500",
-  F: "bg-cyan-500",
+  I: "bg-sky-500",
+  II: "bg-violet-500",
+  III: "bg-amber-500",
+  IV: "bg-emerald-500",
+  V: "bg-rose-500",
 };
 
 const STATUS_CHIP: Record<string, string> = {
@@ -75,7 +75,7 @@ export default async function CabinetPage({
       </h1>
 
       {/* Balance + stats */}
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div id="balance" className="mt-6 grid scroll-mt-20 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-2xl border bg-card p-5">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
             {t("balance")}
@@ -127,8 +127,34 @@ export default async function CabinetPage({
         <ReferralLink email={user.email} />
       </div>
 
+      {/* Interactive partner network (You + 5 direct lines) */}
+      <section id="network" className="mt-10 scroll-mt-20">
+        <h2 className="text-xl font-bold tracking-tight">{t("network")}</h2>
+        <PartnerNetworkLazy
+          className="mt-4"
+          me={{
+            id: "you",
+            name: user.name ?? "RevolutTIME",
+            joined: "2026-09-01", // TODO(profile API): real registration date
+          }}
+          partners={DEMO_PARTNERS.map((partner) => ({
+            id: partner.id,
+            name: partner.name,
+            joined: partner.joined,
+            badge: `${partner.level}`,
+          }))}
+          profileHref="/cabinet#partners"
+          youActions={[
+            { label: t("balance"), href: "/cabinet#balance" },
+            { label: t("purchases"), href: "/cabinet#purchases" },
+            { label: t("bonuses"), href: "/cabinet#bonuses" },
+            { label: t("myPartners"), href: "/cabinet#partners" },
+          ]}
+        />
+      </section>
+
       {/* Purchase history */}
-      <section className="mt-10">
+      <section id="purchases" className="mt-10 scroll-mt-20">
         <h2 className="text-xl font-bold tracking-tight">{t("purchases")}</h2>
         <div className="mt-4 overflow-hidden rounded-2xl border">
           <table className="w-full text-sm">
@@ -165,7 +191,7 @@ export default async function CabinetPage({
       </section>
 
       {/* Bonus history */}
-      <section className="mt-10">
+      <section id="bonuses" className="mt-10 scroll-mt-20">
         <h2 className="text-xl font-bold tracking-tight">{t("bonuses")}</h2>
         <div className="mt-4 overflow-hidden rounded-2xl border">
           <table className="w-full text-sm">
@@ -200,7 +226,7 @@ export default async function CabinetPage({
       </section>
 
       {/* Partners */}
-      <section className="mt-10">
+      <section id="partners" className="mt-10 scroll-mt-20">
         <h2 className="text-xl font-bold tracking-tight">{t("myPartners")}</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {DEMO_PARTNERS.map((p) => (

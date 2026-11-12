@@ -122,7 +122,8 @@
       "referral1": "Partner 1",
       "referral2": "Partner 2",
       "referral3": "Partner 3",
-      "referral4": "Partner 4"
+      "referral4": "Partner 4",
+      "referral5": "Partner 5"
     },
     "partnerTeaser": {
       "title": "Money makes money",
@@ -324,6 +325,13 @@
       "title": "Ready to start?",
       "text": "Message us — we will register you and hand over your referral link with starter materials.",
       "button": "Become a partner (WhatsApp)"
+    },
+    "network": {
+      "youTag": "This is you",
+      "joinedLabel": "Registration date",
+      "openProfile": "Open profile",
+      "close": "Close",
+      "cabinetFallback": "Personal cabinet"
     }
   },
   "cabinet": {
@@ -378,7 +386,8 @@
       "copied": "Link copied",
       "copyError": "Copy failed",
       "codeNote": "Your code: {code} — provide it when registering partners."
-    }
+    },
+    "network": "Partner network"
   },
   "admin": {
     "meta": {

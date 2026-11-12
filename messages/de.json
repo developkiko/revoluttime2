@@ -122,7 +122,8 @@
       "referral1": "Partner 1",
       "referral2": "Partner 2",
       "referral3": "Partner 3",
-      "referral4": "Partner 4"
+      "referral4": "Partner 4",
+      "referral5": "Partner 5"
     },
     "partnerTeaser": {
       "title": "Geld macht Geld",
@@ -324,6 +325,13 @@
       "title": "Bereit durchzustarten?",
       "text": "Schreiben Sie uns — wir registrieren Sie und übergeben Ihre Empfehlungs-Link samt Startmaterialien.",
       "button": "Partner werden (WhatsApp)"
+    },
+    "network": {
+      "youTag": "Das sind Sie",
+      "joinedLabel": "Registriert am",
+      "openProfile": "Profil öffnen",
+      "close": "Schließen",
+      "cabinetFallback": "Persönliches Konto"
     }
   },
   "cabinet": {
@@ -378,7 +386,8 @@
       "copied": "Link kopiert",
       "copyError": "Kopieren fehlgeschlagen",
       "codeNote": "Ihr Code: {code} — bei Partnerregistrierungen angeben."
-    }
+    },
+    "network": "Partnernetzwerk"
   },
   "admin": {
     "meta": {

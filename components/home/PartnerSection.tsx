@@ -9,8 +9,9 @@ import {
 
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { ReferralDiagram } from "@/components/home/ReferralDiagram";
+import { PartnerNetworkLazy } from "@/components/partner/PartnerNetworkLazy";
 import { PartnerStepsLazy } from "@/components/partner/PartnerStepsLazy";
+import { SITE } from "@/lib/products";
 
 const BENEFITS = [
   { key: "commission", icon: PercentIcon },
@@ -22,6 +23,13 @@ const BENEFITS = [
 export async function PartnerSection() {
   const t = await getTranslations("partner");
   const tTeaser = await getTranslations("home.partnerTeaser");
+  const tDiagram = await getTranslations("home.diagram");
+
+  const partners = [1, 2, 3, 4, 5].map((index) => ({
+    id: `referral-${index}`,
+    name: tDiagram(`referral${index}`),
+    joined: `2026-10-${String(index * 4).padStart(2, "0")}`,
+  }));
 
   return (
     <section id="partner" className="scroll-mt-16 border-t">
@@ -60,7 +68,15 @@ export async function PartnerSection() {
             </ul>
           </div>
 
-          <ReferralDiagram />
+          <PartnerNetworkLazy
+            me={{ id: "you", name: tDiagram("you"), joined: "2026-09-01" }}
+            partners={partners}
+            profileHref="/partner"
+            youActions={[
+              { label: t("cta.button"), href: SITE.whatsapp },
+              { label: tTeaser("cta"), href: "/partner" },
+            ]}
+          />
         </div>
       </div>
     </section>

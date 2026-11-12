@@ -12,7 +12,7 @@ import {
 import { ContactWidgetLazy } from "@/components/contact/ContactWidgetLazy";
 import { LevelsCascadeLazy } from "@/components/partner/LevelsCascadeLazy";
 import { PartnerStepsLazy } from "@/components/partner/PartnerStepsLazy";
-import { ReferralDiagram } from "@/components/home/ReferralDiagram";
+import { PartnerNetworkLazy } from "@/components/partner/PartnerNetworkLazy";
 import { UsageSection } from "@/components/home/UsageSection";
 import { AdminDemoButton } from "@/components/admin/AdminDemoButton";
 import { getOffer } from "@/lib/catalog";
@@ -140,7 +140,7 @@ export default async function DummyPage({
             <h2 className="text-xl font-bold tracking-tight">
               {t("diagramTitle")}
             </h2>
-            <ReferralDiagram />
+            <PartnerNetworkLazy me={{ id: "you", name: "Вы", joined: "2026-09-01" }} partners={[1, 2, 3, 4, 5].map((i) => ({ id: "p" + i, name: "Партнёр " + i, joined: "2026-10-0" + i }))} />
           </div>
         </div>
       </section>
