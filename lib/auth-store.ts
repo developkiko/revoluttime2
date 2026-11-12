@@ -6,6 +6,8 @@ export interface AuthUser {
   email: string;
   name: string;
   provider: "telegram" | "google";
+  /** Provider avatar URL (Telegram photo_url / Google picture) if present. */
+  picture?: string;
 }
 
 /**

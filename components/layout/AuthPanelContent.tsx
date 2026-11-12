@@ -2,7 +2,15 @@
 
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { LogOutIcon, UserIcon, UserRoundIcon } from "lucide-react";
+import {
+  BookOpenIcon,
+  GiftIcon,
+  LogOutIcon,
+  NetworkIcon,
+  ShoppingBagIcon,
+  UserIcon,
+  UserRoundIcon,
+} from "lucide-react";
 import { toast } from "sonner";
 
 import { Link } from "@/i18n/navigation";
@@ -81,16 +89,35 @@ function ProvidersPanel({ onDone }: { onDone?: () => void }) {
   );
 }
 
-function UserMenu({ email, name, onDone }: { email: string; name: string; onDone?: () => void }) {
+function UserMenu({
+  email,
+  name,
+  picture,
+  onDone,
+}: {
+  email: string;
+  name: string;
+  picture?: string;
+  onDone?: () => void;
+}) {
   const t = useTranslations("auth");
   const isAdmin = email === "admin@revoluttime.de";
 
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-3">
-        <span className="flex size-10 items-center justify-center rounded-full bg-primary text-lg font-bold uppercase text-primary-foreground">
-          {name.charAt(0)}
-        </span>
+        {picture ? (
+          // eslint-disable-next-line @next/next/no-img-element -- provider CDN hosts are not known at build time
+          <img
+            src={picture}
+            alt=""
+            className="size-10 shrink-0 rounded-full object-cover"
+          />
+        ) : (
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-lg font-bold uppercase text-primary-foreground">
+            {name.charAt(0)}
+          </span>
+        )}
         <div className="min-w-0">
           <p className="truncate font-semibold">{name}</p>
           <p className="truncate text-xs text-muted-foreground">
@@ -112,8 +139,27 @@ function UserMenu({ email, name, onDone }: { email: string; name: string; onDone
         </Link>
       </Button>
       <Button variant="ghost" className="w-full justify-start" asChild>
-        <Link href="/cabinet#balance" onClick={onDone}>
-          {t("balanceLink")}
+        <Link href="/cabinet#purchases" onClick={onDone}>
+          <ShoppingBagIcon />
+          {t("purchasesLink")}
+        </Link>
+      </Button>
+      <Button variant="ghost" className="w-full justify-start" asChild>
+        <Link href="/cabinet#bonuses" onClick={onDone}>
+          <GiftIcon />
+          {t("bonusesLink")}
+        </Link>
+      </Button>
+      <Button variant="ghost" className="w-full justify-start" asChild>
+        <Link href="/cabinet#network" onClick={onDone}>
+          <NetworkIcon />
+          {t("networkLink")}
+        </Link>
+      </Button>
+      <Button variant="ghost" className="w-full justify-start" asChild>
+        <Link href="/encyclopedia" onClick={onDone}>
+          <BookOpenIcon />
+          {t("encyclopediaLink")}
         </Link>
       </Button>
       {isAdmin && (
@@ -145,7 +191,7 @@ export function AuthPanelContent({ onDone }: { onDone: () => void }) {
   const user = useAuthUser();
 
   return user ? (
-    <UserMenu email={user.email} name={user.name} onDone={onDone} />
+    <UserMenu email={user.email} name={user.name} picture={user.picture} onDone={onDone} />
   ) : (
     <ProvidersPanel onDone={onDone} />
   );

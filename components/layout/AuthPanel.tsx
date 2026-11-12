@@ -35,15 +35,24 @@ export function AuthPanel() {
           className="relative"
         >
           {user ? (
-            <span className="flex size-6 items-center justify-center rounded-full bg-primary text-[11px] font-bold uppercase text-primary-foreground">
-              {user.name.charAt(0)}
-            </span>
+            user.picture ? (
+              // eslint-disable-next-line @next/next/no-img-element -- provider CDN hosts are not known at build time
+              <img
+                src={user.picture}
+                alt=""
+                className="size-6 rounded-full object-cover"
+              />
+            ) : (
+              <span className="flex size-6 items-center justify-center rounded-full bg-primary text-[11px] font-bold uppercase text-primary-foreground">
+                {user.name.charAt(0)}
+              </span>
+            )
           ) : (
             <UserIcon />
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-80">
+      <PopoverContent align="end" className="max-h-[min(70vh,32rem)] w-80 overflow-y-auto">
         <AuthPanelContent onDone={() => setOpen(false)} />
       </PopoverContent>
     </Popover>

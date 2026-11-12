@@ -122,7 +122,7 @@ export default async function CabinetPage({
       </div>
 
       {/* Profile + referral link */}
-      <div className="mt-8 grid gap-6 lg:grid-cols-2">
+      <div id="profile" className="mt-8 grid scroll-mt-20 gap-6 lg:grid-cols-2">
         <ProfileCard user={user} />
         <ReferralLink email={user.email} />
       </div>

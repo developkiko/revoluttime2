@@ -501,7 +501,11 @@
     "welcomeToast": "Welcome!",
     "signedOutToast": "You have signed out",
     "cabinet": "Partner cabinet",
-    "logout": "Sign out"
+    "logout": "Sign out",
+    "purchasesLink": "Purchases",
+    "bonusesLink": "Bonuses",
+    "networkLink": "Partner network",
+    "encyclopediaLink": "Encyclopedia"
   },
   "sport": {
     "hero": {

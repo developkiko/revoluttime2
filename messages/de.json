@@ -501,7 +501,11 @@
     "welcomeToast": "Willkommen!",
     "signedOutToast": "Sie haben sich abgemeldet",
     "cabinet": "Partner-Cabinet",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "purchasesLink": "Einkäufe",
+    "bonusesLink": "Bonuszahlungen",
+    "networkLink": "Partnernetzwerk",
+    "encyclopediaLink": "Encyclopedia"
   },
   "sport": {
     "hero": {
