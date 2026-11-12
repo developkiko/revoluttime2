@@ -56,13 +56,9 @@ export default async function StudioPage({
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background"
-        />
-        <div
-          aria-hidden
           className="pointer-events-none absolute -top-40 left-[-10%] size-[32rem] rounded-full bg-primary/10 blur-3xl"
         />
-        <div className="mx-auto w-full max-w-6xl px-4 py-16">
+        <div className="relative mx-auto w-full max-w-6xl px-4 py-16">
           <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
             {t("hero.badge")}
           </p>

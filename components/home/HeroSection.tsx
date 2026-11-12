@@ -194,14 +194,10 @@ export function HeroSection() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background"
-      />
-      <div
-        aria-hidden
         className="pointer-events-none absolute -top-40 right-[-10%] size-[32rem] rounded-full bg-primary/10 blur-3xl"
       />
 
-      <div className="mx-auto w-full max-w-6xl px-4 py-14 md:py-20">
+      <div className="relative mx-auto w-full max-w-6xl px-4 py-14 md:py-20">
         {/* side arrows */}
         <button
           type="button"

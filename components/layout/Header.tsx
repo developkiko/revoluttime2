@@ -158,7 +158,10 @@ export function Header() {
                 <MenuIcon />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="flex w-72 flex-col">
+            <SheetContent
+              side="left"
+              className="flex w-72 flex-col max-h-[100dvh] overflow-y-auto pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+            >
               <SheetHeader>
                 <SheetTitle className="pt-2 text-left">
                   <Logo size={22} />
