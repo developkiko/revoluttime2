@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "RevolutTIME — Hydrogen, Biohacking & Partner Program",
-    "description": "RevolutTIME: Magnesium + H₂ effervescent tablets for hydrogen water, the RevolutTIME Studio (fitness · biohacking · recovery) and a partner program with up to 30% commission. Shipping from Hebertshausen near Munich.",
+    "description": "RevolutTIME: Magnesium + H₂ effervescent tablets for hydrogen water, the RevolutTIME Studio (fitness · biohacking · recovery) and a partner program with up to 50% commission. Shipping from Hebertshausen near Munich.",
     "shop": {
       "title": "Shop — Magnesium + H₂ Effervescent Tablets | RevolutTIME",
       "description": "Order RevolutTIME Magnesium + H₂: 90 or 120 effervescent tablets with a storage box. Eurofins-tested (up to 1.6 ppm H₂), shipped from Bavaria via DHL/Hermes."
@@ -15,8 +15,8 @@
       "description": "RevolutTIME Studio: Hydrogen Breathing, Red Light Wellness, Nano Suit Training, Vibration & Lymph Flow, strength training and recovery. Sessions in DE · RU · EN."
     },
     "partner": {
-      "title": "Partner Program — up to 30% commission | RevolutTIME",
-      "description": "Become a RevolutTIME partner: recommend our products and earn on every sale — across 6 levels (A–F), for life, with fast payouts."
+      "title": "Partner program — up to 50% commission | RevolutTIME",
+      "description": "Become a RevolutTIME partner: recommend our products and earn on every sale — across 5 levels (I–V), for life, with fast payouts."
     }
   },
   "brand": {
@@ -28,7 +28,7 @@
       "tablets": "Tablets",
       "studio": "Studio",
       "equipment": "Equipment",
-      "recreation": "Recreation & sport",
+      "recreation": "Conference and Recreation",
       "partner": "Partners",
       "contact": "Contact",
       "encyclopedia": "Encyclopedia"
@@ -74,8 +74,8 @@
         "partner": {
           "badge": "Partner program · money makes money",
           "title": "Partner program.",
-          "titleAccent": "Up to 30% commission.",
-          "subtitle": "Your referral — your income: six levels deep (A–F), lifetime bonuses and payouts to card, crypto or Telegram.",
+          "titleAccent": "Up to 50% commission.",
+          "subtitle": "Your recommendation — your income: five levels deep (I–V), 50% from the first line already, lifetime bonuses and payouts to card, crypto or Telegram.",
           "cta": "Become a partner"
         }
       },
@@ -106,13 +106,13 @@
           "cta": "View"
         },
         "recreation": {
-          "title": "Active sports recreation",
+          "title": "Conference and Recreation",
           "text": "Badminton, thermal weekends, races and hikes — dates, spots and per-person prices.",
           "cta": "View opportunities"
         },
         "partner": {
           "title": "Partner program",
-          "text": "Money makes money: up to 30% commission, 6 levels (A–F), lifetime bonuses and fast payouts.",
+          "text": "Money makes money: 50% from the first line, 5 levels (I–V), lifetime bonuses and fast payouts.",
           "cta": "Become a partner"
         }
       }
@@ -126,7 +126,7 @@
     },
     "partnerTeaser": {
       "title": "Money makes money",
-      "text": "Up to 30% commission, lifetime bonuses across 6 levels (A–F), payouts to card, crypto or Telegram.",
+      "text": "Up to 50% commission from the first line, lifetime bonuses in 5 levels (I–V), payouts to card, crypto or Telegram.",
       "cta": "About the program"
     },
     "encyclopedia": {
@@ -194,7 +194,8 @@
       "subtitle": "The RevolutTIME classic: two formats to choose from, Eurofins-tested, shipped from Bavaria via DHL/Hermes.",
       "perk1": "Eurofins analysis: up to 1.6 ppm H₂",
       "perk2": "Storage box included",
-      "perk3": "Shipping in 1–2 business days (DE)"
+      "perk3": "Shipping in 1–2 business days (DE)",
+      "partnerHint": "Partners: 60 € per pack on orders of 10+ packs — 1 pack free."
     }
   },
   "studio": {
@@ -248,8 +249,8 @@
     "hero": {
       "badge": "Money makes money",
       "title": "Partner program",
-      "titleAccent": "Up to 30% commission.",
-      "subtitle": "Share your personal recommendation — and earn on every sale. Six levels deep (A–F), lifetime bonuses, fast payouts."
+      "titleAccent": "Up to 50% commission.",
+      "subtitle": "Share your personal recommendation — and earn on every sale. Five levels (I–V), 50% from the first line, lifetime bonuses."
     },
     "how": {
       "title": "How it works",
@@ -276,7 +277,7 @@
       "title": "Why RevolutTIME?",
       "items": {
         "commission": {
-          "title": "Up to 30% commission",
+          "title": "Up to 50% commission",
           "text": "An attractive reward on every referred order."
         },
         "lifetime": {
@@ -295,22 +296,25 @@
     },
     "levels": {
       "title": "6 levels — from A to F",
-      "subtitle": "Your network grows deep: from direct buyers (level A) to the sixth generation (level F). Bonuses are calculated at every level.",
-      "levelA": "Level A — your direct customers",
-      "levelB": "Level B — your partners' customers",
-      "levelC": "Level C — third generation",
-      "levelD": "Level D — fourth generation",
-      "levelE": "Level E — fifth generation",
-      "levelF": "Level F — sixth generation"
+      "subtitle": "Your network grows deep: from direct partners (level I) to the fifth generation (level V) — bonuses are calculated at every level.",
+      "levelI": "Level I — your direct partners (50%)",
+      "levelII": "Level II — partners of your partners (10%)",
+      "levelIII": "Level III (2%)",
+      "levelIV": "Level IV (1%)",
+      "levelV": "Level V (1%)"
     },
     "fund": {
       "title": "The partner fund — distributed transparently",
-      "subtitle": "30% of the net amount of every tablet order flows into the partner fund and is distributed by the A–F level plan — lifetime, on every purchase in your network.",
+      "subtitle": "Every sale in your structure pays 50/10/2/1/1% to levels I–V. Example on the partner entry: 10 packs × 60 € = 600 € (+1 pack free).",
       "colLevel": "Level",
       "colShare": "Share of fund",
       "levelName": "Level {level}",
       "fundRow": "Partner fund total",
-      "footnote": "All prices are end-customer prices. Gemäß § 19 UStG (Kleinunternehmerregelung) werden alle Provisionen von Nettobeträgen berechnet — no VAT is charged or shown. Values: preliminary calculation, subject to change."
+      "footnote": "Example calculation: a fully filled 5-wide matrix on the 600 € partner entry. Per § 19 UStG (Kleinunternehmer rule), commissions are calculated from net amounts — no VAT is charged or paid. Figures are a calculation example, not an income guarantee.",
+      "colPartners": "Partners",
+      "colPerPerson": "Per person",
+      "colSubtotal": "Subtotal",
+      "totalRow": "Full network (5 levels)"
     },
     "payouts": {
       "title": "Payouts",
@@ -336,7 +340,7 @@
     "partnersActive": "{count} active",
     "ordersCount": "Purchases",
     "earnedTotal": "Bonuses earned",
-    "commissionNote": "up to 30% of structure sales",
+    "commissionNote": "up to 50% of structure volume",
     "purchases": "Purchase history",
     "bonuses": "Bonus history",
     "myPartners": "My structure",
@@ -436,7 +440,7 @@
     "subtitle": "Assembly page: every block and function of the site lives here — for design and behavior checks before release.",
     "pieceLogo": "Logo & themes",
     "pieceSteps": "Partner steps",
-    "pieceLevels": "A–F cascade",
+    "pieceLevels": "Cascade I–V",
     "pieceBooking": "Booking",
     "pieceContact": "Contact",
     "contactTitle": "Contact widget",
@@ -448,7 +452,7 @@
     "logoSvgLabel": "Hero as SVG (text → paths, no fonts)",
     "stepsTitle": "Partner steps (animation, hover)",
     "diagramTitle": "Referral pentagon",
-    "levelsTitle": "Levels A–F (color + hover)",
+    "levelsTitle": "Levels I–V (color + hover)",
     "bookingTitle": "Booking (ticket to cart)"
   },
   "contact": {
@@ -526,7 +530,7 @@
     "formTitle": "Equipment request",
     "cta": {
       "title": "Want to earn on equipment?",
-      "text": "Partners earn commission on every equipment sale made through their recommendation — up to 30%.",
+      "text": "Partners earn commission on every equipment sale made through their recommendation — up to 50%.",
       "button": "Become a partner"
     }
   },
@@ -813,17 +817,13 @@
       "pack-90": {
         "name": "Pack of 90 tablets",
         "note": "Up to 30-day supply"
-      },
-      "pack-120": {
-        "name": "Pack of 120 tablets + box",
-        "note": "Bigger supply + storage box"
       }
     }
   },
   "cart": {
     "title": "Cart",
     "empty": "Your cart is still empty.",
-    "emptyHint": "Pick a format — 90 or 120 tablets.",
+    "emptyHint": "Choose a format — 90 tablets.",
     "total": "Total",
     "quantity": "Quantity",
     "remove": "Remove",
@@ -899,7 +899,7 @@
       "tablets": "Magnesium + H₂ tablets",
       "studio": "Fitness biohacking studio",
       "equipment": "Equipment sales",
-      "recreation": "Active sports recreation",
+      "recreation": "Conference and Recreation",
       "partner": "Partner program",
       "journey": "Discovery Journey",
       "encyclopedia": "Encyclopedia"

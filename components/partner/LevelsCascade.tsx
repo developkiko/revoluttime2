@@ -4,18 +4,18 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
 const LEVELS = [
-  { key: "levelA", letter: "A", chip: "bg-sky-500 text-white", tint: "group-hover:bg-sky-500/5", text: "group-hover:text-sky-600 dark:group-hover:text-sky-400", border: "hover:border-sky-500/50" },
-  { key: "levelB", letter: "B", chip: "bg-violet-500 text-white", tint: "group-hover:bg-violet-500/5", text: "group-hover:text-violet-600 dark:group-hover:text-violet-400", border: "hover:border-violet-500/50" },
-  { key: "levelC", letter: "C", chip: "bg-amber-500 text-white", tint: "group-hover:bg-amber-500/5", text: "group-hover:text-amber-600 dark:group-hover:text-amber-400", border: "hover:border-amber-500/50" },
-  { key: "levelD", letter: "D", chip: "bg-emerald-500 text-white", tint: "group-hover:bg-emerald-500/5", text: "group-hover:text-emerald-600 dark:group-hover:text-emerald-400", border: "hover:border-emerald-500/50" },
-  { key: "levelE", letter: "E", chip: "bg-rose-500 text-white", tint: "group-hover:bg-rose-500/5", text: "group-hover:text-rose-600 dark:group-hover:text-rose-400", border: "hover:border-rose-500/50" },
-  { key: "levelF", letter: "F", chip: "bg-cyan-500 text-white", tint: "group-hover:bg-cyan-500/5", text: "group-hover:text-cyan-600 dark:group-hover:text-cyan-400", border: "hover:border-cyan-500/50" },
+  { key: "levelI", letter: "I", chip: "bg-sky-500 text-white", tint: "group-hover:bg-sky-500/5", text: "group-hover:text-sky-600 dark:group-hover:text-sky-400", border: "hover:border-sky-500/50" },
+  { key: "levelII", letter: "II", chip: "bg-violet-500 text-white", tint: "group-hover:bg-violet-500/5", text: "group-hover:text-violet-600 dark:group-hover:text-violet-400", border: "hover:border-violet-500/50" },
+  { key: "levelIII", letter: "III", chip: "bg-amber-500 text-white", tint: "group-hover:bg-amber-500/5", text: "group-hover:text-amber-600 dark:group-hover:text-amber-400", border: "hover:border-amber-500/50" },
+  { key: "levelIV", letter: "IV", chip: "bg-emerald-500 text-white", tint: "group-hover:bg-emerald-500/5", text: "group-hover:text-emerald-600 dark:group-hover:text-emerald-400", border: "hover:border-emerald-500/50" },
+  { key: "levelV", letter: "V", chip: "bg-rose-500 text-white", tint: "group-hover:bg-rose-500/5", text: "group-hover:text-rose-600 dark:group-hover:text-rose-400", border: "hover:border-rose-500/50" },
 ] as const;
 
 /**
- * The A–F referral cascade: staggered slide-in from the left, and a hover
- * effect distinct from the partner steps — the row slides right while its
- * letter chip fills solid color and a subtle background tint sweeps in.
+ * The I–V referral cascade (matrix 5 wide): staggered slide-in from the
+ * left, and a hover effect distinct from the partner steps — the row slides
+ * right while its level chip fills solid color and a subtle background tint
+ * sweeps in.
  */
 export function LevelsCascade() {
   const t = useTranslations("partner.levels");

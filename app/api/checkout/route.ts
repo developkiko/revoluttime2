@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies, headers } from "next/headers";
 import Stripe from "stripe";
-import { PACK_VARIANTS, type PackId } from "@/lib/products";
+import { PACK_VARIANTS, PARTNER_BONUS_PACKS, PARTNER_MIN_PACKS, type PackId } from "@/lib/products";
 import { routing } from "@/i18n/routing";
 
 interface CheckoutItemBody {
@@ -60,7 +60,9 @@ export async function POST(request: Request) {
       quantity,
       price_data: {
         currency: "eur",
-        unit_amount: pack.priceCents, // 18,99 € / 24,99 € — Kleinunternehmer §19 UStG (net = gross)
+        // Retail 70 €; partner price 60 € from 10 packs (Kleinunternehmer
+        // §19 UStG — netto = gross). Bonus pack ships free (metadata only).
+        unit_amount: quantity >= PARTNER_MIN_PACKS ? pack.partnerPriceCents : pack.priceCents,
         product_data: {
           name: `RevolutTIME Magnesium + H₂ — ${pack.tablets} Tabletten`,
           images: [`${origin}${pack.image}`],
@@ -84,6 +86,12 @@ export async function POST(request: Request) {
       metadata: {
         items: JSON.stringify(lines),
         ref: refCookie,
+        // Partner bundle marker: webhook ledger reads it for attribution.
+        partner_bundle: lines.some(
+          (line) => Math.floor(Number(line.quantity)) >= PARTNER_MIN_PACKS,
+        )
+          ? `1_${PARTNER_BONUS_PACKS}free`
+          : "0",
       },
       success_url: `${origin}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/${locale}/checkout/cancel`,

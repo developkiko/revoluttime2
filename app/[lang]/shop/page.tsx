@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { BadgeCheckIcon, PackageIcon, TruckIcon } from "lucide-react";
+import { BadgeCheckIcon, HandCoinsIcon, PackageIcon, TruckIcon } from "lucide-react";
 
 import { ProductVariants } from "@/components/shop/ProductVariants";
 import { UsageSection } from "@/components/home/UsageSection";
@@ -47,6 +47,10 @@ export default async function ShopPage({
               </li>
             ))}
           </ul>
+          <p className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary">
+            <HandCoinsIcon className="size-3.5" />
+            {t("partnerHint")}
+          </p>
         </div>
       </section>
 

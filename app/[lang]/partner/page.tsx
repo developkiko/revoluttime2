@@ -12,12 +12,7 @@ import { CtaBanner } from "@/components/layout/CtaBanner";
 import { PartnerStepsLazy } from "@/components/partner/PartnerStepsLazy";
 import { LevelsCascadeLazy } from "@/components/partner/LevelsCascadeLazy";
 import { SITE, formatPrice, type Locale } from "@/lib/products";
-import {
-  LEVEL_SHARES,
-  MLM_LEVELS,
-  PARTNER_FUND_RATIO,
-  payoutTable,
-} from "@/lib/mlm-calculator";
+import { payoutTable } from "@/lib/mlm-calculator";
 
 const BENEFITS = [
   { key: "commission", icon: PercentIcon },
@@ -40,7 +35,7 @@ export default async function PartnerPage({
   const { lang } = await params;
   setRequestLocale(lang);
   const t = await getTranslations("partner");
-  const payouts = payoutTable();
+  const { rows: planRows, totals: planTotals } = payoutTable();
 
   return (
     <>
@@ -131,47 +126,46 @@ export default async function PartnerPage({
           </p>
 
           <div className="mt-8 overflow-x-auto rounded-2xl border bg-card">
-            <table className="w-full min-w-[36rem] text-sm">
+            <table className="w-full min-w-[42rem] text-sm">
               <thead>
                 <tr className="border-b text-left text-xs uppercase tracking-wider text-muted-foreground">
                   <th className="px-4 py-3 font-medium">{t("fund.colLevel")}</th>
                   <th className="px-4 py-3 font-medium">{t("fund.colShare")}</th>
-                  {payouts.map((sku) => (
-                    <th key={sku.packId} className="px-4 py-3 font-medium">
-                      {sku.tablets} · {formatPrice(sku.priceCents, lang as Locale)}
-                    </th>
-                  ))}
+                  <th className="px-4 py-3 font-medium">{t("fund.colPartners")}</th>
+                  <th className="px-4 py-3 font-medium">{t("fund.colPerPerson")}</th>
+                  <th className="px-4 py-3 font-medium">{t("fund.colSubtotal")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {MLM_LEVELS.map((level) => (
-                  <tr key={level}>
+                {planRows.map((row) => (
+                  <tr key={row.level}>
                     <td className="px-4 py-3 font-semibold">
-                      {t("fund.levelName", { level })}
+                      {t("fund.levelName", { level: row.level })}
                     </td>
                     <td className="px-4 py-3 tabular-nums text-muted-foreground">
-                      {LEVEL_SHARES[level] * 100} %
+                      {row.share * 100} %
                     </td>
-                    {payouts.map((sku) => (
-                      <td
-                        key={`${sku.packId}-${level}`}
-                        className="px-4 py-3 tabular-nums font-medium"
-                      >
-                        {formatPrice(sku.payouts[level], lang as Locale)}
-                      </td>
-                    ))}
+                    <td className="px-4 py-3 tabular-nums text-muted-foreground">
+                      {row.partners.toLocaleString(lang)}
+                    </td>
+                    <td className="px-4 py-3 tabular-nums font-medium">
+                      {formatPrice(row.perPersonCents, lang as Locale)}
+                    </td>
+                    <td className="px-4 py-3 tabular-nums font-semibold">
+                      {formatPrice(row.subtotalCents, lang as Locale)}
+                    </td>
                   </tr>
                 ))}
                 <tr className="border-t bg-muted/50 font-semibold">
-                  <td className="px-4 py-3">{t("fund.fundRow")}</td>
+                  <td className="px-4 py-3">{t("fund.totalRow")}</td>
+                  <td className="px-4 py-3" />
                   <td className="px-4 py-3 tabular-nums">
-                    {PARTNER_FUND_RATIO * 100} %
+                    {planTotals.partnersTotal.toLocaleString(lang)}
                   </td>
-                  {payouts.map((sku) => (
-                    <td key={`fund-${sku.packId}`} className="px-4 py-3 tabular-nums">
-                      {formatPrice(sku.fundCents, lang as Locale)}
-                    </td>
-                  ))}
+                  <td className="px-4 py-3" />
+                  <td className="px-4 py-3 tabular-nums text-primary">
+                    {formatPrice(planTotals.potentialCents, lang as Locale)}
+                  </td>
                 </tr>
               </tbody>
             </table>

@@ -90,7 +90,7 @@ export default async function TabletsPage({
           <div className="mx-auto w-full max-w-sm">
             <div className="overflow-hidden rounded-3xl border bg-card shadow-lg">
               <Image
-                src="/imgs/product/tabs-120.jpg"
+                src="/imgs/product/tabs-90.jpg"
                 alt={t("title")}
                 width={959}
                 height={1280}

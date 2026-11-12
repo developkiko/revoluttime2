@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "RevolutTIME — Wasserstoff, Biohacking & Partnerprogramm",
-    "description": "RevolutTIME: Magnesium-H₂-Brausetabletten für Wasserstoffwasser, das RevolutTIME Studio (Fitness · Biohacking · Recovery) und ein Partnerprogramm mit bis zu 30 % Provision. Versand aus Hebertshausen bei München.",
+    "description": "RevolutTIME: Magnesium-H₂-Brausetabletten für Wasserstoffwasser, das RevolutTIME Studio (Fitness · Biohacking · Recovery) und ein Partnerprogramm mit bis zu 50 % Provision. Versand aus Hebertshausen bei München.",
     "shop": {
       "title": "Shop — Magnesium + H₂ Brausetabletten | RevolutTIME",
       "description": "RevolutTIME Magnesium + H₂ bestellen: 90 oder 120 Brausetabletten mit Aufbewahrungsbox. Eurofins-geprüft (bis 1,6 ppm H₂), Versand aus Bayern mit DHL/Hermes."
@@ -15,8 +15,8 @@
       "description": "RevolutTIME Studio: Hydrogen Breathing, Red Light Wellness, Nano Suit Training, Vibration & Lymph Flow, Krafttraining und Recovery. Termine auf DE · RU · EN."
     },
     "partner": {
-      "title": "Partnerprogramm — bis zu 30 % Provision | RevolutTIME",
-      "description": "Werden Sie RevolutTIME-Partner: empfehlen Sie unsere Produkte und verdienen Sie an jedem Verkauf — in 6 Ebenen (A–F), lebenslang, mit schneller Auszahlung."
+      "title": "Partnerprogramm — bis zu 50 % Provision | RevolutTIME",
+      "description": "Werden Sie RevolutTIME-Partner: empfehlen Sie unsere Produkte und verdienen Sie an jedem Verkauf — in 5 Ebenen (I–V), lebenslang, mit schneller Auszahlung."
     }
   },
   "brand": {
@@ -28,7 +28,7 @@
       "tablets": "Tabletten",
       "studio": "Studio",
       "equipment": "Equipment",
-      "recreation": "Erholung & Sport",
+      "recreation": "Konferenz und Erholung",
       "partner": "Partner",
       "contact": "Kontakt",
       "encyclopedia": "Encyclopedia"
@@ -74,8 +74,8 @@
         "partner": {
           "badge": "Partnerprogramm · Geld macht Geld",
           "title": "Partnerprogramm.",
-          "titleAccent": "Bis zu 30 % Provision.",
-          "subtitle": "Ihre Empfehlung — Ihr Einkommen: sechs Ebenen tief (A–F), lebenslange Boni und Auszahlung auf Karte, in Krypto oder Telegram.",
+          "titleAccent": "Bis zu 50 % Provision.",
+          "subtitle": "Ihre Empfehlung — Ihr Einkommen: fünf Ebenen (I–V) tief, 50 % schon ab der ersten Linie, lebenslange Boni und Auszahlung auf Karte, in Krypto oder Telegram.",
           "cta": "Partner werden"
         }
       },
@@ -106,13 +106,13 @@
           "cta": "Ansehen"
         },
         "recreation": {
-          "title": "Aktiver Sporturlaub",
+          "title": "Konferenz und Erholung",
           "text": "Badminton, Thermal-Wochenende, Läufe und Wanderungen — Termine, Plätze und Preise pro Person.",
           "cta": "Möglichkeiten ansehen"
         },
         "partner": {
           "title": "Partnerprogramm",
-          "text": "Geld macht Geld: bis zu 30 % Provision, 6 Ebenen (A–F), lebenslange Boni und schnelle Auszahlung.",
+          "text": "Geld macht Geld: 50 % schon ab der ersten Linie, 5 Ebenen (I–V), lebenslange Boni und schnelle Auszahlung.",
           "cta": "Partner werden"
         }
       }
@@ -126,7 +126,7 @@
     },
     "partnerTeaser": {
       "title": "Geld macht Geld",
-      "text": "Bis zu 30 % Provision, lebenslange Boni in 6 Ebenen (A–F), Auszahlung auf Karte, in Krypto oder Telegram.",
+      "text": "Bis zu 50 % Provision ab der ersten Linie, lebenslange Boni in 5 Ebenen (I–V), Auszahlung auf Karte, in Krypto oder Telegram.",
       "cta": "Mehr übers Partnerprogramm"
     },
     "encyclopedia": {
@@ -194,7 +194,8 @@
       "subtitle": "Der Klassiker von RevolutTIME: zwei Formate zur Wahl, Eurofins-geprüft, Versand aus Bayern mit DHL/Hermes.",
       "perk1": "Eurofins-Analyse: bis 1,6 ppm H₂",
       "perk2": "Aufbewahrungsbox inklusive",
-      "perk3": "Versand 1–2 Werktage (DE)"
+      "perk3": "Versand 1–2 Werktage (DE)",
+      "partnerHint": "Partner: 60 € pro Packung ab 10 Packungen — 1 Packung gratis dazu."
     }
   },
   "studio": {
@@ -248,8 +249,8 @@
     "hero": {
       "badge": "Geld macht Geld",
       "title": "Partnerprogramm",
-      "titleAccent": "Bis zu 30 % Provision.",
-      "subtitle": "Teilen Sie Ihre persönliche Empfehlung — und verdienen Sie an jedem Verkauf. Sechs Ebenen tief (A–F), lebenslange Boni, schnelle Auszahlung."
+      "titleAccent": "Bis zu 50 % Provision.",
+      "subtitle": "Teilen Sie Ihre persönliche Empfehlung — und verdienen Sie an jedem Verkauf. Fünf Ebenen (I–V), 50 % ab der ersten Linie, lebenslange Boni."
     },
     "how": {
       "title": "So funktioniert's",
@@ -276,7 +277,7 @@
       "title": "Warum RevolutTIME?",
       "items": {
         "commission": {
-          "title": "Bis zu 30 % Provision",
+          "title": "Bis zu 50 % Provision",
           "text": "Attraktive Vergütung auf jede vermittelte Bestellung."
         },
         "lifetime": {
@@ -295,22 +296,25 @@
     },
     "levels": {
       "title": "6 Ebenen — von A bis F",
-      "subtitle": "Ihr Netzwerk wächst in die Tiefe: von direkten Käufern (Ebene A) bis zur sechsten Generation (Ebene F). In jeder Ebene werden Boni berechnet.",
-      "levelA": "Ebene A — Ihre direkten Kunden",
-      "levelB": "Ebene B — Kunden Ihrer Partner",
-      "levelC": "Ebene C — dritte Generation",
-      "levelD": "Ebene D — vierte Generation",
-      "levelE": "Ebene E — fünfte Generation",
-      "levelF": "Ebene F — sechste Generation"
+      "subtitle": "Ihr Netzwerk wächst in die Tiefe: von direkten Partnern (Ebene I) bis zur fünften Generation (Ebene V) — in jeder Ebene werden Boni berechnet.",
+      "levelI": "Ebene I — Ihre direkten Partner (50 %)",
+      "levelII": "Ebene II — Partner Ihrer Partner (10 %)",
+      "levelIII": "Ebene III (2 %)",
+      "levelIV": "Ebene IV (1 %)",
+      "levelV": "Ebene V (1 %)"
     },
     "fund": {
       "title": "Der Partnerfonds — transparent verteilt",
-      "subtitle": "30 % des Netto-Betrags jeder Tabletten-Bestellung fließen in den Partnerfonds und werden nach dem Level-Plan A–F verteilt — lebenslang, bei jedem Einkauf deiner Netzwerks.",
+      "subtitle": "Pro Verkauf in Ihrer Struktur fließen 50/10/2/1/1 % an die Ebenen I–V. Beispiel auf dem Partner-Einstieg: 10 Packungen × 60 € = 600 € (+1 Packung gratis).",
       "colLevel": "Level",
       "colShare": "Anteil am Fonds",
       "levelName": "Level {level}",
       "fundRow": "Partnerfonds gesamt",
-      "footnote": "Alle Preise sind Endkundenpreise. Gemäß § 19 UStG (Kleinunternehmerregelung) werden alle Provisionen von Nettobeträgen berechnet — es wird keine Umsatzsteuer berechnet und ausgewiesen. Werte: vorläufige Kalkulation, Änderungen vorbehalten."
+      "footnote": "Beispielrechnung: voll gefüllte 5er-Matrix auf dem Partner-Einstieg (600 €). Gemäß § 19 UStG (Kleinunternehmerregelung) werden Provisionen aus Nettobeträgen berechnet — es fällt keine Umsatzsteuer an. Die Zahlen sind ein Rechenbeispiel, keine Einkommensgarantie.",
+      "colPartners": "Partner",
+      "colPerPerson": "Pro Person",
+      "colSubtotal": "Summe",
+      "totalRow": "Gesamtes Netz (5 Ebenen)"
     },
     "payouts": {
       "title": "Auszahlungen",
@@ -336,7 +340,7 @@
     "partnersActive": "{count} aktiv",
     "ordersCount": "Käufe",
     "earnedTotal": "Bonusbeträge verdient",
-    "commissionNote": "bis zu 30 % vom Struktur-Umsatz",
+    "commissionNote": "bis zu 50 % vom Struktur-Umsatz",
     "purchases": "Käufe",
     "bonuses": "Bonus-Historie",
     "myPartners": "Meine Struktur",
@@ -436,7 +440,7 @@
     "subtitle": "Bauseite: hier sind alle Blöcke und Funktionen der Website versammelt — für Design- und Verhaltenschecks vor der Veröffentlichung.",
     "pieceLogo": "Logo & Themes",
     "pieceSteps": "Partner-Schritte",
-    "pieceLevels": "Kaskade A–F",
+    "pieceLevels": "Kaskade I–V",
     "pieceBooking": "Buchung",
     "pieceContact": "Kontakt",
     "contactTitle": "Kontakt-Widget",
@@ -448,7 +452,7 @@
     "logoSvgLabel": "Hero als SVG (Text → Pfade, ohne Fonts)",
     "stepsTitle": "Partner-Schritte (Animation, Hover)",
     "diagramTitle": "Referral-Pentagon",
-    "levelsTitle": "Ebenen A–F (Farbe + Hover)",
+    "levelsTitle": "Ebenen I–V (Farbe + Hover)",
     "bookingTitle": "Buchung (Ticket in den Warenkorb)"
   },
   "contact": {
@@ -526,7 +530,7 @@
     "formTitle": "Equipment-Anfrage",
     "cta": {
       "title": "Möchten Sie mit Equipment verdienen?",
-      "text": "Partner erhalten Provision für jede Equipment-Verkaufsempfehlung — bis zu 30 %.",
+      "text": "Partner erhalten Provision für jede Equipment-Verkaufsempfehlung — bis zu 50 %.",
       "button": "Partner werden"
     }
   },
@@ -813,17 +817,13 @@
       "pack-90": {
         "name": "Packung 90 Tabletten",
         "note": "Bis zu 30 Tage Versorgung"
-      },
-      "pack-120": {
-        "name": "Packung 120 Tabletten + Box",
-        "note": "Mehr Vorrat + Aufbewahrungsbox"
       }
     }
   },
   "cart": {
     "title": "Warenkorb",
     "empty": "Ihr Warenkorb ist noch leer.",
-    "emptyHint": "Wählen Sie ein Format — 90 oder 120 Tabletten.",
+    "emptyHint": "Wählen Sie ein Format — 90 Tabletten.",
     "total": "Gesamt",
     "quantity": "Menge",
     "remove": "Entfernen",
@@ -899,7 +899,7 @@
       "tablets": "Tabletten Magnesium + H₂",
       "studio": "Fitness-Biohacking-Studio",
       "equipment": "Equipment-Verkauf",
-      "recreation": "Aktiver Sporturlaub",
+      "recreation": "Konferenz und Erholung",
       "partner": "Partnerprogramm",
       "journey": "Discovery Journey",
       "encyclopedia": "Encyclopedia"

@@ -150,7 +150,7 @@ export async function POST(request: Request) {
       order.customer_email ? `E-mail: ${order.customer_email}` : null,
       refCode ? `Ref: ${refCode}` : null,
       `Позиции: ${itemsText}`,
-      `Фонд 30% (холдинг до ${unlocksAt.slice(0, 10)}): ${formatEuros(fundCents)}`,
+      `Фонд 64% (уровни I–V, холдинг до ${unlocksAt.slice(0, 10)}): ${formatEuros(fundCents)}`,
       `Session: ${session.id}`,
       `БД: ${db === "inserted" ? "✅ записано" : "⚠️ пропущено (нет ключа БД)"}`,
     ]

@@ -2,7 +2,7 @@ import { routing, type Locale } from "@/i18n/routing";
 
 export type { Locale };
 
-export type PackId = "pack-90" | "pack-120";
+export type PackId = "pack-90";
 
 /** Brand-wide contacts (from the RevolutTIME business card). */
 export const SITE = {
@@ -17,25 +17,27 @@ export interface PackVariant {
   id: PackId;
   /** Number of effervescent tablets in the pack. */
   tablets: number;
-  /** Price in euro cents. */
+  /** Retail price in euro cents (end customers). */
   priceCents: number;
+  /** Partner price in euro cents (min. PARTNER_MIN_PACKS packs per order). */
+  partnerPriceCents: number;
   /** True for the flagship format shown first. */
   featured?: boolean;
   image: string;
 }
 
+/** Partner condition: partner price applies from this many packs per order. */
+export const PARTNER_MIN_PACKS = 10;
+/** Free bonus packs shipped with a qualifying partner order. */
+export const PARTNER_BONUS_PACKS = 1;
+
 export const PACK_VARIANTS: PackVariant[] = [
-  {
-    id: "pack-120",
-    tablets: 120,
-    priceCents: 2499,
-    featured: true,
-    image: "/imgs/product/tabs-120.jpg",
-  },
   {
     id: "pack-90",
     tablets: 90,
-    priceCents: 1899,
+    priceCents: 7000,
+    partnerPriceCents: 6000,
+    featured: true,
     image: "/imgs/product/tabs-90.jpg",
   },
 ];
