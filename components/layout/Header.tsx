@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/sheet";
 
 const NAV_ITEMS = [
+  { href: "/encyclopedia", key: "encyclopedia" },
   { href: "/shop", key: "tablets" },
   { href: "/studio", key: "studio" },
   { href: "/equipment", key: "equipment" },
@@ -137,17 +138,21 @@ export function Header() {
         </nav>
 
         <div className="ml-auto flex items-center gap-1.5 lg:ml-2">
-          <ThemeToggle />
-          <LanguageSwitcher />
-          <AuthPanel />
+          {/* Desktop-only controls — on mobile they live inside the menu sheet
+              so the menu button can never be pushed off-screen. */}
+          <div className="hidden items-center gap-1.5 lg:flex">
+            <ThemeToggle />
+            <LanguageSwitcher />
+            <AuthPanel />
+          </div>
           <CartButton />
 
           <Sheet>
             <SheetTrigger asChild>
               <Button
-                variant="ghost"
+                variant="outline"
                 size="icon"
-                className="lg:hidden"
+                className="shrink-0 lg:hidden"
                 aria-label={t("openMenu")}
               >
                 <MenuIcon />
@@ -179,7 +184,14 @@ export function Header() {
                 </SheetClose>
               </nav>
               <div className="mt-auto flex flex-col gap-4 px-4 pb-6">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    {t("theme")}
+                  </span>
+                  <ThemeToggle />
+                </div>
                 <LanguageSwitcher compact={false} />
+                <AuthPanel />
               </div>
             </SheetContent>
           </Sheet>

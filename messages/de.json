@@ -30,13 +30,15 @@
       "equipment": "Equipment",
       "recreation": "Erholung & Sport",
       "partner": "Partner",
-      "contact": "Kontakt"
+      "contact": "Kontakt",
+      "encyclopedia": "Encyclopedia"
     },
     "home": "Startseite",
     "cart": "Warenkorb",
     "language": "Sprache",
     "openMenu": "Menü öffnen",
-    "closeMenu": "Menü schließen"
+    "closeMenu": "Menü schließen",
+    "theme": "Design"
   },
   "home": {
     "hero": {
@@ -45,7 +47,7 @@
           "badge": "Eurofins-geprüft · bis 1,6 ppm H₂",
           "title": "Molekularer Wasserstoff.",
           "titleAccent": "Jeden Tag. Frisch.",
-          "subtitle": "RevolutTIME Magnesium + H₂ — Brausetabletten für angereichertes Wasser. Eine Tablette in 150–200 ml kaltes Wasser, 1–1,5 Minuten — und Ihr Getränk ist bereit.",
+          "subtitle": "RevolutTIME <mgh2>Magnesium + H₂</mgh2> — Brausetabletten für <water>angereichertes Wasser</water>. Eine Tablette in 150–200 ml kaltes Wasser, 1–1,5 Minuten — und Ihr Getränk ist bereit.",
           "cta": "Tabletten bestellen"
         },
         "studio": {
@@ -86,21 +88,21 @@
     },
     "directions": {
       "title": "Fünf Richtungen — ein Ziel",
-      "subtitle": "Aktives Longevity: H₂-Tabletten, Biohacking-Studio, Equipment, aktiver Sporturlaub und ein Partnerprogramm, in dem Geld Geld macht.",
+      "subtitle": "Aktives Longevity: <h2>H₂-Tabletten</h2>, Biohacking-Studio, Equipment, aktiver Sporturlaub und ein Partnerprogramm, in dem Geld Geld macht.",
       "items": {
         "tablets": {
           "title": "Tabletten Magnesium + H₂",
-          "text": "Brausetabletten mit molekularem Wasserstoff: Zusammensetzung, Aufnahme und Vergleich mit Apotheken-Magnesiumformen — plus Online-Bestellung.",
+          "text": "Brausetabletten mit <h2>molekularem Wasserstoff</h2>: Zusammensetzung, Aufnahme und Vergleich mit <mg>Apotheken-Magnesiumformen</mg> — plus Online-Bestellung.",
           "cta": "Bestellen"
         },
         "studio": {
           "title": "Fitness-Biohacking-Studio",
-          "text": "Hydrogen Breathing, Red Light Wellness, Nano-Suit, Vibrationstraining und Recovery — Technologie für Tonus und Form.",
+          "text": "Hydrogen Breathing, Red Light Wellness, Nano-Suit, Vibrationstraining und <recovery>Recovery</recovery> — Technologie für Tonus und Form.",
           "cta": "Zum Studio"
         },
         "equipment": {
           "title": "Equipment-Verkauf",
-          "text": "Wasserstoffflaschen, Inhalationsgeräte und Stationen für Büros. Auswahl, Beratung und Preis auf Anfrage.",
+          "text": "<water>Wasserstoffflaschen</water>, Inhalationsgeräte und Stationen für Büros. Auswahl, Beratung und Preis auf Anfrage.",
           "cta": "Ansehen"
         },
         "recreation": {
@@ -126,6 +128,19 @@
       "title": "Geld macht Geld",
       "text": "Bis zu 30 % Provision, lebenslange Boni in 6 Ebenen (A–F), Auszahlung auf Karte, in Krypto oder Telegram.",
       "cta": "Mehr übers Partnerprogramm"
+    },
+    "encyclopedia": {
+      "badge": "Wissens-Bibliothek",
+      "title": "Encyclopedia: Wissenschaft statt Versprechen",
+      "subtitle": "10 Artikel zu molekularem Wasserstoff und Magnesium — mit PubMed-Quellen, Evidenz-Bewertung und HWG-fairen Formulierungen. Fachbegriffe auf der Website sind verlinkt.",
+      "cta": "Alle Artikel",
+      "readMore": "Lesen",
+      "categories": {
+        "fundamentals": "Grundlagen",
+        "human_biology": "Humanbiologie",
+        "studies": "Studien",
+        "equipment": "Equipment"
+      }
     }
   },
   "hydrogen": {
@@ -483,7 +498,7 @@
   },
   "equipment": {
     "title": "Equipment-Verkauf",
-    "subtitle": "Wasserstoffflaschen, Inhalationsgeräte und Stationen für Büros — Technik, die in unserem Studio erprobt ist. Beratung und Preis auf Anfrage.",
+    "subtitle": "<water>Wasserstoffflaschen</water>, Inhalationsgeräte und Stationen für Büros — Technik, die in unserem Studio erprobt ist. Beratung und Preis auf Anfrage.",
     "hero": {
       "title": "Equipment-Verkauf",
       "subtitle": "Wasserstoffflaschen, Inhalationsgeräte und Stationen für Büros — Technik, die in unserem Studio erprobt ist. Beratung und Preis auf Anfrage."
@@ -552,7 +567,7 @@
     },
     "badge": "Produkt der Richtung Wasserstoff",
     "title": "Die Brausetablette mit H₂",
-    "subtitle": "Woraus sie besteht, wie sie aufgenommen wird, was sie von Apotheken-Magnesiumformen unterscheidet — und was Menschen spüren, die sie täglich trinken.",
+    "subtitle": "Woraus sie besteht, wie sie aufgenommen wird, was sie von <mg>Apotheken-Magnesiumformen</mg> unterscheidet — und was Menschen spüren, die sie täglich trinken.",
     "cta": {
       "title": "Selbst ausprobieren",
       "text": "Packungen mit 90 und 120 Tabletten — Versand aus Bayern in 1–2 Tagen.",
@@ -886,7 +901,8 @@
       "equipment": "Equipment-Verkauf",
       "recreation": "Aktiver Sporturlaub",
       "partner": "Partnerprogramm",
-      "journey": "Discovery Journey"
+      "journey": "Discovery Journey",
+      "encyclopedia": "Encyclopedia"
     },
     "contactsTitle": "Kontakt",
     "company": "Gewerbe Yuriy Moshenets",

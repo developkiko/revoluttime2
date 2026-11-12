@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ContactWidgetLazy } from "@/components/contact/ContactWidgetLazy";
 import { CtaBanner } from "@/components/layout/CtaBanner";
+import { WikiLink } from "@/components/encyclopedia/WikiLink";
 import { offersBySection } from "@/lib/catalog";
 
 const STARTER_ITEMS = [
@@ -62,7 +63,13 @@ export default async function EquipmentPage({
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {t("title")}
           </h1>
-          <p className="mt-3 max-w-2xl text-muted-foreground">{t("subtitle")}</p>
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            {t.rich("subtitle", {
+              water: (chunks) => (
+                <WikiLink slug="h2-water-production">{chunks}</WikiLink>
+              ),
+            })}
+          </p>
           <ul className="mt-6 flex flex-wrap gap-2 text-xs text-muted-foreground">
             {items.map((item) => (
               <li

@@ -30,13 +30,15 @@
       "equipment": "Equipment",
       "recreation": "Recreation & sport",
       "partner": "Partners",
-      "contact": "Contact"
+      "contact": "Contact",
+      "encyclopedia": "Encyclopedia"
     },
     "home": "Home",
     "cart": "Cart",
     "language": "Language",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "theme": "Theme"
   },
   "home": {
     "hero": {
@@ -45,7 +47,7 @@
           "badge": "Eurofins-tested · up to 1.6 ppm H₂",
           "title": "Molecular hydrogen.",
           "titleAccent": "Every day. Fresh.",
-          "subtitle": "RevolutTIME Magnesium + H₂ — effervescent tablets for enriched water. One tablet into 150–200 ml of cold water, 1–1.5 minutes — and your drink is ready.",
+          "subtitle": "RevolutTIME <mgh2>Magnesium + H₂</mgh2> — effervescent tablets for <water>enriched water</water>. One tablet into 150–200 ml of cold water, 1–1.5 minutes — and your drink is ready.",
           "cta": "Order tablets"
         },
         "studio": {
@@ -86,21 +88,21 @@
     },
     "directions": {
       "title": "Five directions — one goal",
-      "subtitle": "Active longevity: hydrogen tablets, a biohacking studio, equipment, active sports recreation and a partner program where money makes money.",
+      "subtitle": "Active longevity: <h2>hydrogen tablets</h2>, a biohacking studio, equipment, active sports recreation and a partner program where money makes money.",
       "items": {
         "tablets": {
           "title": "Magnesium + H₂ tablets",
-          "text": "Effervescent tablets with molecular hydrogen: composition, absorption and a comparison with pharmacy magnesium forms — plus online ordering.",
+          "text": "Effervescent tablets with <h2>molecular hydrogen</h2>: composition, absorption and a comparison with <mg>pharmacy magnesium forms</mg> — plus online ordering.",
           "cta": "Order"
         },
         "studio": {
           "title": "Fitness biohacking studio",
-          "text": "Hydrogen Breathing, Red Light Wellness, nano suit, vibration training and recovery — technology for tone and shape.",
+          "text": "Hydrogen Breathing, Red Light Wellness, nano suit, vibration training and <recovery>recovery</recovery> — technology for tone and shape.",
           "cta": "Visit the studio"
         },
         "equipment": {
           "title": "Equipment sales",
-          "text": "Hydrogen bottles, inhalation devices and office stations. Selection, advice and price on request.",
+          "text": "<water>Hydrogen bottles</water>, inhalation devices and office stations. Selection, advice and price on request.",
           "cta": "View"
         },
         "recreation": {
@@ -126,6 +128,19 @@
       "title": "Money makes money",
       "text": "Up to 30% commission, lifetime bonuses across 6 levels (A–F), payouts to card, crypto or Telegram.",
       "cta": "About the program"
+    },
+    "encyclopedia": {
+      "badge": "Knowledge base",
+      "title": "Encyclopedia: science instead of promises",
+      "subtitle": "10 articles on molecular hydrogen and magnesium — with PubMed sources, evidence ratings and HWG-compliant wording. Scientific terms across the site are clickable.",
+      "cta": "All articles",
+      "readMore": "Read",
+      "categories": {
+        "fundamentals": "Fundamentals",
+        "human_biology": "Human Biology",
+        "studies": "Studies",
+        "equipment": "Equipment"
+      }
     }
   },
   "hydrogen": {
@@ -483,7 +498,7 @@
   },
   "equipment": {
     "title": "Equipment sales",
-    "subtitle": "Hydrogen bottles, inhalation devices and office stations — technology proven in our studio. Selection and price on request.",
+    "subtitle": "<water>Hydrogen bottles</water>, inhalation devices and office stations — technology proven in our studio. Selection and price on request.",
     "hero": {
       "title": "Equipment sales | RevolutTIME",
       "subtitle": "Hydrogen bottles, inhalation devices and office stations. Selection and price on request."
@@ -552,7 +567,7 @@
     },
     "badge": "Product of the hydrogen direction",
     "title": "The H₂ effervescent tablet",
-    "subtitle": "What it's made of, how it absorbs, how it differs from pharmacy magnesium forms — and what people who drink it daily feel.",
+    "subtitle": "What it's made of, how it absorbs, how it differs from <mg>pharmacy magnesium forms</mg> — and what people who drink it daily feel.",
     "cta": {
       "title": "Try it yourself",
       "text": "Packs of 90 and 120 tablets — delivered from Bavaria in 1–2 days.",
@@ -886,7 +901,8 @@
       "equipment": "Equipment sales",
       "recreation": "Active sports recreation",
       "partner": "Partner program",
-      "journey": "Discovery Journey"
+      "journey": "Discovery Journey",
+      "encyclopedia": "Encyclopedia"
     },
     "contactsTitle": "Contact",
     "company": "Gewerbe Yuriy Moshenets",

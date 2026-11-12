@@ -20,10 +20,13 @@ import * as React from "react";
 
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { WikiLink } from "@/components/encyclopedia/WikiLink";
 
 const SLIDE_INTERVAL_MS = 7000;
 /** Horizontal drag distance (px) that counts as a swipe. */
 const SWIPE_THRESHOLD_PX = 48;
+/** Minimum gap between slide transitions (ms). */
+const NAV_LOCK_MS = 500;
 
 const SLIDE_KEYS = [
   "hydrogen",
@@ -93,21 +96,38 @@ export function HeroSection() {
   const t = useTranslations("home.hero");
   const [[index, direction], setSlide] = React.useState<[number, number]>([0, 0]);
 
-  const go = React.useCallback((next: number) => {
-    setSlide(([current]) => [
-      (next + SLIDE_KEYS.length) % SLIDE_KEYS.length,
-      next > current ? 1 : -1,
-    ]);
+  // Rapid navigation (fast swipes / arrow spam + auto-timer) would queue
+  // multiple enter/exit animations — slides then linger half-faded. A short
+  // lock keeps one transition at a time.
+  const navLockRef = React.useRef(0);
+  const navLocked = React.useCallback(() => {
+    const now = Date.now();
+    if (now - navLockRef.current < NAV_LOCK_MS) return true;
+    navLockRef.current = now;
+    return false;
   }, []);
+
+  const go = React.useCallback(
+    (next: number) => {
+      if (navLocked()) return;
+      setSlide(([current]) => [
+        (next + SLIDE_KEYS.length) % SLIDE_KEYS.length,
+        next > current ? 1 : -1,
+      ]);
+    },
+    [navLocked],
+  );
 
   const nextSlide = React.useCallback(() => {
     setSlide(([current]) => [(current + 1) % SLIDE_KEYS.length, 1]);
   }, []);
 
+  // The interval restarts on every slide change: manual navigation gets a
+  // full 7 s before the timer fires again (no mid-transition hijacks).
   React.useEffect(() => {
     const timer = window.setInterval(nextSlide, SLIDE_INTERVAL_MS);
     return () => window.clearInterval(timer);
-  }, [nextSlide]);
+  }, [nextSlide, index, direction]);
 
   // Swipe support: touch (pan-y keeps vertical scrolling native) and mouse
   // drag on desktop. A drag past the threshold suppresses the trailing click
@@ -140,6 +160,8 @@ export function HeroSection() {
       const dx = event.clientX - start.x;
       const dy = event.clientY - start.y;
       if (Math.abs(dx) < SWIPE_THRESHOLD_PX || Math.abs(dx) <= Math.abs(dy)) return;
+      if (navLocked()) return;
+      navLockRef.current = Date.now();
       if (dx < 0) {
         nextSlide();
       } else {
@@ -149,7 +171,7 @@ export function HeroSection() {
         ]);
       }
     },
-    [nextSlide],
+    [nextSlide, navLocked],
   );
 
   const onClickCapture = React.useCallback((event: React.MouseEvent<HTMLDivElement>) => {
@@ -230,7 +252,14 @@ export function HeroSection() {
                 </h1>
 
                 <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
-                  {t(`slides.${key}.subtitle`)}
+                  {t.rich(`slides.${key}.subtitle`, {
+                    mgh2: (chunks) => (
+                      <WikiLink slug="magnesium-h2-synergy">{chunks}</WikiLink>
+                    ),
+                    water: (chunks) => (
+                      <WikiLink slug="h2-water-production">{chunks}</WikiLink>
+                    ),
+                  })}
                 </p>
 
                 {isHydrogen && (

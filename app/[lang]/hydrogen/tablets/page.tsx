@@ -14,6 +14,7 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CtaBanner } from "@/components/layout/CtaBanner";
+import { WikiLink } from "@/components/encyclopedia/WikiLink";
 
 const COMPOSITION = [
   { key: "magnesium", value: "57–66,7 mg", icon: PillIcon },
@@ -68,7 +69,11 @@ export default async function TabletsPage({
               {t("title")}
             </h1>
             <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">
-              {t("subtitle")}
+              {t.rich("subtitle", {
+                mg: (chunks) => (
+                  <WikiLink slug="magnesium-intake-basics">{chunks}</WikiLink>
+                ),
+              })}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Button asChild>

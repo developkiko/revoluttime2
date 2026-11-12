@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 
 import { HeroSectionLazy } from "@/components/home/HeroSectionLazy";
 import { DirectionsSection } from "@/components/home/DirectionsSection";
+import { EncyclopediaSection } from "@/components/home/EncyclopediaSection";
 import { PartnerSection } from "@/components/home/PartnerSection";
 
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
@@ -12,6 +13,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
     <>
       <HeroSectionLazy />
       <DirectionsSection />
+      <EncyclopediaSection />
       <PartnerSection />
     </>
   );

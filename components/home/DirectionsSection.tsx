@@ -11,6 +11,7 @@ import {
 
 import { Link } from "@/i18n/navigation";
 import { Card, CardContent } from "@/components/ui/card";
+import { WikiLink } from "@/components/encyclopedia/WikiLink";
 
 interface Direction {
   key: string;
@@ -36,7 +37,13 @@ export async function DirectionsSection() {
         <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
           {t("title")}
         </h2>
-        <p className="mt-2 max-w-2xl text-muted-foreground">{t("subtitle")}</p>
+        <p className="mt-2 max-w-2xl text-muted-foreground">
+          {t.rich("subtitle", {
+            h2: (chunks) => (
+              <WikiLink slug="molecular-hydrogen-basics">{chunks}</WikiLink>
+            ),
+          })}
+        </p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {DIRECTIONS.map(({ key, href, icon: Icon }) => (
@@ -49,7 +56,20 @@ export async function DirectionsSection() {
                   {t(`items.${key}.title`)}
                 </h3>
                 <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
-                  {t(`items.${key}.text`)}
+                  {t.rich(`items.${key}.text`, {
+                    h2: (chunks) => (
+                      <WikiLink slug="molecular-hydrogen-basics">{chunks}</WikiLink>
+                    ),
+                    mg: (chunks) => (
+                      <WikiLink slug="magnesium-intake-basics">{chunks}</WikiLink>
+                    ),
+                    water: (chunks) => (
+                      <WikiLink slug="h2-water-production">{chunks}</WikiLink>
+                    ),
+                    recovery: (chunks) => (
+                      <WikiLink slug="h2-exercise-recovery">{chunks}</WikiLink>
+                    ),
+                  })}
                 </p>
                 <Link
                   href={href}
