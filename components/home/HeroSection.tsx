@@ -18,7 +18,6 @@ import * as React from "react";
 import { Link } from "@/i18n/navigation";
 import { WikiLink } from "@/components/encyclopedia/WikiLink";
 
-const SLIDE_INTERVAL_MS = 7000;
 /** Horizontal drag distance (px) that counts as a swipe. */
 const SWIPE_THRESHOLD_PX = 48;
 /** Minimum gap between slide transitions (ms). */
@@ -103,7 +102,7 @@ function SlideMedia({ slideKey, title }: { slideKey: SlideKey; title: string }) 
         className="mx-auto h-auto w-full md:max-h-[26rem] md:w-auto md:max-w-full"
       />
       {plate && (
-        <div className="absolute bottom-0 left-0 rounded-tr-2xl border-x-0 border-b-0 bg-card/95 px-4 py-3 backdrop-blur-sm">
+        <div className="absolute bottom-0 left-0 rounded-tr-2xl border border-[var(--border-default)] bg-card/95 px-4 py-3 shadow-lg backdrop-blur-sm">
           <p className="text-2xl font-bold text-primary">{plate.big}</p>
           <p className="text-xs text-muted-foreground">{plate.small}</p>
         </div>
@@ -142,12 +141,8 @@ export function HeroSection() {
     setSlide(([current]) => [(current + 1) % SLIDE_KEYS.length, 1]);
   }, []);
 
-  // The interval restarts on every slide change: manual navigation gets a
-  // full 7 s before the timer fires again (no mid-transition hijacks).
-  React.useEffect(() => {
-    const timer = window.setInterval(nextSlide, SLIDE_INTERVAL_MS);
-    return () => window.clearInterval(timer);
-  }, [nextSlide, index, direction]);
+  // Автолистание убрано по решению владельца: слайды меняются только
+  // стрелками, точками или свайпом.
 
   // Swipe support: touch (pan-y keeps vertical scrolling native) and mouse
   // drag on desktop. A drag past the threshold suppresses the trailing click
