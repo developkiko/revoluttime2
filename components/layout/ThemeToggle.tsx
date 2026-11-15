@@ -4,8 +4,6 @@ import * as React from "react";
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-
 export function ThemeProvider({
   children,
 }: {
@@ -25,6 +23,10 @@ export function ThemeProvider({
 
 const noopSubscribe = () => () => {};
 
+/**
+ * Theme switch — exact Ultra template control: 36px bordered rounded-lg
+ * button, w-4 icons (UltraThemeToggle in the template Header).
+ */
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   // false during SSR/prerender pass, true after hydration — no setState.
@@ -37,21 +39,21 @@ export function ThemeToggle() {
   const isDark = resolvedTheme === "dark";
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
+    <button
+      type="button"
       aria-label={isDark ? "light" : "dark"}
       onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="inline-flex items-center justify-center size-9 rounded-lg border border-[var(--border-default)] text-[var(--text-secondary)] hover:text-[var(--text-heading)] hover:bg-[var(--hover-bg)] transition-colors shrink-0"
     >
       {mounted ? (
         isDark ? (
-          <SunIcon />
+          <SunIcon className="w-4 h-4" />
         ) : (
-          <MoonIcon />
+          <MoonIcon className="w-4 h-4" />
         )
       ) : (
-        <MoonIcon className="opacity-0" />
+        <MoonIcon className="w-4 h-4 opacity-0" aria-hidden />
       )}
-    </Button>
+    </button>
   );
 }

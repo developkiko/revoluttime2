@@ -55,6 +55,9 @@
    re-skins every site page 1:1 with the new design. Brand blue (logo) keeps
    its own vars below. */
 :root {
+  /* Body font — exact template stack (ultra-proxy globals.css body) */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   --background: #f4f5fa;
   --foreground: #1a1a2e;
   --card: #ffffff;
@@ -102,6 +105,20 @@
   --border-active: rgba(99, 102, 241, 0.35);
   --hover-bg: rgba(10, 10, 40, 0.05);
   --hover-bg-strong: rgba(10, 10, 40, 0.09);
+  /* Ultra header tokens (site header = template header styles) */
+  --bg-card: #ffffff;
+  --border-default: #d8dae6;
+  --border-subtle: rgba(10, 10, 30, 0.06);
+  --text-heading: #0e0e1c;
+  --text-secondary: #565672;
+  --text-muted: #85859c;
+  --text-link: #4b4b62;
+  --glass-bg: rgba(244, 245, 250, 0.92);
+  --glass-blur: 12px;
+  --header-height: 3.25rem;
+  /* Template is 1200px — site header carries 6 long nav labels + user pill,
+     so it needs a wider container to keep breathing room at all locales. */
+  --max-width: 1280px;
   --overlay-bg: rgba(244, 245, 250, 0.98);
   --cursor-ring: rgba(10, 10, 40, 0.4);
   --cursor-ring-strong: rgba(10, 10, 40, 0.85);
@@ -155,6 +172,16 @@
   --border-active: rgba(99, 102, 241, 0.25);
   --hover-bg: rgba(255, 255, 255, 0.06);
   --hover-bg-strong: rgba(255, 255, 255, 0.1);
+  /* Ultra header tokens (dark) */
+  --bg-card: #14141f;
+  --border-default: #2a2a3a;
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --text-heading: #ffffff;
+  --text-secondary: #888888;
+  --text-muted: #666666;
+  --text-link: #a0a0b0;
+  --glass-bg: rgba(10, 10, 15, 0.95);
+  --glass-blur: 12px;
   --overlay-bg: rgba(10, 10, 15, 0.98);
   --cursor-ring: rgba(255, 255, 255, 0.5);
   --cursor-ring-strong: rgba(255, 255, 255, 0.9);
@@ -244,61 +271,49 @@
   --brand-blue-dark: #083d5c;
 }
 
-/* ── Two-layer striped wordmark (carried over from revoluttimenew) ───────── */
+/* ── Wordmark — exact copy of the Ultra template .logo ────────────────────
+   Single-layer shimmering gradient text: 135° primary → warning → accent →
+   primary, background-size 200%, 4s linear shimmer, hover brightness(1.3). */
 .rt-logo {
-  --rt-logo-size: 1.5rem;
-  display: grid;
-  grid-template-areas: "overlap";
-  place-content: center;
+  --rt-logo-size: 1.25rem;
   font-size: var(--rt-logo-size);
-  line-height: 1;
-  transition: all 0.3s ease;
-}
-.rt-logo > span {
-  grid-area: overlap;
-  margin: 0;
-  /* Ultra hero-logo look: uniform bold + indigo -> soft violet -> amber shimmer */
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  -webkit-text-stroke: 2px transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  background-image: linear-gradient(
+  line-height: 1.2;
+  background: linear-gradient(
     135deg,
-    #6366f1 0,
-    #a78bfa 40%,
-    #f59e0b 70%,
-    #6366f1 100%
+    var(--color-primary),
+    var(--color-warning),
+    var(--color-accent),
+    var(--color-primary)
   );
   background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+  width: min-content;
+  text-wrap-mode: nowrap;
   animation: rt-shimmer 4s linear infinite;
+  transition: filter 0.2s ease;
 }
-.rt-logo > span b {
+.rt-logo:hover {
+  filter: brightness(1.3);
+}
+.rt-logo b {
   font-weight: 800;
 }
-.rt-logo .rt-logo-bg {
-  user-select: none;
-  color: transparent;
-  filter: drop-shadow(2px 8px 10px rgb(0 0 0 / 0.3));
-  transform: scaleY(1.05);
-  transform-origin: top;
-  opacity: 0.4;
-}
-.rt-logo .rt-logo-fg {
-  color: transparent;
-}
-a.rt-logo:hover {
-  translate: 1px -1px;
-  rotate: 3deg;
-}
 @keyframes rt-shimmer {
-  to {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
     background-position: 200% center;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rt-logo > span {
+  .rt-logo {
     animation: none;
   }
 }
@@ -317,6 +332,58 @@ a.rt-logo:hover {
   50% {
     transform: translateY(var(--trnslt-y));
   }
+}
+
+/* ── Header user pill — exact copy of the Ultra template .header-user-* ──── */
+.rt-header-user-link {
+  min-width: 0;
+  /* Template cap is min(220px, 28vw) — tightened so pill + controls + the
+     6 long site nav labels fit the 1200px container with real headroom. */
+  max-width: min(120px, 18vw);
+}
+.rt-header-user-name {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Burger — exact copy of the Ultra template .burger (tokenized colors) ── */
+.rt-burger {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+.rt-burger:hover {
+  background: var(--hover-bg);
+}
+.rt-burger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-link);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.rt-burger.open .rt-burger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.rt-burger.open .rt-burger-line:nth-child(2) {
+  opacity: 0;
+}
+.rt-burger.open .rt-burger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* ── Partner network module: one-way dashed flow (partners → You) ────────── */

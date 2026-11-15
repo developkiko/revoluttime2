@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "RevolutTIME — Hydrogen, Biohacking & Partner Program",
-    "description": "RevolutTIME: Magnesium + H₂ effervescent tablets for hydrogen water, the RevolutTIME Studio (fitness · biohacking · recovery) and a partner program with up to 50% commission. Shipping from Hebertshausen near Munich.",
+    "title": "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) — Refreshing Drink with Hydrogen & Magnesium",
+    "description": "RevolutTIME Redox+ COMPLEX: effervescent tablets with molecular hydrogen (H₂ ≤ 1.6 ppm) and bioavailable magnesium for a refreshing drink. Lab-tested (Eurofins).",
     "shop": {
-      "title": "Shop — Magnesium + H₂ Effervescent Tablets | RevolutTIME",
-      "description": "Order RevolutTIME Magnesium + H₂: 90 effervescent tablets. Eurofins-tested (up to 1.6 ppm H₂), shipped from Bavaria via DHL/Hermes."
+      "title": "Shop — RevolutTIME Redox+ COMPLEX (Magnesium + H₂) | RevolutTIME",
+      "description": "Order RevolutTIME Redox+ COMPLEX: 90 effervescent tablets, 5.13 g magnesium, H₂ ≤ 1.6 ppm. Eurofins-tested, shipped from Bavaria via DHL/Hermes."
     },
     "hydrogen": {
       "title": "Molecular Hydrogen — Benefits & How to Use | RevolutTIME",
@@ -21,7 +21,7 @@
   },
   "brand": {
     "name": "RevolutTIME",
-    "product": "Magnesium + H₂"
+    "product": "Redox+ COMPLEX (Magnesium + H₂)"
   },
   "header": {
     "nav": {
@@ -38,16 +38,17 @@
     "language": "Language",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "theme": "Theme"
+    "theme": "Theme",
+    "login": "Sign in"
   },
   "home": {
     "hero": {
       "slides": {
         "hydrogen": {
-          "badge": "Eurofins-tested · up to 1.6 ppm H₂",
-          "title": "Molecular hydrogen.",
-          "titleAccent": "Every day. Fresh.",
-          "subtitle": "RevolutTIME <mgh2>Magnesium + H₂</mgh2> — effervescent tablets for <water>enriched water</water>. One tablet into 150–200 ml of cold water, 1–1.5 minutes — and your drink is ready.",
+          "badge": "Eurofins-tested · AR-26-HH-013581-02 · H₂ ≤ 1.6 ppm",
+          "title": "RevolutTIME Redox+ COMPLEX.",
+          "titleAccent": "Refreshing drink.",
+          "subtitle": "RevolutTIME <mgh2>Redox+ COMPLEX (Magnesium + H₂)</mgh2> — refreshing drink <water>with molecular hydrogen (H₂ ≤ 1.6 ppm) and bioavailable magnesium</water>. One tablet into 150–200 ml of cold water (10–15 °C); drink it straight away or within 3–4 minutes.",
           "cta": "Order tablets"
         },
         "studio": {
@@ -80,8 +81,8 @@
         }
       },
       "chips": {
-        "hydrogen": "Up to 1.6 ppm dissolved H₂",
-        "magnesium": "57–66.7 mg magnesium per tablet",
+        "hydrogen": "H₂ ≤ 1.6 ppm",
+        "magnesium": "5.13 g magnesium · 90 tablets",
         "kcal": "0 kcal · 0 g sugar",
         "shipping": "Ships from Bavaria · DHL/Hermes 1–2 days"
       },
@@ -92,8 +93,8 @@
       "subtitle": "Active longevity: <h2>hydrogen tablets</h2>, a biohacking studio, equipment, active sports recreation and a partner program where money makes money.",
       "items": {
         "tablets": {
-          "title": "Magnesium + H₂ tablets",
-          "text": "Effervescent tablets with <h2>molecular hydrogen</h2>: composition, absorption and a comparison with <mg>pharmacy magnesium forms</mg> — plus online ordering.",
+          "title": "Redox+ COMPLEX tablets",
+          "text": "Effervescent tablets with <h2>molecular hydrogen and magnesium</h2>: composition, absorption and a comparison with <mg>pharmacy magnesium forms</mg> — plus online ordering.",
           "cta": "Order"
         },
         "studio": {

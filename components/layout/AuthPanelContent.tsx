@@ -16,11 +16,10 @@ import { toast } from "sonner";
 import { Link } from "@/i18n/navigation";
 import { signOut, useAuthUser } from "@/lib/auth-store";
 import { TelegramLoginWidget } from "@/components/layout/TelegramLoginWidget";
-import { Button } from "@/components/ui/button";
 
 const GOOGLE_ICON = (
   // Multicolor Google "G" per brand guidelines.
-  <svg viewBox="0 0 24 24" className="size-4" aria-hidden>
+  <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0" aria-hidden>
     <path
       fill="#4285F4"
       d="M23.5 12.27c0-.85-.08-1.66-.22-2.45H12v4.64h6.45a5.52 5.52 0 0 1-2.39 3.62v3h3.86c2.26-2.09 3.58-5.17 3.58-8.81Z"
@@ -40,6 +39,17 @@ const GOOGLE_ICON = (
   </svg>
 );
 
+/* ═══ Row styles — Ultra template nav/link look, applied to menu items ═══ */
+
+const MENU_ROW_CLASS =
+  "flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-[var(--text-link)] transition-colors text-left hover:bg-[var(--hover-bg)] hover:text-[var(--text-heading)]";
+
+const MENU_DANGER_CLASS =
+  "flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors text-left hover:bg-[var(--color-error)]/10 hover:text-[var(--color-error)]";
+
+const OUTLINE_BUTTON_CLASS =
+  "inline-flex w-full items-center justify-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg transition-colors border border-[var(--border-default)] text-[var(--text-heading)] hover:bg-[var(--hover-bg)]";
+
 function ProvidersPanel({ onDone }: { onDone?: () => void }) {
   const t = useTranslations("auth");
   const router = useRouter();
@@ -49,7 +59,7 @@ function ProvidersPanel({ onDone }: { onDone?: () => void }) {
     <div className="flex flex-col gap-3">
       <div>
         <p className="font-semibold">{t("signInTitle")}</p>
-        <p className="mt-0.5 text-xs text-muted-foreground">
+        <p className="mt-0.5 text-xs text-[var(--text-secondary)]">
           {t("signInSubtitle")}
         </p>
       </div>
@@ -58,30 +68,31 @@ function ProvidersPanel({ onDone }: { onDone?: () => void }) {
 
       {googleEnabled && (
         <>
-          <div className="flex items-center gap-2 text-[10px] uppercase tracking-wide text-muted-foreground">
-            <span className="h-px flex-1 bg-border" />
+          <div className="flex items-center gap-2 text-[10px] uppercase tracking-wide text-[var(--text-muted)]">
+            <span className="h-px flex-1 bg-[var(--border-default)]" />
             {t("or")}
-            <span className="h-px flex-1 bg-border" />
+            <span className="h-px flex-1 bg-[var(--border-default)]" />
           </div>
           {/* API route that 302-redirects to Google — router.push triggers MPA navigation. */}
-          <Button
-            variant="outline"
+          <button
+            type="button"
+            className={OUTLINE_BUTTON_CLASS}
             onClick={() => router.push("/api/auth/google/start")}
           >
             {GOOGLE_ICON}
             {t("googleCta")}
-          </Button>
+          </button>
         </>
       )}
 
-      <p className="text-[11px] leading-relaxed text-muted-foreground">
+      <p className="text-[11px] leading-relaxed text-[var(--text-secondary)]">
         {t("emailLaterHint")}
       </p>
 
       <button
         type="button"
         onClick={onDone}
-        className="self-start text-[11px] text-muted-foreground underline-offset-4 hover:underline"
+        className="self-start text-[11px] text-[var(--text-secondary)] underline-offset-4 hover:underline"
       >
         {t("closePanel")}
       </button>
@@ -104,8 +115,8 @@ function UserMenu({
   const isAdmin = email === "admin@revoluttime.de";
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-center gap-3">
+    <div className="flex flex-col gap-1">
+      <div className="flex items-center gap-3 pb-3 border-b border-[var(--border-subtle)]">
         {picture ? (
           // eslint-disable-next-line @next/next/no-img-element -- provider CDN hosts are not known at build time
           <img
@@ -114,74 +125,60 @@ function UserMenu({
             className="size-10 shrink-0 rounded-full object-cover"
           />
         ) : (
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-lg font-bold uppercase text-primary-foreground">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-lg font-bold uppercase text-white">
             {name.charAt(0)}
           </span>
         )}
         <div className="min-w-0">
           <p className="truncate font-semibold">{name}</p>
-          <p className="truncate text-xs text-muted-foreground">
+          <p className="truncate text-xs text-[var(--text-secondary)]">
             {email.includes("@telegram.revoluttime") ? email.split("@")[0] : email}
           </p>
         </div>
       </div>
 
-      <Button variant="outline" className="w-full justify-start" asChild>
-        <Link href="/cabinet" onClick={onDone}>
-          <UserRoundIcon />
-          {t("cabinet")}
-        </Link>
-      </Button>
-      <Button variant="ghost" className="w-full justify-start" asChild>
-        <Link href="/cabinet#profile" onClick={onDone}>
-          <UserIcon />
-          {t("profile")}
-        </Link>
-      </Button>
-      <Button variant="ghost" className="w-full justify-start" asChild>
-        <Link href="/cabinet#purchases" onClick={onDone}>
-          <ShoppingBagIcon />
-          {t("purchasesLink")}
-        </Link>
-      </Button>
-      <Button variant="ghost" className="w-full justify-start" asChild>
-        <Link href="/cabinet#bonuses" onClick={onDone}>
-          <GiftIcon />
-          {t("bonusesLink")}
-        </Link>
-      </Button>
-      <Button variant="ghost" className="w-full justify-start" asChild>
-        <Link href="/cabinet#network" onClick={onDone}>
-          <NetworkIcon />
-          {t("networkLink")}
-        </Link>
-      </Button>
-      <Button variant="ghost" className="w-full justify-start" asChild>
-        <Link href="/encyclopedia" onClick={onDone}>
-          <BookOpenIcon />
-          {t("encyclopediaLink")}
-        </Link>
-      </Button>
+      <Link href="/cabinet" className={MENU_ROW_CLASS} onClick={onDone}>
+        <UserRoundIcon className="w-4 h-4 shrink-0" />
+        {t("cabinet")}
+      </Link>
+      <Link href="/cabinet#profile" className={MENU_ROW_CLASS} onClick={onDone}>
+        <UserIcon className="w-4 h-4 shrink-0" />
+        {t("profile")}
+      </Link>
+      <Link href="/cabinet#purchases" className={MENU_ROW_CLASS} onClick={onDone}>
+        <ShoppingBagIcon className="w-4 h-4 shrink-0" />
+        {t("purchasesLink")}
+      </Link>
+      <Link href="/cabinet#bonuses" className={MENU_ROW_CLASS} onClick={onDone}>
+        <GiftIcon className="w-4 h-4 shrink-0" />
+        {t("bonusesLink")}
+      </Link>
+      <Link href="/cabinet#network" className={MENU_ROW_CLASS} onClick={onDone}>
+        <NetworkIcon className="w-4 h-4 shrink-0" />
+        {t("networkLink")}
+      </Link>
+      <Link href="/encyclopedia" className={MENU_ROW_CLASS} onClick={onDone}>
+        <BookOpenIcon className="w-4 h-4 shrink-0" />
+        {t("encyclopediaLink")}
+      </Link>
       {isAdmin && (
-        <Button variant="ghost" className="w-full justify-start" asChild>
-          <Link href="/admin" onClick={onDone}>
-            {t("adminLink")}
-          </Link>
-        </Button>
+        <Link href="/admin" className={MENU_ROW_CLASS} onClick={onDone}>
+          {t("adminLink")}
+        </Link>
       )}
 
-      <Button
-        variant="outline"
-        className="w-full justify-start text-destructive hover:text-destructive"
+      <button
+        type="button"
+        className={`${MENU_DANGER_CLASS} mt-1`}
         onClick={async () => {
           await signOut();
           toast.success(t("signedOutToast"));
           onDone?.();
         }}
       >
-        <LogOutIcon />
+        <LogOutIcon className="w-4 h-4 shrink-0" />
         {t("logout")}
-      </Button>
+      </button>
     </div>
   );
 }

@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "RevolutTIME — Wasserstoff, Biohacking & Partnerprogramm",
-    "description": "RevolutTIME: Magnesium-H₂-Brausetabletten für Wasserstoffwasser, das RevolutTIME Studio (Fitness · Biohacking · Recovery) und ein Partnerprogramm mit bis zu 50 % Provision. Versand aus Hebertshausen bei München.",
+    "title": "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) | Erfrischungsgetränk mit Wasserstoff & Magnesium",
+    "description": "RevolutTIME Redox+ COMPLEX: Brausetabletten mit molekularem Wasserstoff (H₂ ≤ 1,6 ppm) und Magnesium für ein belebendes Erfrischungsgetränk. Laborgeprüft (Eurofins).",
     "shop": {
-      "title": "Shop — Magnesium + H₂ Brausetabletten | RevolutTIME",
-      "description": "RevolutTIME Magnesium + H₂ bestellen: 90 Brausetabletten. Eurofins-geprüft (bis 1,6 ppm H₂), Versand aus Bayern mit DHL/Hermes."
+      "title": "Shop — RevolutTIME Redox+ COMPLEX (Magnesium + H₂) | RevolutTIME",
+      "description": "RevolutTIME Redox+ COMPLEX bestellen: 90 Brausetabletten, 5,13 g Magnesium, H₂ ≤ 1,6 ppm. Eurofins-geprüft, Versand aus Bayern mit DHL/Hermes."
     },
     "hydrogen": {
       "title": "Molekularer Wasserstoff — Wirkung & Anwendung | RevolutTIME",
@@ -21,7 +21,7 @@
   },
   "brand": {
     "name": "RevolutTIME",
-    "product": "Magnesium + H₂"
+    "product": "Redox+ COMPLEX (Magnesium + H₂)"
   },
   "header": {
     "nav": {
@@ -38,16 +38,17 @@
     "language": "Sprache",
     "openMenu": "Menü öffnen",
     "closeMenu": "Menü schließen",
-    "theme": "Design"
+    "theme": "Design",
+    "login": "Anmelden"
   },
   "home": {
     "hero": {
       "slides": {
         "hydrogen": {
-          "badge": "Eurofins-geprüft · bis 1,6 ppm H₂",
-          "title": "Molekularer Wasserstoff.",
-          "titleAccent": "Jeden Tag. Frisch.",
-          "subtitle": "RevolutTIME <mgh2>Magnesium + H₂</mgh2> — Brausetabletten für <water>angereichertes Wasser</water>. Eine Tablette in 150–200 ml kaltes Wasser, 1–1,5 Minuten — und Ihr Getränk ist bereit.",
+          "badge": "Eurofins-geprüft · AR-26-HH-013581-02 · H₂ ≤ 1,6 ppm",
+          "title": "RevolutTIME Redox+ COMPLEX.",
+          "titleAccent": "Erfrischungsgetränk.",
+          "subtitle": "RevolutTIME <mgh2>Redox+ COMPLEX (Magnesium + H₂)</mgh2> — Erfrischungsgetränk <water>mit molekularem Wasserstoff (H₂ ≤ 1,6 ppm) und bioverfügbarem Magnesium</water>. Eine Tablette in 150–200 ml kaltes Wasser (10–15 °C), sofort oder innerhalb von 3–4 Minuten trinken.",
           "cta": "Tabletten bestellen"
         },
         "studio": {
@@ -80,8 +81,8 @@
         }
       },
       "chips": {
-        "hydrogen": "Bis 1,6 ppm gelöster H₂",
-        "magnesium": "57–66,7 mg Magnesium pro Tablette",
+        "hydrogen": "H₂ ≤ 1,6 ppm",
+        "magnesium": "5,13 g Magnesium · 90 Tabletten",
         "kcal": "0 kcal · 0 g Zucker",
         "shipping": "Versand aus Bayern · DHL/Hermes 1–2 Tage"
       },
@@ -92,8 +93,8 @@
       "subtitle": "Aktives Longevity: <h2>H₂-Tabletten</h2>, Biohacking-Studio, Equipment, aktiver Sporturlaub und ein Partnerprogramm, in dem Geld Geld macht.",
       "items": {
         "tablets": {
-          "title": "Tabletten Magnesium + H₂",
-          "text": "Brausetabletten mit <h2>molekularem Wasserstoff</h2>: Zusammensetzung, Aufnahme und Vergleich mit <mg>Apotheken-Magnesiumformen</mg> — plus Online-Bestellung.",
+          "title": "Tabletten Redox+ COMPLEX",
+          "text": "Brausetabletten mit <h2>molekularem Wasserstoff und Magnesium</h2>: Zusammensetzung, Aufnahme und Vergleich mit <mg>Apotheken-Magnesiumformen</mg> — plus Online-Bestellung.",
           "cta": "Bestellen"
         },
         "studio": {
