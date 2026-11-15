@@ -9,15 +9,26 @@ import { Toaster } from "@/components/ui/sonner";
 import { CookieBanner } from "@/components/layout/CookieBanner";
 import { AnalyticsGate } from "@/components/layout/AnalyticsGate";
 import { RefCapture } from "@/components/layout/RefCapture";
+import { SiteUltraWidgets } from "@/components/layout/SiteUltraWidgets";
 
 /** RevolutTIME site chrome: header/footer/cart — Ultra pages (ultra)/ carry their own. */
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export default async function SiteLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+
   return (
     <CartProvider>
       <Header />
       <main className="flex flex-1 flex-col">{children}</main>
       <Footer />
       <CartDrawerLazy />
+      {/* Ultra widgets: contact FAB, PWA prompt, custom cursor */}
+      <SiteUltraWidgets locale={lang} />
       {/* Queue behavior: one visible toast at a time. */}
       <Toaster position="bottom-right" visibleToasts={1} />
       <CookieBanner />

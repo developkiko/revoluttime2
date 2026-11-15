@@ -10,7 +10,7 @@ export interface I18nDictionary {
 
 export const i18n: Record<Lang, I18nDictionary> = {
   ru: {
-    logo_text: "REVOLUTTIME",
+    logo_text: "RevolutTIME",
     nav_products: "Наборы",
     nav_features: "Возможности",
     nav_locations: "Доставка",
@@ -514,7 +514,7 @@ export const i18n: Record<Lang, I18nDictionary> = {
     stats_incidents: "Недавние инциденты (Журнал)",
   },
   en: {
-    logo_text: "REVOLUTTIME",
+    logo_text: "RevolutTIME",
     nav_products: "Packs",
     nav_features: "Features",
     nav_locations: "Shipping",

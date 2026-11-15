@@ -1,6 +1,8 @@
-const CACHE_NAME = "revoluttime-static-v1";
+const CACHE_NAME = "revoluttime-static-v2";
 const STATIC_ASSETS = [
+  "/manifest.webmanifest",
   "/ultra/manifest.webmanifest",
+  "/favicon.svg",
   "/ultra/favicon.svg",
   "/ultra/images/pwa-icon.svg",
 ];
@@ -28,11 +30,18 @@ self.addEventListener("fetch", (event) => {
     url.pathname.startsWith("/api/") ||
     url.pathname.startsWith("/auth/") ||
     url.pathname.startsWith("/admin") ||
-    url.pathname.startsWith("/dashboard")
+    url.pathname.startsWith("/dashboard") ||
+    url.pathname.startsWith("/cabinet")
   ) return;
   if (request.mode === "navigate" || request.destination === "document") return;
 
-  if (url.pathname.startsWith("/_next/static/") || url.pathname.startsWith("/ultra/images/") || url.pathname === "/ultra/manifest.webmanifest") {
+  if (
+    url.pathname.startsWith("/_next/static/") ||
+    url.pathname.startsWith("/images/") ||
+    url.pathname.startsWith("/ultra/images/") ||
+    url.pathname === "/manifest.webmanifest" ||
+    url.pathname === "/ultra/manifest.webmanifest"
+  ) {
     event.respondWith(
       caches.match(request).then((cached) => cached || fetch(request).then((response) => {
         if (response.ok) {

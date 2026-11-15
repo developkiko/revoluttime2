@@ -42,10 +42,13 @@ export function SupportFAB() {
     const list: { icon: React.ReactNode; label: string; href: string; style?: string }[] = [];
     if (!widgetEnabled) return list;
     if (emailAddr) {
+      const isWhatsapp = emailAddr.includes("wa.me") || emailAddr.toLowerCase().includes("whatsapp");
       list.push({
         icon: <Mail className="w-5 h-5" />,
-        label: "Email",
-        href: emailAddr.startsWith("mailto:") ? emailAddr : `mailto:${emailAddr}`,
+        label: isWhatsapp ? "WhatsApp" : "Email",
+        href: emailAddr.startsWith("mailto:") || emailAddr.startsWith("http") || emailAddr.startsWith("tel:")
+          ? emailAddr
+          : `mailto:${emailAddr}`,
         style: "primary",
       });
     }

@@ -163,35 +163,44 @@
   -webkit-text-stroke: 2px transparent;
   background-clip: text;
   -webkit-background-clip: text;
+  /* Ultra-style shimmer, RevolutTIME register kept */
+  background-image: linear-gradient(
+    135deg,
+    #6366f1 0,
+    #f59e0b 35%,
+    #7c3aed 70%,
+    #6366f1 100%
+  );
+  background-size: 200% auto;
+  animation: rt-shimmer 4s linear infinite;
 }
 .rt-logo > span b {
   font-weight: 900;
 }
 .rt-logo .rt-logo-bg {
   user-select: none;
-  background-image: repeating-linear-gradient(
-    105deg,
-    var(--brand-blue) 0,
-    var(--brand-blue-dark) 5%,
-    var(--brand-blue) 12%
-  );
   color: transparent;
   filter: drop-shadow(2px 8px 10px rgb(0 0 0 / 0.3));
   transform: scaleY(1.05);
   transform-origin: top;
+  opacity: 0.4;
 }
 .rt-logo .rt-logo-fg {
-  background-image: repeating-linear-gradient(
-    5deg,
-    var(--brand-blue) 0,
-    var(--brand-blue-light) 23%,
-    var(--brand-blue) 31%
-  );
-  color: #0b1326;
+  color: transparent;
 }
 a.rt-logo:hover {
   translate: 1px -1px;
   rotate: 3deg;
+}
+@keyframes rt-shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rt-logo > span {
+    animation: none;
+  }
 }
 .rt-logo-float {
   --trnslt-y: -8px;

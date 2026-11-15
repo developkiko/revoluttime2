@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: UltraMetadataProps): Promise<
   return {
     title: t.title,
     description: t.description,
-    manifest: "/ultra/manifest.webmanifest",
+    manifest: "/manifest.webmanifest",
     applicationName: "RevolutTIME",
     appleWebApp: {
       capable: true,

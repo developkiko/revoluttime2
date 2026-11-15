@@ -16,6 +16,7 @@ import {
 /**
  * GDPR/TDDDG § 25 consent bar: essential cookies are always on, anything
  * third-party waits for "Accept all" (see lib/consent.ts gate).
+ * Visual language: Ultra's compact bottom-right cookie widget.
  */
 export function CookieBanner() {
   const t = useTranslations("cookie");
@@ -32,29 +33,27 @@ export function CookieBanner() {
       role="dialog"
       aria-live="polite"
       aria-label={t("title")}
-      className="fixed inset-x-3 bottom-3 z-50 rounded-xl border bg-card/95 p-4 shadow-lg backdrop-blur sm:inset-x-auto sm:right-4 sm:max-w-md"
+      className="fixed inset-x-4 bottom-[5.5rem] z-50 flex max-w-[min(92vw,26rem)] items-start gap-3 rounded-xl border bg-popover/95 p-4 shadow-lg backdrop-blur animate-in fade-in slide-in-from-bottom-4 duration-300 sm:left-auto sm:bottom-6 sm:right-[5.75rem]"
     >
-      <div className="flex items-start gap-3">
-        <CookieIcon className="mt-0.5 size-5 shrink-0 text-primary" />
-        <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium">{t("title")}</p>
-          <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-            {t("text")}{" "}
-            <Link
-              href="/legal/datenschutz"
-              className="underline underline-offset-2 hover:text-foreground"
-            >
-              {t("learnMore")}
-            </Link>
-          </p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <Button size="sm" onClick={() => setConsent("granted")}>
-              {t("acceptAll")}
-            </Button>
-            <Button size="sm" variant="outline" onClick={() => setConsent("essential")}>
-              {t("essential")}
-            </Button>
-          </div>
+      <CookieIcon className="mt-0.5 size-5 shrink-0 text-primary" />
+      <div className="min-w-0 flex-1">
+        <p className="text-xs font-medium">{t("title")}</p>
+        <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+          {t("text")}{" "}
+          <Link
+            href="/legal/datenschutz"
+            className="underline underline-offset-2 hover:text-foreground"
+          >
+            {t("learnMore")}
+          </Link>
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Button size="xs" onClick={() => setConsent("granted")}>
+            {t("acceptAll")}
+          </Button>
+          <Button size="xs" variant="outline" onClick={() => setConsent("essential")}>
+            {t("essential")}
+          </Button>
         </div>
       </div>
     </div>

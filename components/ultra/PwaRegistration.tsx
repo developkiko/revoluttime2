@@ -66,8 +66,9 @@ export default function PwaRegistration() {
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
-      // Scoped to /ultra/ so the template's SW never controls RevolutTIME pages.
-      navigator.serviceWorker.register("/ultra/sw.js", { scope: "/ultra/" }).catch((error) => {
+      // Site-wide SW: static-asset caching only — navigations and API/auth
+      // paths are never intercepted (see public/sw.js).
+      navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch((error) => {
         console.error("RevolutTIME PWA service worker registration failed", error);
       });
     }
