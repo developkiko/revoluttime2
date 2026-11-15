@@ -140,7 +140,14 @@ export default async function DummyPage({
             <h2 className="text-xl font-bold tracking-tight">
               {t("diagramTitle")}
             </h2>
-            <PartnerNetworkLazy me={{ id: "you", name: "Вы", joined: "2026-09-01" }} partners={[1, 2, 3, 4, 5].map((i) => ({ id: "p" + i, name: "Партнёр " + i, joined: "2026-10-0" + i }))} />
+            <PartnerNetworkLazy
+              me={{ id: "you", name: "Вы", joined: "2026-09-01" }}
+              childrenByNode={{
+                you: [1, 2, 3, 4, 5].map((i) => ({ id: "p" + i, name: "Партнёр " + i, joined: "2026-10-0" + i })),
+                p1: [{ id: "p1a", name: "Партнёр 1.1", joined: "2026-11-02" }, { id: "p1b", name: "Партнёр 1.2", joined: "2026-11-04" }],
+                p1a: [{ id: "p1a1", name: "Партнёр 1.1.1", joined: "2026-11-08" }],
+              }}
+            />
           </div>
         </div>
       </section>

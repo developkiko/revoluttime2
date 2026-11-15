@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { CalendarIcon, XIcon } from "lucide-react";
+import { ArrowUpIcon, CalendarIcon, XIcon } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,8 @@ export interface NetworkPerson {
   joined: string;
   /** Optional badge text, e.g. referral level. */
   badge?: string;
+  /** Avatar URL or data URI; initials fallback when absent. */
+  avatar?: string;
 }
 
 export interface NetworkAction {
@@ -24,9 +26,17 @@ export interface NetworkAction {
 
 export interface PartnerNetworkProps {
   me: NetworkPerson;
-  /** Direct partners of the 5-wide matrix (up to 5). */
-  partners: NetworkPerson[];
-  /**Href of a partner's profile (demo: the cabinet). */
+  /**
+   * Direct partners of the 5-wide matrix (up to 5, actual count shown).
+   * Sugar prop — equal to `children={{ [me.id]: partners }}`.
+   */
+  partners?: NetworkPerson[];
+  /**
+   * Full tree for drill-down: direct partners per node id (root key = me.id).
+   * Absent/empty list = leaf (empty bottom row, navigation ends here).
+   */
+  childrenByNode?: Record<string, NetworkPerson[]>;
+  /** Href of a partner's profile (demo: the cabinet). */
   profileHref?: string;
   /** Quick cabinet buttons shown on the «Вы» preview. */
   youActions?: NetworkAction[];
@@ -36,7 +46,10 @@ export interface PartnerNetworkProps {
 /** View-box geometry: You at the top, five partners on the bottom row. */
 const VIEW_W = 600;
 const VIEW_H = 320;
-const YOU = { x: 300, y: 70 };
+/** You circle center in view-box coords (button top 8% + half of size-14). */
+const YOU = { x: 300, y: 54 };
+/** Lower partner cards: line anchor = top edge of the card (spec 13.11.2026). */
+const PARTNER_TOP_Y = 205;
 const MATRIX_WIDTH_PARTNERS = 5;
 const CHIP_COLORS = [
   "bg-sky-500",
@@ -47,7 +60,7 @@ const CHIP_COLORS = [
 ];
 const partnerPos = (index: number) => ({
   x: 60 + index * 120,
-  y: 250,
+  y: PARTNER_TOP_Y,
 });
 
 const initialsOf = (name: string) =>
@@ -57,27 +70,91 @@ const initialsOf = (name: string) =>
     .map((part) => part.charAt(0).toUpperCase())
     .join("");
 
+/** Avatar with initials/silhouette fallback (spec: show images everywhere). */
+function PersonAvatar({
+  person,
+  className,
+  textClassName,
+}: {
+  person: NetworkPerson;
+  className: string;
+  textClassName: string;
+}) {
+  if (person.avatar) {
+    return (
+      <span className={`overflow-hidden ${className}`}>
+        {/* eslint-disable-next-line @next/next/no-img-element -- provider CDN hosts / data URIs are not known at build time */}
+        <img src={person.avatar} alt="" className="size-full object-cover" />
+      </span>
+    );
+  }
+  return (
+    <span className={className}>
+      <span className={textClassName}>{initialsOf(person.name)}</span>
+    </span>
+  );
+}
+
 /**
- * Interactive referral network (owner spec, 12.11.2026): «Вы» on top, five
- * partners below; dashed lines animate one-way — from the five towards the
- * one (commissions flow up). Clicking a partner (or the bottom tab panel)
- * opens a full-block preview: avatar, name, registration date, profile link.
- * The «Вы» block is a tab in the same panel and shows the cabinet buttons.
+ * Referral tree (spec code_artifact.md, 14.11.2026): the current node on top,
+ * its direct partners below (up to 5, actual count). Clicking a lower partner
+ * steps DOWN one level — that partner becomes the top block and its own
+ * partners load underneath; drill to the very last leaf (empty bottom row).
+ * The «up» arrow appears only when at least one step down was taken and goes
+ * back exactly one level. Avatars everywhere (initials fallback). Connection
+ * lines anchor to the top edge of every lower card.
  */
 export function PartnerNetwork({
   me,
   partners,
+  childrenByNode,
   profileHref = "/cabinet",
   youActions,
   className,
 }: PartnerNetworkProps) {
   const t = useTranslations("partner.network");
   const locale = useLocale();
+  /** Path of node ids below «me» — last entry is the current top block. */
+  const [stack, setStack] = React.useState<string[]>([]);
   const [active, setActive] = React.useState<string | null>(null);
 
-  const shown = partners.slice(0, MATRIX_WIDTH_PARTNERS);
+  const childrenOf = (nodeId: string): NetworkPerson[] => {
+    if (childrenByNode && childrenByNode[nodeId]) return childrenByNode[nodeId];
+    // Legacy sugar: partners prop = direct partners of the root only.
+    if (!childrenByNode && nodeId === me.id) return partners ?? [];
+    return [];
+  };
+
+  const top = React.useMemo(() => {
+    if (stack.length === 0) return me;
+    // The current top lives among the children of the previous path entry.
+    const parentId = stack.length >= 2 ? stack[stack.length - 2] : me.id;
+    const found = childrenOf(parentId).find(
+      (person) => person.id === stack[stack.length - 1],
+    );
+    return found ?? me;
+  }, [stack, me, childrenOf]);
+
+  const shown = childrenOf(top.id).slice(0, MATRIX_WIDTH_PARTNERS);
+  const canGoUp = stack.length > 0;
+  const atRoot = stack.length === 0;
   const activePerson =
-    active === "you" ? me : shown.find((partner) => partner.id === active);
+    active === "you" ? top : shown.find((partner) => partner.id === active);
+
+  const stepDown = React.useCallback((id: string) => {
+    setStack((current) => [...current, id]);
+    setActive(null);
+  }, []);
+
+  const stepUp = React.useCallback(() => {
+    setStack((current) => current.slice(0, -1));
+    setActive(null);
+  }, []);
+
+  const resetToRoot = React.useCallback(() => {
+    setStack([]);
+    setActive(null);
+  }, []);
 
   const formatDate = (iso: string) => {
     const date = new Date(`${iso}T00:00:00`);
@@ -89,7 +166,7 @@ export function PartnerNetwork({
   return (
     <div className={className}>
       <div className="relative h-[320px] overflow-hidden rounded-3xl border bg-card shadow-lg md:h-[360px]">
-        {/* one-way flow lines: drawn partner → You, dashes travel to You */}
+        {/* one-way flow lines: drawn partner → current top, dashes travel up */}
         <svg
           aria-hidden
           viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
@@ -115,44 +192,57 @@ export function PartnerNetwork({
           })}
         </svg>
 
-        {/* You node */}
+        {/* You / current top node */}
         <button
           type="button"
           onClick={() => setActive("you")}
           aria-pressed={active === "you"}
           className="absolute left-1/2 top-[8%] flex -translate-x-1/2 flex-col items-center gap-1"
         >
-          <span
-            className={`flex size-14 items-center justify-center rounded-full border-2 text-sm font-bold shadow-md transition-all md:size-16 ${
+          <PersonAvatar
+            person={top}
+            textClassName="text-sm font-bold"
+            className={`flex size-14 items-center justify-center rounded-full border-2 shadow-md transition-all md:size-16 ${
               active === "you"
                 ? "border-primary bg-primary text-primary-foreground"
                 : "border-primary/60 bg-card text-primary hover:bg-primary/5"
             }`}
-          >
-            {initialsOf(me.name)}
-          </span>
-          <span className="text-[11px] font-semibold">{me.name}</span>
+          />
+          <span className="text-[11px] font-semibold">{top.name}</span>
         </button>
 
-        {/* Partner nodes */}
+        {/* Up button — only when at least one step down was taken */}
+        {canGoUp && (
+          <button
+            type="button"
+            onClick={stepUp}
+            aria-label={t("goUp")}
+            title={t("goUp")}
+            className="absolute left-3 top-3 z-10 flex size-9 items-center justify-center rounded-full border bg-card text-primary shadow-sm transition-colors hover:bg-primary/10"
+          >
+            <ArrowUpIcon className="size-4" />
+          </button>
+        )}
+
+        {/* Partner nodes (direct partners of the current top, ≤ 5).
+            Click = step down one level (spec 2.1); details via the tabs below. */}
         {shown.map((partner, index) => (
           <button
             key={partner.id}
             type="button"
-            onClick={() => setActive(active === partner.id ? null : partner.id)}
-            aria-pressed={active === partner.id}
+            onClick={() => stepDown(partner.id)}
             className="absolute top-[64%] flex -translate-x-1/2 flex-col items-center gap-1"
             style={{ left: `${10 + index * 20}%` }}
           >
-            <span
-              className={`flex size-11 items-center justify-center rounded-full border-2 text-xs font-bold shadow-md transition-all md:size-12 ${
+            <PersonAvatar
+              person={partner}
+              textClassName="text-xs font-bold"
+              className={`flex size-11 items-center justify-center rounded-full border-2 shadow-md transition-all md:size-12 ${
                 active === partner.id
                   ? "border-primary bg-primary text-primary-foreground"
                   : "border-primary/40 bg-card hover:border-primary/70 hover:bg-primary/5"
               }`}
-            >
-              {initialsOf(partner.name)}
-            </span>
+            />
             <span className="max-w-[72px] truncate text-[10px] font-medium text-muted-foreground">
               {partner.name}
             </span>
@@ -176,18 +266,22 @@ export function PartnerNetwork({
               <XIcon className="size-4" />
             </button>
 
-            <span
-              className={`flex size-20 items-center justify-center rounded-full text-xl font-bold text-white ring-4 ring-primary/20 ${
-                active === "you" ? "bg-primary" : CHIP_COLORS[shown.findIndex((p) => p.id === active) % CHIP_COLORS.length]
+            <PersonAvatar
+              person={activePerson}
+              textClassName="text-xl font-bold"
+              className={`flex size-20 items-center justify-center rounded-full text-white ring-4 ring-primary/20 ${
+                active === "you"
+                  ? "bg-primary"
+                  : CHIP_COLORS[shown.findIndex((p) => p.id === active) % CHIP_COLORS.length]
               }`}
-            >
-              {initialsOf(activePerson.name)}
-            </span>
+            />
 
             <div>
               <p className="text-lg font-bold">{activePerson.name}</p>
               {active === "you" && (
-                <p className="text-xs font-medium text-primary">{t("youTag")}</p>
+                <p className="text-xs font-medium text-primary">
+                  {atRoot ? t("youTag") : t("partnerTag")}
+                </p>
               )}
               {activePerson.badge && active !== "you" && (
                 <p className="mt-1 inline-flex rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
@@ -222,15 +316,22 @@ export function PartnerNetwork({
                 )}
               </div>
             ) : (
-              <Button size="sm" variant="outline" asChild>
-                <Link href={profileHref}>{t("openProfile")}</Link>
-              </Button>
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {childrenOf(activePerson.id).length > 0 && (
+                  <Button size="sm" onClick={() => stepDown(activePerson.id)}>
+                    {t("stepDown")}
+                  </Button>
+                )}
+                <Button size="sm" variant="outline" asChild>
+                  <Link href={profileHref}>{t("openProfile")}</Link>
+                </Button>
+              </div>
             )}
           </motion.div>
         )}
       </div>
 
-      {/* Bottom partner-navigation tabs (Вы + partners) */}
+      {/* Bottom partner-navigation tabs (current top + its partners) */}
       <div className="mt-3 flex flex-wrap items-center justify-center gap-2" role="tablist">
         <button
           type="button"
@@ -243,7 +344,7 @@ export function PartnerNetwork({
               : "border bg-card text-muted-foreground hover:bg-muted"
           }`}
         >
-          {me.name}
+          {top.name}
         </button>
         {shown.map((partner) => (
           <button
@@ -261,6 +362,16 @@ export function PartnerNetwork({
             {partner.name}
           </button>
         ))}
+        {canGoUp && (
+          <button
+            type="button"
+            role="tab"
+            onClick={resetToRoot}
+            className="rounded-full px-3 py-1.5 text-xs font-semibold text-primary underline-offset-4 transition-colors hover:underline"
+          >
+            {t("toMe")}
+          </button>
+        )}
       </div>
     </div>
   );

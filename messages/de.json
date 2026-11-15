@@ -125,7 +125,11 @@
       "referral2": "Partner 2",
       "referral3": "Partner 3",
       "referral4": "Partner 4",
-      "referral5": "Partner 5"
+      "referral5": "Partner 5",
+      "sub1": "Partner 1.1",
+      "sub2": "Partner 1.2",
+      "sub3": "Partner 1.1.1",
+      "sub4": "Partner 3.1"
     },
     "partnerTeaser": {
       "title": "Geld macht Geld",
@@ -333,7 +337,11 @@
       "joinedLabel": "Registriert am",
       "openProfile": "Profil öffnen",
       "close": "Schließen",
-      "cabinetFallback": "Persönliches Konto"
+      "cabinetFallback": "Persönliches Konto",
+      "goUp": "Eine Ebene höher",
+      "stepDown": "Seine Partner ansehen",
+      "toMe": "Zurück zu mir",
+      "partnerTag": "Partner"
     }
   },
   "cabinet": {

@@ -79,3 +79,29 @@ export const DEMO_BONUSES: DemoBonus[] = [
 
 /** Internal balance, euro cents. */
 export const DEMO_BALANCE_CENTS = 8450;
+
+/** Referral-tree demo data (code_artifact.md spec): direct partners per node.
+ *  p1 → 2 subs (one with its own sub), p3 → 1 sub; p2/p4/p5 are leaves —
+ *  drilling down reaches an empty bottom row at the chain end. */
+export const DEMO_NETWORK_CHILDREN: Record<
+  string,
+  { id: string; name: string; joined: string; badge?: string }[]
+> = {
+  you: [
+    { id: "p1", name: "Мария П.", joined: "2026-09-14", badge: "I" },
+    { id: "p2", name: "Игорь К.", joined: "2026-10-02", badge: "I" },
+    { id: "p3", name: "Anna S.", joined: "2026-10-20", badge: "II" },
+    { id: "p4", name: "Dmitry W.", joined: "2026-10-25", badge: "III" },
+    { id: "p5", name: "Lena M.", joined: "2026-10-28", badge: "II" },
+  ],
+  p1: [
+    { id: "p1a", name: "Sophie R.", joined: "2026-10-30", badge: "I" },
+    { id: "p1b", name: "Tom H.", joined: "2026-11-04", badge: "I" },
+  ],
+  p1a: [
+    { id: "p1a1", name: "Nina K.", joined: "2026-11-09", badge: "I" },
+  ],
+  p3: [
+    { id: "p3a", name: "Oleg V.", joined: "2026-11-06", badge: "I" },
+  ],
+};

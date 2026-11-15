@@ -17,10 +17,12 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   DEMO_BALANCE_CENTS,
   DEMO_BONUSES,
+  DEMO_NETWORK_CHILDREN,
   DEMO_PARTNERS,
   DEMO_PURCHASES,
 } from "@/lib/partner-demo";
 import { formatPrice, type Locale } from "@/lib/products";
+import { Link } from "@/i18n/navigation";
 import { ProfileCard } from "@/components/cabinet/ProfileCard";
 import { ReferralLink } from "@/components/cabinet/ReferralLink";
 import { WithdrawButton } from "@/components/cabinet/WithdrawButton";
@@ -118,12 +120,12 @@ export default async function CabinetPage({
                   <div className="text-sm font-semibold text-orange-400">{t("steps.activate.title")}</div>
                   <div className="mt-0.5 text-xs text-muted-foreground">{t("steps.activate.desc")}</div>
                 </div>
-                <a
+                <Link
                   href="/shop"
                   className="shrink-0 rounded-lg border border-orange-500/30 bg-orange-500/20 px-4 py-2 text-sm font-semibold text-orange-400 transition-colors hover:bg-orange-500/30"
                 >
                   {t("steps.activate.btn")}
-                </a>
+                </Link>
               </div>
 
               {/* Step 3 — invite partners 🔴 */}
@@ -296,13 +298,9 @@ export default async function CabinetPage({
               id: "you",
               name: user.name ?? "RevolutTIME",
               joined: "2026-09-01", // TODO(profile API): real registration date
+              avatar: user.picture,
             }}
-            partners={DEMO_PARTNERS.map((partner) => ({
-              id: partner.id,
-              name: partner.name,
-              joined: partner.joined,
-              badge: `${partner.level}`,
-            }))}
+            childrenByNode={DEMO_NETWORK_CHILDREN}
             profileHref="/cabinet#network"
             youActions={[
               { label: t("balance"), href: "/cabinet#balance" },

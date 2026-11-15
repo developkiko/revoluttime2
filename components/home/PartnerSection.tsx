@@ -31,6 +31,22 @@ export async function PartnerSection() {
     joined: `2026-10-${String(index * 4).padStart(2, "0")}`,
   }));
 
+  // Drill-down demo tree (code_artifact.md): referral-1 → 2 subs (one with
+  // its own sub), referral-3 → 1 sub; the rest are leaves (empty bottom row).
+  const networkChildren = {
+    you: partners,
+    "referral-1": [
+      { id: "referral-1a", name: tDiagram("sub1"), joined: "2026-11-02" },
+      { id: "referral-1b", name: tDiagram("sub2"), joined: "2026-11-05" },
+    ],
+    "referral-1a": [
+      { id: "referral-1a1", name: tDiagram("sub3"), joined: "2026-11-09" },
+    ],
+    "referral-3": [
+      { id: "referral-3a", name: tDiagram("sub4"), joined: "2026-11-07" },
+    ],
+  };
+
   return (
     <section id="partner" className="scroll-mt-16 border-t">
       <div className="mx-auto w-full max-w-6xl px-4 py-16">
@@ -72,7 +88,7 @@ export async function PartnerSection() {
 
           <PartnerNetworkLazy
             me={{ id: "you", name: tDiagram("you"), joined: "2026-09-01" }}
-            partners={partners}
+            childrenByNode={networkChildren}
             profileHref="/partner"
             youActions={[
               { label: t("cta.button"), href: SITE.whatsapp },
