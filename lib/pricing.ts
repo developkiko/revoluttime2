@@ -37,3 +37,19 @@ export function pricePacks(pack: PackVariant, quantity: number): PackPricing {
     deliveredPacks: quantity + bonusPacks,
   };
 }
+
+/**
+ * Balance top-up: the only amounts the owner offers for the internal account
+ * (partner entry 600 € / full package 700 €). Paid directly via Stripe,
+ * bypassing the cart. The server validates against this exact whitelist —
+ * clients cannot name their own amount.
+ */
+export const BALANCE_TOPUP_AMOUNTS_CENTS = [60000, 70000] as const;
+
+export function isBalanceTopupAmount(cents: unknown): cents is number {
+  return (
+    typeof cents === "number" &&
+    Number.isInteger(cents) &&
+    (BALANCE_TOPUP_AMOUNTS_CENTS as readonly number[]).includes(cents)
+  );
+}

@@ -21,11 +21,11 @@ import {
   DEMO_PURCHASES,
 } from "@/lib/partner-demo";
 import { formatPrice, type Locale } from "@/lib/products";
-import { Link } from "@/i18n/navigation";
 import { ProfileCard } from "@/components/cabinet/ProfileCard";
 import { ReferralLink } from "@/components/cabinet/ReferralLink";
 import { WithdrawButton } from "@/components/cabinet/WithdrawButton";
 import { CabinetHeader } from "@/components/cabinet/CabinetHeader";
+import { BalanceTopUp } from "@/components/cabinet/BalanceTopUp";
 import { CabinetTabs, type CabinetTabDef } from "@/components/cabinet/CabinetTabs";
 import { PartnerNetworkLazy } from "@/components/partner/PartnerNetworkLazy";
 import { getSessionUser } from "@/lib/auth-session";
@@ -137,7 +137,7 @@ export default async function CabinetPage({
                 </span>
               </div>
 
-              {/* Step 2 — partner activation 🟠 */}
+              {/* Step 2 — partner activation 🟠 (balance top-up, not the shop) */}
               <div className="flex flex-col items-center gap-3 rounded-xl border border-orange-500/30 bg-orange-500/[0.06] p-5 text-center">
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-orange-500/15">
                   <CircleDotIcon className="size-6 text-orange-400" />
@@ -146,12 +146,7 @@ export default async function CabinetPage({
                   <div className="text-sm font-semibold text-orange-400">{t("steps.activate.title")}</div>
                   <div className="mt-1 text-xs leading-relaxed text-muted-foreground">{t("steps.activate.desc")}</div>
                 </div>
-                <Link
-                  href="/shop"
-                  className="mt-auto shrink-0 rounded-lg border border-orange-500/30 bg-orange-500/20 px-4 py-2 text-sm font-semibold text-orange-400 transition-colors hover:bg-orange-500/30"
-                >
-                  {t("steps.activate.btn")}
-                </Link>
+                <BalanceTopUp className="mt-auto inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg border border-orange-500/30 bg-orange-500/20 px-4 py-2 text-sm font-semibold text-orange-400 transition-colors hover:bg-orange-500/30" />
               </div>
 
               {/* Step 3 — invite partners 🔴 */}

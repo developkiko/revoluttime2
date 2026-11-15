@@ -19,7 +19,8 @@ interface OrderInsert {
   customer_email: string | null;
   total_gross: number;
   currency: string;
-  items: WebhookCartLine[];
+  /** Cart lines, or a balance-topup marker (items[0].kind = "balance_topup"). */
+  items: unknown;
   shipping_address: unknown;
   ref_code: string | null;
   status: string;
@@ -55,6 +56,59 @@ function formatEuros(cents: number): string {
   return (cents / 100).toFixed(2).replace(".", ",") + " €";
 }
 
+/**
+ * Balance top-up: store the payment as an order with a topup marker
+ * (items.kind = "balance_topup" — the future balance API reads this) and
+ * ping the admin chat. No partner-fund ledger entry: a top-up is not a sale.
+ */
+async function handleTopupSession(session: Stripe.Checkout.Session, paid: boolean) {
+  const order: OrderInsert = {
+    stripe_session_id: session.id,
+    customer_email: session.metadata?.user_email ?? session.customer_details?.email ?? null,
+    total_gross: (session.amount_total ?? 0) / 100,
+    currency: (session.currency ?? "eur").toUpperCase(),
+    items: [
+      {
+        kind: "balance_topup",
+        amountCents: session.amount_total ?? 0,
+      },
+    ],
+    shipping_address: null,
+    ref_code: session.metadata?.ref || session.client_reference_id || null,
+    status: paid ? "paid" : "processing",
+  };
+
+  const supabase = getSupabaseAdminClient();
+  let db: "inserted" | "skipped" = "skipped";
+  if (supabase) {
+    const { error } = await supabase
+      .from("orders")
+      .upsert(order, { onConflict: "stripe_session_id" });
+    if (error) {
+      // Make Stripe retry so no top-up is lost.
+      console.error("stripe webhook: topup order insert failed", error);
+      return NextResponse.json({ error: "db_order_failed" }, { status: 500 });
+    }
+    db = "inserted";
+  }
+
+  const delivered = await notifyAdminChat(
+    [
+      paid ? "💳 <b>Пополнение баланса (оплачено)</b>" : "💳 <b>Пополнение баланса (ожидает оплаты)</b>",
+      "",
+      `Сумма: <b>${formatEuros((session.amount_total ?? 0) / 100)}</b>`,
+      order.customer_email ? `E-mail: ${order.customer_email}` : null,
+      order.ref_code ? `Ref: ${order.ref_code}` : null,
+      `Session: ${session.id}`,
+      `БД: ${db === "inserted" ? "✅ записано" : "⚠️ пропущено (нет ключа БД)"}`,
+    ]
+      .filter(Boolean)
+      .join("\n"),
+  );
+
+  return NextResponse.json({ received: true, kind: "balance_topup", db, notified: delivered });
+}
+
 export async function POST(request: Request) {
   const stripeSecret = process.env.STRIPE_SECRET_KEY;
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -84,6 +138,13 @@ export async function POST(request: Request) {
 
   const session = event.data.object as Stripe.Checkout.Session;
   const paid = session.payment_status === "paid";
+
+  // Balance top-up is a direct payment (no cart, no partner fund): record the
+  // order with a topup marker and notify — then stop, the order path below
+  // (partner fund ledger) must not run for it.
+  if (session.metadata?.purpose === "balance_topup") {
+    return handleTopupSession(session, paid);
+  }
 
   const lines = parseCartLines(session.metadata?.items);
   const refCode = session.metadata?.ref || session.client_reference_id || null;

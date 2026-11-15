@@ -12,11 +12,10 @@ const LEVELS = [
 ] as const;
 
 /**
- * The I–V referral cascade (matrix 5 wide): staggered slide-in from the
- * left, and a hover effect distinct from the partner steps — the row GROWS
- * 20px longer while extending the same 20px to the left (spec: length
- * increase = shift amount, right edge stays pinned). Done with a CSS-var
- * margin + width pair so the column/siblings never shift.
+ * The I–V referral cascade (matrix 5 wide): strictly rectangular rows,
+ * right edges aligned, level V narrowest — the ladder steps toward level I.
+ * Hover does NOT change the shape: the whole row just glides 20px to the
+ * left (translate only, so siblings never shift).
  */
 export function LevelsCascade() {
   const t = useTranslations("partner.levels");
@@ -30,8 +29,8 @@ export function LevelsCascade() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
-          className={`group ml-[var(--lvl-ml)] flex w-full items-center gap-3 rounded-lg border bg-card px-4 py-2.5 text-sm font-medium shadow-xs transition-all duration-300 hover:ml-[calc(var(--lvl-ml)-1.25rem)] hover:w-[calc(100%+1.25rem)] ${tint} ${border}`}
-          style={{ ["--lvl-ml" as string]: `${index * 20}px` }}
+          className={`group ml-auto flex w-[calc(100%-var(--lvl-inset))] items-center gap-3 border bg-card px-4 py-2.5 text-sm font-medium shadow-xs transition-[translate] duration-300 hover:-translate-x-5 ${tint} ${border}`}
+          style={{ ["--lvl-inset" as string]: `${index * 20}px` }}
         >
           <motion.span
             className={`flex size-7 shrink-0 items-center justify-center rounded-full font-bold ${chip}`}

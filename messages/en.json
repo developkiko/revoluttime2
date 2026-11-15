@@ -439,7 +439,7 @@
     "subtitle": "How to get started with RevolutTIME",
     "header": {
       "balance": "EUR",
-      "shopCta": "Shop packs",
+      "shopCta": "Top up",
       "logout": "Log out"
     },
     "steps": {
@@ -451,7 +451,7 @@
       "activate": {
         "title": "Activate partnership",
         "desc": "Partner pricing from 10 packs per order, +1 bonus pack",
-        "btn": "Shop packs"
+        "btn": "Top up"
       },
       "invite": {
         "title": "Invite partners",
@@ -459,7 +459,22 @@
         "btn": "To network"
       }
     },
-    "partnerAccruals": "Partner accruals"
+    "partnerAccruals": "Partner accruals",
+    "topup": {
+      "label": "Top up",
+      "title": "Balance top-up",
+      "desc": "Direct payment to the internal account — bypassing the cart.",
+      "amount600": "partner entry",
+      "amount700": "full package",
+      "pay": "Go to payment",
+      "paying": "Redirecting to Stripe…",
+      "chooseAmount": "Choose a top-up amount",
+      "loginRequired": "Sign in to top up your balance.",
+      "error": "Could not start the payment. Please try again.",
+      "successToast": "Top-up payment received — the credit will be confirmed by e-mail.",
+      "cancelToast": "Payment cancelled — you can retry any time.",
+      "note": "Payment via Stripe (card, PayPal, Revolut). Kleinunternehmer under § 19 UStG — no VAT charged."
+    }
   },
   "admin": {
     "meta": {

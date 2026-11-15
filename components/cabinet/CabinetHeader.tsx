@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
-import { CreditCardIcon, LogOutIcon, UsersIcon } from "lucide-react";
+import { LogOutIcon, UsersIcon } from "lucide-react";
+
+import { BalanceTopUp } from "@/components/cabinet/BalanceTopUp";
 
 /**
  * Dashboard-style status bar (Ultra dashboard header row): balance chip +
@@ -39,13 +41,8 @@ export function CabinetHeader({
         </span>
       </span>
 
-      <a
-        href="/shop"
-        className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg transition-colors whitespace-nowrap bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)]"
-      >
-        <CreditCardIcon className="w-4 h-4" />
-        {t("shopCta")}
-      </a>
+      {/* Прямое пополнение внутреннего счёта — мимо корзины */}
+      <BalanceTopUp className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg transition-colors whitespace-nowrap bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)]" />
 
       <span className="inline-flex items-center gap-1.5 text-sm text-foreground font-medium whitespace-nowrap">
         {userName}
