@@ -503,7 +503,8 @@
     "stepsTitle": "Partner steps (animation, hover)",
     "diagramTitle": "Referral pentagon",
     "levelsTitle": "Levels I–V (color + hover)",
-    "bookingTitle": "Booking (ticket to cart)"
+    "bookingTitle": "Booking (ticket to cart)",
+    "logoShimmerLabel": "Header variant (gradient + shimmer like the Header)"
   },
   "contact": {
     "infoTitle": "Contact us",

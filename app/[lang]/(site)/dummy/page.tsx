@@ -97,6 +97,18 @@ export default async function DummyPage({
             </div>
           </div>
 
+          {/* Header-shimmer duplicate (spec dummy.md §1): same structure +
+              float, but the fg text gradient = the Header wordmark exactly */}
+          <div className="src8-hero src8-shimmer mt-14">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/40">
+              {t("logoShimmerLabel")}
+            </p>
+            <div className="src8-logo-wrap mt-3">
+              <div className="bg">Revolut<b>TIME</b></div>
+              <div className="fg">Revolut<b>TIME</b></div>
+            </div>
+          </div>
+
           <div className="mt-14">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/40">
               {t("logoSvgLabel")}

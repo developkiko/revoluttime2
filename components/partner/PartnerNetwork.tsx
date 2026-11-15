@@ -205,7 +205,7 @@ export function PartnerNetwork({
             className={`flex size-14 items-center justify-center rounded-full border-2 shadow-md transition-all md:size-16 ${
               active === "you"
                 ? "border-primary bg-primary text-primary-foreground"
-                : "border-primary/60 bg-card text-primary hover:bg-primary/5"
+                : "border-primary/60 bg-card text-primary hover:border-primary hover:shadow-[0_0_0_4px_var(--border-active)] hover:scale-105"
             }`}
           />
           <span className="text-[11px] font-semibold">{top.name}</span>
@@ -240,7 +240,7 @@ export function PartnerNetwork({
               className={`flex size-11 items-center justify-center rounded-full border-2 shadow-md transition-all md:size-12 ${
                 active === partner.id
                   ? "border-primary bg-primary text-primary-foreground"
-                  : "border-primary/40 bg-card hover:border-primary/70 hover:bg-primary/5"
+                  : "border-primary/40 bg-card hover:border-primary hover:shadow-[0_0_0_4px_var(--border-active)] hover:scale-105"
               }`}
             />
             <span className="max-w-[72px] truncate text-[10px] font-medium text-muted-foreground">

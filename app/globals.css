@@ -545,6 +545,26 @@
   transform: translateY(-2px);
   filter: drop-shadow(0 3px 3px rgb(0 0 0 / 0.12));
 }
+/* header-shimmer variant (spec dummy.md §1): same wrap structure + float as
+   the hero variant, but the fg text carries the exact header wordmark
+   gradient (rt-logo: 135° primary→warning→accent→primary, 200% shimmer) */
+.src8-shimmer .src8-logo-wrap .fg {
+  color: transparent;
+  background-image: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-warning),
+    var(--color-accent),
+    var(--color-primary)
+  );
+  background-size: 200% auto;
+  animation: rt-shimmer 4s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .src8-shimmer .src8-logo-wrap .fg {
+    animation: none;
+  }
+}
 @keyframes src8-float {
   0%,
   100% {

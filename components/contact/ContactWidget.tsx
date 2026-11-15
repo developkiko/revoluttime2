@@ -13,11 +13,19 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { SITE } from "@/lib/products";
 
 type FormValues = { name: string; email: string; message: string };
+
+/* Visual classes — exact Ultra template contact form (components/ultra/home/
+ * ContactForm.tsx). Logic (RHF + zod + /api/contact + toasts) untouched
+ * per spec dummy.md §2: only the looks change. */
+const INPUT_BASE =
+  "w-full px-4 py-3 bg-[var(--bg-input)] border rounded-lg text-[var(--text-heading)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] placeholder:text-[var(--text-muted)]";
+const INPUT_CLASS = `${INPUT_BASE} border-[var(--border-default)]`;
+const INPUT_ERROR = `${INPUT_BASE} border-[var(--color-error)]`;
+const LABEL_CLASS = "block text-[13px] text-[var(--text-secondary)] mb-1.5";
+const FIELD_ERROR_CLASS = "text-[11px] text-[var(--color-error)] mt-1";
 
 /**
  * Contact form widget.
@@ -62,100 +70,128 @@ export function ContactWidget() {
     reset();
   }
 
-  return (
-    <div className="grid gap-6 rounded-3xl border bg-card p-6 shadow-sm md:grid-cols-[1fr_1.2fr] md:p-8">
-      <div className="flex flex-col gap-4">
-        <h3 className="text-lg font-semibold">{t("infoTitle")}</h3>
-        <a
-          href={SITE.phoneHref}
-          className="flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-            <PhoneIcon className="size-4" />
-          </span>
-          <span>
-            {SITE.phoneDisplay}
-            <span className="block text-xs">WhatsApp / Tel</span>
-          </span>
-        </a>
-        <a
-          href={SITE.telegram}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-            <SendIcon className="size-4" />
-          </span>
-          <span>
-            @revoluttime_bot
-            <span className="block text-xs">{t("telegramNote")}</span>
-          </span>
-        </a>
-        <div className="flex items-center gap-2.5 text-sm text-muted-foreground">
-          <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-            <MapPinIcon className="size-4" />
-          </span>
-          <span>
-            85241 Hebertshausen
-            <span className="block text-xs">{t("areaNote")}</span>
-          </span>
-        </div>
-      </div>
+  const infoRows = [
+    {
+      icon: PhoneIcon,
+      label: "WhatsApp",
+      value: SITE.phoneDisplay,
+      note: "Tel",
+      href: SITE.phoneHref,
+    },
+    {
+      icon: SendIcon,
+      label: "Telegram",
+      value: "@revoluttime_bot",
+      note: t("telegramNote"),
+      href: SITE.telegram,
+    },
+    {
+      icon: MapPinIcon,
+      label: "85241 Hebertshausen",
+      value: "",
+      note: t("areaNote"),
+      href: undefined,
+    },
+  ];
 
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
-        <div className="grid gap-3 sm:grid-cols-2">
-          <div className="flex flex-col gap-1">
-            <label htmlFor="contact-name" className="text-xs font-medium text-muted-foreground">
+  return (
+    <div className="grid grid-cols-1 items-stretch gap-8 md:grid-cols-[1fr_380px]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="rounded-[var(--radius-lg)] border border-[var(--border-default)] bg-[var(--bg-card)] p-8"
+      >
+        <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="contact-name" className={LABEL_CLASS}>
               {t("name")}
             </label>
-            <Input
+            <input
               id="contact-name"
+              type="text"
               placeholder={t("namePlaceholder")}
+              className={errors.name ? INPUT_ERROR : INPUT_CLASS}
               aria-invalid={!!errors.name}
               {...register("name")}
             />
-            {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
+            {errors.name && <p className={FIELD_ERROR_CLASS}>{errors.name.message}</p>}
           </div>
-          <div className="flex flex-col gap-1">
-            <label htmlFor="contact-email" className="text-xs font-medium text-muted-foreground">
+          <div>
+            <label htmlFor="contact-email" className={LABEL_CLASS}>
               {t("email")}
             </label>
-            <Input
+            <input
               id="contact-email"
               type="email"
               placeholder="you@example.com"
+              className={errors.email ? INPUT_ERROR : INPUT_CLASS}
               aria-invalid={!!errors.email}
               {...register("email")}
             />
-            {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
+            {errors.email && <p className={FIELD_ERROR_CLASS}>{errors.email.message}</p>}
           </div>
         </div>
-        <div className="flex flex-col gap-1">
-          <label htmlFor="contact-message" className="text-xs font-medium text-muted-foreground">
+        <div className="mb-4">
+          <label htmlFor="contact-message" className={LABEL_CLASS}>
             {t("message")}
           </label>
           <textarea
             id="contact-message"
-            rows={4}
+            rows={5}
             placeholder={t("messagePlaceholder")}
             aria-invalid={!!errors.message}
-            className="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none transition-[color,box-shadow] placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20"
+            className={(errors.message ? INPUT_ERROR : INPUT_CLASS) + " min-h-[100px] resize-y"}
             {...register("message")}
           />
           {errors.message && (
-            <p className="text-xs text-destructive">{errors.message.message}</p>
+            <p className={FIELD_ERROR_CLASS}>{errors.message.message}</p>
           )}
         </div>
-        <Button type="submit" disabled={isSubmitting} className="self-start">
-          {isSubmitting ? (
-            <Loader2Icon className="animate-spin" />
-          ) : (
-            <SendIcon />
-          )}
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-[10px] bg-[var(--color-accent)] px-8 py-[0.85rem] text-base font-semibold text-white transition-colors hover:bg-[var(--color-accent-hover)] disabled:opacity-50"
+        >
+          {isSubmitting ? <Loader2Icon className="w-4 h-4 animate-spin" /> : <SendIcon className="w-4 h-4" />}
           {isSubmitting ? t("sending") : t("submit")}
-        </Button>
+        </button>
       </form>
+
+      {/* Info — template row style: icon left, label strong, value small */}
+      <div className="rounded-[var(--radius-lg)] border border-[var(--border-default)] bg-[var(--bg-card)] p-6">
+        {infoRows.map(({ icon: Icon, label, value, note, href }) => {
+          const inner = (
+            <>
+              <Icon className="w-5 h-5 shrink-0 text-[var(--text-muted)]" />
+              <div>
+                <strong className="mb-0.5 block text-sm text-[var(--text-heading)]">{label}</strong>
+                {value && (
+                  <span className="text-[13px] text-[var(--text-secondary)]">{value}</span>
+                )}
+                {note && <span className="block text-[13px] text-[var(--text-secondary)]">{note}</span>}
+              </div>
+            </>
+          );
+          return href ? (
+            <a
+              key={label}
+              href={href}
+              target={href.startsWith("http") ? "_blank" : undefined}
+              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="-mx-2 my-0 flex gap-4 rounded-lg border-b border-[var(--border-subtle)] px-2 py-4 transition-colors last:border-b-0 hover:bg-[var(--hover-bg)]"
+            >
+              {inner}
+            </a>
+          ) : (
+            <div
+              key={label}
+              className="-mx-2 flex gap-4 rounded-lg border-b border-[var(--border-subtle)] px-2 py-4 last:border-b-0"
+            >
+              {inner}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
