@@ -1036,5 +1036,9 @@
     "pdf": {
       "header": "RevolutTIME — Discovery Journey"
     }
+  },
+  "ultraPages": {
+    "title": "Демо нового дизайна (Ultra Proxy)",
+    "subtitle": "Страницы нового шаблона, перенесённые в сайт. Открываются в отдельных окнах."
   }
 }

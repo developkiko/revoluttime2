@@ -4,6 +4,7 @@ import { HeroSectionLazy } from "@/components/home/HeroSectionLazy";
 import { DirectionsSection } from "@/components/home/DirectionsSection";
 import { EncyclopediaSection } from "@/components/home/EncyclopediaSection";
 import { PartnerSection } from "@/components/home/PartnerSection";
+import { UltraPagesSection } from "@/components/home/UltraPagesSection";
 
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
@@ -15,6 +16,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       <DirectionsSection />
       <EncyclopediaSection />
       <PartnerSection />
+      <UltraPagesSection />
     </>
   );
 }

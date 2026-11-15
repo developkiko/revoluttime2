@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import * as React from "react";
 import { Geist_Mono, Inter } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -8,16 +7,7 @@ import { routing } from "@/i18n/routing";
 
 import "../globals.css";
 import { cn } from "@/lib/utils";
-import { CartProvider } from "@/components/cart/CartProvider";
-import { CartDrawerLazy } from "@/components/cart/CartDrawerLazy";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/layout/ThemeToggle";
-import { LoginNotice } from "@/components/layout/LoginNotice";
-import { Toaster } from "@/components/ui/sonner";
-import { CookieBanner } from "@/components/layout/CookieBanner";
-import { AnalyticsGate } from "@/components/layout/AnalyticsGate";
-import { RefCapture } from "@/components/layout/RefCapture";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
@@ -38,6 +28,11 @@ export async function generateMetadata(
   };
 }
 
+/**
+ * Root [lang] layout: only html/body, fonts, intl + theme providers.
+ * Site chrome lives in (site)/layout.tsx, the imported Ultra Proxy
+ * template gets its own chrome in (ultra)/layout.tsx.
+ */
 export default async function LangLayout({
   children,
   params,
@@ -60,25 +55,7 @@ export default async function LangLayout({
     >
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
-          <ThemeProvider>
-            <CartProvider>
-              <Header />
-              <main className="flex flex-1 flex-col">{children}</main>
-              <Footer />
-            <CartDrawerLazy />
-            {/* Queue behavior: one visible toast at a time. */}
-            <Toaster position="bottom-right" visibleToasts={1} />
-            <CookieBanner />
-            {/* AnalyticsGate reads pathname -> needs a Suspense boundary for static prerenders */}
-            <React.Suspense fallback={null}>
-              <AnalyticsGate />
-            </React.Suspense>
-            <RefCapture />
-            <React.Suspense fallback={null}>
-              <LoginNotice />
-            </React.Suspense>
-            </CartProvider>
-          </ThemeProvider>
+          <ThemeProvider>{children}</ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
