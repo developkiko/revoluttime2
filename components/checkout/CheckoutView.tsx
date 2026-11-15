@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { CreditCardIcon, ShoppingCartIcon, TicketIcon } from "lucide-react";
+import { CreditCardIcon, GiftIcon, ShoppingCartIcon, TicketIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
@@ -13,6 +13,7 @@ import {
   type PackCartItem,
 } from "@/components/cart/CartProvider";
 import { formatPrice, getPack, type Locale } from "@/lib/products";
+import { pricePacks } from "@/lib/pricing";
 import { AnalyticsEvents, track } from "@/lib/analytics/events";
 
 /**
@@ -28,6 +29,16 @@ export function CheckoutView() {
 
   const packs = items.filter((item): item is PackCartItem => item.kind === "pack");
   const tickets = items.filter((item) => item.kind === "ticket");
+
+  const { savedCents, bonusPacks } = packs.reduce(
+    (acc, item) => {
+      const pricing = pricePacks(getPack(item.packId), item.quantity);
+      acc.savedCents += pricing.savedCents;
+      acc.bonusPacks += pricing.bonusPacks;
+      return acc;
+    },
+    { savedCents: 0, bonusPacks: 0 }
+  );
 
   async function startPayment() {
     if (pending) return;
@@ -78,6 +89,7 @@ export function CheckoutView() {
         <ul className="divide-y">
           {packs.map((item) => {
             const pack = getPack(item.packId);
+            const pricing = pricePacks(pack, item.quantity);
             return (
               <li key={cartItemKey(item)} className="flex items-center gap-4 px-5 py-4">
                 <div className="size-14 shrink-0 overflow-hidden rounded-md border bg-muted">
@@ -89,10 +101,23 @@ export function CheckoutView() {
                     RevolutTIME Magnesium + H₂ — {pack.tablets}
                   </p>
                   <p className="text-xs text-muted-foreground">× {item.quantity}</p>
+                  {pricing.qualifies && (
+                    <p className="mt-1 inline-flex items-center gap-1 rounded bg-primary/10 px-1.5 py-0.5 text-[11px] font-medium text-primary">
+                      <GiftIcon className="size-3" />
+                      {t("bonus", { count: pricing.bonusPacks })}
+                    </p>
+                  )}
                 </div>
-                <p className="text-sm font-semibold">
-                  {formatPrice(pack.priceCents * item.quantity, locale)}
-                </p>
+                <div className="flex flex-col items-end gap-0.5">
+                  {pricing.qualifies && (
+                    <s className="text-xs text-muted-foreground decoration-red-400/70">
+                      {formatPrice(pack.priceCents * item.quantity, locale)}
+                    </s>
+                  )}
+                  <p className="text-sm font-semibold">
+                    {formatPrice(pricing.totalCents, locale)}
+                  </p>
+                </div>
               </li>
             );
           })}
@@ -107,6 +132,13 @@ export function CheckoutView() {
 
       {/* Payment */}
       <div className="h-fit rounded-xl border bg-card p-5">
+        {savedCents > 0 && (
+          <p className="mb-3 inline-flex items-center gap-1.5 rounded-lg border border-primary/40 bg-primary/5 px-2.5 py-1.5 text-xs font-medium text-primary">
+            <GiftIcon className="size-3.5 shrink-0" />
+            {t("savings", { amount: formatPrice(savedCents, locale) })}
+            {bonusPacks > 0 && ` · ${t("bonus", { count: bonusPacks })}`}
+          </p>
+        )}
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground">{t("total")}</span>
           <span className="text-lg font-bold">{formatPrice(totalPriceCents, locale)}</span>

@@ -2,11 +2,9 @@
 
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { ImagePlusIcon, Trash2Icon } from "lucide-react";
+import { ImagePlusIcon, KeyRoundIcon, MailIcon, Trash2Icon } from "lucide-react";
 import { toast } from "sonner";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   fileToAvatarDataUrl,
   saveProfileOverlay,
@@ -14,6 +12,22 @@ import {
 } from "@/lib/profile-store";
 import { refreshSessionUser, signOut } from "@/lib/auth-store";
 import type { SessionUser } from "@/lib/auth-session";
+
+/** Ultra dashboard API (email/password accounts live there). */
+const ACCOUNT_API_BASE =
+  process.env.NEXT_PUBLIC_UP_ADMIN_API_URL || "https://admin.revoluttime.de";
+
+const inputClass =
+  "w-full min-w-0 px-4 py-2.5 bg-[var(--bg-input)] border border-[var(--border-default)] rounded-lg text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--color-primary)]";
+const btnPrimary =
+  "inline-flex items-center justify-center gap-1.5 px-5 py-2.5 text-sm font-semibold rounded-lg bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50 whitespace-nowrap";
+const btnGhost =
+  "inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] text-[var(--text-secondary, var(--muted-foreground))] hover:text-foreground hover:border-[var(--color-primary)]/30 transition-colors whitespace-nowrap";
+const btnDanger =
+  "inline-flex items-center justify-center gap-1.5 px-5 py-2.5 text-sm font-semibold rounded-lg border border-[var(--color-error)]/40 text-[var(--color-error)] hover:bg-[var(--color-error)]/10 transition-colors whitespace-nowrap";
+const sectionTitleClass =
+  "inline-flex items-center gap-1.5 text-sm font-semibold text-foreground";
+const labelClass = "text-xs font-medium text-muted-foreground";
 
 export function ProfileCard({ user }: { user: SessionUser }) {
   const t = useTranslations("cabinet.profile");
@@ -56,22 +70,120 @@ export function ProfileCard({ user }: { user: SessionUser }) {
     }
   }
 
-  function handleExport() {
+  function handleExport(format: "json" | "csv" | "txt") {
     const exportData = {
+      email: user.email,
+      name: user.name ?? "",
+      provider: user.provider,
+      displayName: overlay?.displayName ?? "",
+      avatarUploaded: Boolean(overlay?.avatarDataUrl),
       exportedAt: new Date().toISOString(),
-      account: { email: user.email, name: user.name, provider: user.provider },
-      profile: overlay ?? {},
     };
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], {
-      type: "application/json",
-    });
+
+    let content: string;
+    let mime: string;
+    switch (format) {
+      case "csv":
+        content =
+          Object.keys(exportData).join(",") +
+          "\n" +
+          Object.values(exportData).map((v) => `"${String(v).replaceAll('"', '""')}"`).join(",");
+        mime = "text/csv";
+        break;
+      case "txt":
+        content = Object.entries(exportData)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join("\n");
+        mime = "text/plain";
+        break;
+      default:
+        content = JSON.stringify(exportData, null, 2);
+        mime = "application/json";
+    }
+
+    const blob = new Blob([content], { type: mime });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `revoluttime-data-${user.email}.json`;
+    a.download = `revoluttime-data-${user.email}.${format}`;
     a.click();
     URL.revokeObjectURL(url);
     toast.success(t("exportDone"));
+  }
+
+  // ── Change password (email/password accounts) ──
+  const [oldPass, setOldPass] = React.useState("");
+  const [newPass, setNewPass] = React.useState("");
+  const [newPass2, setNewPass2] = React.useState("");
+  const [passLoading, setPassLoading] = React.useState(false);
+
+  async function handleChangePassword() {
+    if (!oldPass) return toast.error(t("errPasswordEmpty"));
+    if (!newPass || newPass.length < 8) return toast.error(t("errPasswordShort"));
+    if (newPass !== newPass2) return toast.error(t("errConfirmMismatch"));
+
+    setPassLoading(true);
+    try {
+      const res = await fetch(`${ACCOUNT_API_BASE}/api/user/change-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: user.email,
+          oldPassword: oldPass,
+          newPassword: newPass,
+        }),
+      });
+      const data = (await res.json()) as { success?: boolean; error?: string };
+      if (data.success) {
+        toast.success(t("passChanged"));
+        setOldPass("");
+        setNewPass("");
+        setNewPass2("");
+      } else {
+        toast.error(data.error || t("errServer"));
+      }
+    } catch {
+      toast.error(t("serverUnavailable"));
+    } finally {
+      setPassLoading(false);
+    }
+  }
+
+  // ── Change email ──
+  const [newEmail, setNewEmail] = React.useState("");
+  const [emailPass, setEmailPass] = React.useState("");
+  const [emailLoading, setEmailLoading] = React.useState(false);
+
+  async function handleChangeEmail() {
+    if (!newEmail) return toast.error(t("errEmailEmpty"));
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) return toast.error(t("errEmailFormat"));
+    if (!emailPass) return toast.error(t("errPasswordEmpty"));
+
+    setEmailLoading(true);
+    try {
+      const res = await fetch(`${ACCOUNT_API_BASE}/api/user/change-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: user.email,
+          newEmail,
+          password: emailPass,
+        }),
+      });
+      const data = (await res.json()) as { success?: boolean; error?: string };
+      if (data.success) {
+        toast.success(t("emailChanged"));
+        setNewEmail("");
+        setEmailPass("");
+        await refreshSessionUser();
+      } else {
+        toast.error(data.error || t("errServer"));
+      }
+    } catch {
+      toast.error(t("serverUnavailable"));
+    } finally {
+      setEmailLoading(false);
+    }
   }
 
   async function handleDelete() {
@@ -83,7 +195,7 @@ export function ProfileCard({ user }: { user: SessionUser }) {
   }
 
   return (
-    <div className="rounded-3xl border bg-card p-6">
+    <div className="flex h-full flex-col rounded-3xl border bg-card p-6">
       <h2 className="text-xl font-bold tracking-tight">{t("title")}</h2>
 
       <div className="mt-5 flex items-center gap-4">
@@ -126,7 +238,7 @@ export function ProfileCard({ user }: { user: SessionUser }) {
       </div>
 
       <div className="mt-5 flex flex-col gap-1">
-        <label htmlFor="cabinet-name" className="text-xs font-medium text-muted-foreground">
+        <label htmlFor="cabinet-name" className={labelClass}>
           {t("displayName")}
         </label>
         <div className="flex gap-2">
@@ -135,33 +247,128 @@ export function ProfileCard({ user }: { user: SessionUser }) {
             value={currentName}
             placeholder={user.name}
             onChange={(e) => setDraftName(e.target.value)}
-            className="w-full min-w-0 px-4 py-2.5 bg-[var(--bg-input)] border border-[var(--border-default)] rounded-lg text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--color-primary)]"
+            className={inputClass}
           />
-          <button
-            type="button"
-            onClick={handleSave}
-            disabled={saving}
-            className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-lg bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50 whitespace-nowrap"
-          >
+          <button type="button" onClick={handleSave} disabled={saving} className={btnPrimary}>
             {saving ? "…" : t("save")}
           </button>
         </div>
         <p className="text-[11px] text-muted-foreground">{t("displayNameHint")}</p>
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-2 border-t pt-4">
+      {/* Change password */}
+      <div className="mt-6 flex flex-col gap-2 border-t pt-4">
+        <h3 className={sectionTitleClass}>
+          <KeyRoundIcon className="size-4 text-primary" />
+          {t("changePassTitle")}
+        </h3>
+        <div className="grid gap-2 sm:grid-cols-3">
+          <div>
+            <label htmlFor="old-pass" className={labelClass}>{t("oldPass")}</label>
+            <input
+              id="old-pass"
+              type="password"
+              className={inputClass}
+              placeholder="••••••••"
+              autoComplete="off"
+              name="old-password-settings"
+              value={oldPass}
+              onChange={(e) => setOldPass(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="new-pass" className={labelClass}>{t("newPass")}</label>
+            <input
+              id="new-pass"
+              type="password"
+              className={inputClass}
+              placeholder={t("newPassPh")}
+              autoComplete="new-password"
+              name="new-password-settings"
+              value={newPass}
+              onChange={(e) => setNewPass(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="new-pass2" className={labelClass}>{t("newPass2")}</label>
+            <input
+              id="new-pass2"
+              type="password"
+              className={inputClass}
+              placeholder={t("newPassPh")}
+              autoComplete="new-password"
+              name="confirm-password-settings"
+              value={newPass2}
+              onChange={(e) => setNewPass2(e.target.value)}
+            />
+          </div>
+        </div>
         <button
           type="button"
-          onClick={handleExport}
-          className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] text-[var(--text-secondary, var(--muted-foreground))] hover:text-foreground hover:border-[var(--color-primary)]/30 transition-colors whitespace-nowrap"
+          onClick={handleChangePassword}
+          disabled={passLoading}
+          className={`${btnPrimary} mt-1 self-start`}
         >
-          {t("exportData")}
+          {passLoading ? "…" : t("passBtn")}
         </button>
+      </div>
+
+      {/* Change email */}
+      <div className="mt-6 flex flex-col gap-2 border-t pt-4">
+        <h3 className={sectionTitleClass}>
+          <MailIcon className="size-4 text-primary" />
+          {t("changeEmailTitle")}
+        </h3>
+        <div className="grid gap-2 sm:grid-cols-2">
+          <div>
+            <label htmlFor="new-email" className={labelClass}>{t("newEmail")}</label>
+            <input
+              id="new-email"
+              type="text"
+              name="change-email"
+              className={inputClass}
+              placeholder="new@email.com"
+              autoComplete="off"
+              value={newEmail}
+              onChange={(e) => setNewEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="email-pass" className={labelClass}>{t("currentPass")}</label>
+            <input
+              id="email-pass"
+              type="password"
+              className={inputClass}
+              placeholder="••••••••"
+              autoComplete="off"
+              name="password-for-email-change"
+              value={emailPass}
+              onChange={(e) => setEmailPass(e.target.value)}
+            />
+          </div>
+        </div>
         <button
           type="button"
-          onClick={handleDelete}
-          className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 text-sm font-semibold rounded-lg border border-[var(--color-error)]/40 text-[var(--color-error)] hover:bg-[var(--color-error)]/10 transition-colors whitespace-nowrap"
+          onClick={handleChangeEmail}
+          disabled={emailLoading}
+          className={`${btnPrimary} mt-1 self-start`}
         >
+          {emailLoading ? "…" : t("emailBtn")}
+        </button>
+      </div>
+
+      {/* Data: export in three formats + delete */}
+      <div className="mt-6 flex flex-wrap gap-2 border-t pt-4">
+        <button type="button" onClick={() => handleExport("json")} className={btnGhost}>
+          {t("exportJson")}
+        </button>
+        <button type="button" onClick={() => handleExport("csv")} className={btnGhost}>
+          {t("exportCsv")}
+        </button>
+        <button type="button" onClick={() => handleExport("txt")} className={btnGhost}>
+          {t("exportTxt")}
+        </button>
+        <button type="button" onClick={handleDelete} className={`${btnDanger} ml-auto`}>
           <Trash2Icon className="w-4 h-4" />
           {t("deleteAccount")}
         </button>

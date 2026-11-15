@@ -148,6 +148,11 @@
         "studies": "Studien",
         "equipment": "Equipment"
       }
+    },
+    "reviews": {
+      "title": "Bewertungen",
+      "subtitle": "Was Kunden sagen, die das Wasser mit Magnesium und Wasserstoff schon trinken.",
+      "cta": "Tabletten bestellen"
     }
   },
   "hydrogen": {
@@ -388,7 +393,29 @@
       "deleteAccount": "Konto löschen",
       "deleteConfirm": "Konto und alle lokalen Daten wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
       "gdprNote": "Export und Löschung entsprechen den DSGVO-Anfragen (Art. 15 und 17). Nach dem Löschen werden Sie abgemeldet.",
-      "displayNameHint": "Wird statt des Google/Telegram-Namens angezeigt"
+      "displayNameHint": "Wird statt des Google/Telegram-Namens angezeigt",
+      "changePassTitle": "Passwort ändern",
+      "oldPass": "Altes Passwort",
+      "newPass": "Neues Passwort",
+      "newPassPh": "mindestens 8 Zeichen",
+      "newPass2": "Neues Passwort wiederholen",
+      "passBtn": "Passwort ändern",
+      "passChanged": "Passwort geändert",
+      "changeEmailTitle": "E-Mail ändern",
+      "newEmail": "Neue E-Mail",
+      "currentPass": "Aktuelles Passwort",
+      "emailBtn": "E-Mail ändern",
+      "emailChanged": "E-Mail aktualisiert",
+      "errPasswordEmpty": "Bitte Passwort eingeben",
+      "errPasswordShort": "Passwort zu kurz — mindestens 8 Zeichen",
+      "errConfirmMismatch": "Passwörter stimmen nicht überein",
+      "errEmailEmpty": "Bitte neue E-Mail eingeben",
+      "errEmailFormat": "Ungültige E-Mail",
+      "errServer": "Serverfehler",
+      "serverUnavailable": "Server nicht erreichbar",
+      "exportJson": "Export JSON",
+      "exportCsv": "Export CSV",
+      "exportTxt": "Export TXT"
     },
     "referral": {
       "title": "Empfehlungslink",
@@ -396,7 +423,10 @@
       "copy": "Kopieren",
       "copied": "Link kopiert",
       "copyError": "Kopieren fehlgeschlagen",
-      "codeNote": "Ihr Code: {code} — bei Partnerregistrierungen angeben."
+      "codeNote": "Ihr Code: {code} — bei Partnerregistrierungen angeben.",
+      "statsTotal": "Partner insgesamt",
+      "statsYesterday": "Gestern gekommen",
+      "statsWeek": "In der letzten Woche"
     },
     "network": "Partnernetzwerk",
     "tabs": {
@@ -428,7 +458,8 @@
         "desc": "Teilen Sie Ihren Empfehlungslink — 50% ab der ersten Linie",
         "btn": "Zum Netzwerk"
       }
-    }
+    },
+    "partnerAccruals": "Partnerprovisionen"
   },
   "admin": {
     "meta": {
@@ -873,7 +904,8 @@
         "name": "Redox+ COMPLEX — 90 Tabletten",
         "note": "5,13 g Magnesium, H₂ ≤ 1,6 ppm · bis zu 30 Tage"
       }
-    }
+    },
+    "bonusPack": "+{count} Packung gratis"
   },
   "cart": {
     "title": "Warenkorb",
@@ -884,7 +916,9 @@
     "remove": "Entfernen",
     "checkout": "Zur Kasse",
     "shippingNote": "Versand aus Hebertshausen (Bayern) mit DHL/Hermes. Lieferung in 1–2 Werktagen innerhalb Deutschlands.",
-    "addedToast": "„{name}“ zum Warenkorb hinzugefügt"
+    "addedToast": "„{name}“ zum Warenkorb hinzugefügt",
+    "bonus": "+{count} Packung gratis",
+    "savings": "Ersparnis {amount}"
   },
   "checkout": {
     "title": "Kasse",
@@ -904,7 +938,9 @@
     "successText": "Deine Zahlung war erfolgreich. Versanddetails erhältst du per E-Mail; die Ware kommt in 1–2 Werktagen aus Hebertshausen.",
     "cancelTitle": "Zahlung abgebrochen",
     "cancelText": "Kein Problem — dein Warenkorb bleibt gespeichert. Du kannst die Zahlung jederzeit erneut starten.",
-    "backToCart": "Zurück zur Kasse"
+    "backToCart": "Zurück zur Kasse",
+    "bonus": "+{count} Packung gratis",
+    "savings": "Ersparnis {amount}"
   },
   "cookie": {
     "title": "Cookies",

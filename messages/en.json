@@ -148,6 +148,11 @@
         "studies": "Studies",
         "equipment": "Equipment"
       }
+    },
+    "reviews": {
+      "title": "Reviews",
+      "subtitle": "What customers who already drink magnesium + hydrogen water say.",
+      "cta": "Order tablets"
     }
   },
   "hydrogen": {
@@ -388,7 +393,29 @@
       "deleteAccount": "Delete account",
       "deleteConfirm": "Really delete the account and all local data? This cannot be undone.",
       "gdprNote": "Export and deletion correspond to GDPR requests (Art. 15 and 17). The session ends after deletion.",
-      "displayNameHint": "Shown instead of your Google/Telegram name"
+      "displayNameHint": "Shown instead of your Google/Telegram name",
+      "changePassTitle": "Change password",
+      "oldPass": "Current password",
+      "newPass": "New password",
+      "newPassPh": "at least 8 characters",
+      "newPass2": "Repeat new password",
+      "passBtn": "Change password",
+      "passChanged": "Password changed",
+      "changeEmailTitle": "Change email",
+      "newEmail": "New email",
+      "currentPass": "Current password",
+      "emailBtn": "Change email",
+      "emailChanged": "Email updated",
+      "errPasswordEmpty": "Enter your password",
+      "errPasswordShort": "Password is too short — at least 8 characters",
+      "errConfirmMismatch": "Passwords do not match",
+      "errEmailEmpty": "Enter the new email",
+      "errEmailFormat": "Invalid email",
+      "errServer": "Server error",
+      "serverUnavailable": "Server unavailable",
+      "exportJson": "Export JSON",
+      "exportCsv": "Export CSV",
+      "exportTxt": "Export TXT"
     },
     "referral": {
       "title": "Referral link",
@@ -396,7 +423,10 @@
       "copy": "Copy",
       "copied": "Link copied",
       "copyError": "Copy failed",
-      "codeNote": "Your code: {code} — provide it when registering partners."
+      "codeNote": "Your code: {code} — provide it when registering partners.",
+      "statsTotal": "Referrals total",
+      "statsYesterday": "Came yesterday",
+      "statsWeek": "Over the last week"
     },
     "network": "Partner network",
     "tabs": {
@@ -428,7 +458,8 @@
         "desc": "Share your referral link — 50% from line one and below",
         "btn": "To network"
       }
-    }
+    },
+    "partnerAccruals": "Partner accruals"
   },
   "admin": {
     "meta": {
@@ -873,7 +904,8 @@
         "name": "Redox+ COMPLEX — 90 tablets",
         "note": "5.13 g magnesium, H₂ ≤ 1.6 ppm · up to 30 days"
       }
-    }
+    },
+    "bonusPack": "+{count} free pack"
   },
   "cart": {
     "title": "Cart",
@@ -884,7 +916,9 @@
     "remove": "Remove",
     "checkout": "Checkout",
     "shippingNote": "Ships from Hebertshausen (Bavaria) via DHL/Hermes. Delivery within Germany in 1–2 business days.",
-    "addedToast": "“{name}” added to cart"
+    "addedToast": "“{name}” added to cart",
+    "bonus": "+{count} free pack",
+    "savings": "You save {amount}"
   },
   "checkout": {
     "title": "Checkout",
@@ -904,7 +938,9 @@
     "successText": "Your payment went through. Shipping details will arrive by e-mail; parcels leave Hebertshausen within 1–2 business days.",
     "cancelTitle": "Payment cancelled",
     "cancelText": "No problem — your cart is saved. You can restart the payment any time.",
-    "backToCart": "Back to checkout"
+    "backToCart": "Back to checkout",
+    "bonus": "+{count} free pack",
+    "savings": "You save {amount}"
   },
   "cookie": {
     "title": "Cookies",

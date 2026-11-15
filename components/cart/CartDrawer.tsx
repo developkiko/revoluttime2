@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import {
   CalendarDaysIcon,
+  GiftIcon,
   MinusIcon,
   PlusIcon,
   ShoppingBagIcon,
@@ -14,6 +15,7 @@ import {
 import { Link } from "@/i18n/navigation";
 import { cartItemKey, useCart, type CartItem } from "@/components/cart/CartProvider";
 import { formatPrice, getPack, type Locale } from "@/lib/products";
+import { pricePacks } from "@/lib/pricing";
 import { getOffer } from "@/lib/catalog";
 import {
   Sheet,
@@ -42,14 +44,18 @@ function Stepper({
   count,
   minLabel,
   plusLabel,
+  removeLabel,
   onDecrease,
   onIncrease,
+  onRemove,
 }: {
   count: number;
   minLabel: string;
   plusLabel: string;
+  removeLabel: string;
   onDecrease: () => void;
   onIncrease: () => void;
+  onRemove: () => void;
 }) {
   return (
     <div className="flex items-center gap-1">
@@ -57,13 +63,24 @@ function Stepper({
         variant="outline"
         size="icon-sm"
         aria-label={minLabel}
+        disabled={count <= 1}
         onClick={onDecrease}
       >
-        {count <= 1 ? <Trash2Icon /> : <MinusIcon />}
+        <MinusIcon />
       </Button>
       <span className="w-8 text-center font-medium tabular-nums">{count}</span>
       <Button variant="outline" size="icon-sm" aria-label={plusLabel} onClick={onIncrease}>
         <PlusIcon />
+      </Button>
+      {/* Always visible: one click drops the whole line, no matter the count. */}
+      <Button
+        variant="ghost"
+        size="icon-sm"
+        className="text-muted-foreground hover:text-red-500"
+        aria-label={removeLabel}
+        onClick={onRemove}
+      >
+        <Trash2Icon />
       </Button>
     </div>
   );
@@ -77,6 +94,7 @@ function CartLine({ item, locale }: { item: CartItem; locale: Locale }) {
 
   if (item.kind === "pack") {
     const pack = getPack(item.packId);
+    const pricing = pricePacks(pack, item.quantity);
     return (
       <li className="flex gap-3 p-4">
         <div className="size-16 shrink-0 overflow-hidden rounded-md border bg-muted">
@@ -89,25 +107,39 @@ function CartLine({ item, locale }: { item: CartItem; locale: Locale }) {
               <p className="font-medium">
                 {tVariants(`packs.${item.packId}.name` as never)}
               </p>
-              <p className="text-sm text-muted-foreground">
-                {formatPrice(pack.priceCents, locale)}
-              </p>
+              <div className="flex items-baseline gap-1.5 text-sm">
+                {pricing.qualifies && (
+                  <s className="text-muted-foreground decoration-red-400/70">
+                    {formatPrice(pack.priceCents, locale)}
+                  </s>
+                )}
+                <span className={pricing.qualifies ? "font-medium text-primary" : "text-muted-foreground"}>
+                  {formatPrice(
+                    pricing.qualifies ? pack.partnerPriceCents : pack.priceCents,
+                    locale
+                  )}
+                </span>
+              </div>
+              {pricing.qualifies && (
+                <p className="mt-1 inline-flex items-center gap-1 rounded bg-primary/10 px-1.5 py-0.5 text-[11px] font-medium text-primary">
+                  <GiftIcon className="size-3" />
+                  {t("bonus", { count: pricing.bonusPacks })}
+                </p>
+              )}
             </div>
             <p className="shrink-0 font-semibold tabular-nums">
-              {formatPrice(pack.priceCents * item.quantity, locale)}
+              {formatPrice(pricing.totalCents, locale)}
             </p>
           </div>
           <div className="flex items-center justify-between gap-2">
             <Stepper
               count={item.quantity}
-              minLabel={t("remove")}
+              minLabel="−"
               plusLabel="+"
-              onDecrease={
-                item.quantity <= 1
-                  ? () => remove(key)
-                  : () => setQuantity(key, item.quantity - 1)
-              }
+              removeLabel={t("remove")}
+              onDecrease={() => setQuantity(key, item.quantity - 1)}
               onIncrease={() => addPack(item.packId)}
+              onRemove={() => remove(key)}
             />
           </div>
         </div>
@@ -139,24 +171,13 @@ function CartLine({ item, locale }: { item: CartItem; locale: Locale }) {
         <div className="flex items-center justify-between gap-2">
           <Stepper
             count={item.people}
-            minLabel={t("remove")}
+            minLabel="−"
             plusLabel="+"
-            onDecrease={
-              item.people <= 1
-                ? () => remove(key)
-                : () => setQuantity(key, item.people - 1)
-            }
+            removeLabel={t("remove")}
+            onDecrease={() => setQuantity(key, item.people - 1)}
             onIncrease={() => addTicket(item.offerSlug, item.slotId, item.people + 1)}
+            onRemove={() => remove(key)}
           />
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-muted-foreground"
-            onClick={() => remove(key)}
-          >
-            <Trash2Icon />
-            {t("remove")}
-          </Button>
         </div>
       </div>
     </li>
@@ -171,6 +192,19 @@ export function CartDrawer() {
 
   const cartItems = items ?? [];
   const isEmpty = cartItems.length === 0;
+
+  // Partner-condition savings across all pack lines (retail − charged).
+  const { savedCents, bonusPacks } = cartItems.reduce(
+    (acc, item) => {
+      if (item.kind === "pack") {
+        const pricing = pricePacks(getPack(item.packId), item.quantity);
+        acc.savedCents += pricing.savedCents;
+        acc.bonusPacks += pricing.bonusPacks;
+      }
+      return acc;
+    },
+    { savedCents: 0, bonusPacks: 0 }
+  );
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => (open ? undefined : closeCart())}>
@@ -204,6 +238,13 @@ export function CartDrawer() {
             </ul>
 
             <SheetFooter className="border-t">
+              {savedCents > 0 && (
+                <p className="inline-flex items-center gap-1.5 rounded-lg border border-primary/40 bg-primary/5 px-2.5 py-1.5 text-xs font-medium text-primary">
+                  <GiftIcon className="size-3.5 shrink-0" />
+                  {t("savings", { amount: formatPrice(savedCents, locale) })}
+                  {bonusPacks > 0 && ` · ${t("bonus", { count: bonusPacks })}`}
+                </p>
+              )}
               <div className="flex items-center justify-between text-base font-semibold">
                 <span>{t("total")}</span>
                 <span className="tabular-nums">

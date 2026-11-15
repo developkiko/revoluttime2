@@ -3,7 +3,6 @@ import {
   CheckCircle2Icon,
   CircleAlertIcon,
   CircleDotIcon,
-  GiftIcon,
   LayoutDashboardIcon,
   NetworkIcon,
   PercentIcon,
@@ -47,6 +46,30 @@ const STATUS_CHIP: Record<string, string> = {
   pending: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
 };
 
+/** Downline stats for the referral card (joined dates are ISO YYYY-MM-DD). */
+function computeReferralStats(): {
+  total: number;
+  yesterday: number;
+  lastWeek: number;
+} {
+  const downline: { id: string; joined: string }[] = [];
+  const queue = [...(DEMO_NETWORK_CHILDREN.you ?? [])];
+  while (queue.length > 0) {
+    const node = queue.shift()!;
+    downline.push(node);
+    queue.push(...(DEMO_NETWORK_CHILDREN[node.id] ?? []));
+  }
+  const dayMs = 24 * 60 * 60 * 1000;
+  const now = Date.now(); // per-request: fine for this dynamic server page
+  const iso = (offsetDays: number) =>
+    new Date(now - offsetDays * dayMs).toISOString().slice(0, 10);
+  return {
+    total: downline.length,
+    yesterday: downline.filter((n) => n.joined === iso(1)).length,
+    lastWeek: downline.filter((n) => n.joined >= iso(7)).length,
+  };
+}
+
 export async function generateMetadata(
   props: PageProps<"/[lang]/cabinet">
 ): Promise<Metadata> {
@@ -79,6 +102,8 @@ export default async function CabinetPage({
   const activePartners = DEMO_PARTNERS.filter((p) => p.status === "active").length;
   const totalEarned = DEMO_BONUSES.reduce((s, b) => s + b.amountCents, 0);
 
+  const referralStats = computeReferralStats();
+
   const tabs: CabinetTabDef[] = [
     {
       id: "overview",
@@ -96,50 +121,51 @@ export default async function CabinetPage({
               {t("subtitle")}
             </h2>
 
-            <div className="mx-auto max-w-[640px] space-y-4">
+            {/* Three onboarding steps — one equal-height row of columns */}
+            <div className="mx-auto grid max-w-[1100px] gap-4 md:grid-cols-3 md:items-stretch">
               {/* Step 1 — registration ✅ */}
-              <div className="flex items-center gap-4 rounded-xl border border-green-500/20 bg-green-500/[0.03] p-5 opacity-70">
+              <div className="flex flex-col items-center gap-3 rounded-xl border border-green-500/20 bg-green-500/[0.03] p-5 text-center opacity-70">
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-green-500/15">
                   <CheckCircle2Icon className="size-6 text-green-400" />
                 </div>
                 <div className="flex-1">
                   <div className="text-sm font-semibold text-green-400">{t("steps.done.title")}</div>
-                  <div className="mt-0.5 text-xs text-muted-foreground">{t("steps.done.desc")}</div>
+                  <div className="mt-1 text-xs leading-relaxed text-muted-foreground">{t("steps.done.desc")}</div>
                 </div>
-                <span className="inline-flex items-center gap-1 whitespace-nowrap font-mono text-xs text-green-500/70">
+                <span className="mt-auto inline-flex items-center gap-1 whitespace-nowrap font-mono text-xs text-green-500/70">
                   <CheckCircle2Icon className="size-3" /> {t("steps.done.flag")}
                 </span>
               </div>
 
               {/* Step 2 — partner activation 🟠 */}
-              <div className="flex items-center gap-4 rounded-xl border border-orange-500/30 bg-orange-500/[0.06] p-5">
+              <div className="flex flex-col items-center gap-3 rounded-xl border border-orange-500/30 bg-orange-500/[0.06] p-5 text-center">
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-orange-500/15">
                   <CircleDotIcon className="size-6 text-orange-400" />
                 </div>
                 <div className="flex-1">
                   <div className="text-sm font-semibold text-orange-400">{t("steps.activate.title")}</div>
-                  <div className="mt-0.5 text-xs text-muted-foreground">{t("steps.activate.desc")}</div>
+                  <div className="mt-1 text-xs leading-relaxed text-muted-foreground">{t("steps.activate.desc")}</div>
                 </div>
                 <Link
                   href="/shop"
-                  className="shrink-0 rounded-lg border border-orange-500/30 bg-orange-500/20 px-4 py-2 text-sm font-semibold text-orange-400 transition-colors hover:bg-orange-500/30"
+                  className="mt-auto shrink-0 rounded-lg border border-orange-500/30 bg-orange-500/20 px-4 py-2 text-sm font-semibold text-orange-400 transition-colors hover:bg-orange-500/30"
                 >
                   {t("steps.activate.btn")}
                 </Link>
               </div>
 
               {/* Step 3 — invite partners 🔴 */}
-              <div className="flex items-center gap-4 rounded-xl border border-red-500/20 bg-red-500/[0.03] p-5 opacity-70">
+              <div className="flex flex-col items-center gap-3 rounded-xl border border-red-500/20 bg-red-500/[0.03] p-5 text-center opacity-70">
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-500/10">
                   <CircleAlertIcon className="size-6 text-red-400/70" />
                 </div>
                 <div className="flex-1">
                   <div className="text-sm font-semibold text-red-400/70">{t("steps.invite.title")}</div>
-                  <div className="mt-0.5 text-xs text-muted-foreground">{t("steps.invite.desc")}</div>
+                  <div className="mt-1 text-xs leading-relaxed text-muted-foreground">{t("steps.invite.desc")}</div>
                 </div>
                 <a
                   href="#network"
-                  className="shrink-0 rounded-lg border border-red-500/25 bg-red-500/15 px-4 py-2 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500/25"
+                  className="mt-auto shrink-0 rounded-lg border border-red-500/25 bg-red-500/15 px-4 py-2 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500/25"
                 >
                   {t("steps.invite.btn")}
                 </a>
@@ -201,9 +227,9 @@ export default async function CabinetPage({
       label: t("tabs.profile"),
       icon: <UserIcon className="size-4" />,
       content: (
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid items-stretch gap-6 lg:grid-cols-2">
           <ProfileCard user={user} />
-          <ReferralLink email={user.email} />
+          <ReferralLink email={user.email} stats={referralStats} />
         </div>
       ),
     },
@@ -248,44 +274,6 @@ export default async function CabinetPage({
       ),
     },
     {
-      id: "bonuses",
-      hash: "bonuses",
-      label: t("tabs.bonuses"),
-      icon: <GiftIcon className="size-4" />,
-      content: (
-        <div className="overflow-hidden rounded-2xl border">
-          <table className="w-full text-sm">
-            <thead className="bg-muted/60 text-left text-xs uppercase tracking-wide text-muted-foreground">
-              <tr>
-                <th className="px-4 py-2.5 font-medium">{t("date")}</th>
-                <th className="px-4 py-2.5 font-medium">{t("from")}</th>
-                <th className="px-4 py-2.5 font-medium">{t("level")}</th>
-                <th className="px-4 py-2.5 text-right font-medium">{t("amount")}</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {DEMO_BONUSES.map((b) => (
-                <tr key={b.id} className="bg-card">
-                  <td className="whitespace-nowrap px-4 py-3 tabular-nums text-muted-foreground">
-                    {new Intl.DateTimeFormat(locale).format(new Date(`${b.date}T00:00:00`))}
-                  </td>
-                  <td className="px-4 py-3 font-medium">{b.fromName}</td>
-                  <td className="px-4 py-3">
-                    <span className={`inline-flex size-6 items-center justify-center rounded-full text-xs font-bold text-white ${LEVEL_CHIP[b.level]}`}>
-                      {b.level}
-                    </span>
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3 text-right font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">
-                    +{formatPrice(b.amountCents, locale)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ),
-    },
-    {
       id: "network",
       hash: "network",
       extraHashes: ["partners"],
@@ -305,7 +293,7 @@ export default async function CabinetPage({
             youActions={[
               { label: t("balance"), href: "/cabinet#balance" },
               { label: t("purchases"), href: "/cabinet#purchases" },
-              { label: t("bonuses"), href: "/cabinet#bonuses" },
+              { label: t("partnerAccruals"), href: "/cabinet#network" },
               { label: t("myPartners"), href: "/cabinet#network" },
             ]}
           />
@@ -333,6 +321,39 @@ export default async function CabinetPage({
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Партнёрские начисления — бывшая вкладка «Бонусы» */}
+          <h2 className="mt-10 text-xl font-bold tracking-tight">{t("partnerAccruals")}</h2>
+          <div className="mt-4 overflow-hidden rounded-2xl border">
+            <table className="w-full text-sm">
+              <thead className="bg-muted/60 text-left text-xs uppercase tracking-wide text-muted-foreground">
+                <tr>
+                  <th className="px-4 py-2.5 font-medium">{t("date")}</th>
+                  <th className="px-4 py-2.5 font-medium">{t("from")}</th>
+                  <th className="px-4 py-2.5 font-medium">{t("level")}</th>
+                  <th className="px-4 py-2.5 text-right font-medium">{t("amount")}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                {DEMO_BONUSES.map((b) => (
+                  <tr key={b.id} className="bg-card">
+                    <td className="whitespace-nowrap px-4 py-3 tabular-nums text-muted-foreground">
+                      {new Intl.DateTimeFormat(locale).format(new Date(`${b.date}T00:00:00`))}
+                    </td>
+                    <td className="px-4 py-3 font-medium">{b.fromName}</td>
+                    <td className="px-4 py-3">
+                      <span className={`inline-flex size-6 items-center justify-center rounded-full text-xs font-bold text-white ${LEVEL_CHIP[b.level]}`}>
+                        {b.level}
+                      </span>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3 text-right font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">
+                      +{formatPrice(b.amountCents, locale)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
           <p className="mt-3 text-xs text-muted-foreground">{t("demoNote")}</p>
         </>

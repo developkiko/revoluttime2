@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { AnalyticsEvents, track } from "@/lib/analytics/events";
 
-import { CopyIcon } from "lucide-react";
+import { CopyIcon, TrendingUpIcon, UserPlusIcon, UsersIcon } from "lucide-react";
 
 /** Deterministic demo referral code from the account email (FNV-1a). */
 function referralCode(email: string): string {
@@ -17,13 +17,35 @@ function referralCode(email: string): string {
   return `RT-${(hash >>> 0).toString(16).toUpperCase().slice(0, 6).padStart(6, "0")}`;
 }
 
-export function ReferralLink({ email }: { email: string }) {
+export interface ReferralStats {
+  /** Everyone in the referral network (direct + downline). */
+  total: number;
+  /** Signed up yesterday. */
+  yesterday: number;
+  /** Signed up during the last 7 days. */
+  lastWeek: number;
+}
+
+export function ReferralLink({
+  email,
+  stats,
+}: {
+  email: string;
+  stats: ReferralStats;
+}) {
   const t = useTranslations("cabinet.referral");
   const locale = useLocale();
   const [copied, setCopied] = React.useState(false);
 
   const code = referralCode(email);
-  const link = `${window.location.origin}/${locale}?ref=${code}`;
+  // SSR-safe client-only value: server snapshot is "", client one reads origin
+  // (stable for the page lifetime, so a noop subscribe is enough).
+  const origin = React.useSyncExternalStore(
+    React.useCallback(() => () => {}, []),
+    () => window.location.origin,
+    () => "",
+  );
+  const link = `${origin}/${locale}?ref=${code}`;
 
   async function copy() {
     track(AnalyticsEvents.PARTNER_LINK_CLICK, { code });
@@ -38,7 +60,7 @@ export function ReferralLink({ email }: { email: string }) {
   }
 
   return (
-    <div className="rounded-3xl border bg-card p-6">
+    <div className="flex h-full flex-col rounded-3xl border bg-card p-6">
       <h2 className="text-xl font-bold tracking-tight">{t("title")}</h2>
       <p className="mt-1 text-sm text-muted-foreground">{t("subtitle")}</p>
 
@@ -66,6 +88,41 @@ export function ReferralLink({ email }: { email: string }) {
       <p className="mt-3 text-xs text-muted-foreground">
         {t("codeNote", { code })}
       </p>
+
+      {/* Referral dynamics — headline total plus recent intake; mt-auto pins
+          it to the card bottom so equal-height columns stay aligned */}
+      <div className="mt-auto border-t pt-6">
+        <div className="flex items-center gap-3">
+          <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/10">
+            <UsersIcon className="size-7 text-primary" />
+          </div>
+          <div>
+            <p className="text-4xl font-bold tabular-nums leading-none">
+              {stats.total}
+            </p>
+            <p className="mt-1 text-xs font-medium text-muted-foreground">
+              {t("statsTotal")}
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          <div className="rounded-xl border bg-muted/40 p-3">
+            <p className="flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
+              <UserPlusIcon className="size-3.5 text-primary" />
+              {t("statsYesterday")}
+            </p>
+            <p className="mt-1 text-2xl font-bold tabular-nums">{stats.yesterday}</p>
+          </div>
+          <div className="rounded-xl border bg-muted/40 p-3">
+            <p className="flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
+              <TrendingUpIcon className="size-3.5 text-primary" />
+              {t("statsWeek")}
+            </p>
+            <p className="mt-1 text-2xl font-bold tabular-nums">{stats.lastWeek}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

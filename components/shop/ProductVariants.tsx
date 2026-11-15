@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { MinusIcon, PlusIcon, ShoppingCartIcon, SparklesIcon } from "lucide-react";
+import { GiftIcon, MinusIcon, PlusIcon, ShoppingCartIcon, SparklesIcon } from "lucide-react";
 import { toast } from "sonner";
 import * as React from "react";
 
 import { useCart } from "@/components/cart/CartProvider";
 import { AnalyticsEvents, track } from "@/lib/analytics/events";
 import { formatPrice, PACK_VARIANTS, type Locale, type PackId } from "@/lib/products";
+import { pricePacks } from "@/lib/pricing";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 
@@ -21,10 +22,11 @@ function PackCard({ packId }: { packId: PackId }) {
   const pack = PACK_VARIANTS.find((variant) => variant.id === packId)!;
   const [quantity, setQuantity] = React.useState(1);
 
-  const perTablet = formatPrice(
-    Math.round(pack.priceCents / pack.tablets),
-    locale
-  );
+  // overflow-visible: the featured badge rides on top of the card edge and
+  // must not be clipped by the Card's own overflow-hidden.
+  const pricing = pricePacks(pack, quantity);
+  const unitCents = pricing.qualifies ? pack.partnerPriceCents : pack.priceCents;
+  const perTablet = formatPrice(Math.round(unitCents / pack.tablets), locale);
 
   function handleAdd() {
     addPack(pack.id, quantity);
@@ -37,7 +39,7 @@ function PackCard({ packId }: { packId: PackId }) {
   }
 
   return (
-    <Card className="relative flex flex-col">
+    <Card className="relative flex flex-col overflow-visible">
       {pack.featured && (
         <p className="absolute -top-3 left-4 z-10 inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
           <SparklesIcon className="size-3" />
@@ -67,14 +69,25 @@ function PackCard({ packId }: { packId: PackId }) {
       </CardHeader>
 
       <CardContent className="mt-auto">
-        <div className="flex items-baseline gap-2">
+        <div className="flex flex-wrap items-baseline gap-2">
+          {pricing.qualifies && (
+            <span className="text-xl font-medium text-muted-foreground line-through decoration-primary/60 decoration-2">
+              {formatPrice(pack.priceCents, locale)}
+            </span>
+          )}
           <span className="text-3xl font-bold tracking-tight">
-            {formatPrice(pack.priceCents, locale)}
+            {formatPrice(unitCents, locale)}
           </span>
           <span className="text-sm text-muted-foreground">
             {t("perTablet", { price: perTablet })}
           </span>
         </div>
+        {pricing.qualifies && (
+          <p className="mt-2 inline-flex items-center gap-1.5 rounded-lg border border-primary/40 bg-primary/5 px-2.5 py-1 text-xs font-medium text-primary">
+            <GiftIcon className="size-3.5" />
+            {t("bonusPack", { count: pricing.bonusPacks })}
+          </p>
+        )}
       </CardContent>
 
       <CardFooter className="gap-3">

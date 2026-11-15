@@ -37,8 +37,16 @@ const SLIDE_KEYS = [
 ] as const;
 type SlideKey = (typeof SLIDE_KEYS)[number];
 
-const SLIDE_MEDIA: Record<SlideKey, { image?: string }> = {
-  hydrogen: { image: "/imgs/product/tabs-hero.jpg" },
+/** Transparent ad PNGs — the picture defines its own size, no frame around it. */
+const SLIDE_MEDIA: Record<
+  SlideKey,
+  { image?: string; width?: number; height?: number }
+> = {
+  hydrogen: {
+    image: "/imgs/for-ads/slide1.png",
+    width: 1172,
+    height: 1342,
+  },
   studio: { image: "/imgs/brand/add-life.jpg" },
   equipment: {},
   recreation: {},
@@ -69,23 +77,25 @@ const HYDROGEN_CHIPS = [
 ] as const;
 
 function SlideMedia({ slideKey, title }: { slideKey: SlideKey; title: string }) {
-  const image = SLIDE_MEDIA[slideKey].image;
-  if (image) {
+  const media = SLIDE_MEDIA[slideKey];
+  if (media.image) {
+    // Plain unframed render: intrinsic aspect ratio from the PNG, no crop,
+    // no height cap, no border / shadow / radius / background.
     return (
       <Image
-        src={image}
+        src={media.image}
         alt={title}
-        width={959}
-        height={1280}
+        width={media.width ?? 1172}
+        height={media.height ?? 1342}
         priority
-        sizes="(min-width: 1024px) 28rem, 90vw"
-        className="h-full w-full object-cover"
+        sizes="(min-width: 1024px) 24rem, 90vw"
+        className="h-auto w-full"
       />
     );
   }
   return (
-    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#056ea8]/20 via-muted to-primary/10">
-      <span className="flex size-32 items-center justify-center rounded-3xl bg-card/70 text-primary shadow-lg backdrop-blur-sm">
+    <div className="flex w-full items-center justify-center bg-gradient-to-br from-[#056ea8]/20 via-muted to-primary/10 py-16">
+      <span className="flex size-32 items-center justify-center text-primary">
         {SLIDE_ICONS[slideKey as Exclude<SlideKey, "hydrogen">]}
       </span>
     </div>
@@ -219,10 +229,9 @@ export function HeroSection() {
 
       <div className="relative mx-auto flex w-full max-w-6xl min-h-0 flex-1 flex-col px-6 pt-[120px] pb-[60px] sm:pt-[160px] sm:pb-[100px] md:pt-14 md:pb-8">
 
-        {/* Slider area — one uniform height for every slide: desktop fills the
-            remaining viewport (section is h-screen minus header), mobile is a
-            fixed box tall enough for the heaviest slide; the media block flexes
-            on desktop to absorb per-slide content variance. */}
+        {/* Slider area — desktop fills the remaining viewport (section is
+            h-screen minus header), mobile is a fixed box tall enough for the
+            heaviest slide; the transparent PNGs size themselves naturally. */}
         <div
           className="flex h-[46rem] w-full touch-pan-y select-none flex-col justify-center overflow-y-auto sm:h-[48rem] md:h-auto md:min-h-0 md:flex-1 md:overflow-visible"
           onPointerDown={onPointerDown}
@@ -278,27 +287,10 @@ export function HeroSection() {
                 </ul>
               )}
 
-              {/* slide media below centered copy — desktop flexes to fill the
-                  uniform slide height (object-cover crops); mobile fixed box */}
-              <div className="relative mx-auto h-40 w-full max-w-sm flex-none sm:h-48 md:h-auto md:min-h-[10rem] md:flex-1">
-                <div className="h-full w-full overflow-hidden rounded-3xl border bg-card shadow-lg">
-                  <SlideMedia slideKey={key} title={t(`slides.${key}.title`)} />
-                </div>
-                {isHydrogen && (
-                  <motion.div
-                    aria-hidden
-                    animate={{ y: [0, -8, 0] }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                    className="absolute -bottom-4 -left-4 rounded-2xl border bg-card px-4 py-3 shadow-md"
-                  >
-                    <p className="text-2xl font-bold text-primary">H₂</p>
-                    <p className="text-xs text-muted-foreground">1,6 ppm</p>
-                  </motion.div>
-                )}
+              {/* slide media below centered copy — plain PNG at its natural
+                  aspect ratio; no frame, crop, height cap or width squeeze */}
+              <div className="mx-auto w-full max-w-xl flex-none">
+                <SlideMedia slideKey={key} title={t(`slides.${key}.title`)} />
               </div>
 
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">

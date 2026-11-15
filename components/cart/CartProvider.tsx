@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { getPack, type PackId } from "@/lib/products";
+import { pricePacks } from "@/lib/pricing";
 import { getOfferSlot } from "@/lib/catalog";
 import { AnalyticsEvents, track } from "@/lib/analytics/events";
 
@@ -50,7 +51,7 @@ export function cartItemKey(item: CartItem): string {
 }
 
 function priceOf(item: CartItem): number {
-  if (item.kind === "pack") return getPack(item.packId).priceCents * item.quantity;
+  if (item.kind === "pack") return pricePacks(getPack(item.packId), item.quantity).totalCents;
   const slot = getOfferSlot(item.offerSlug, item.slotId);
   return slot ? slot.priceCents * item.people : 0;
 }
