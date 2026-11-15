@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — Loading skeleton для дашборда
+// REVOLUTTIME — Loading skeleton для дашборда
 // ══════════════════════════════════════════════════════════════
 
 export default function DashboardLoading() {

@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — ForgotPasswordModal (Tailwind-версия)
+// REVOLUTTIME — ForgotPasswordModal (Tailwind-версия)
 // ══════════════════════════════════════════════════════════════
 
 import { useI18n } from "@/lib/ultra/i18n-context";

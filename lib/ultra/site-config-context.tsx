@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — SiteConfigContext
+// REVOLUTTIME — SiteConfigContext
 // Загружает site_config из KV раз в сессию
 // ══════════════════════════════════════════════════════════════
 

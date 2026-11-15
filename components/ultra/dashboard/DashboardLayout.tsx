@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — DashboardLayout (полная версия)
+// REVOLUTTIME — DashboardLayout (полная версия)
 // Табы: Главная • Тарифы • Настройки • Создать прокси • Мои прокси • Трафик • Транзакции
 // + кнопка «Поддержка 24/7» (модалка Telegram + email)
 // ══════════════════════════════════════════════════════════════
@@ -64,8 +64,8 @@ export function DashboardLayout() {
 
   const tabClass =
     "inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-semibold rounded-lg border transition-all cursor-pointer whitespace-nowrap " +
-    "bg-[var(--bg-elevated)] border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--color-primary)]/30 hover:text-white";
-  const tabActiveClass = tabClass + " bg-[var(--color-primary)]/12 border-[var(--color-primary)] !text-white hover:bg-[var(--color-primary)]/20";
+    "bg-[var(--bg-elevated)] border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--color-primary)]/30 hover:text-[var(--text-heading)]";
+  const tabActiveClass = tabClass + " bg-[var(--color-primary)]/12 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)]/20";
 
   const supportBtnClass =
     "inline-flex items-center gap-1.5 px-4 lg:px-5 py-2.5 text-sm font-semibold rounded-lg border transition-all cursor-pointer whitespace-nowrap " +
@@ -190,7 +190,7 @@ export function DashboardLayout() {
             <Link href="/terms" className="hover:text-[var(--text-primary)] transition-colors">{t("terms_title")}</Link>
             <Link href="/cookies" className="hover:text-[var(--text-primary)] transition-colors">{t("cookies_title")}</Link>
           </div>
-          <p className="text-[13px] text-[var(--text-muted)]">&copy; 2026 Ultra Proxy. {t("footer_rights")}</p>
+          <p className="text-[13px] text-[var(--text-muted)]">&copy; 2026 RevolutTIME. {t("footer_rights")}</p>
         </div>
       </footer>
       {/* Плавающая кнопка поддержки */}

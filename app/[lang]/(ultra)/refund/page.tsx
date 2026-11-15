@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — Refund Policy
+// REVOLUTTIME — Refund Policy
 // ══════════════════════════════════════════════════════════════
 
 import { useI18n } from "@/lib/ultra/i18n-context";

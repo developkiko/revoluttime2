@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — /prev — Превью всех кастомных CSS-стилей
+// REVOLUTTIME — /prev — Превью всех кастомных CSS-стилей
 // ══════════════════════════════════════════════════════════════
 
 import { useState } from "react";
@@ -22,7 +22,7 @@ export default function PrevPage() {
         <Section title="1. Header" desc="position: fixed, glass-blur фон, border-bottom">
           <div className="header" style={{ position: "relative", top: "auto" }}>
             <div className="flex items-center h-14 max-w-[1200px] mx-auto px-6">
-              <span className="logo" data-cursor-logo>ULTRA PROXY</span>
+              <span className="logo" data-cursor-logo>REVOLUTTIME</span>
               <span className="ml-auto text-sm text-[var(--text-secondary)]">Header sample</span>
             </div>
           </div>
@@ -31,7 +31,7 @@ export default function PrevPage() {
         {/* ═══ 2. Logo (gradient shimmer) ═══ */}
         <Section title="2. Logo" desc="Gradient shimmer анимация, background-clip: text">
           <div className="flex items-center gap-8">
-            <span className="logo" data-cursor-logo>ULTRA PROXY</span>
+            <span className="logo" data-cursor-logo>REVOLUTTIME</span>
             <span className="logo" data-cursor-logo style={{ fontSize: "2rem" }}>BIG</span>
             <span className="logo" data-cursor-logo style={{ fontSize: "0.875rem" }}>small</span>
           </div>
@@ -53,7 +53,7 @@ export default function PrevPage() {
               lineHeight: 1.1,
             }}
           >
-            ULTRA PROXY
+            REVOLUTTIME
           </div>
         </Section>
 

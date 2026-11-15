@@ -5,10 +5,10 @@ import { listDbUltraProducts } from "@/lib/ultra/db-data";
 
 
 const DEFAULT_PRODUCTS = [
-  { id: 1, type: "fast", name_ru: "Fast 35", name_en: "Fast 35", traffic_ru: "35 ГБ трафика", traffic_en: "35 GB traffic", price: 35, oldPrice: 44, discount: 20, features: ["plan_feat_locations", "plan_feat_rotate", "plan_feat_uptime"], popular: true, order: 0 },
-  { id: 2, type: "wifi", name_ru: "Residential 15", name_en: "Residential 15", traffic_ru: "15 ГБ трафика", traffic_en: "15 GB traffic", price: 31, oldPrice: 39, discount: 20, features: ["plan_feat_locations", "plan_feat_rotate", "plan_feat_support"], popular: false, order: 1 },
-  { id: 3, type: "mobile", name_ru: "Mobile 10", name_en: "Mobile 10", traffic_ru: "10 ГБ трафика", traffic_en: "10 GB traffic", price: 39, oldPrice: 49, discount: 20, features: ["plan_feat_locations", "plan_feat_rotate", "plan_feat_whitelist"], popular: false, order: 2 },
-  { id: 4, type: "shared", name_ru: "Datacenter 95", name_en: "Datacenter 95", traffic_ru: "95 ГБ трафика", traffic_en: "95 GB traffic", price: 55, oldPrice: 69, discount: 20, features: ["plan_feat_locations", "plan_feat_uptime", "plan_feat_support"], popular: false, order: 3 },
+  { id: 1, type: "fast", name_ru: "RevolutTIME 90", name_en: "RevolutTIME 90", traffic_ru: "90 таблеток", traffic_en: "90 tablets", price: 70, oldPrice: 84, discount: 17, features: ["plan_feat_locations", "plan_feat_rotate", "plan_feat_uptime"], popular: true, order: 0 },
+  { id: 2, type: "wifi", name_ru: "Партнёрский набор ×10", name_en: "Partner Pack ×10", traffic_ru: "900 таблеток", traffic_en: "900 tablets", price: 600, oldPrice: 700, discount: 14, features: ["plan_feat_locations", "plan_feat_support", "plan_feat_whitelist"], popular: false, order: 1 },
+  { id: 3, type: "mobile", name_ru: "Двойной набор", name_en: "Double Pack", traffic_ru: "180 таблеток", traffic_en: "180 tablets", price: 140, oldPrice: 168, discount: 17, features: ["plan_feat_locations", "plan_feat_rotate", "plan_feat_uptime"], popular: false, order: 2 },
+  { id: 4, type: "shared", name_ru: "Подарочный набор", name_en: "Gift Pack", traffic_ru: "90 таблеток", traffic_en: "90 tablets", price: 70, oldPrice: 84, discount: 17, features: ["plan_feat_uptime", "plan_feat_support", "plan_feat_whitelist"], popular: false, order: 3 },
 ];
 
 export async function GET() {

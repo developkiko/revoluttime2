@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — API route: /api/payment/init
+// REVOLUTTIME — API route: /api/payment/init
 // Создание запроса на оплату + уведомление админов
 // ══════════════════════════════════════════════════════════════
 
@@ -8,7 +8,7 @@ import { broadcastMessage, formatPaymentRequest } from "@/lib/ultra/telegram";
 import { kvGetJson } from "@/lib/ultra/kv";
 import { sessionFromRequest } from "@/lib/ultra/session";
 
-const ADMIN_API = process.env.ADMIN_API_URL || "https://admin.ultra-proxy.pro";
+const ADMIN_API = process.env.ADMIN_API_URL || "https://admin.revoluttime.de";
 const INTERNAL_API_SECRET = (process.env.INTERNAL_API_SECRET || "").trim();
 
 // Cryptographically strong session id (Math.random is predictable).

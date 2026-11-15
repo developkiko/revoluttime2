@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — данные продуктов и отзывов
+// REVOLUTTIME — данные продуктов и отзывов
 // ══════════════════════════════════════════════════════════════
 
 export interface Product {
@@ -96,8 +96,8 @@ export const DEFAULT_REVIEWS: Review[] = [
     role: { ru: "Арбитражник", en: "Affiliate Marketer" },
     avatar: "/ultra/avas/ava2.jpg",
     text: {
-      ru: "Лью трафик на FB через резидентов Ultra Proxy. За 3 месяца ни одного бана аккаунта. Гео США, Германия — стабильно. Цена/качество — топ.",
-      en: "Running FB ads through Ultra Proxy residentials for 3 months. Zero account bans. US and Germany geo — solid. Best bang for the buck.",
+      ru: "Лью трафик на FB через резидентов RevolutTIME. За 3 месяца ни одного бана аккаунта. Гео США, Германия — стабильно. Цена/качество — топ.",
+      en: "Running FB ads through RevolutTIME residentials for 3 months. Zero account bans. US and Germany geo — solid. Best bang for the buck.",
     },
     stars: 5,
   },

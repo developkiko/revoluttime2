@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — Proxy Comparison Page (full page)
+// REVOLUTTIME — Proxy Comparison Page (full page)
 // ══════════════════════════════════════════════════════════════
 
 import { useEffect } from "react";

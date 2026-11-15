@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — управление сессией (Auth Store), порт на RevolutTIME
+// REVOLUTTIME — управление сессией (Auth Store), порт на RevolutTIME
 // Две серверные сессии, проверяются по порядку:
 //   1. RevolutTIME (Google / Telegram, httpOnly cookie) → /api/auth/me
 //   2. Ultra email-сессия (up_session, порт /api/ultra/auth/me)

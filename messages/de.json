@@ -387,7 +387,14 @@
       "copyError": "Kopieren fehlgeschlagen",
       "codeNote": "Ihr Code: {code} — bei Partnerregistrierungen angeben."
     },
-    "network": "Partnernetzwerk"
+    "network": "Partnernetzwerk",
+    "tabs": {
+      "overview": "Übersicht",
+      "profile": "Profil",
+      "purchases": "Käufe",
+      "bonuses": "Boni",
+      "network": "Netzwerk"
+    }
   },
   "admin": {
     "meta": {

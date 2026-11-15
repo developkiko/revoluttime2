@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — Social auth buttons (порт на RevolutTIME)
+// REVOLUTTIME — Social auth buttons (порт на RevolutTIME)
 // Порядок: Google → Telegram → Facebook (заглушка) → «или» →
 // email-форма рендерится под ними (в самом конце, приглушённая).
 // ══════════════════════════════════════════════════════════════

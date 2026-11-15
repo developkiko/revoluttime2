@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — HeroSection
+// REVOLUTTIME — HeroSection
 // ══════════════════════════════════════════════════════════════
 
 import { Link } from "@/i18n/navigation";

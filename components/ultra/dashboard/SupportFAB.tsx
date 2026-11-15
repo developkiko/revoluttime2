@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — SupportFAB: виджет контактов + кнопка "наверх"
+// REVOLUTTIME — SupportFAB: виджет контактов + кнопка "наверх"
 // Если виджет выключен — только «наверх» на месте FAB
 // ══════════════════════════════════════════════════════════════
 
@@ -70,8 +70,8 @@ export function SupportFAB() {
       });
     }
     if (list.length === 0) {
-      list.push({ icon: <Mail className="w-5 h-5" />, label: "Email", href: "mailto:support@ultra-proxy.pro", style: "primary" });
-      list.push({ icon: <TelegramIcon className="w-5 h-5" />, label: "Telegram", href: "https://t.me/ultraproxy_support", style: "telegram" });
+      list.push({ icon: <Mail className="w-5 h-5" />, label: "Email", href: "mailto:support@revoluttime.de", style: "primary" });
+      list.push({ icon: <TelegramIcon className="w-5 h-5" />, label: "Telegram", href: "https://t.me/revoluttime", style: "telegram" });
     }
     return list;
   }, [widgetEnabled, emailAddr, tgLink]);

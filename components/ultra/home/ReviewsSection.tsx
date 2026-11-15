@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — ReviewsSection (infinite scroll + загрузка с API)
+// REVOLUTTIME — ReviewsSection (infinite scroll + загрузка с API)
 // ══════════════════════════════════════════════════════════════
 
 import { useEffect, useState } from "react";

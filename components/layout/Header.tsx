@@ -123,13 +123,14 @@ export function Header() {
   const t = useTranslations("header");
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-14 w-full max-w-6xl items-center gap-2 px-4">
+    <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur-xl">
+      <div className="relative mx-auto flex h-14 w-full max-w-6xl items-center gap-2 px-4">
         <Link href="/" aria-label="RevolutTIME">
           <Logo size={22} />
         </Link>
 
-        <nav className="ml-auto hidden items-center gap-0.5 lg:flex">
+        {/* Centered nav — Ultra-style layout */}
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 lg:flex">
           {NAV_ITEMS.map((item) => (
             <Button key={item.key} variant="ghost" size="sm" asChild>
               <Link href={item.href}>{t(`nav.${item.key}`)}</Link>
@@ -137,7 +138,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-1.5 lg:ml-2">
+        <div className="ml-auto flex items-center gap-1.5">
           {/* Desktop-only controls — on mobile they live inside the menu sheet
               so the menu button can never be pushed off-screen. */}
           <div className="hidden items-center gap-1.5 lg:flex">

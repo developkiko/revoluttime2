@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import {
+  GiftIcon,
+  LayoutDashboardIcon,
+  NetworkIcon,
   PercentIcon,
   ShoppingBagIcon,
   TrendingUpIcon,
+  UserIcon,
   UsersIcon,
 } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -17,6 +21,7 @@ import { formatPrice, type Locale } from "@/lib/products";
 import { ProfileCard } from "@/components/cabinet/ProfileCard";
 import { ReferralLink } from "@/components/cabinet/ReferralLink";
 import { WithdrawButton } from "@/components/cabinet/WithdrawButton";
+import { CabinetTabs, type CabinetTabDef } from "@/components/cabinet/CabinetTabs";
 import { PartnerNetworkLazy } from "@/components/partner/PartnerNetworkLazy";
 import { getSessionUser } from "@/lib/auth-session";
 
@@ -68,95 +73,79 @@ export default async function CabinetPage({
   const activePartners = DEMO_PARTNERS.filter((p) => p.status === "active").length;
   const totalEarned = DEMO_BONUSES.reduce((s, b) => s + b.amountCents, 0);
 
-  return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-10">
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-        {t("title")}
-      </h1>
-
-      {/* Balance + stats */}
-      <div id="balance" className="mt-6 grid scroll-mt-20 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-2xl border bg-card p-5">
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            {t("balance")}
-          </p>
-          <p className="mt-2 text-3xl font-bold tabular-nums">
-            {formatPrice(DEMO_BALANCE_CENTS, locale)}
-          </p>
-          <WithdrawButton />
+  const tabs: CabinetTabDef[] = [
+    {
+      id: "overview",
+      hash: "balance",
+      label: t("tabs.overview"),
+      icon: <LayoutDashboardIcon className="size-4" />,
+      content: (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-2xl border bg-card p-5">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              {t("balance")}
+            </p>
+            <p className="mt-2 text-3xl font-bold tabular-nums">
+              {formatPrice(DEMO_BALANCE_CENTS, locale)}
+            </p>
+            <WithdrawButton />
+          </div>
+          <div className="rounded-2xl border bg-card p-5">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              {t("partnersCount")}
+            </p>
+            <p className="mt-2 flex items-center gap-2 text-3xl font-bold tabular-nums">
+              <UsersIcon className="size-6 text-primary" />
+              {DEMO_PARTNERS.length}
+            </p>
+            <p className="mt-3 text-xs text-muted-foreground">
+              {t("partnersActive", { count: activePartners })}
+            </p>
+          </div>
+          <div className="rounded-2xl border bg-card p-5">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              {t("ordersCount")}
+            </p>
+            <p className="mt-2 flex items-center gap-2 text-3xl font-bold tabular-nums">
+              <ShoppingBagIcon className="size-6 text-primary" />
+              {DEMO_PURCHASES.length}
+            </p>
+          </div>
+          <div className="rounded-2xl border bg-card p-5">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              {t("earnedTotal")}
+            </p>
+            <p className="mt-2 flex items-center gap-2 text-3xl font-bold tabular-nums">
+              <TrendingUpIcon className="size-6 text-emerald-500" />
+              {formatPrice(totalEarned, locale)}
+            </p>
+            <p className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground">
+              <PercentIcon className="size-3" />
+              {t("commissionNote")}
+            </p>
+          </div>
         </div>
-        <div className="rounded-2xl border bg-card p-5">
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            {t("partnersCount")}
-          </p>
-          <p className="mt-2 flex items-center gap-2 text-3xl font-bold tabular-nums">
-            <UsersIcon className="size-6 text-primary" />
-            {DEMO_PARTNERS.length}
-          </p>
-          <p className="mt-3 text-xs text-muted-foreground">
-            {t("partnersActive", { count: activePartners })}
-          </p>
+      ),
+    },
+    {
+      id: "profile",
+      hash: "profile",
+      label: t("tabs.profile"),
+      icon: <UserIcon className="size-4" />,
+      content: (
+        <div className="grid gap-6 lg:grid-cols-2">
+          <ProfileCard user={user} />
+          <ReferralLink email={user.email} />
         </div>
-        <div className="rounded-2xl border bg-card p-5">
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            {t("ordersCount")}
-          </p>
-          <p className="mt-2 flex items-center gap-2 text-3xl font-bold tabular-nums">
-            <ShoppingBagIcon className="size-6 text-primary" />
-            {DEMO_PURCHASES.length}
-          </p>
-        </div>
-        <div className="rounded-2xl border bg-card p-5">
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            {t("earnedTotal")}
-          </p>
-          <p className="mt-2 flex items-center gap-2 text-3xl font-bold tabular-nums">
-            <TrendingUpIcon className="size-6 text-emerald-500" />
-            {formatPrice(totalEarned, locale)}
-          </p>
-          <p className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground">
-            <PercentIcon className="size-3" />
-            {t("commissionNote")}
-          </p>
-        </div>
-      </div>
-
-      {/* Profile + referral link */}
-      <div id="profile" className="mt-8 grid scroll-mt-20 gap-6 lg:grid-cols-2">
-        <ProfileCard user={user} />
-        <ReferralLink email={user.email} />
-      </div>
-
-      {/* Interactive partner network (You + 5 direct lines) */}
-      <section id="network" className="mt-10 scroll-mt-20">
-        <h2 className="text-xl font-bold tracking-tight">{t("network")}</h2>
-        <PartnerNetworkLazy
-          className="mt-4"
-          me={{
-            id: "you",
-            name: user.name ?? "RevolutTIME",
-            joined: "2026-09-01", // TODO(profile API): real registration date
-          }}
-          partners={DEMO_PARTNERS.map((partner) => ({
-            id: partner.id,
-            name: partner.name,
-            joined: partner.joined,
-            badge: `${partner.level}`,
-          }))}
-          profileHref="/cabinet#partners"
-          youActions={[
-            { label: t("balance"), href: "/cabinet#balance" },
-            { label: t("purchases"), href: "/cabinet#purchases" },
-            { label: t("bonuses"), href: "/cabinet#bonuses" },
-            { label: t("myPartners"), href: "/cabinet#partners" },
-          ]}
-        />
-      </section>
-
-      {/* Purchase history */}
-      <section id="purchases" className="mt-10 scroll-mt-20">
-        <h2 className="text-xl font-bold tracking-tight">{t("purchases")}</h2>
-        <div className="mt-4 overflow-hidden rounded-2xl border">
+      ),
+    },
+    {
+      id: "purchases",
+      hash: "purchases",
+      label: t("tabs.purchases"),
+      icon: <ShoppingBagIcon className="size-4" />,
+      content: (
+        <div className="overflow-hidden rounded-2xl border">
           <table className="w-full text-sm">
             <thead className="bg-muted/60 text-left text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
@@ -188,12 +177,15 @@ export default async function CabinetPage({
             </tbody>
           </table>
         </div>
-      </section>
-
-      {/* Bonus history */}
-      <section id="bonuses" className="mt-10 scroll-mt-20">
-        <h2 className="text-xl font-bold tracking-tight">{t("bonuses")}</h2>
-        <div className="mt-4 overflow-hidden rounded-2xl border">
+      ),
+    },
+    {
+      id: "bonuses",
+      hash: "bonuses",
+      label: t("tabs.bonuses"),
+      icon: <GiftIcon className="size-4" />,
+      content: (
+        <div className="overflow-hidden rounded-2xl border">
           <table className="w-full text-sm">
             <thead className="bg-muted/60 text-left text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
@@ -223,36 +215,76 @@ export default async function CabinetPage({
             </tbody>
           </table>
         </div>
-      </section>
+      ),
+    },
+    {
+      id: "network",
+      hash: "network",
+      extraHashes: ["partners"],
+      label: t("tabs.network"),
+      icon: <NetworkIcon className="size-4" />,
+      content: (
+        <>
+          <PartnerNetworkLazy
+            me={{
+              id: "you",
+              name: user.name ?? "RevolutTIME",
+              joined: "2026-09-01", // TODO(profile API): real registration date
+            }}
+            partners={DEMO_PARTNERS.map((partner) => ({
+              id: partner.id,
+              name: partner.name,
+              joined: partner.joined,
+              badge: `${partner.level}`,
+            }))}
+            profileHref="/cabinet#network"
+            youActions={[
+              { label: t("balance"), href: "/cabinet#balance" },
+              { label: t("purchases"), href: "/cabinet#purchases" },
+              { label: t("bonuses"), href: "/cabinet#bonuses" },
+              { label: t("myPartners"), href: "/cabinet#network" },
+            ]}
+          />
 
-      {/* Partners */}
-      <section id="partners" className="mt-10 scroll-mt-20">
-        <h2 className="text-xl font-bold tracking-tight">{t("myPartners")}</h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {DEMO_PARTNERS.map((p) => (
-            <div key={p.id} className="flex items-center gap-3 rounded-2xl border bg-card p-4">
-              <span className={`flex size-9 items-center justify-center rounded-full text-sm font-bold text-white ${LEVEL_CHIP[p.level]}`}>
-                {p.level}
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="truncate font-medium">{p.name}</p>
-                <p className="text-xs text-muted-foreground">
-                  {new Intl.DateTimeFormat(locale).format(new Date(`${p.joined}T00:00:00`))}
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="font-semibold tabular-nums">
-                  {formatPrice(p.earnedCents, locale)}
-                </p>
-                <span className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-medium ${STATUS_CHIP[p.status]}`}>
-                  {t(`status_${p.status}`)}
+          <h2 className="mt-8 text-xl font-bold tracking-tight">{t("myPartners")}</h2>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {DEMO_PARTNERS.map((p) => (
+              <div key={p.id} className="flex items-center gap-3 rounded-2xl border bg-card p-4">
+                <span className={`flex size-9 items-center justify-center rounded-full text-sm font-bold text-white ${LEVEL_CHIP[p.level]}`}>
+                  {p.level}
                 </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-medium">{p.name}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {new Intl.DateTimeFormat(locale).format(new Date(`${p.joined}T00:00:00`))}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="font-semibold tabular-nums">
+                    {formatPrice(p.earnedCents, locale)}
+                  </p>
+                  <span className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-medium ${STATUS_CHIP[p.status]}`}>
+                    {t(`status_${p.status}`)}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-        <p className="mt-3 text-xs text-muted-foreground">{t("demoNote")}</p>
-      </section>
+            ))}
+          </div>
+          <p className="mt-3 text-xs text-muted-foreground">{t("demoNote")}</p>
+        </>
+      ),
+    },
+  ];
+
+  return (
+    <div className="mx-auto w-full max-w-6xl px-4 py-10">
+      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+        {t("title")}
+      </h1>
+
+      <div className="mt-6">
+        <CabinetTabs ariaLabel={t("title")} tabs={tabs} />
+      </div>
     </div>
   );
 }

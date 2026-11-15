@@ -1,8 +1,7 @@
-const CACHE_NAME = "ultra-proxy-static-v1";
+const CACHE_NAME = "revoluttime-static-v1";
 const STATIC_ASSETS = [
   "/ultra/manifest.webmanifest",
-  "/ultra/images/pwa-icon-192.png",
-  "/ultra/images/pwa-icon-512.png",
+  "/ultra/favicon.svg",
   "/ultra/images/pwa-icon.svg",
 ];
 

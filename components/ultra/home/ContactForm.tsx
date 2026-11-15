@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — ContactForm
+// REVOLUTTIME — ContactForm
 // ══════════════════════════════════════════════════════════════
 
 import { useState, useEffect, FormEvent, useRef, useCallback } from "react";
@@ -217,15 +217,17 @@ export function ContactForm() {
           {/* Info */}
           <div className="bg-[var(--bg-card)] border border-[var(--border-default)] rounded-[var(--radius-lg)] p-6">
             {[{
-              // Email: link only if value looks like email / has mailto
+              // WhatsApp (was Email in the Ultra template): supports wa.me links.
               show: Boolean(c?.email),
               icon: Mail,
-              label: "Email",
+              label: "WhatsApp",
               value: typeof c?.email === "string" ? c.email : "",
               href: (() => {
                 const raw = typeof c?.email === "string" ? c.email : "";
                 if (!raw || raw === "#") return undefined;
-                return raw.startsWith("mailto:") ? raw : `mailto:${raw}`;
+                return raw.startsWith("http") || raw.startsWith("mailto:") || raw.startsWith("tel:")
+                  ? raw
+                  : `mailto:${raw}`;
               })(),
             }, {
               show: Boolean(c?.telegram_link),

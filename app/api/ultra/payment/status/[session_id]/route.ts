@@ -1,11 +1,11 @@
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — API route: /api/payment/status/[session_id]
+// REVOLUTTIME — API route: /api/payment/status/[session_id]
 // Проверка статуса платёжной сессии
 // ══════════════════════════════════════════════════════════════
 
 import { NextRequest, NextResponse } from "next/server";
 
-const WORKER_URL = process.env.CF_WORKER_URL || process.env.ADMIN_API_URL || "https://admin.ultra-proxy.pro";
+const WORKER_URL = process.env.CF_WORKER_URL || process.env.ADMIN_API_URL || "https://admin.revoluttime.de";
 const INTERNAL_API_SECRET = (process.env.INTERNAL_API_SECRET || "").trim();
 
 export async function GET(

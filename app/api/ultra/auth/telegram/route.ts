@@ -17,7 +17,7 @@ type TelegramAuth = {
 };
 
 function telegramToken(): string {
-  // CLIENT_BOT_TOKEN is the existing Ultra Proxy client-bot secret.
+  // CLIENT_BOT_TOKEN is the existing RevolutTIME client-bot secret.
   // A dedicated token name remains available for future bot separation.
   return process.env.TELEGRAM_LOGIN_BOT_TOKEN || process.env.CLIENT_BOT_TOKEN || "";
 }
@@ -60,7 +60,7 @@ function loginName(username: string | undefined, telegramId: string): string {
 }
 
 function telegramEmail(telegramId: string): string {
-  return `telegram_${telegramId}@accounts.ultra-proxy.pro`;
+  return `telegram_${telegramId}@accounts.revoluttime.de`;
 }
 
 export async function POST(request: NextRequest) {

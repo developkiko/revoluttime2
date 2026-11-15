@@ -1,6 +1,6 @@
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — Client Bot Webhook: /api/tg-bot-webhook
-// Bot: @ultraproxybot_bot (premium account)
+// REVOLUTTIME — Client Bot Webhook: /api/tg-bot-webhook
+// Bot: @revoluttime_bot (premium account)
 // Flow: /start → language → catalog/balance/support → redirect to site
 // ══════════════════════════════════════════════════════════════
 
@@ -212,30 +212,30 @@ const EMOJI_ID = {
 // ── i18n texts ──
 const texts = {
   ru: {
-    welcome: "👋 Привет! Ultra Proxy — прокси для любых задач.\n\nВыбери тариф и начни работу за 2 минуты.",
+    welcome: "👋 Привет! RevolutTIME — прокси для любых задач.\n\nВыбери тариф и начни работу за 2 минуты.",
     catalog: "🛒 Каталог тарифов",
     balance: "💳 Баланс",
     support: "📞 Поддержка",
     buy: "🚀 Купить на сайте",
     back: "◀️ Назад",
-    balanceText: "Для просмотра баланса войди в личный кабинет на сайте:\n\n<a href=\"https://www.ultra-proxy.pro/dashboard\">https://www.ultra-proxy.pro/dashboard</a>",
+    balanceText: "Для просмотра баланса войди в личный кабинет на сайте:\n\n<a href=\"https://www.revoluttime.de/dashboard\">https://www.revoluttime.de/dashboard</a>",
     balanceNewUser: "Ты ещё не зарегистрирован на сайте.\n\n1️⃣ Нажми «Купить на сайте» в каталоге\n2️⃣ Зарегистрируйся\n3️⃣ Пополни баланс",
-    supportText: "По всем вопросам пиши:\n\n📧 support@ultra-proxy.pro\n💬 <a href=\"https://t.me/ultraproxy_support\">@ultraproxy_support</a>",
+    supportText: "По всем вопросам пиши:\n\n📧 support@revoluttime.de\n💬 <a href=\"https://t.me/revoluttime\">@revoluttime</a>",
     chooseLang: "🌐 Выберите язык / Choose language",
     russian: "🇷🇺 Русский",
     english: "🇬🇧 English",
     noProducts: "Каталог временно недоступен.",
   },
   en: {
-    welcome: "👋 Hello! Ultra Proxy — proxies for any task.\n\nPick a plan and get started in 2 minutes.",
+    welcome: "👋 Hello! RevolutTIME — proxies for any task.\n\nPick a plan and get started in 2 minutes.",
     catalog: "🛒 Plans Catalog",
     balance: "💳 Balance",
     support: "📞 Support",
     buy: "🚀 Buy on Site",
     back: "◀️ Back",
-    balanceText: "Check your balance in the dashboard:\n\n<a href=\"https://www.ultra-proxy.pro/dashboard\">https://www.ultra-proxy.pro/dashboard</a>",
+    balanceText: "Check your balance in the dashboard:\n\n<a href=\"https://www.revoluttime.de/dashboard\">https://www.revoluttime.de/dashboard</a>",
     balanceNewUser: "You are not registered yet.\n\n1️⃣ Click «Buy on Site» in catalog\n2️⃣ Register\n3️⃣ Top up balance",
-    supportText: "Contact us:\n\n📧 <a href=\"mailto:support@ultra-proxy.pro\">support@ultra-proxy.pro</a>\n💬 <a href=\"https://t.me/ultraproxy_support\">@ultraproxy_support</a>",
+    supportText: "Contact us:\n\n📧 <a href=\"mailto:support@revoluttime.de\">support@revoluttime.de</a>\n💬 <a href=\"https://t.me/revoluttime\">@revoluttime</a>",
     chooseLang: "🌐 Выберите язык / Choose language",
     russian: "🇷🇺 Русский",
     english: "🇬🇧 English",
@@ -271,7 +271,7 @@ function mainKeyboard(lang: string | undefined) {
 function productKeyboard(product: any, lang: string | undefined) {
   return {
     inline_keyboard: [
-      [{ text: t(lang, "buy"), url: "https://www.ultra-proxy.pro/dashboard", icon_custom_emoji_id: EMOJI_ID.network }],
+      [{ text: t(lang, "buy"), url: "https://www.revoluttime.de/dashboard", icon_custom_emoji_id: EMOJI_ID.network }],
       [{ text: lang === "en" ? "I Paid" : "Я оплатил", callback_data: `paid_${product.id}`, icon_custom_emoji_id: EMOJI_ID.plus }],
       [{ text: t(lang, "back"), callback_data: "catalog" }],
     ],
@@ -337,7 +337,7 @@ async function handleLangSelect(chatId: number, messageId: number, callbackId: s
   } catch { /* skip */ }
 
   // Отправляем фото с текстом приветствия
-  await sendPhoto(chatId, "https://www.ultra-proxy.pro/promo.jpg", t(lang, "welcome"), {
+  await sendPhoto(chatId, "https://www.revoluttime.de/promo.jpg", t(lang, "welcome"), {
     reply_markup: mainKeyboard(lang),
   });
 }
@@ -555,8 +555,8 @@ async function handlePaid(
     chatId,
     messageId,
     lang === "en"
-      ? "✅ Payment confirmed! Check your email for proxy details.\n\n📧 support@ultra-proxy.pro"
-      : "✅ Оплата подтверждена! Данные придут вам на почту.\n\n📧 support@ultra-proxy.pro",
+      ? "✅ Payment confirmed! Check your email for proxy details.\n\n📧 support@revoluttime.de"
+      : "✅ Оплата подтверждена! Данные придут вам на почту.\n\n📧 support@revoluttime.de",
     { reply_markup: backKeyboard(lang), disable_web_page_preview: true }
   );
 }

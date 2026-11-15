@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — I18nText (Tailwind-версия)
+// REVOLUTTIME — I18nText (Tailwind-версия)
 // ══════════════════════════════════════════════════════════════
 
 import type React from "react";

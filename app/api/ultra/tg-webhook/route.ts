@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — Telegram Webhook: /api/tg-webhook
+// REVOLUTTIME — Telegram Webhook: /api/tg-webhook
 // Команды: /start, /auth, /online, /admins, /users, /mail
 // Список админов и сообщения — напрямую в CF KV (без Worker)
 // ══════════════════════════════════════════════════════════════
@@ -158,7 +158,7 @@ export async function POST(request: NextRequest) {
         [
           `<b>👋 Привет, ${escHtml(firstName)}!</b>`,
           ``,
-          `Я бот <b>Ultra Proxy</b>. Уведомления с сайта (контакты, регистрации, платежи).`,
+          `Я бот <b>RevolutTIME</b>. Уведомления с сайта (контакты, регистрации, платежи).`,
           ``,
           isAdmin
             ? `✅ Ты уже админ. Уведомления приходят автоматически.`

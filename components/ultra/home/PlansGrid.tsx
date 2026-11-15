@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — PlansGrid (тарифы с API + fallback)
+// REVOLUTTIME — PlansGrid (тарифы с API + fallback)
 // ══════════════════════════════════════════════════════════════
 
 import { useEffect, useState } from "react";

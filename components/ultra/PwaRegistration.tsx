@@ -23,10 +23,10 @@ type Copy = {
 
 const copy: Record<"ru" | "en", Copy> = {
   ru: {
-    title: "Установить Ultra Proxy",
-    iosTitle: "Добавить Ultra Proxy на экран",
-    description: "Установите приложение для быстрого доступа к кабинету и прокси.",
-    iosDescription: "Откройте меню браузера и добавьте Ultra Proxy на экран «Домой». ",
+    title: "Установить RevolutTIME",
+    iosTitle: "Добавить RevolutTIME на экран",
+    description: "Установите приложение для быстрого доступа к кабинету и наборам.",
+    iosDescription: "Откройте меню браузера и добавьте RevolutTIME на экран «Домой». ",
     androidDescription: "В меню браузера выберите «Добавить на главный экран».",
     install: "Установить",
     installHelp: "Как установить",
@@ -35,10 +35,10 @@ const copy: Record<"ru" | "en", Copy> = {
     add: "На экран «Домой»",
   },
   en: {
-    title: "Install Ultra Proxy",
-    iosTitle: "Add Ultra Proxy to Home Screen",
-    description: "Install the app for quick access to your dashboard and proxies.",
-    iosDescription: "Open your browser menu and add Ultra Proxy to the Home Screen.",
+    title: "Install RevolutTIME",
+    iosTitle: "Add RevolutTIME to Home Screen",
+    description: "Install the app for quick access to your dashboard and packs.",
+    iosDescription: "Open your browser menu and add RevolutTIME to the Home Screen.",
     androidDescription: "Open the browser menu and choose “Add to Home screen”.",
     install: "Install",
     installHelp: "How to install",
@@ -68,7 +68,7 @@ export default function PwaRegistration() {
     if ("serviceWorker" in navigator) {
       // Scoped to /ultra/ so the template's SW never controls RevolutTIME pages.
       navigator.serviceWorker.register("/ultra/sw.js", { scope: "/ultra/" }).catch((error) => {
-        console.error("Ultra Proxy PWA service worker registration failed", error);
+        console.error("RevolutTIME PWA service worker registration failed", error);
       });
     }
 
@@ -125,7 +125,7 @@ export default function PwaRegistration() {
 
   return (
     <aside className="pwa-install-prompt" role="dialog" aria-live="polite" aria-label={ios ? text.iosTitle : text.title}>
-      <img src="/ultra/images/pwa-icon-192.png" alt="" className="pwa-install-prompt__icon" />
+      <img src="/ultra/images/pwa-icon.svg" alt="" className="pwa-install-prompt__icon" />
       <div className="pwa-install-prompt__content">
         <strong>{ios ? text.iosTitle : text.title}</strong>
         <p>{description}</p>

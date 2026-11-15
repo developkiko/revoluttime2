@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — SettingsTab (Настройки)
+// REVOLUTTIME — SettingsTab (Настройки)
 // Смена email/пароля + экспорт данных + удаление аккаунта
 // ══════════════════════════════════════════════════════════════
 
@@ -53,7 +53,7 @@ export function SettingsTab() {
     setPassLoading(true);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_UP_ADMIN_API_URL || "https://admin.ultra-proxy.pro"}/api/user/change-password`,
+        `${process.env.NEXT_PUBLIC_UP_ADMIN_API_URL || "https://admin.revoluttime.de"}/api/user/change-password`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -87,7 +87,7 @@ export function SettingsTab() {
     setEmailLoading(true);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_UP_ADMIN_API_URL || "https://admin.ultra-proxy.pro"}/api/user/change-email`,
+        `${process.env.NEXT_PUBLIC_UP_ADMIN_API_URL || "https://admin.revoluttime.de"}/api/user/change-email`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -192,7 +192,7 @@ export function SettingsTab() {
     if (!deletePass) { toast("error", t("err_password_empty")); return; }
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_UP_ADMIN_API_URL || "https://admin.ultra-proxy.pro"}/api/user/delete`,
+        `${process.env.NEXT_PUBLIC_UP_ADMIN_API_URL || "https://admin.revoluttime.de"}/api/user/delete`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

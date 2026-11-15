@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — Footer
+// REVOLUTTIME — Footer
 // ══════════════════════════════════════════════════════════════
 
 import { Link } from "@/i18n/navigation";
@@ -94,7 +94,7 @@ export function Footer() {
           </div>
         </div>
         <div className="text-center py-5 border-t border-[var(--border-subtle)] text-[13px] text-[var(--text-muted)]">
-          <p>&copy; 2026 Ultra Proxy. {t("footer_rights")}</p>
+          <p>&copy; 2026 RevolutTIME. {t("footer_rights")}</p>
         </div>
       </div>
     </footer>

@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — TrustCounters
+// REVOLUTTIME — TrustCounters
 // ══════════════════════════════════════════════════════════════
 
 import { Link } from "@/i18n/navigation";
@@ -31,10 +31,10 @@ export function TrustCounters() {
     { target: parseInt(tc.countries.value) || 0, suffix: "", labelKey: tc.countries[lk] },
     { target: parseInt(tc.uptime.value) || 99, suffix: "%", labelKey: tc.uptime[lk] },
   ] : [
-    { target: 2847, suffix: "+", labelKey: "trust_clients" },
-    { target: 15230, suffix: "+", labelKey: "trust_proxies" },
-    { target: 200, suffix: "", labelKey: "trust_countries" },
-    { target: 99, suffix: "%", labelKey: "trust_uptime" },
+    { target: 1200, suffix: "+", labelKey: "trust_clients" },
+    { target: 8600, suffix: "+", labelKey: "trust_proxies" },
+    { target: 31, suffix: "", labelKey: "trust_countries" },
+    { target: 68, suffix: "%", labelKey: "trust_uptime" },
   ];
 
   const animateCounters = useCallback(() => {

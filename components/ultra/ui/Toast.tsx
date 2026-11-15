@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — Toast: замена salert()
+// REVOLUTTIME — Toast: замена salert()
 // ══════════════════════════════════════════════════════════════
 
 import React, { useState, useEffect, useCallback, createContext, useContext, type ReactNode } from "react";

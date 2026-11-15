@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — Custom Cursor (moonshot-style ring + dot)
+// REVOLUTTIME — Custom Cursor (moonshot-style ring + dot)
 // ══════════════════════════════════════════════════════════════
 
 import { useEffect, useRef } from "react";

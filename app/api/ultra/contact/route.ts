@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — API route: /api/contact
+// REVOLUTTIME — API route: /api/contact
 // Приём формы контактов → прокси на Cloudflare Worker для отправки в TG
 // ══════════════════════════════════════════════════════════════
 
@@ -8,7 +8,7 @@ import { kvGetJson } from "@/lib/ultra/kv";
 import { dbReadsEnabled } from "@/lib/ultra/storage-mode";
 import { getDbSiteConfig } from "@/lib/ultra/db-data";
 
-const ADMIN_API = process.env.ADMIN_API_URL || "https://admin.ultra-proxy.pro";
+const ADMIN_API = process.env.ADMIN_API_URL || "https://admin.revoluttime.de";
 const TURNSTILE_SECRET = process.env.TURNSTILE_SECRET_KEY || "";
 
 /** Same logic as /api/ultra/site-config, called in-process (no self-HTTP). */

@@ -1,6 +1,6 @@
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — логика admin-бота: /mail (рассылка) и /users
-// Рассылка идёт от имени КЛИЕНТСКОГО бота (@ultraproxybot_bot),
+// REVOLUTTIME — логика admin-бота: /mail (рассылка) и /users
+// Рассылка идёт от имени КЛИЕНТСКОГО бота (@revoluttime_bot),
 // команды и State machine — через админ-бота.
 // ══════════════════════════════════════════════════════════════
 
@@ -149,7 +149,7 @@ export async function handleMailFlow(msg: any, chatId: number): Promise<boolean>
     }
     await sendMessage(
       chatId,
-      `Отправить всем, кто запускал @ultraproxybot_bot?`,
+      `Отправить всем, кто запускал @revoluttime_bot?`,
       "HTML",
       {
         inline_keyboard: [[
@@ -208,7 +208,7 @@ export async function handleMailCallback(cb: any) {
 
 /** Собираем аудиторию рассылки: только те, кто реально запускал клиентского бота
  *  (маркер tg_client_started:). Никакого бэкфилла из чужих ключей — иначе шлём
- *  людям, которые никогда не открывали @ultraproxybot_bot, и получаем "chat not found". */
+ *  людям, которые никогда не открывали @revoluttime_bot, и получаем "chat not found". */
 async function collectMailRecipientIds(): Promise<string[]> {
   const ids = new Set<string>();
   const keys = await kvList("tg_client_started:", 100000);
@@ -325,7 +325,7 @@ export async function sendUsersList(chatId: number) {
   }
 
   if (!lines.length) {
-    await sendMessage(chatId, `📭 Пока ни один пользователь не запускал @ultraproxybot_bot.`);
+    await sendMessage(chatId, `📭 Пока ни один пользователь не запускал @revoluttime_bot.`);
     return;
   }
   const header = `👥 <b>Пользователи бота (${lines.length})</b>\n\n`;

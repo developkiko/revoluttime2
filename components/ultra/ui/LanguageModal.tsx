@@ -65,8 +65,8 @@ export default function LanguageModal() {
             onClick={() => handleSelect("ru")}
             className={`w-full flex items-center gap-3 px-5 py-4 rounded-xl border-2 transition-all text-left ${
               selected === "ru"
-                ? "border-blue-500 bg-blue-500/10 text-white"
-                : "border-gray-700 bg-gray-900/50 text-gray-400 hover:border-gray-500 hover:text-white"
+                ? "border-blue-500 bg-blue-500/10 text-[var(--text-heading)]"
+                : "border-[var(--border-default)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:border-[var(--border-strong, #3a3a4a)] hover:text-[var(--text-primary)]"
             }`}
           >
             <span className="text-lg font-bold text-blue-400 w-6 text-center">ru</span>
@@ -77,8 +77,8 @@ export default function LanguageModal() {
             onClick={() => handleSelect("en")}
             className={`w-full flex items-center gap-3 px-5 py-4 rounded-xl border-2 transition-all text-left ${
               selected === "en"
-                ? "border-blue-500 bg-blue-500/10 text-white"
-                : "border-gray-700 bg-gray-900/50 text-gray-400 hover:border-gray-500 hover:text-white"
+                ? "border-blue-500 bg-blue-500/10 text-[var(--text-heading)]"
+                : "border-[var(--border-default)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:border-[var(--border-strong, #3a3a4a)] hover:text-[var(--text-primary)]"
             }`}
           >
             <span className="text-lg font-bold text-green-400 w-6 text-center">en</span>

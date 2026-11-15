@@ -26,7 +26,7 @@ export async function Footer() {
   const t = await getTranslations("footer");
 
   return (
-    <footer id="contact" className="scroll-mt-16 border-t bg-muted/40">
+    <footer id="contact" className="scroll-mt-16 border-t bg-background">
       <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-12 md:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-3">
           <Link href="/" aria-label="RevolutTIME" className="w-fit">
@@ -38,7 +38,7 @@ export async function Footer() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <h2 className="text-sm font-semibold">{t("directionsTitle")}</h2>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t("directionsTitle")}</h2>
           <nav className="flex flex-col items-start gap-2 text-sm">
             {DIRECTION_LINKS.map((link) => (
               <Link
@@ -53,7 +53,7 @@ export async function Footer() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <h2 className="text-sm font-semibold">{t("contactsTitle")}</h2>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t("contactsTitle")}</h2>
           <address className="flex flex-col gap-2 text-sm not-italic text-muted-foreground">
             <span className="font-medium text-foreground">{t("company")}</span>
             <span className="flex items-start gap-1.5">
@@ -75,7 +75,7 @@ export async function Footer() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <h2 className="text-sm font-semibold">{t("legalTitle")}</h2>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t("legalTitle")}</h2>
           <nav className="flex flex-col items-start gap-2 text-sm">
             {LEGAL_LINKS.map((link) => (
               <Link

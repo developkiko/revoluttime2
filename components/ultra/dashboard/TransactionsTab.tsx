@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — TransactionsTab (с загрузкой из API)
+// REVOLUTTIME — TransactionsTab (с загрузкой из API)
 // ══════════════════════════════════════════════════════════════
 
 import { useState, useEffect } from "react";

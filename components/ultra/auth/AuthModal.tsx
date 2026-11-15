@@ -1,7 +1,7 @@
 "use client";
 
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — AuthModal (ModalEngine-версия)
+// REVOLUTTIME — AuthModal (ModalEngine-версия)
 // ══════════════════════════════════════════════════════════════
 
 import { useState } from "react";

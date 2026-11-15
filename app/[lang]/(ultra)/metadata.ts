@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// ULTRA PROXY — Динамические OG/SEO мета-теги по языку
+// REVOLUTTIME — Динамические OG/SEO мета-теги по языку
 // ══════════════════════════════════════════════════════════════
 
 import type { Metadata, Viewport } from "next";
@@ -18,20 +18,20 @@ const translations: Record<
 > = {
   en: {
     title:
-      "Ultra Proxy — Fast & Reliable Proxies | Residential, Mobile & Datacenter",
+      "RevolutTIME — Molecular Hydrogen, Biohacking & Partner Program",
     description:
-      "Elite residential, mobile and datacenter proxies. 120M+ IPs across 200+ countries. Instant activation, 99.9% uptime, crypto payments.",
-    ogTitle: "Ultra Proxy — Fast & Reliable Proxies",
+      "Effervescent magnesium + H₂ tablets — Eurofins-tested, made in Bavaria. Studio, equipment, recreation and a partner program for active longevity.",
+    ogTitle: "RevolutTIME — Molecular Hydrogen & Biohacking",
     ogDescription:
-      "Elite residential, mobile and datacenter proxies. 120M+ IPs across 200+ countries.",
+      "Effervescent magnesium + H₂ tablets — Eurofins-tested, made in Bavaria.",
     lang: "en",
   },
   ru: {
     title:
-      "Ultra Proxy — Быстрые и надёжные прокси | Резидентные, мобильные, серверные",
+      "RevolutTIME — Быстрые и надёжные прокси | Резидентные, мобильные, серверные",
     description:
       "Элитные резидентные, мобильные и серверные прокси. 120 млн+ IP в 200+ странах. Мгновенная активация, аптайм 99.9%, оплата криптой.",
-    ogTitle: "Ultra Proxy — Быстрые и надёжные прокси",
+    ogTitle: "RevolutTIME — Быстрые и надёжные прокси",
     ogDescription:
       "Элитные резидентные, мобильные и серверные прокси. 120 млн+ IP в 200+ странах.",
     lang: "ru",
@@ -58,11 +58,11 @@ export async function generateMetadata({ params }: UltraMetadataProps): Promise<
     title: t.title,
     description: t.description,
     manifest: "/ultra/manifest.webmanifest",
-    applicationName: "Ultra Proxy",
+    applicationName: "RevolutTIME",
     appleWebApp: {
       capable: true,
       statusBarStyle: "black-translucent",
-      title: "Ultra Proxy",
+      title: "RevolutTIME",
     },
     icons: {
       icon: [
@@ -73,7 +73,7 @@ export async function generateMetadata({ params }: UltraMetadataProps): Promise<
     },
     openGraph: {
       type: "website",
-      siteName: "Ultra Proxy",
+      siteName: "RevolutTIME",
       locale: t.lang,
       title: t.ogTitle,
       description: t.ogDescription,
@@ -83,7 +83,7 @@ export async function generateMetadata({ params }: UltraMetadataProps): Promise<
           url: `${baseUrl}/ultra/prew-app.jpg`,
           width: 769,
           height: 1920,
-          alt: "Ultra Proxy",
+          alt: "RevolutTIME",
         },
       ],
     },

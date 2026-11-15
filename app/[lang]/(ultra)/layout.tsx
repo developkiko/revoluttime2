@@ -15,7 +15,7 @@ export { generateMetadata };
 const ULTRA_LANG: Record<string, Lang> = { de: "en", ru: "ru", en: "en" };
 
 /**
- * Ultra Proxy template chrome: its own providers (i18n/auth/modal/toast),
+ * RevolutTIME template chrome: its own providers (i18n/auth/modal/toast),
  * custom cursor, language modal, PWA. All styles are scoped under .ultra-root
  * so the template never repaints RevolutTIME pages.
  */

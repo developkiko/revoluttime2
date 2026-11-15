@@ -387,7 +387,14 @@
       "copyError": "Copy failed",
       "codeNote": "Your code: {code} — provide it when registering partners."
     },
-    "network": "Partner network"
+    "network": "Partner network",
+    "tabs": {
+      "overview": "Overview",
+      "profile": "Profile",
+      "purchases": "Purchases",
+      "bonuses": "Bonuses",
+      "network": "Network"
+    }
   },
   "admin": {
     "meta": {
