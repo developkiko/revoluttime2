@@ -9,12 +9,11 @@ import {
 
 import { Link } from "@/i18n/navigation";
 import { Card, CardContent } from "@/components/ui/card";
-import { SECTION_META, type CatalogOffer } from "@/lib/catalog";
+import { offerHref, type CatalogOffer } from "@/lib/catalog";
 import type { Locale } from "@/lib/products";
 
-export function offerHref(offer: CatalogOffer): string {
-  return `${SECTION_META[offer.section].href}/${offer.slug}`;
-}
+// Совместимость: offerHref переехал в lib/catalog (клиент-безопасный модуль).
+export { offerHref };
 
 /** Grid of the section's bookable offers (admin-managed rows later). */
 export async function OffersGrid({

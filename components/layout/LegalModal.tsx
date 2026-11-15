@@ -4,6 +4,8 @@ import * as React from "react";
 import { useTranslations } from "next-intl";
 import { InfoIcon, XIcon } from "lucide-react";
 
+import { ModalLangButton, ModalThemeButton } from "@/components/layout/ModalControls";
+
 export type LegalSlug = "impressum" | "datenschutz" | "agb" | "widerruf";
 
 const LEGAL_SLUGS: LegalSlug[] = ["impressum", "datenschutz", "agb", "widerruf"];
@@ -48,22 +50,27 @@ export function LegalModal({
       onClick={onClose}
     >
       <div
-        className="flex max-h-[85dvh] w-full max-w-3xl flex-col rounded-2xl border border-[var(--border-default)] bg-[var(--bg-card)] shadow-2xl animate-in zoom-in-95 duration-200"
+        className="flex max-h-[85dvh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-[var(--border-default)] bg-[var(--bg-card)] shadow-2xl animate-in zoom-in-95 duration-200"
         onClick={(event) => event.stopPropagation()}
       >
-        {/* sticky header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-[var(--border-subtle)] bg-[var(--bg-card)] px-6 py-4">
+        {/* header — overflow-hidden на корпусе не даёт квадратным углам
+            шапки/тела вылезать за скругление оболочки */}
+        <div className="flex items-center justify-between gap-4 border-b border-[var(--border-subtle)] bg-[var(--bg-card)] px-6 py-4">
           <h2 className="truncate text-lg font-bold text-[var(--text-heading)]">
             {t(`${slug}.title`)}
           </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close"
-            className="flex size-8 shrink-0 items-center justify-center rounded-full border text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-heading)]"
-          >
-            <XIcon className="size-4" />
-          </button>
+          <div className="flex shrink-0 items-center gap-2">
+            <ModalLangButton />
+            <ModalThemeButton />
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close"
+              className="flex size-8 shrink-0 items-center justify-center rounded-full border text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-heading)]"
+            >
+              <XIcon className="size-4" />
+            </button>
+          </div>
         </div>
 
         {/* scrollable body */}

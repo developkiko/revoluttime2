@@ -15,6 +15,7 @@ import { PartnerStepsLazy } from "@/components/partner/PartnerStepsLazy";
 import { PartnerNetworkLazy } from "@/components/partner/PartnerNetworkLazy";
 import { UsageSection } from "@/components/home/UsageSection";
 import { FxDemo } from "@/components/dummy/fx-demo";
+import { PortDemo } from "@/components/dummy/port-demo";
 import { AdminDemoButton } from "@/components/admin/AdminDemoButton";
 import { getOffer } from "@/lib/catalog";
 import { BookingWidgetLazy } from "@/components/booking/BookingWidgetLazy";
@@ -187,6 +188,8 @@ export default async function DummyPage({
       </section>
 
       <FxDemo />
+
+      <PortDemo />
 
       <UsageSection />
     </>

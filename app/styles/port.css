@@ -1,0 +1,644 @@
+/* ════════════════════════════════════════════════════════════════
+   ПОРТ С ДАММИ СТАРОГО САЙТА (revoluttime.vercel.app/ru/dummy)
+   Импортируется из globals.css. Неймспейсы:
+     popover-select — кастомный селект (Popover API, тень-«хлопок»)
+     tabs, tab, tabs-glider — вкладки кабинета (глайдер)
+     week, day-модификаторы, slot-карточки — товарные карточки + неделя дат
+     order-done, order-code, check-ряд, kv-list — код заказа
+     left-ряд, timer-ring — страница-посредник внешних ссылок /left
+     nf-ряд, state-ico, my-lock-note, nf-wrap — служебные экраны
+     rb-ряд — анимация «печать чека»
+   Токены shadcn те же, dark-тема автоматом.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ==== Кастомный селект — Popover API, тень-«хлопок» (порт jhey.dev
+   shadow-popover-transition). Открытие: список разворачивается 3D-страницей
+   (rotate x 30°→0), тень «хлопает» вниз и гаснет; ЗАКРЫТИЕ — то же в обратную
+   сторону (transitions вместо keyframes; display/overlay allow-discrete
+   держит слой до конца анимации закрытия). ==== */
+.popover-select__trigger {
+  @apply flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground;
+  width: 14rem;
+  cursor: pointer;
+}
+.popover-select__trigger:hover {
+  @apply border-primary/60;
+}
+.popover-select__label {
+  @apply text-muted-foreground;
+}
+.popover-select__value {
+  @apply flex-1 text-left font-medium;
+}
+.popover-select__chevron {
+  @apply size-4 text-muted-foreground;
+}
+.popover-select__popover {
+  /* якорь задаётся inline positionAnchor (уникален на инстанс) */
+  left: anchor(left);
+  top: calc(anchor(bottom) + 0.5rem);
+  margin: 0;
+  border: 0;
+  padding: 0;
+  width: 14rem;
+  background: transparent;
+  overflow: visible;
+  /* фаза «спрятан» — то же в обратную сторону */
+  opacity: 0;
+  transition:
+    opacity 0.22s ease,
+    overlay 0.5s allow-discrete,
+    display 0.5s allow-discrete;
+}
+@supports not (anchor-name: --a) {
+  .popover-select__popover {
+    inset: auto;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+  }
+}
+.popover-select__popover:popover-open {
+  opacity: 1;
+}
+.popover-select__content {
+  position: relative;
+  perspective: 500px;
+}
+.popover-select__content::before {
+  /* «хлопающая» тень: в открытом состоянии схлопывается под список
+     (inset→0) и гаснет, при закрытии поднимается обратно */
+  --ps-blur: 1rem;
+  content: "";
+  position: absolute;
+  inset: var(--ps-blur) calc(var(--ps-blur) * -1.25) calc(var(--ps-blur) * -3)
+    calc(var(--ps-blur) * -1.25);
+  background: color-mix(in oklab, black 30%, transparent);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    calc(100% + var(--ps-blur)) calc(100% + var(--ps-blur)),
+    calc(var(--ps-blur) * -3) calc(100% + var(--ps-blur))
+  );
+  z-index: -2;
+  transform-origin: 50% 0;
+  filter: blur(var(--ps-blur));
+  border-radius: 1rem 1rem 6px 6px;
+  transition:
+    inset 0.32s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.3s ease;
+}
+.popover-select__popover:popover-open .popover-select__content::before {
+  inset: 0;
+  opacity: 0;
+}
+.popover-select__content::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+.popover-select__content ul {
+  @apply m-0 grid list-none gap-1 rounded-lg border border-border bg-card p-1;
+  transform-origin: 50% 0;
+  /* фаза закрытия: «страница» отгибается назад */
+  rotate: x 30deg;
+  opacity: 0;
+  transition:
+    rotate 0.32s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.22s ease;
+}
+.popover-select__popover:popover-open .popover-select__content ul {
+  rotate: x 0deg;
+  opacity: 1;
+}
+.popover-select__option {
+  @apply relative flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-md px-3 py-2 text-left text-sm text-foreground;
+  border: 0;
+  background: transparent;
+}
+.popover-select__option::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  @apply bg-muted;
+  opacity: var(--intent, 0);
+}
+.popover-select__option:hover,
+.popover-select__option:focus-visible {
+  --intent: 1;
+  outline: none;
+}
+.popover-select__option span {
+  @apply relative z-[1];
+}
+.popover-select__check {
+  @apply relative z-[1] hidden size-4 text-primary;
+  stroke-width: 3;
+}
+.popover-select__option[data-selected] .popover-select__check {
+  display: block;
+}
+
+/* ==== Вкладки кабинета — глайдер (порт codepen vExjZBE) ==== */
+.tabs {
+  @apply relative mx-auto grid w-fit max-w-full grid-flow-col gap-1 overflow-x-auto rounded-full border border-border bg-card/95 p-1.5 shadow-lg backdrop-blur;
+}
+.tab {
+  @apply relative z-[1] grid grid-flow-col items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors duration-200;
+  color: var(--muted-foreground);
+}
+.tab svg {
+  @apply size-3.5;
+}
+.tab--on {
+  color: var(--primary-foreground);
+}
+.tabs-glider {
+  position: absolute;
+  top: 0.375rem;
+  bottom: 0.375rem;
+  left: 0;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  box-shadow: 0 2px 12px
+    color-mix(in srgb, var(--color-primary) 35%, transparent);
+  transition:
+    transform 0.25s ease-out,
+    width 0.25s ease-out,
+    opacity 0.2s ease;
+}
+
+/* ==== Неделя дат + товарные карточки (слоты бронирования) ==== */
+.week {
+  @apply mb-8 grid grid-cols-7 gap-1.5 sm:gap-2;
+}
+.day {
+  @apply relative grid justify-items-center rounded-2xl border px-1 py-2.5 transition sm:py-3;
+}
+.day--past {
+  @apply cursor-default border-border/60 bg-card/60 text-muted-foreground opacity-75;
+  filter: grayscale(0.5);
+}
+.day--idle {
+  @apply border-border bg-card text-muted-foreground hover:bg-muted;
+}
+.day--on {
+  @apply border-primary bg-primary text-primary-foreground shadow-md;
+}
+.day--today {
+  @apply border-primary bg-primary/10;
+}
+.day-dow {
+  @apply text-[10px] font-medium uppercase opacity-80 sm:text-xs;
+}
+.day-num {
+  @apply text-lg font-bold sm:text-xl;
+}
+.day-dot {
+  @apply mt-1 size-1.5 rounded-full bg-transparent;
+}
+.day--on .day-dot {
+  @apply bg-white/70;
+}
+.day--busy:not(.day--on) .day-dot {
+  @apply bg-accent;
+}
+.slot-card {
+  @apply grid rounded-2xl border border-border bg-card p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md;
+}
+.slot-name {
+  @apply mb-1 text-lg font-semibold;
+}
+.slot-addr {
+  @apply mb-4 inline-grid grid-flow-col items-center gap-1 text-sm text-primary hover:underline;
+}
+.slot-addr svg {
+  @apply size-4;
+}
+.slot-time {
+  @apply grid grid-flow-col items-center gap-1.5 text-sm font-semibold;
+}
+.slot-time svg {
+  @apply size-4;
+}
+.slot-cap {
+  @apply text-sm text-muted-foreground;
+}
+.slot-buy {
+  @apply mt-4;
+}
+
+/* ==== Код заказа: успех оплаты, QR-проверка ==== */
+.order-done {
+  @apply mx-auto max-w-2xl rounded-3xl border border-green-500/40 bg-green-500/5 p-8 text-center sm:p-10;
+}
+.order-code {
+  @apply font-mono text-2xl font-black tracking-widest select-all;
+}
+.order-done-card {
+  @apply rounded-2xl border border-border bg-card p-5;
+}
+.check-result {
+  @apply rounded-2xl border p-6;
+}
+.check-result--err {
+  @apply border-red-500/40 bg-red-500/10 text-center;
+}
+.check-result--ok {
+  @apply border-green-500/40 bg-green-500/10;
+}
+.check-result--warn {
+  @apply border-amber-500/40 bg-amber-500/10 text-center;
+}
+.check-ico {
+  @apply grid place-items-center;
+}
+.check-ico svg {
+  @apply size-7;
+}
+.check-title {
+  @apply mt-2 font-bold;
+}
+.check-title--ok {
+  @apply text-center text-green-600;
+}
+.check-title--err {
+  @apply text-red-500;
+}
+.check-title--warn {
+  @apply text-amber-600 dark:text-amber-400;
+}
+.check-sub {
+  @apply mt-1 font-mono text-sm text-muted-foreground;
+}
+.check-sub--plain {
+  @apply font-sans;
+}
+.kv-list {
+  @apply mt-4 grid gap-1.5 text-sm;
+}
+
+/* ==== Внешние ссылки: страница-посредник /left ==== */
+.left-card {
+  @apply w-full rounded-3xl border border-border bg-card p-8 text-center shadow-sm;
+}
+.left-ico {
+  @apply mx-auto mb-4 grid size-14 place-items-center rounded-2xl;
+}
+.left-ico--block {
+  @apply bg-red-500/15 text-red-500;
+}
+.left-ico--warn {
+  @apply bg-amber-500/15 text-amber-500;
+}
+.left-ico--warn svg {
+  @apply size-7;
+}
+.left-title {
+  @apply text-xl font-bold;
+}
+.left-text {
+  @apply mt-3 text-sm leading-relaxed text-muted-foreground;
+}
+.left-text b {
+  @apply font-semibold text-foreground;
+}
+.timer-ring {
+  @apply grid size-14 place-items-center rounded-full border-2 text-lg font-black;
+}
+.timer-ring--primary {
+  @apply border-primary/40 text-primary;
+}
+.timer-ring--danger {
+  @apply border-red-500/40 text-red-500;
+}
+.left-actions {
+  @apply mt-6 grid justify-items-center gap-3;
+}
+.left-note {
+  @apply text-sm text-muted-foreground;
+}
+
+/* ==== Служебные экраны: 404/500 и статусы ==== */
+.nf-wrap {
+  @apply mx-auto grid min-h-[60vh] max-w-xl content-center justify-items-center px-4 py-16 text-center;
+}
+.nf-code {
+  @apply select-none text-8xl font-black tracking-tighter text-primary/15 sm:text-9xl;
+}
+.nf-code--err {
+  @apply text-red-500/15;
+}
+.nf-title {
+  @apply mt-2 text-2xl font-bold;
+}
+.nf-text {
+  @apply mt-4 text-lg leading-relaxed text-muted-foreground;
+}
+.nf-btn {
+  @apply mt-8;
+}
+.nf-btn svg {
+  @apply size-4;
+}
+.state-ico {
+  @apply grid place-items-center;
+}
+.state-ico svg {
+  @apply size-10 text-muted-foreground;
+}
+.state-ico--danger svg {
+  @apply size-12 text-red-500;
+}
+.my-lock-note {
+  @apply mt-6 max-w-sm rounded-2xl border border-border bg-card p-5 text-sm leading-relaxed text-muted-foreground;
+}
+
+/* ==== Оформление заказа — печать чека (порт codepen NPpMpeQ) ====
+   Панель морфится в чек-бумагу с перфорацией (mask-вырезы), строки чека
+   разворачиваются по одной (height 0→auto через interpolate-size). */
+.rb {
+  width: min(440px, 100%);
+  --rb-surface-top: var(--color-card);
+  --rb-surface-bot: var(--color-muted);
+  --rb-card-border: var(--color-border);
+  --rb-panel: var(--color-card);
+  --rb-ink: var(--color-foreground);
+  --rb-ink-2: var(--color-foreground);
+  --rb-ink-3: var(--color-muted-foreground);
+  --rb-ink-4: var(--color-muted-foreground);
+  --rb-tag-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  --rb-tag-fg: var(--color-primary);
+  --rb-dim: var(--color-muted);
+  --rb-rule: var(--color-border);
+  --rb-btn-bg: var(--color-primary);
+  --rb-btn-fg: var(--color-primary-foreground);
+  --rb-btn-bg-hover: color-mix(in srgb, var(--color-primary) 88%, black);
+  --rb-mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas,
+    monospace;
+}
+.rb-card {
+  padding: 12px;
+  border-radius: 28px;
+  background: linear-gradient(to bottom, var(--rb-surface-top), var(--rb-surface-bot));
+  border: 1px solid var(--rb-card-border);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.04),
+    0 12px 32px -12px rgb(0 0 0 / 0.1);
+}
+.rb-head {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  padding: 8px 12px 12px;
+}
+.rb-head-left {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: start;
+  gap: 8px;
+}
+.rb-head-title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--rb-ink);
+}
+.rb-tag {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: var(--rb-tag-bg);
+  color: var(--rb-tag-fg);
+  font-family: var(--rb-mono);
+  font-size: 11px;
+}
+.rb-status {
+  display: grid;
+  align-items: center;
+  transition: opacity 200ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+.rb-status-text {
+  font-size: 13px;
+  color: var(--rb-ink-3);
+}
+.rb-status-text--mono {
+  font-family: var(--rb-mono);
+  font-variant-numeric: tabular-nums;
+}
+.rb-tear {
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--rb-panel);
+  color: var(--rb-ink-2);
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--rb-card-border);
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+.rb-tear:hover {
+  background: var(--rb-dim);
+}
+.rb-tear:active {
+  transform: scale(0.98);
+}
+.rb-panel {
+  background: var(--rb-panel);
+  overflow: hidden;
+  position: relative;
+}
+.rb-panel--card {
+  border-radius: 16px;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.6) inset,
+    0 1px 2px rgb(0 0 0 / 0.04),
+    0 8px 24px -10px rgb(0 0 0 / 0.08);
+}
+.rb-panel--paper {
+  --notch-r: 5px;
+  --notch-gap: 12px;
+  mask:
+    radial-gradient(circle var(--notch-r) at 50% 0, transparent 98%, #000 100%)
+      0 0 / var(--notch-gap) calc(var(--notch-r) * 2) repeat-x,
+    radial-gradient(circle var(--notch-r) at 50% 100%, transparent 98%, #000 100%)
+      0 100% / var(--notch-gap) calc(var(--notch-r) * 2) repeat-x,
+    linear-gradient(#000, #000)
+      0 var(--notch-r) / 100% calc(100% - var(--notch-r) * 2) no-repeat;
+}
+.rb-idle {
+  display: grid;
+  justify-items: center;
+  row-gap: 16px;
+  text-align: center;
+  padding: 48px 32px;
+}
+.rb-idle-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: var(--rb-dim);
+  display: grid;
+  place-items: center;
+  color: var(--rb-ink-3);
+}
+.rb-idle-heading {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--rb-ink);
+  margin-bottom: 6px;
+}
+.rb-idle-sub {
+  font-size: 14px;
+  color: var(--rb-ink-3);
+}
+.rb-print {
+  margin-top: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--rb-btn-bg);
+  color: var(--rb-btn-fg);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+.rb-print:hover {
+  background: var(--rb-btn-bg-hover);
+}
+.rb-print:active {
+  transform: scale(0.98);
+}
+.rb-paper-content {
+  padding: 28px 28px 32px;
+}
+.rb-line {
+  height: 0;
+  margin-top: 0;
+  overflow: hidden;
+  transition:
+    height 360ms cubic-bezier(0.32, 0.72, 0, 1),
+    margin-top 360ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+.rb-line.shown {
+  height: auto;
+}
+.rb-line + .rb-line.shown {
+  margin-top: 8px;
+}
+.rb-line > * {
+  opacity: 0;
+  transition: opacity 240ms 80ms ease;
+}
+.rb-line.shown > * {
+  opacity: 1;
+}
+.rb-title {
+  text-align: center;
+  padding-top: 4px;
+  font-family: var(--rb-mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--rb-ink);
+}
+.rb-sub {
+  text-align: center;
+  font-family: var(--rb-mono);
+  font-size: 12px;
+  color: var(--rb-ink-3);
+}
+.rb-rule {
+  border-top: 1px dashed var(--rb-rule);
+  margin: 4px 0;
+}
+.rb-row {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  font-family: var(--rb-mono);
+  font-size: 13px;
+  color: var(--rb-ink-2);
+}
+.rb-row .rb-value {
+  font-variant-numeric: tabular-nums;
+}
+.rb-total {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  font-family: var(--rb-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--rb-ink);
+}
+.rb-total .rb-value {
+  font-variant-numeric: tabular-nums;
+}
+.rb-thanks {
+  text-align: center;
+  padding-top: 8px;
+  font-family: var(--rb-mono);
+  font-size: 13px;
+  color: var(--rb-ink-2);
+}
+.rb-qr {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding-top: 4px;
+}
+.rb-qr-label {
+  font-family: var(--rb-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--rb-ink-4);
+}
+.rb-qr-img {
+  width: 140px;
+  height: 140px;
+}
+.rb-qr-note {
+  font-family: var(--rb-mono);
+  font-size: 12px;
+  color: var(--rb-ink-3);
+}
+.rb-foot {
+  min-height: 48px;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  color: var(--rb-ink-4);
+}
+@keyframes rb-dots {
+  0%,
+  80%,
+  100% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+.rb-dots span {
+  display: inline-block;
+  animation: rb-dots 1.4s ease-in-out infinite;
+}
+.rb-dots span:nth-child(2) {
+  animation-delay: 0.18s;
+}
+.rb-dots span:nth-child(3) {
+  animation-delay: 0.36s;
+}

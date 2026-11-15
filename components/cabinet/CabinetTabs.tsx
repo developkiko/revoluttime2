@@ -15,20 +15,21 @@ export interface CabinetTabDef {
   content: React.ReactNode;
 }
 
-// Tab styling mirrors the Ultra dashboard (indigo tint for the active pill).
-const tabClass =
-  "inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-lg border transition-all whitespace-nowrap " +
-  "bg-secondary border-border text-muted-foreground hover:border-primary/30 hover:text-foreground";
-const tabActiveClass =
-  tabClass + " bg-primary/12 border-primary text-primary";
-
 /**
- * Tab shell for the cabinet. Panels stay mounted (hidden) so server-rendered
- * content and client state (profile inputs, demo tables) survive switching.
- * Hash routing keeps the existing deep links (#profile, #purchases, …).
+ * Tab shell for the cabinet — «глайдер» (порт codepen vExjZBE / старый dummy
+ * components/my/my-tabs.tsx): подложка-пилюля не перескакивает, а плавно
+ * переезжает под активную вкладку (замер offsetLeft/offsetWidth — ширины
+ * разные; на resize переснимает ResizeObserver). До гидрации глайдер скрыт.
+ *
+ * Панели остаются смонтированными (hidden), чтобы серверный контент и
+ * клиентское состояние (поля профиля, таблицы) переживали переключение.
+ * Хеш-роутинг сохранён (#profile, #purchases, #network, …).
  */
 export function CabinetTabs({ tabs, ariaLabel }: { tabs: CabinetTabDef[]; ariaLabel: string }) {
   const [active, setActive] = React.useState<string>(tabs[0]?.id ?? "");
+  const navRef = React.useRef<HTMLElement>(null);
+  const btnRefs = React.useRef(new Map<string, HTMLButtonElement>());
+  const [glider, setGlider] = React.useState<{ left: number; width: number } | null>(null);
 
   React.useEffect(() => {
     const applyHash = () => {
@@ -43,6 +44,24 @@ export function CabinetTabs({ tabs, ariaLabel }: { tabs: CabinetTabDef[]; ariaLa
     return () => window.removeEventListener("hashchange", applyHash);
   }, [tabs]);
 
+  // замер активной кнопки → позиция глайдера (layout: до первой отрисовки)
+  const measure = React.useCallback(() => {
+    const btn = btnRefs.current.get(active);
+    if (!btn) return;
+    setGlider({ left: btn.offsetLeft, width: btn.offsetWidth });
+  }, [active]);
+
+  React.useLayoutEffect(measure, [measure]);
+
+  React.useEffect(() => {
+    const nav = navRef.current;
+    if (!nav || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(() => measure());
+    ro.observe(nav);
+    btnRefs.current.forEach((b) => ro.observe(b));
+    return () => ro.disconnect();
+  }, [measure]);
+
   const select = (id: string) => {
     const tab = tabs.find((t) => t.id === id);
     if (!tab) return;
@@ -52,21 +71,34 @@ export function CabinetTabs({ tabs, ariaLabel }: { tabs: CabinetTabDef[]; ariaLa
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-2" role="tablist" aria-label={ariaLabel}>
+      <nav ref={navRef} className="tabs" role="tablist" aria-label={ariaLabel}>
+        <span
+          aria-hidden="true"
+          className="tabs-glider"
+          style={
+            glider
+              ? { transform: `translateX(${glider.left}px)`, width: glider.width, opacity: 1 }
+              : { transform: "translateX(0.375rem)", width: "6rem", opacity: 0 }
+          }
+        />
         {tabs.map((tab) => (
           <button
             key={tab.id}
             type="button"
             role="tab"
             aria-selected={active === tab.id}
+            ref={(el) => {
+              if (el) btnRefs.current.set(tab.id, el);
+              else btnRefs.current.delete(tab.id);
+            }}
             onClick={() => select(tab.id)}
-            className={active === tab.id ? tabActiveClass : tabClass}
+            className={active === tab.id ? "tab tab--on" : "tab"}
           >
             {tab.icon}
             {tab.label}
           </button>
         ))}
-      </div>
+      </nav>
 
       {tabs.map((tab) => (
         <div

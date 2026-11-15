@@ -186,7 +186,7 @@ export function SupportFAB() {
 
       <button
         onClick={() => setOpen(!open)}
-        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all border ${
+        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all border text-white ${
           open
             ? "bg-[var(--color-accent)] border-[var(--color-accent)] no-glow"
             : "bg-[var(--color-accent)] border-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] pulse-glow"

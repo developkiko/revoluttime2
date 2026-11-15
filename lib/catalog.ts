@@ -55,6 +55,11 @@ export const SECTION_META: Record<
   equipment: { href: "/equipment", icon: "wrench" },
 };
 
+/** Ссылка на детальную страницу предложения (клиент-безопасно: только SECTION_META). */
+export function offerHref(offer: CatalogOffer): string {
+  return `${SECTION_META[offer.section].href}/${offer.slug}`;
+}
+
 export const CATALOG_OFFERS: CatalogOffer[] = [
   {
     slug: "badminton",

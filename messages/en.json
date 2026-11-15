@@ -639,6 +639,13 @@
     "hero": {
       "title": "Conference and Recreation",
       "subtitle": "Conferences, team building and active recreation: badminton, thermal weekends, races and hikes — pick a format, a date and the number of participants, book in a minute."
+    },
+    "slots": {
+      "weekLabel": "Upcoming booking dates",
+      "capacity": "Places left: {count}",
+      "datesCount": "{count, plural, one {# bookable date} other {# bookable dates}}",
+      "nextDate": "Next: {date}",
+      "book": "Book now"
     }
   },
   "tourism": {
@@ -939,7 +946,6 @@
     "title": "Checkout",
     "subtitle": "Review your order and pay securely via Stripe.",
     "itemsTitle": "Your order",
-    "total": "Total",
     "empty": "Your cart is empty.",
     "backToShop": "Back to products",
     "ticketsNote": "Booked sessions & trips are not payable online yet — they stay in your cart and are confirmed via WhatsApp/Telegram.",
@@ -955,7 +961,22 @@
     "cancelText": "No problem — your cart is saved. You can restart the payment any time.",
     "backToCart": "Back to checkout",
     "bonus": "+{count} free pack",
-    "savings": "You save {amount}"
+    "savings": "You save {amount}",
+    "receiptThanks": "Thank you for your order!",
+    "receipt": {
+      "ready": "Ready",
+      "readyHeading": "Receipt ready",
+      "print": "Print receipt",
+      "printing": "printing {done}/{total}",
+      "reset": "Reset",
+      "total": "TOTAL",
+      "qrLabel": "SCAN AT ENTRY",
+      "footIdle": "Tap print — the receipt prints itself",
+      "footPrinting": "Printing",
+      "footDone": "Reset to print again",
+      "title": "Receipt"
+    },
+    "total": "Total"
   },
   "cookie": {
     "title": "Cookies",
@@ -1136,5 +1157,43 @@
   "ultraPages": {
     "title": "New design demo (Ultra Proxy)",
     "subtitle": "Pages of the new template ported into the site. They open in separate windows."
+  },
+  "left": {
+    "metaTitle": "External link",
+    "title": "Redirecting soon",
+    "text": "In {seconds} seconds we will open {host}",
+    "cancelledText": "Redirect to {host} cancelled — you can close this page",
+    "note": "The address bar stays clean during the countdown",
+    "stay": "Stay here",
+    "blockedTitle": "Redirect blocked",
+    "blockedText": "This link failed the check — no redirect"
+  },
+  "status": {
+    "home": "Home",
+    "retry": "Try again",
+    "notFound": {
+      "title": "Page not found",
+      "text": "The link is outdated or the address has a typo."
+    },
+    "error": {
+      "title": "Something broke",
+      "text": "We already know about the problem. Try again in a minute."
+    },
+    "forbidden": {
+      "title": "Access denied",
+      "text": "You do not have permission to view this page."
+    },
+    "gone": {
+      "title": "Page removed",
+      "text": "This resource no longer exists — permanently."
+    },
+    "rate": {
+      "title": "Too many requests",
+      "text": "Wait a moment and try again."
+    },
+    "maintenance": {
+      "title": "Maintenance",
+      "text": "The site is briefly closed — back soon."
+    }
   }
 }

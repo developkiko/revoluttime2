@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { BikeIcon } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { OffersGrid } from "@/components/sections/SectionOffers";
+import { OfferSlots } from "@/components/recreation/OfferSlots";
 import {
   offersBySection,
   type SectionKey,
@@ -46,7 +45,7 @@ export default async function RecreationPage({
         </div>
       </section>
       <section data-spotlight className="mx-auto w-full max-w-6xl px-4 py-12">
-        <OffersGrid offers={offers} icon={BikeIcon} />
+        <OfferSlots offers={offers} />
       </section>
     </>
   );

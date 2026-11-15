@@ -639,6 +639,13 @@
     "hero": {
       "title": "Konferenz und Erholung",
       "subtitle": "Konferenzen, Teambuilding und aktive Erholung: Badminton, Thermal-Wochenende, Läufe und Wanderungen — Format, Termin und Personenanzahl wählen und in einer Minute buchen."
+    },
+    "slots": {
+      "weekLabel": "Nächste Buchungstermine",
+      "capacity": "Freie Plätze: {count}",
+      "datesCount": "{count, plural, one {# buchbarer Termin} other {# buchbare Termine}}",
+      "nextDate": "Nächster: {date}",
+      "book": "Buchen"
     }
   },
   "tourism": {
@@ -939,7 +946,6 @@
     "title": "Kasse",
     "subtitle": "Prüfe deine Bestellung und bezahle sicher mit Stripe.",
     "itemsTitle": "Deine Bestellung",
-    "total": "Gesamt",
     "empty": "Dein Warenkorb ist leer.",
     "backToShop": "Zu den Produkten",
     "ticketsNote": "Gebuchte Termine & Ausflüge sind aktuell nicht online bezahlbar — sie bleiben im Warenkorb und werden per WhatsApp/Telegram bestätigt.",
@@ -955,7 +961,22 @@
     "cancelText": "Kein Problem — dein Warenkorb bleibt gespeichert. Du kannst die Zahlung jederzeit erneut starten.",
     "backToCart": "Zurück zur Kasse",
     "bonus": "+{count} Packung gratis",
-    "savings": "Ersparnis {amount}"
+    "savings": "Ersparnis {amount}",
+    "receiptThanks": "Danke für deine Bestellung!",
+    "receipt": {
+      "ready": "Bereit",
+      "readyHeading": "Beleg bereit",
+      "print": "Beleg drucken",
+      "printing": "Druck {done}/{total}",
+      "reset": "Zurücksetzen",
+      "total": "SUMME",
+      "qrLabel": "SCAN AT ENTRY",
+      "footIdle": "Tippe auf „drucken“ — der Beleg wird gedruckt",
+      "footPrinting": "Druckt",
+      "footDone": "Zurücksetzen, um erneut zu drucken",
+      "title": "Beleg"
+    },
+    "total": "Gesamt"
   },
   "cookie": {
     "title": "Cookies",
@@ -1136,5 +1157,43 @@
   "ultraPages": {
     "title": "Demo des neuen Designs (Ultra Proxy)",
     "subtitle": "Seiten der neuen Vorlage, in die Website übernommen. Öffnen in separaten Fenstern."
+  },
+  "left": {
+    "metaTitle": "Externer Link",
+    "title": "Weiterleitung läuft",
+    "text": "In {seconds} Sekunden öffnet sich {host}",
+    "cancelledText": "Weiterleitung zu {host} abgebrochen — du kannst die Seite schließen",
+    "note": "Die Adresszeile bleibt während des Countdowns sauber",
+    "stay": "Hier bleiben",
+    "blockedTitle": "Weiterleitung blockiert",
+    "blockedText": "Dieser Link besteht die Prüfung nicht — keine Weiterleitung"
+  },
+  "status": {
+    "home": "Zur Startseite",
+    "retry": "Erneut versuchen",
+    "notFound": {
+      "title": "Seite nicht gefunden",
+      "text": "Der Link ist veraltet oder die Adresse enthält einen Tippfehler."
+    },
+    "error": {
+      "title": "Etwas ist kaputt",
+      "text": "Wir kennen das Problem bereits. Versuche es in einer Minute erneut."
+    },
+    "forbidden": {
+      "title": "Zugriff verweigert",
+      "text": "Du hast keine Berechtigung, diese Seite zu sehen."
+    },
+    "gone": {
+      "title": "Seite entfernt",
+      "text": "Diese Ressource existiert nicht mehr — endgültig."
+    },
+    "rate": {
+      "title": "Zu viele Anfragen",
+      "text": "Warte kurz und versuche es dann erneut."
+    },
+    "maintenance": {
+      "title": "Wartungsarbeiten",
+      "text": "Die Seite ist kurzzeitig geschlossen — bald wieder da."
+    }
   }
 }
