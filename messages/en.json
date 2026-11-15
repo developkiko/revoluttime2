@@ -378,7 +378,8 @@
       "exportDone": "Data exported",
       "deleteAccount": "Delete account",
       "deleteConfirm": "Really delete the account and all local data? This cannot be undone.",
-      "gdprNote": "Export and deletion correspond to GDPR requests (Art. 15 and 17). The session ends after deletion."
+      "gdprNote": "Export and deletion correspond to GDPR requests (Art. 15 and 17). The session ends after deletion.",
+      "displayNameHint": "Shown instead of your Google/Telegram name"
     },
     "referral": {
       "title": "Referral link",
@@ -395,6 +396,29 @@
       "purchases": "Purchases",
       "bonuses": "Bonuses",
       "network": "Network"
+    },
+    "subtitle": "How to get started with RevolutTIME",
+    "header": {
+      "balance": "EUR",
+      "shopCta": "Shop packs",
+      "logout": "Log out"
+    },
+    "steps": {
+      "done": {
+        "title": "Registration",
+        "desc": "Your account has been created",
+        "flag": "Done"
+      },
+      "activate": {
+        "title": "Activate partnership",
+        "desc": "Partner pricing from 10 packs per order, +1 bonus pack",
+        "btn": "Shop packs"
+      },
+      "invite": {
+        "title": "Invite partners",
+        "desc": "Share your referral link — 50% from line one and below",
+        "btn": "To network"
+      }
     }
   },
   "admin": {

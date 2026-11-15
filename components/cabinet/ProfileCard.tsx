@@ -130,32 +130,41 @@ export function ProfileCard({ user }: { user: SessionUser }) {
           {t("displayName")}
         </label>
         <div className="flex gap-2">
-          <Input
+          <input
             id="cabinet-name"
             value={currentName}
             placeholder={user.name}
             onChange={(e) => setDraftName(e.target.value)}
+            className="w-full min-w-0 px-4 py-2.5 bg-[var(--bg-input)] border border-[var(--border-default)] rounded-lg text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--color-primary)]"
           />
-          <Button onClick={handleSave} disabled={saving}>
+          <button
+            type="button"
+            onClick={handleSave}
+            disabled={saving}
+            className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-lg bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] transition-colors disabled:opacity-50 whitespace-nowrap"
+          >
             {saving ? "…" : t("save")}
-          </Button>
+          </button>
         </div>
         <p className="text-[11px] text-muted-foreground">{t("displayNameHint")}</p>
       </div>
 
       <div className="mt-6 flex flex-wrap gap-2 border-t pt-4">
-        <Button variant="outline" size="sm" onClick={handleExport}>
-          {t("exportData")}
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          className="text-destructive hover:text-destructive"
-          onClick={handleDelete}
+        <button
+          type="button"
+          onClick={handleExport}
+          className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-lg border border-[var(--border-default)] bg-[var(--bg-elevated)] text-[var(--text-secondary, var(--muted-foreground))] hover:text-foreground hover:border-[var(--color-primary)]/30 transition-colors whitespace-nowrap"
         >
-          <Trash2Icon />
+          {t("exportData")}
+        </button>
+        <button
+          type="button"
+          onClick={handleDelete}
+          className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 text-sm font-semibold rounded-lg border border-[var(--color-error)]/40 text-[var(--color-error)] hover:bg-[var(--color-error)]/10 transition-colors whitespace-nowrap"
+        >
+          <Trash2Icon className="w-4 h-4" />
           {t("deleteAccount")}
-        </Button>
+        </button>
       </div>
       <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
         {t("gdprNote")}

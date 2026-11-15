@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import {
+  CheckCircle2Icon,
+  CircleAlertIcon,
+  CircleDotIcon,
   GiftIcon,
   LayoutDashboardIcon,
   NetworkIcon,
@@ -21,6 +24,7 @@ import { formatPrice, type Locale } from "@/lib/products";
 import { ProfileCard } from "@/components/cabinet/ProfileCard";
 import { ReferralLink } from "@/components/cabinet/ReferralLink";
 import { WithdrawButton } from "@/components/cabinet/WithdrawButton";
+import { CabinetHeader } from "@/components/cabinet/CabinetHeader";
 import { CabinetTabs, type CabinetTabDef } from "@/components/cabinet/CabinetTabs";
 import { PartnerNetworkLazy } from "@/components/partner/PartnerNetworkLazy";
 import { getSessionUser } from "@/lib/auth-session";
@@ -80,7 +84,68 @@ export default async function CabinetPage({
       label: t("tabs.overview"),
       icon: <LayoutDashboardIcon className="size-4" />,
       content: (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="flex flex-col gap-10">
+          {/* Ultra dashboard welcome: huge centered title + onboarding checklist */}
+          <div>
+            <h1 className="text-[2rem] font-bold text-foreground text-center mb-3 sm:text-[2.5rem]">
+              {t("title")}
+            </h1>
+            <h2 className="mb-10 text-center text-base font-medium text-muted-foreground sm:text-lg">
+              {t("subtitle")}
+            </h2>
+
+            <div className="mx-auto max-w-[640px] space-y-4">
+              {/* Step 1 — registration ✅ */}
+              <div className="flex items-center gap-4 rounded-xl border border-green-500/20 bg-green-500/[0.03] p-5 opacity-70">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-green-500/15">
+                  <CheckCircle2Icon className="size-6 text-green-400" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-sm font-semibold text-green-400">{t("steps.done.title")}</div>
+                  <div className="mt-0.5 text-xs text-muted-foreground">{t("steps.done.desc")}</div>
+                </div>
+                <span className="inline-flex items-center gap-1 whitespace-nowrap font-mono text-xs text-green-500/70">
+                  <CheckCircle2Icon className="size-3" /> {t("steps.done.flag")}
+                </span>
+              </div>
+
+              {/* Step 2 — partner activation 🟠 */}
+              <div className="flex items-center gap-4 rounded-xl border border-orange-500/30 bg-orange-500/[0.06] p-5">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-orange-500/15">
+                  <CircleDotIcon className="size-6 text-orange-400" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-sm font-semibold text-orange-400">{t("steps.activate.title")}</div>
+                  <div className="mt-0.5 text-xs text-muted-foreground">{t("steps.activate.desc")}</div>
+                </div>
+                <a
+                  href="/shop"
+                  className="shrink-0 rounded-lg border border-orange-500/30 bg-orange-500/20 px-4 py-2 text-sm font-semibold text-orange-400 transition-colors hover:bg-orange-500/30"
+                >
+                  {t("steps.activate.btn")}
+                </a>
+              </div>
+
+              {/* Step 3 — invite partners 🔴 */}
+              <div className="flex items-center gap-4 rounded-xl border border-red-500/20 bg-red-500/[0.03] p-5 opacity-70">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-500/10">
+                  <CircleAlertIcon className="size-6 text-red-400/70" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-sm font-semibold text-red-400/70">{t("steps.invite.title")}</div>
+                  <div className="mt-0.5 text-xs text-muted-foreground">{t("steps.invite.desc")}</div>
+                </div>
+                <a
+                  href="#network"
+                  className="shrink-0 rounded-lg border border-red-500/25 bg-red-500/15 px-4 py-2 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500/25"
+                >
+                  {t("steps.invite.btn")}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-2xl border bg-card p-5">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {t("balance")}
@@ -123,6 +188,7 @@ export default async function CabinetPage({
               <PercentIcon className="size-3" />
               {t("commissionNote")}
             </p>
+          </div>
           </div>
         </div>
       ),
@@ -277,14 +343,14 @@ export default async function CabinetPage({
   ];
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-10">
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-        {t("title")}
-      </h1>
+    <div className="mx-auto w-full max-w-6xl px-4 py-6">
+      <CabinetHeader
+        balanceLabel={formatPrice(DEMO_BALANCE_CENTS, locale)}
+        partnersCount={DEMO_PARTNERS.length}
+        userName={user.name ?? user.email}
+      />
 
-      <div className="mt-6">
-        <CabinetTabs ariaLabel={t("title")} tabs={tabs} />
-      </div>
+      <CabinetTabs ariaLabel={t("title")} tabs={tabs} />
     </div>
   );
 }

@@ -5,7 +5,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { AnalyticsEvents, track } from "@/lib/analytics/events";
 
-import { Button } from "@/components/ui/button";
 import { CopyIcon } from "lucide-react";
 
 /** Deterministic demo referral code from the account email (FNV-1a). */
@@ -47,10 +46,15 @@ export function ReferralLink({ email }: { email: string }) {
         <code className="flex min-w-0 flex-1 items-center overflow-hidden rounded-lg border bg-muted/60 px-3 py-2.5 text-sm">
           <span className="truncate">{link}</span>
         </code>
-        <Button onClick={copy} aria-label={t("copy")}>
-          <CopyIcon />
+        <button
+          type="button"
+          onClick={copy}
+          aria-label={t("copy")}
+          className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 text-sm font-semibold rounded-lg bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] transition-colors whitespace-nowrap"
+        >
+          <CopyIcon className="w-4 h-4" />
           {copied ? t("copied") : t("copy")}
-        </Button>
+        </button>
       </div>
       <p className="mt-3 text-xs text-muted-foreground">
         {t("codeNote", { code })}

@@ -378,7 +378,8 @@
       "exportDone": "Daten exportiert",
       "deleteAccount": "Konto löschen",
       "deleteConfirm": "Konto und alle lokalen Daten wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
-      "gdprNote": "Export und Löschung entsprechen den DSGVO-Anfragen (Art. 15 und 17). Nach dem Löschen werden Sie abgemeldet."
+      "gdprNote": "Export und Löschung entsprechen den DSGVO-Anfragen (Art. 15 und 17). Nach dem Löschen werden Sie abgemeldet.",
+      "displayNameHint": "Wird statt des Google/Telegram-Namens angezeigt"
     },
     "referral": {
       "title": "Empfehlungslink",
@@ -395,6 +396,29 @@
       "purchases": "Käufe",
       "bonuses": "Boni",
       "network": "Netzwerk"
+    },
+    "subtitle": "So starten Sie mit RevolutTIME",
+    "header": {
+      "balance": "EUR",
+      "shopCta": "Packs ansehen",
+      "logout": "Abmelden"
+    },
+    "steps": {
+      "done": {
+        "title": "Registrierung",
+        "desc": "Ihr Konto wurde erfolgreich erstellt",
+        "flag": "Fertig"
+      },
+      "activate": {
+        "title": "Partnerschaft aktivieren",
+        "desc": "Partnerpreis ab 10 Packungen pro Bestellung, +1 Bonuspackung",
+        "btn": "Packs ansehen"
+      },
+      "invite": {
+        "title": "Partner einladen",
+        "desc": "Teilen Sie Ihren Empfehlungslink — 50% ab der ersten Linie",
+        "btn": "Zum Netzwerk"
+      }
     }
   },
   "admin": {

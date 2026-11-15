@@ -52,7 +52,7 @@ export function CabinetTabs({ tabs, ariaLabel }: { tabs: CabinetTabDef[]; ariaLa
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2" role="tablist" aria-label={ariaLabel}>
+      <div className="flex flex-wrap justify-center gap-2" role="tablist" aria-label={ariaLabel}>
         {tabs.map((tab) => (
           <button
             key={tab.id}
