@@ -38,7 +38,7 @@ export const PACK_VARIANTS: PackVariant[] = [
     priceCents: 7000,
     partnerPriceCents: 6000,
     featured: true,
-    image: "/imgs/product/tabs-90.jpg",
+    image: "/imgs/product/tblts-item-1.png",
   },
 ];
 

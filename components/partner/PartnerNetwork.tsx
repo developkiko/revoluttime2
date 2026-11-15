@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpIcon, CalendarIcon, XIcon } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
@@ -28,7 +28,7 @@ export interface PartnerNetworkProps {
   me: NetworkPerson;
   /**
    * Direct partners of the 5-wide matrix (up to 5, actual count shown).
-   * Sugar prop — equal to `children={{ [me.id]: partners }}`.
+   * Sugar prop — equal to `childrenByNode={{ [me.id]: partners }}`.
    */
   partners?: NetworkPerson[];
   /**
@@ -43,13 +43,14 @@ export interface PartnerNetworkProps {
   className?: string;
 }
 
-/** View-box geometry: You at the top, five partners on the bottom row. */
+/** View-box geometry: You at the top, partners on a centered bottom row. */
 const VIEW_W = 600;
 const VIEW_H = 320;
 /** You circle center in view-box coords (button top 8% + half of size-14). */
 const YOU = { x: 300, y: 54 };
 /** Lower partner cards: line anchor = top edge of the card (spec 13.11.2026). */
 const PARTNER_TOP_Y = 205;
+const SLOT_PX = 120; // slot pitch in view-box units (20% of 600)
 const MATRIX_WIDTH_PARTNERS = 5;
 const CHIP_COLORS = [
   "bg-sky-500",
@@ -58,10 +59,12 @@ const CHIP_COLORS = [
   "bg-emerald-500",
   "bg-rose-500",
 ];
-const partnerPos = (index: number) => ({
-  x: 60 + index * 120,
-  y: PARTNER_TOP_Y,
-});
+
+/** Centered slot: cards group around the middle, never hug an edge. */
+const slotLeftPct = (index: number, count: number) =>
+  50 + (index - (count - 1) / 2) * 20;
+const slotX = (index: number, count: number) =>
+  (VIEW_W / 2) + (index - (count - 1) / 2) * SLOT_PX;
 
 const initialsOf = (name: string) =>
   name
@@ -95,14 +98,18 @@ function PersonAvatar({
   );
 }
 
+/** Ease used by the level transitions (fast in, soft landing). */
+const MOVE_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
 /**
- * Referral tree (spec code_artifact.md, 14.11.2026): the current node on top,
- * its direct partners below (up to 5, actual count). Clicking a lower partner
- * steps DOWN one level — that partner becomes the top block and its own
- * partners load underneath; drill to the very last leaf (empty bottom row).
- * The «up» arrow appears only when at least one step down was taken and goes
- * back exactly one level. Avatars everywhere (initials fallback). Connection
- * lines anchor to the top edge of every lower card.
+ * Referral tree (spec code_artifact.md + animation pass 15.11.2026): the
+ * current node on top, its direct partners below (up to 5, actual count,
+ * centered). Navigation is fully animated: on step DOWN the top block slides
+ * up out of the card, the clicked partner travels up into the top slot
+ * growing to its size, the next level slides in from below into the same
+ * slots (centered), then the lines draw themselves from the top block to
+ * each partner and the dashed flow animation takes over. The «up» arrow
+ * appears only after >=1 step down; the tab bar follows the current level.
  */
 export function PartnerNetwork({
   me,
@@ -117,6 +124,9 @@ export function PartnerNetwork({
   /** Path of node ids below «me» — last entry is the current top block. */
   const [stack, setStack] = React.useState<string[]>([]);
   const [active, setActive] = React.useState<string | null>(null);
+  const [navDir, setNavDir] = React.useState<"down" | "up">("down");
+  /** Lines: draw phase (You -> partner) then dashed flow (partner -> You). */
+  const [phase, setPhase] = React.useState<"draw" | "flow">("draw");
 
   const childrenOf = (nodeId: string): NetworkPerson[] => {
     if (childrenByNode && childrenByNode[nodeId]) return childrenByNode[nodeId];
@@ -133,7 +143,8 @@ export function PartnerNetwork({
       (person) => person.id === stack[stack.length - 1],
     );
     return found ?? me;
-  }, [stack, me, childrenOf]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- childrenOf closes over props only
+  }, [stack, me, childrenByNode, partners]);
 
   const shown = childrenOf(top.id).slice(0, MATRIX_WIDTH_PARTNERS);
   const canGoUp = stack.length > 0;
@@ -141,19 +152,41 @@ export function PartnerNetwork({
   const activePerson =
     active === "you" ? top : shown.find((partner) => partner.id === active);
 
+  /** Replay the line choreography on every level change: reset to the draw
+   *  phase right in the nav handler (no setState-in-effect), then flip to
+   *  the dashed flow phase once the draw animation has finished. */
+  const flowTimer = React.useRef(0);
+  const beginTransition = React.useCallback(() => {
+    setPhase("draw");
+    window.clearTimeout(flowTimer.current);
+    flowTimer.current = window.setTimeout(() => setPhase("flow"), 1150);
+  }, []);
+
   const stepDown = React.useCallback((id: string) => {
+    setNavDir("down");
     setStack((current) => [...current, id]);
     setActive(null);
-  }, []);
+    beginTransition();
+  }, [beginTransition]);
 
   const stepUp = React.useCallback(() => {
+    setNavDir("up");
     setStack((current) => current.slice(0, -1));
     setActive(null);
-  }, []);
+    beginTransition();
+  }, [beginTransition]);
 
   const resetToRoot = React.useCallback(() => {
+    setNavDir("up");
     setStack([]);
     setActive(null);
+    beginTransition();
+  }, [beginTransition]);
+
+  // Initial mount also plays draw -> flow (phase starts at "draw").
+  React.useEffect(() => {
+    const timer = window.setTimeout(() => setPhase("flow"), 1150);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const formatDate = (iso: string) => {
@@ -166,50 +199,89 @@ export function PartnerNetwork({
   return (
     <div className={className}>
       <div className="relative h-[320px] overflow-hidden rounded-3xl border bg-card shadow-lg md:h-[360px]">
-        {/* one-way flow lines: drawn partner → current top, dashes travel up */}
+        {/* Lines: draw phase animates from the top block to each partner,
+            flow phase hands over to the dashed partner -> top animation */}
         <svg
           aria-hidden
           viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
           preserveAspectRatio="none"
           className="pointer-events-none absolute inset-0 size-full"
         >
-          {shown.map((partner, index) => {
-            const to = partnerPos(index);
-            const isActive = active === partner.id || active === "you";
-            return (
-              <line
-                key={partner.id}
-                x1={to.x}
-                y1={to.y}
-                x2={YOU.x}
-                y2={YOU.y}
-                className="net-flow-line"
-                stroke={isActive ? "var(--primary)" : "currentColor"}
-                strokeWidth={isActive ? 2.5 : 1.5}
-                opacity={isActive ? 0.9 : 0.45}
-              />
-            );
-          })}
+          {phase === "draw"
+            ? shown.map((partner, index) => {
+                const px = slotX(index, shown.length);
+                return (
+                  <motion.line
+                    key={partner.id}
+                    x1={YOU.x}
+                    y1={YOU.y}
+                    x2={px}
+                    y2={PARTNER_TOP_Y}
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 0.45 }}
+                    transition={{
+                      delay: 0.4 + index * 0.08,
+                      duration: 0.4,
+                      ease: "easeOut",
+                    }}
+                  />
+                );
+              })
+            : shown.map((partner, index) => {
+                const px = slotX(index, shown.length);
+                const isActive = active === partner.id || active === "you";
+                return (
+                  <line
+                    key={partner.id}
+                    x1={px}
+                    y1={PARTNER_TOP_Y}
+                    x2={YOU.x}
+                    y2={YOU.y}
+                    className="net-flow-line"
+                    stroke={isActive ? "var(--primary)" : "currentColor"}
+                    strokeWidth={isActive ? 2.5 : 1.5}
+                    opacity={isActive ? 0.9 : 0.45}
+                  />
+                );
+              })}
         </svg>
 
-        {/* You / current top node */}
-        <button
-          type="button"
-          onClick={() => setActive("you")}
-          aria-pressed={active === "you"}
-          className="absolute left-1/2 top-[8%] flex -translate-x-1/2 flex-col items-center gap-1"
-        >
-          <PersonAvatar
-            person={top}
-            textClassName="text-sm font-bold"
-            className={`flex size-14 items-center justify-center rounded-full border-2 shadow-md transition-all md:size-16 ${
-              active === "you"
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-primary/60 bg-card text-primary hover:border-primary hover:shadow-[0_0_0_4px_var(--border-active)] hover:scale-105"
-            }`}
-          />
-          <span className="text-[11px] font-semibold">{top.name}</span>
-        </button>
+        {/* Current top block — slides up out of the card on step down,
+            comes back down (shrinking to a slot) on step up */}
+        <AnimatePresence mode="sync" initial={false}>
+          <motion.button
+            key={top.id}
+            type="button"
+            onClick={() => setActive("you")}
+            aria-pressed={active === "you"}
+            initial={
+              navDir === "down"
+                ? { y: 265, scale: 0.42, opacity: 1 }
+                : { y: -170, opacity: 0 }
+            }
+            animate={{ y: 0, scale: 1, opacity: 1 }}
+            exit={
+              navDir === "down"
+                ? { y: -170, opacity: 0, transition: { duration: 0.32, ease: "easeIn" } }
+                : { y: 265, scale: 0.42, opacity: 0, transition: { duration: 0.32, ease: "easeIn" } }
+            }
+            transition={{ duration: 0.5, ease: MOVE_EASE }}
+            className="absolute left-1/2 top-[8%] z-10 flex -translate-x-1/2 flex-col items-center gap-1"
+          >
+            <PersonAvatar
+              person={top}
+              textClassName="text-sm font-bold"
+              className={`flex size-14 items-center justify-center rounded-full border-2 shadow-md transition-colors md:size-16 ${
+                active === "you"
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-primary/60 bg-card text-primary hover:border-primary hover:shadow-[0_0_0_4px_var(--border-active)] hover:scale-105"
+              }`}
+            />
+            <span className="text-[11px] font-semibold">{top.name}</span>
+          </motion.button>
+        </AnimatePresence>
 
         {/* Up button — only when at least one step down was taken */}
         {canGoUp && (
@@ -224,30 +296,39 @@ export function PartnerNetwork({
           </button>
         )}
 
-        {/* Partner nodes (direct partners of the current top, ≤ 5).
-            Click = step down one level (spec 2.1); details via the tabs below. */}
-        {shown.map((partner, index) => (
-          <button
-            key={partner.id}
-            type="button"
-            onClick={() => stepDown(partner.id)}
-            className="absolute top-[64%] flex -translate-x-1/2 flex-col items-center gap-1"
-            style={{ left: `${10 + index * 20}%` }}
-          >
-            <PersonAvatar
-              person={partner}
-              textClassName="text-xs font-bold"
-              className={`flex size-11 items-center justify-center rounded-full border-2 shadow-md transition-all md:size-12 ${
-                active === partner.id
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-primary/40 bg-card hover:border-primary hover:shadow-[0_0_0_4px_var(--border-active)] hover:scale-105"
-              }`}
-            />
-            <span className="max-w-[72px] truncate text-[10px] font-medium text-muted-foreground">
-              {partner.name}
-            </span>
-          </button>
-        ))}
+        {/* Partner nodes — next level slides in from below into the same
+            centered slots; the outgoing row slides down (spec animation) */}
+        <AnimatePresence mode="sync" initial={false}>
+          {shown.map((partner, index) => (
+            <motion.button
+              key={partner.id}
+              type="button"
+              onClick={() => stepDown(partner.id)}
+              initial={{ y: 130, opacity: 0 }}
+              animate={{
+                y: 0,
+                opacity: 1,
+                transition: { delay: 0.26 + index * 0.07, duration: 0.45, ease: MOVE_EASE },
+              }}
+              exit={{ y: 90, opacity: 0, transition: { duration: 0.25, ease: "easeIn" } }}
+              className="absolute top-[64%] flex -translate-x-1/2 flex-col items-center gap-1"
+              style={{ left: `${slotLeftPct(index, shown.length)}%` }}
+            >
+              <PersonAvatar
+                person={partner}
+                textClassName="text-xs font-bold"
+                className={`flex size-11 items-center justify-center rounded-full border-2 shadow-md transition-colors md:size-12 ${
+                  active === partner.id
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-primary/40 bg-card hover:border-primary hover:shadow-[0_0_0_4px_var(--border-active)] hover:scale-105"
+                }`}
+              />
+              <span className="max-w-[72px] truncate text-[10px] font-medium text-muted-foreground">
+                {partner.name}
+              </span>
+            </motion.button>
+          ))}
+        </AnimatePresence>
 
         {/* Full-block preview */}
         {activePerson && (
@@ -365,9 +446,8 @@ export function PartnerNetwork({
         {canGoUp && (
           <button
             type="button"
-            role="tab"
             onClick={resetToRoot}
-            className="rounded-full px-3 py-1.5 text-xs font-semibold text-primary underline-offset-4 transition-colors hover:underline"
+            className="rounded-full bg-[var(--color-accent)] px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[var(--color-accent-hover)]"
           >
             {t("toMe")}
           </button>

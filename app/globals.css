@@ -574,6 +574,56 @@
     transform: translateY(-15px);
   }
 }
+/* ── Cookie consent (Ultra widget) — site-wide ────────────────────────────
+   Bottom-left, same height as the PWA install prompt; when the prompt is
+   visible the banner rests directly on top of it (body:has selector).
+   Text that does not fit is cut with an ellipsis (cookie-consent-text). */
+.cookie-consent {
+  position: fixed;
+  left: 1rem;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 50;
+  height: 4.4rem;
+  max-width: min(92vw, 34rem);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--popover);
+  color: var(--popover-foreground);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  animation: cookie-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+body:has(.pwa-install-prompt) .cookie-consent {
+  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 4.4rem);
+}
+.cookie-consent-text {
+  min-width: 0;
+  flex: 1;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cookie-consent-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+@keyframes cookie-slide-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@media (max-width: 640px) {
+  .cookie-consent { right: 1rem; max-width: none; }
+}
+
 /* ── PWA install prompt (Ultra widget) — site-wide ──────────────────────── */
 .pwa-install-prompt { position: fixed; z-index: 100000; left: 1rem; right: 1rem; bottom: max(1rem, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: .85rem; max-width: 34rem; margin: 0 auto; padding: .85rem 1rem; border: 1px solid var(--border-active, rgba(99,102,241,.42)); border-radius: 14px; background: var(--card); color: var(--foreground); box-shadow: 0 18px 50px rgba(0,0,0,.42); backdrop-filter: blur(14px); }
 .pwa-install-prompt__icon { width: 2.7rem; height: 2.7rem; flex: 0 0 auto; border-radius: .7rem; background: #fff; padding: .18rem; }

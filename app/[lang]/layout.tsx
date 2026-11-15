@@ -26,6 +26,13 @@ export async function generateMetadata(
     title: t("title"),
     description: t("description"),
     manifest: "/manifest.webmanifest",
+    icons: {
+      icon: [
+        { url: "/ultra/favicon.svg", type: "image/svg+xml" },
+        { url: "/favicon.ico", sizes: "48x48" },
+      ],
+      apple: "/ultra/apple-icon.png",
+    },
   };
 }
 

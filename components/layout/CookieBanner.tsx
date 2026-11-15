@@ -16,7 +16,9 @@ import {
 /**
  * GDPR/TDDDG § 25 consent bar: essential cookies are always on, anything
  * third-party waits for "Accept all" (see lib/consent.ts gate).
- * Visual language: Ultra's compact bottom-right cookie widget.
+ * Layout per spec: bottom-left single-row card, same height as the PWA
+ * install prompt and resting on top of it when visible (see .cookie-consent
+ * in globals.css); overflowing text is cut with an ellipsis.
  */
 export function CookieBanner() {
   const t = useTranslations("cookie");
@@ -33,12 +35,12 @@ export function CookieBanner() {
       role="dialog"
       aria-live="polite"
       aria-label={t("title")}
-      className="fixed inset-x-4 bottom-[5.5rem] z-50 flex max-w-[min(92vw,26rem)] items-start gap-3 rounded-xl border bg-popover/95 p-4 shadow-lg backdrop-blur animate-in fade-in slide-in-from-bottom-4 duration-300 sm:left-auto sm:bottom-6 sm:right-[5.75rem]"
+      className="cookie-consent animate-in fade-in slide-in-from-bottom-4"
     >
-      <CookieIcon className="mt-0.5 size-5 shrink-0 text-primary" />
+      <CookieIcon className="size-5 shrink-0 text-primary" />
       <div className="min-w-0 flex-1">
         <p className="text-xs font-medium">{t("title")}</p>
-        <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+        <p className="cookie-consent-text">
           {t("text")}{" "}
           <Link
             href="/legal/datenschutz"
@@ -47,14 +49,14 @@ export function CookieBanner() {
             {t("learnMore")}
           </Link>
         </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          <Button size="xs" onClick={() => setConsent("granted")}>
-            {t("acceptAll")}
-          </Button>
-          <Button size="xs" variant="outline" onClick={() => setConsent("essential")}>
-            {t("essential")}
-          </Button>
-        </div>
+      </div>
+      <div className="cookie-consent-actions">
+        <Button size="xs" onClick={() => setConsent("granted")}>
+          {t("acceptAll")}
+        </Button>
+        <Button size="xs" variant="outline" onClick={() => setConsent("essential")}>
+          {t("essential")}
+        </Button>
       </div>
     </div>
   );
