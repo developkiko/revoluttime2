@@ -11,11 +11,10 @@ import {
   UserIcon,
   UserRoundIcon,
 } from "lucide-react";
-import { toast } from "sonner";
-
 import { Link } from "@/i18n/navigation";
 import { signOut, useAuthUser } from "@/lib/auth-store";
 import { TelegramLoginWidget } from "@/components/layout/TelegramLoginWidget";
+import { useNotice } from "@/components/ui/notice";
 
 const GOOGLE_ICON = (
   // Multicolor Google "G" per brand guidelines.
@@ -112,6 +111,7 @@ function UserMenu({
   onDone?: () => void;
 }) {
   const t = useTranslations("auth");
+  const { notice } = useNotice();
   const isAdmin = email === "admin@revoluttime.de";
 
   return (
@@ -178,7 +178,7 @@ function UserMenu({
         className={`${MENU_DANGER_CLASS} mt-1`}
         onClick={async () => {
           await signOut();
-          toast.success(t("signedOutToast"));
+          notice({ text: t("signedOutToast"), variant: "success" });
           onDone?.();
         }}
       >

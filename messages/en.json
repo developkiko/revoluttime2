@@ -989,7 +989,10 @@
     "evidence": {
       "highConsensus": "High consensus",
       "preliminaryPromising": "Preliminary promising",
-      "insufficientData": "Insufficient data"
+      "insufficientData": "Insufficient data",
+      "highConsensusHint": "Multiple independent studies agree on the conclusion",
+      "preliminaryPromisingHint": "Early data look promising, but research is still thin",
+      "insufficientDataHint": "Not enough data — do not treat as established"
     },
     "studyTypes": {
       "humanClinical": "Human trial",

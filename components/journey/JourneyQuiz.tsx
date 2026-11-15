@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { toast } from "sonner";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -13,6 +12,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useNotice } from "@/components/ui/notice";
 import {
   JOURNEY_EXPERIENCE,
   JOURNEY_FORMATS,
@@ -32,6 +32,7 @@ const STEP_KEYS = ["goal", "experience", "format", "contact"] as const;
 export function JourneyQuiz() {
   const t = useTranslations("journey");
   const locale = useLocale();
+  const { notice } = useNotice();
 
   const [step, setStep] = React.useState(0);
   const [goal, setGoal] = React.useState<JourneyGoal | null>(null);
@@ -89,9 +90,9 @@ export function JourneyQuiz() {
       anchor.download = "revoluttime-journey.pdf";
       anchor.click();
       URL.revokeObjectURL(url);
-      toast.success(t("results.downloadSuccess"));
+      notice({ text: t("results.downloadSuccess"), variant: "success" });
     } catch {
-      toast.error(t("results.downloadError"));
+      notice({ text: t("results.downloadError"), variant: "error" });
     } finally {
       setDownloading(false);
     }

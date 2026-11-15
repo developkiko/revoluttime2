@@ -989,7 +989,10 @@
     "evidence": {
       "highConsensus": "Высокий консенсус",
       "preliminaryPromising": "Предварительно перспективно",
-      "insufficientData": "Недостаточно данных"
+      "insufficientData": "Недостаточно данных",
+      "highConsensusHint": "Несколько независимых исследований сходятся в выводе",
+      "preliminaryPromisingHint": "Ранние данные обнадёживают, но исследований пока мало",
+      "insufficientDataHint": "Данных недостаточно — выводы не считать установленными"
     },
     "studyTypes": {
       "humanClinical": "Исследование на людях",

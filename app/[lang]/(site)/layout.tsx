@@ -5,7 +5,6 @@ import { CartDrawerLazy } from "@/components/cart/CartDrawerLazy";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { LoginNotice } from "@/components/layout/LoginNotice";
-import { Toaster } from "@/components/ui/sonner";
 import { NoticeProvider } from "@/components/ui/notice";
 import { CookieBanner } from "@/components/layout/CookieBanner";
 import { AnalyticsGate } from "@/components/layout/AnalyticsGate";
@@ -33,8 +32,6 @@ export default async function SiteLayout({
         <CartDrawerLazy />
         {/* Ultra widgets: contact FAB, PWA prompt, custom cursor */}
         <SiteUltraWidgets locale={lang} />
-        {/* Queue behavior: one visible toast at a time. */}
-        <Toaster position="bottom-right" visibleToasts={1} />
         <CookieBanner />
         {/* FX modules: 3D tilt + spotlight cursor (re-bind per pathname) */}
         <React.Suspense fallback={null}>

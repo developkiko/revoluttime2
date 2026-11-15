@@ -45,7 +45,7 @@ export default async function RecreationPage({
           <p className="mt-3 max-w-2xl text-muted-foreground">{t("subtitle")}</p>
         </div>
       </section>
-      <section className="mx-auto w-full max-w-6xl px-4 py-12">
+      <section data-spotlight className="mx-auto w-full max-w-6xl px-4 py-12">
         <OffersGrid offers={offers} icon={BikeIcon} />
       </section>
     </>

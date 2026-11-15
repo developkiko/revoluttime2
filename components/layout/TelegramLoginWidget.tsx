@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { toast } from "sonner";
 
 import { refreshSessionUser } from "@/lib/auth-store";
+import { useNotice } from "@/components/ui/notice";
 
 interface TelegramAuthData {
   id: number;
@@ -30,6 +30,7 @@ declare global {
 export function TelegramLoginWidget() {
   const t = useTranslations("auth");
   const locale = useLocale();
+  const { notice } = useNotice();
   const botName = process.env.NEXT_PUBLIC_TELEGRAM_BOT_NAME;
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -44,9 +45,9 @@ export function TelegramLoginWidget() {
       });
       if (response.ok) {
         await refreshSessionUser();
-        toast.success(t("welcomeToast"));
+        notice({ text: t("welcomeToast"), variant: "success" });
       } else {
-        toast.error(t("telegramError"));
+        notice({ text: t("telegramError"), variant: "error" });
       }
     };
 
@@ -64,7 +65,7 @@ export function TelegramLoginWidget() {
     return () => {
       delete window.onTelegramAuth;
     };
-  }, [botName, locale, t]);
+  }, [botName, locale, t, notice]);
 
   if (!botName) return null;
   return (

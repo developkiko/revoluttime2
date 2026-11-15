@@ -81,7 +81,7 @@ export function EncyclopediaCatalog({ articles }: { articles: EncyclopediaArticl
       ) : (
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           {filtered.map((article) => (
-            <Card key={article.slug} className="flex flex-col">
+            <Card key={article.slug} data-tilt className="flex flex-col">
               <CardHeader className="gap-2">
                 <span className="inline-flex w-fit items-center gap-1.5 rounded-full border bg-muted/50 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
                   <BookOpenIcon className="size-3 text-primary" />

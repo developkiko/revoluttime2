@@ -103,7 +103,7 @@ export default async function TabletsPage({
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-14">
+      <section data-spotlight className="mx-auto w-full max-w-6xl px-4 py-14">
         <h2 className="flex items-center gap-2 text-2xl font-bold tracking-tight">
           <PillIcon className="size-5 text-primary" />
           {t("composition.title")}
@@ -113,7 +113,7 @@ export default async function TabletsPage({
         </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {COMPOSITION.map(({ key, value, icon: Icon }) => (
-            <Card key={key}>
+            <Card key={key} data-tilt>
               <CardContent className="p-5">
                 <Icon className="size-5 text-primary" />
                 <p className="mt-3 text-xl font-bold tabular-nums">{value}</p>
@@ -129,7 +129,7 @@ export default async function TabletsPage({
         </p>
       </section>
 
-      <section className="border-y bg-muted/40">
+      <section data-spotlight className="border-y bg-muted/40">
         <div className="mx-auto w-full max-w-6xl px-4 py-14">
           <h2 className="flex items-center gap-2 text-2xl font-bold tracking-tight">
             <ClockIcon className="size-5 text-primary" />
@@ -140,7 +140,7 @@ export default async function TabletsPage({
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {ABSORPTION.map(({ key, icon: Icon }, index) => (
-              <Card key={key}>
+              <Card key={key} data-tilt>
                 <CardContent className="p-5">
                   <div className="flex items-center gap-2">
                     <span className="flex size-8 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -191,7 +191,7 @@ export default async function TabletsPage({
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-14">
+      <section data-spotlight className="mx-auto w-full max-w-6xl px-4 py-14">
         <h2 className="text-2xl font-bold tracking-tight">
           {t("comparison.title")}
         </h2>
@@ -202,6 +202,7 @@ export default async function TabletsPage({
           {COMPARISON.map(({ key, form, ours }) => (
             <Card
               key={key}
+              data-tilt
               className={ours ? "border-primary/50 shadow-md" : undefined}
             >
               <CardContent className="p-5">
@@ -221,7 +222,7 @@ export default async function TabletsPage({
         </div>
       </section>
 
-      <section className="border-t bg-muted/40">
+      <section data-spotlight className="border-t bg-muted/40">
         <div className="mx-auto w-full max-w-6xl px-4 py-14">
           <h2 className="text-2xl font-bold tracking-tight">
             {t("feel.title")}

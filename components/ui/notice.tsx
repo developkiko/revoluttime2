@@ -9,7 +9,14 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { X } from "lucide-react";
+import {
+  AlertTriangleIcon,
+  CheckCircle2Icon,
+  InfoIcon,
+  X,
+  XCircleIcon,
+  type LucideIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -19,6 +26,7 @@ import { cn } from "@/lib/utils";
  *
  *   const { notice } = useNotice();
  *   notice({ text: "Сохранено" });
+ *   notice({ text: "Ошибка сервера", variant: "error" });
  *   notice({
  *     text: "Черновик удалён",
  *     action: { label: "Вернуть", onClick: restore },
@@ -30,7 +38,11 @@ import { cn } from "@/lib/utils";
  * Перезапуск анимации повторным вызовом — через key-ремаунт (без rAF:
  * в перекрытых/фоновых окнах requestAnimationFrame не тикает).
  * Цвета — инверсия активной темы: на light тёмная плашка, на dark светлая.
+ * variant добавляет иконку семантики (success/error/info/warning);
+ * без variant — нейтральная плашка без иконки.
  */
+
+export type NoticeVariant = "success" | "error" | "info" | "warning";
 
 export interface NoticeAction {
   label: string;
@@ -42,7 +54,15 @@ export interface NoticeOptions {
   action?: NoticeAction;
   /** мс до автозакрытия (по умолчанию 4000) */
   duration?: number;
+  variant?: NoticeVariant;
 }
+
+const NOTICE_ICONS: Record<NoticeVariant, LucideIcon> = {
+  success: CheckCircle2Icon,
+  error: XCircleIcon,
+  info: InfoIcon,
+  warning: AlertTriangleIcon,
+};
 
 const NoticeContext = createContext<{ notice: (o: NoticeOptions) => void }>({
   notice: () => {},
@@ -84,6 +104,8 @@ export function NoticeProvider({ children }: { children: ReactNode }) {
     return () => clearTimeout(t);
   }, [current, closing, close]);
 
+  const Icon = current?.variant ? NOTICE_ICONS[current.variant] : null;
+
   return (
     <NoticeContext.Provider value={{ notice }}>
       {children}
@@ -92,8 +114,13 @@ export function NoticeProvider({ children }: { children: ReactNode }) {
           key={current.id}
           role="status"
           aria-live="polite"
-          className={cn("notice", closing && "notice--closing")}
+          className={cn(
+            "notice",
+            current.variant && `notice--${current.variant}`,
+            closing && "notice--closing",
+          )}
         >
+          {Icon && <Icon className="notice-icon size-4 shrink-0" aria-hidden="true" />}
           <span className="notice-text">{current.text}</span>
           {current.action && (
             <button

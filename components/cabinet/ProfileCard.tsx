@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { ImagePlusIcon, KeyRoundIcon, MailIcon, Trash2Icon } from "lucide-react";
-import { toast } from "sonner";
 
 import {
   fileToAvatarDataUrl,
@@ -12,6 +11,7 @@ import {
 } from "@/lib/profile-store";
 import { refreshSessionUser, signOut } from "@/lib/auth-store";
 import type { SessionUser } from "@/lib/auth-session";
+import { useNotice } from "@/components/ui/notice";
 
 /** Ultra dashboard API (email/password accounts live there). */
 const ACCOUNT_API_BASE =
@@ -32,6 +32,7 @@ const labelClass = "text-xs font-medium text-muted-foreground";
 export function ProfileCard({ user }: { user: SessionUser }) {
   const t = useTranslations("cabinet.profile");
   const locale = useLocale();
+  const { notice } = useNotice();
   const overlay = useProfileOverlay(user.email);
   // null = untouched, fall back to the saved overlay/provider name
   const [draftName, setDraftName] = React.useState<string | null>(null);
@@ -50,9 +51,9 @@ export function ProfileCard({ user }: { user: SessionUser }) {
         ...(overlay ?? {}),
         avatarDataUrl: dataUrl,
       });
-      toast.success(t("avatarSaved"));
+      notice({ text: t("avatarSaved"), variant: "success" });
     } catch {
-      toast.error(t("avatarError"));
+      notice({ text: t("avatarError"), variant: "error" });
     }
   }
 
@@ -64,7 +65,7 @@ export function ProfileCard({ user }: { user: SessionUser }) {
         displayName: draftName?.trim() || undefined,
       });
       await refreshSessionUser();
-      toast.success(t("saved"));
+      notice({ text: t("saved"), variant: "success" });
     } finally {
       setSaving(false);
     }
@@ -108,7 +109,7 @@ export function ProfileCard({ user }: { user: SessionUser }) {
     a.download = `revoluttime-data-${user.email}.${format}`;
     a.click();
     URL.revokeObjectURL(url);
-    toast.success(t("exportDone"));
+    notice({ text: t("exportDone"), variant: "success" });
   }
 
   // ── Change password (email/password accounts) ──
@@ -118,9 +119,9 @@ export function ProfileCard({ user }: { user: SessionUser }) {
   const [passLoading, setPassLoading] = React.useState(false);
 
   async function handleChangePassword() {
-    if (!oldPass) return toast.error(t("errPasswordEmpty"));
-    if (!newPass || newPass.length < 8) return toast.error(t("errPasswordShort"));
-    if (newPass !== newPass2) return toast.error(t("errConfirmMismatch"));
+    if (!oldPass) { notice({ text: t("errPasswordEmpty"), variant: "error" }); return; }
+    if (!newPass || newPass.length < 8) { notice({ text: t("errPasswordShort"), variant: "error" }); return; }
+    if (newPass !== newPass2) { notice({ text: t("errConfirmMismatch"), variant: "error" }); return; }
 
     setPassLoading(true);
     try {
@@ -135,15 +136,15 @@ export function ProfileCard({ user }: { user: SessionUser }) {
       });
       const data = (await res.json()) as { success?: boolean; error?: string };
       if (data.success) {
-        toast.success(t("passChanged"));
+        notice({ text: t("passChanged"), variant: "success" });
         setOldPass("");
         setNewPass("");
         setNewPass2("");
       } else {
-        toast.error(data.error || t("errServer"));
+        notice({ text: data.error || t("errServer"), variant: "error" });
       }
     } catch {
-      toast.error(t("serverUnavailable"));
+      notice({ text: t("serverUnavailable"), variant: "error" });
     } finally {
       setPassLoading(false);
     }
@@ -155,9 +156,9 @@ export function ProfileCard({ user }: { user: SessionUser }) {
   const [emailLoading, setEmailLoading] = React.useState(false);
 
   async function handleChangeEmail() {
-    if (!newEmail) return toast.error(t("errEmailEmpty"));
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) return toast.error(t("errEmailFormat"));
-    if (!emailPass) return toast.error(t("errPasswordEmpty"));
+    if (!newEmail) { notice({ text: t("errEmailEmpty"), variant: "error" }); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) { notice({ text: t("errEmailFormat"), variant: "error" }); return; }
+    if (!emailPass) { notice({ text: t("errPasswordEmpty"), variant: "error" }); return; }
 
     setEmailLoading(true);
     try {
@@ -172,15 +173,15 @@ export function ProfileCard({ user }: { user: SessionUser }) {
       });
       const data = (await res.json()) as { success?: boolean; error?: string };
       if (data.success) {
-        toast.success(t("emailChanged"));
+        notice({ text: t("emailChanged"), variant: "success" });
         setNewEmail("");
         setEmailPass("");
         await refreshSessionUser();
       } else {
-        toast.error(data.error || t("errServer"));
+        notice({ text: data.error || t("errServer"), variant: "error" });
       }
     } catch {
-      toast.error(t("serverUnavailable"));
+      notice({ text: t("serverUnavailable"), variant: "error" });
     } finally {
       setEmailLoading(false);
     }

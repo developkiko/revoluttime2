@@ -64,12 +64,14 @@ export function PartnerSteps() {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.45, delay: index * 0.12, ease: "easeOut" }}
           whileHover={{ y: -4 }}
-          className={`group relative overflow-hidden rounded-2xl border bg-card p-5 shadow-xs transition-shadow hover:shadow-lg ${ring} hover:ring-2`}
+          className={`group relative rounded-2xl border bg-card p-5 shadow-xs transition-shadow hover:shadow-lg ${ring} hover:ring-2`}
         >
-          {/* accent bar on top edge */}
+          {/* accent bar on top edge — rounded-t-2xl повторяет скругление
+              карточки: родитель без overflow-hidden (FX tilt/свечение
+              не должны обрезаться), бар скругляется сам */}
           <span
             aria-hidden
-            className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${bar} opacity-60 transition-opacity group-hover:opacity-100`}
+            className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r ${bar} opacity-60 transition-opacity group-hover:opacity-100`}
           />
           <div className="flex items-center gap-2.5">
             <motion.span

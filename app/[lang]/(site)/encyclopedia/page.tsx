@@ -35,7 +35,7 @@ export default async function EncyclopediaPage({
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-12">
+      <section data-spotlight className="mx-auto w-full max-w-6xl px-4 py-12">
         <EncyclopediaCatalog articles={articles} />
       </section>
     </>

@@ -11,9 +11,9 @@ import {
   PhoneIcon,
   SendIcon,
 } from "lucide-react";
-import { toast } from "sonner";
 
 import { SITE } from "@/lib/products";
+import { useNotice } from "@/components/ui/notice";
 
 type FormValues = { name: string; email: string; message: string };
 
@@ -34,6 +34,7 @@ const FIELD_ERROR_CLASS = "text-[11px] text-[var(--color-error)] mt-1";
  */
 export function ContactWidget() {
   const t = useTranslations("contact");
+  const { notice } = useNotice();
 
   const schema = z.object({
     name: z.string().min(2, t("nameRequired")),
@@ -58,14 +59,14 @@ export function ContactWidget() {
       body: JSON.stringify(values),
     });
     if (!response.ok) {
-      toast.error(t("errorToast"));
+      notice({ text: t("errorToast"), variant: "error" });
       return;
     }
     const result = (await response.json()) as { delivered?: boolean };
     if (result.delivered) {
-      toast.success(t("sentToast"));
+      notice({ text: t("sentToast"), variant: "success" });
     } else {
-      toast.info(t("queuedToast"));
+      notice({ text: t("queuedToast"), variant: "info" });
     }
     reset();
   }

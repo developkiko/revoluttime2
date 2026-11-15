@@ -8,7 +8,7 @@
 import { useState } from "react";
 import { useI18n } from "@/lib/ultra/i18n-context";
 import { useAuth } from "@/lib/ultra/auth-store";
-import { useToast } from "@/components/ultra/ui/Toast";
+import { useNotice } from "@/components/ui/notice";
 import { Trash2 } from "lucide-react";
 import { useModalEngine } from "@/components/ultra/ui/ModalEngine";
 
@@ -34,7 +34,7 @@ export function SettingsTab() {
   const { t } = useI18n();
   const { user } = useAuth();
   const { openModal, closeModal } = useModalEngine();
-  const { toast } = useToast();
+  const { notice } = useNotice();
 
   // Password change
   const [oldPass, setOldPass] = useState("");
@@ -46,9 +46,9 @@ export function SettingsTab() {
   const [deletePass, setDeletePass] = useState("");
 
   const handleChangePassword = async () => {
-    if (!oldPass) { toast("error", t("err_password_empty")); return; }
-    if (!newPass || newPass.length < 8) { toast("error", t("err_password_short")); return; }
-    if (newPass !== newPass2) { toast("error", t("err_confirm_mismatch")); return; }
+    if (!oldPass) { notice({ text: t("err_password_empty"), variant: "error" }); return; }
+    if (!newPass || newPass.length < 8) { notice({ text: t("err_password_short"), variant: "error" }); return; }
+    if (newPass !== newPass2) { notice({ text: t("err_confirm_mismatch"), variant: "error" }); return; }
 
     setPassLoading(true);
     try {
@@ -62,13 +62,13 @@ export function SettingsTab() {
       );
       const data = await res.json();
       if (data.success) {
-        toast("success", t("settings_pass_changed"));
+        notice({ text: t("settings_pass_changed"), variant: "success" });
         setOldPass(""); setNewPass(""); setNewPass2("");
       } else {
-        toast("error", data.error || t("err_server"));
+        notice({ text: data.error || t("err_server"), variant: "error" });
       }
     } catch {
-      toast("error", t("server_unavailable"));
+      notice({ text: t("server_unavailable"), variant: "error" });
     } finally {
       setPassLoading(false);
     }
@@ -80,9 +80,9 @@ export function SettingsTab() {
   const [emailLoading, setEmailLoading] = useState(false);
 
   const handleChangeEmail = async () => {
-    if (!newEmail) { toast("error", t("err_email_empty")); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) { toast("error", t("err_email_format")); return; }
-    if (!emailPass) { toast("error", t("err_password_empty")); return; }
+    if (!newEmail) { notice({ text: t("err_email_empty"), variant: "error" }); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) { notice({ text: t("err_email_format"), variant: "error" }); return; }
+    if (!emailPass) { notice({ text: t("err_password_empty"), variant: "error" }); return; }
 
     setEmailLoading(true);
     try {
@@ -96,13 +96,13 @@ export function SettingsTab() {
       );
       const data = await res.json();
       if (data.success) {
-        toast("success", t("settings_email_changed"));
+        notice({ text: t("settings_email_changed"), variant: "success" });
         setNewEmail(""); setEmailPass("");
       } else {
-        toast("error", data.error || t("err_server"));
+        notice({ text: data.error || t("err_server"), variant: "error" });
       }
     } catch {
-      toast("error", t("server_unavailable"));
+      notice({ text: t("server_unavailable"), variant: "error" });
     } finally {
       setEmailLoading(false);
     }
@@ -147,7 +147,7 @@ export function SettingsTab() {
     a.download = `ultra-proxy-data.${ext}`;
     a.click();
     URL.revokeObjectURL(url);
-    toast("success", t("settings_exported"));
+    notice({ text: t("settings_exported"), variant: "success" });
   };
 
   // Delete confirmation modal
@@ -189,7 +189,7 @@ export function SettingsTab() {
   };
 
   const handleDeleteAccount = async () => {
-    if (!deletePass) { toast("error", t("err_password_empty")); return; }
+    if (!deletePass) { notice({ text: t("err_password_empty"), variant: "error" }); return; }
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_UP_ADMIN_API_URL || "https://admin.revoluttime.de"}/api/user/delete`,
@@ -201,19 +201,19 @@ export function SettingsTab() {
       );
       const data = await res.json();
       if (data.success) {
-        toast("success", t("settings_delete_done"));
+        notice({ text: t("settings_delete_done"), variant: "success" });
         closeModal();
         if (typeof window !== "undefined") {
           localStorage.removeItem("ultra_proxy_session");
           window.location.href = "/";
         }
       } else if (res.status === 401) {
-        toast("error", t("err_wrong_password"));
+        notice({ text: t("err_wrong_password"), variant: "error" });
       } else {
-        toast("error", data.error || t("err_server"));
+        notice({ text: data.error || t("err_server"), variant: "error" });
       }
     } catch {
-      toast("error", t("server_unavailable"));
+      notice({ text: t("server_unavailable"), variant: "error" });
     }
   };
 

@@ -989,7 +989,10 @@
     "evidence": {
       "highConsensus": "Hoher Konsens",
       "preliminaryPromising": "Vorläufig vielversprechend",
-      "insufficientData": "Unzureichende Daten"
+      "insufficientData": "Unzureichende Daten",
+      "highConsensusHint": "Mehrere unabhängige Studien kommen zum gleichen Schluss",
+      "preliminaryPromisingHint": "Frühe Daten sind vielversprechend, aber die Studienlage ist dünn",
+      "insufficientDataHint": "Zu wenige Daten — nicht als gesichert betrachten"
     },
     "studyTypes": {
       "humanClinical": "Humanstudie",

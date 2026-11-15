@@ -32,7 +32,7 @@ export async function OffersGrid({
       {offers.map((offer) => {
         const openSlots = offer.slots.length;
         return (
-          <Card key={offer.slug} className="flex flex-col">
+          <Card key={offer.slug} data-tilt className="flex flex-col">
             <CardContent className="flex flex-1 flex-col gap-4 p-6">
               {offer.images[0] ? (
                 <div className="overflow-hidden rounded-xl border bg-muted">

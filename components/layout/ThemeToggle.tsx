@@ -43,6 +43,8 @@ export function ThemeToggle() {
       type="button"
       aria-label={isDark ? "light" : "dark"}
       onClick={() => setTheme(isDark ? "light" : "dark")}
+      data-tip={isDark ? "Light" : "Dark"}
+      data-tip-pos="bottom"
       className="inline-flex items-center justify-center size-9 rounded-lg border border-[var(--border-default)] text-[var(--text-secondary)] hover:text-[var(--text-heading)] hover:bg-[var(--hover-bg)] transition-colors shrink-0"
     >
       {mounted ? (

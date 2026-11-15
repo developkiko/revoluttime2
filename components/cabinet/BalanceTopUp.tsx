@@ -3,22 +3,23 @@
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { WalletIcon, XIcon } from "lucide-react";
-import { toast } from "sonner";
 
 import { formatPrice, type Locale } from "@/lib/products";
 import { BALANCE_TOPUP_AMOUNTS_CENTS } from "@/lib/pricing";
 import { track, AnalyticsEvents } from "@/lib/analytics/events";
+import { useNotice } from "@/components/ui/notice";
 
 /**
  * Balance top-up entry: opens the amount picker (600 € / 700 €) and hands
  * off to Stripe Checkout directly — no cart involved. Payment-safety rules
  * baked in: only whitelisted amounts are ever sent, one request in flight,
- * and every fallible step is wrapped so failures surface as toasts.
+ * and every fallible step is wrapped so failures surface as notices.
  */
 export function BalanceTopUp({ className }: { className?: string }) {
   const t = useTranslations("cabinet.topup");
   const tCheckout = useTranslations("checkout");
   const locale = useLocale() as Locale;
+  const { notice } = useNotice();
   const [open, setOpen] = React.useState(false);
   const [amount, setAmount] = React.useState<number | null>(null);
   const [pending, setPending] = React.useState(false);
@@ -35,14 +36,14 @@ export function BalanceTopUp({ className }: { className?: string }) {
       "",
       `${window.location.pathname}${qs ? `?${qs}` : ""}`,
     );
-    if (result === "success") toast.success(t("successToast"));
-    else toast.error(t("cancelToast"));
-  }, [t]);
+    if (result === "success") notice({ text: t("successToast"), variant: "success" });
+    else notice({ text: t("cancelToast"), variant: "error" });
+  }, [t, notice]);
 
   async function startTopup() {
     if (pending) return;
     if (amount === null) {
-      toast.error(t("chooseAmount"));
+      notice({ text: t("chooseAmount"), variant: "warning" });
       return;
     }
     setPending(true);
@@ -63,14 +64,14 @@ export function BalanceTopUp({ className }: { className?: string }) {
         return; // navigation takes over; keep `pending` set
       }
       if (response.status === 401) {
-        toast.error(t("loginRequired"));
+        notice({ text: t("loginRequired"), variant: "error" });
       } else if (response.status === 503) {
-        toast.error(tCheckout("notConfigured"));
+        notice({ text: tCheckout("notConfigured"), variant: "error" });
       } else {
-        toast.error(t("error"));
+        notice({ text: t("error"), variant: "error" });
       }
     } catch {
-      toast.error(t("error"));
+      notice({ text: t("error"), variant: "error" });
     } finally {
       setPending(false);
     }

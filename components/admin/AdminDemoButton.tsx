@@ -3,14 +3,15 @@
 import * as React from "react";
 import { useTranslations } from "next-intl";
 import { ShieldCheckIcon } from "lucide-react";
-import { toast } from "sonner";
 
 import { refreshSessionUser } from "@/lib/auth-store";
 import { Button } from "@/components/ui/button";
+import { useNotice } from "@/components/ui/notice";
 
 /** Sandbox helper: signs in the demo admin so /admin can be reviewed. */
 export function AdminDemoButton() {
   const t = useTranslations("dummy");
+  const { notice } = useNotice();
 
   return (
     <Button
@@ -20,9 +21,9 @@ export function AdminDemoButton() {
         const response = await fetch("/api/auth/dev-admin", { method: "POST" });
         if (response.ok) {
           await refreshSessionUser();
-          toast.success(t("adminSignedIn"));
+          notice({ text: t("adminSignedIn"), variant: "success" });
         } else {
-          toast.error(t("adminSignInError"));
+          notice({ text: t("adminSignInError"), variant: "error" });
         }
       }}
     >

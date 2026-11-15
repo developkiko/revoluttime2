@@ -3,13 +3,13 @@
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { CalendarDaysIcon, MinusIcon, PlusIcon, TicketIcon, UsersIcon } from "lucide-react";
-import { toast } from "sonner";
 import * as React from "react";
 
 import { useCart } from "@/components/cart/CartProvider";
 import { formatPrice, type Locale } from "@/lib/products";
 import type { CatalogOffer } from "@/lib/catalog";
 import { Button } from "@/components/ui/button";
+import { useNotice } from "@/components/ui/notice";
 
 function groupLabel(isoDate: string, locale: Locale): string {
   return new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }).format(
@@ -29,6 +29,7 @@ export function BookingWidget({ offer }: { offer: CatalogOffer }) {
   const tCart = useTranslations("cart");
   const locale = useLocale() as Locale;
   const { addTicket, openCart } = useCart();
+  const { notice } = useNotice();
 
   const [slotId, setSlotId] = React.useState(offer.slots[0]?.id ?? null);
   const [people, setPeople] = React.useState(1);
@@ -52,7 +53,9 @@ export function BookingWidget({ offer }: { offer: CatalogOffer }) {
   function handleBook() {
     if (!slot) return;
     addTicket(offer.slug, slot.id, people);
-    toast.success(t("addedToast", { title: offer.title[locale] }), {
+    notice({
+      text: t("addedToast", { title: offer.title[locale] }),
+      variant: "success",
       action: { label: tCart("title"), onClick: () => openCart() },
     });
   }

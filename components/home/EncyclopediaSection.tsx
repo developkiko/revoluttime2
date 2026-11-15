@@ -25,7 +25,7 @@ export async function EncyclopediaSection() {
   );
 
   return (
-    <section className="border-y bg-muted/40">
+    <section data-spotlight className="border-y bg-muted/40">
       <div className="mx-auto w-full max-w-6xl px-4 py-16">
         <div className="flex flex-col items-center gap-4">
           <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
@@ -50,7 +50,7 @@ export async function EncyclopediaSection() {
 
         <div className="mt-8 grid gap-4 text-left md:grid-cols-3">
           {featured.map((article) => (
-            <Card key={article.slug} className="group transition-shadow hover:shadow-md">
+            <Card key={article.slug} data-tilt className="group transition-shadow hover:shadow-md">
               <CardContent className="flex h-full flex-col gap-2 p-5">
                 <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                   <FileTextIcon className="size-3.5 text-primary" />

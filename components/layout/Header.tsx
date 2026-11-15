@@ -11,13 +11,13 @@ import { AuthPanel } from "@/components/layout/AuthPanel";
 import { Logo } from "@/components/layout/Logo";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { routing } from "@/lib/products";
-import { toast } from "sonner";
 import { ShoppingCartIcon } from "lucide-react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useNotice } from "@/components/ui/notice";
 
 const NAV_ITEMS = [
   { href: "/encyclopedia", key: "encyclopedia" },
@@ -69,6 +69,8 @@ function LanguageSelect() {
         <button
           type="button"
           aria-label={t("language")}
+          data-tip={LOCALE_NAMES[locale]}
+          data-tip-pos="bottom"
           className={`${ICON_CONTROL_CLASS} text-xs font-semibold uppercase tracking-wide`}
         >
           {LOCALE_CODES[locale]}
@@ -103,7 +105,14 @@ function CartButton() {
   const { totalCount, openCart } = useCart();
 
   return (
-    <button type="button" className={`${ICON_CONTROL_CLASS} relative`} onClick={openCart} aria-label={t("cart")}>
+    <button
+      type="button"
+      className={`${ICON_CONTROL_CLASS} relative`}
+      onClick={openCart}
+      aria-label={t("cart")}
+      data-tip={t("cart")}
+      data-tip-pos="bottom"
+    >
       <ShoppingCartIcon className="w-4 h-4" />
       {totalCount > 0 && (
         <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-[var(--color-primary)] text-[10px] font-semibold text-white tabular-nums">
@@ -118,13 +127,14 @@ export function Header() {
   const t = useTranslations("header");
   const ta = useTranslations("auth");
   const user = useAuthUser();
+  const { notice } = useNotice();
   const [menuOpen, setMenuOpen] = React.useState(false);
   const closeMenu = React.useCallback(() => setMenuOpen(false), []);
 
   const handleLogout = async () => {
     closeMenu();
     await signOut();
-    toast.success(ta("signedOutToast"));
+    notice({ text: ta("signedOutToast"), variant: "success" });
   };
 
   return (

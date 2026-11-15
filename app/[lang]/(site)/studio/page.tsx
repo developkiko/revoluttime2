@@ -72,7 +72,7 @@ export default async function StudioPage({
         </div>
       </section>
 
-      <section className="border-t">
+      <section data-spotlight className="border-t">
         <div className="mx-auto w-full max-w-6xl px-4 py-16">
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
             {t("servicesTitle")}
@@ -82,7 +82,7 @@ export default async function StudioPage({
           </p>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {SERVICES.map(({ key, icon: Icon }) => (
-              <Card key={key}>
+              <Card key={key} data-tilt>
                 <CardContent className="flex flex-col gap-3 p-6">
                   <span className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
                     <Icon className="size-5" />

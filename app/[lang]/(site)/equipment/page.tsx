@@ -80,10 +80,10 @@ export default async function EquipmentPage({
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-12">
+      <section data-spotlight className="mx-auto w-full max-w-6xl px-4 py-12">
         <div className="grid gap-6 md:grid-cols-2">
           {items.map((item) => (
-            <Card key={item.slug} className="flex flex-col">
+            <Card key={item.slug} data-tilt className="flex flex-col">
               <CardContent className="flex flex-1 flex-col gap-3 p-6">
                 <span className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
                   <WrenchIcon className="size-5" />

@@ -17,12 +17,15 @@ const STATUS_LABEL_KEYS: Record<EvidenceStatus, string> = {
 /** Claim-level evidence status chip (blueprint evidence_level enum). */
 export function EvidenceBadge({ status }: { status: EvidenceStatus }) {
   const t = useTranslations("encyclopedia.evidence");
+  const labelKey = STATUS_LABEL_KEYS[status];
 
   return (
     <span
       className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium ${STATUS_STYLES[status]}`}
+      data-tip={t(`${labelKey}Hint`)}
+      data-tip-size="wide"
     >
-      {t(STATUS_LABEL_KEYS[status])}
+      {t(labelKey)}
     </span>
   );
 }

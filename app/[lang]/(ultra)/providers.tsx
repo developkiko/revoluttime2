@@ -7,7 +7,7 @@
 import React, { type ReactNode } from "react";
 import { I18nProvider } from "@/lib/ultra/i18n-context";
 import { AuthProvider } from "@/lib/ultra/auth-store";
-import { ToastProvider } from "@/components/ultra/ui/Toast";
+import { NoticeProvider } from "@/components/ui/notice";
 import { ModalEngineProvider } from "@/components/ultra/ui/ModalEngine";
 import { SiteConfigProvider } from "@/lib/ultra/site-config-context";
 import { HeartbeatBridge } from "@/lib/ultra/use-heartbeat";
@@ -27,7 +27,7 @@ export function Providers({
         <AuthProvider>
           <HeartbeatBridge />
           <ModalEngineProvider>
-            <ToastProvider>{children}</ToastProvider>
+            <NoticeProvider>{children}</NoticeProvider>
           </ModalEngineProvider>
         </AuthProvider>
       </I18nProvider>

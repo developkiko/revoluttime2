@@ -10,12 +10,8 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   CupSodaIcon,
-  DumbbellIcon,
   LeafIcon,
-  MountainIcon,
   TruckIcon,
-  UsersIcon,
-  WrenchIcon,
 } from "lucide-react";
 import * as React from "react";
 
@@ -40,7 +36,7 @@ type SlideKey = (typeof SLIDE_KEYS)[number];
 /** Transparent ad PNGs — the picture defines its own size, no frame around it. */
 const SLIDE_MEDIA: Record<
   SlideKey,
-  { image?: string; width?: number; height?: number }
+  { image: string; width: number; height: number }
 > = {
   hydrogen: {
     image: "/imgs/for-ads/slide1.png",
@@ -57,21 +53,21 @@ const SLIDE_MEDIA: Record<
     width: 1588,
     height: 991,
   },
-  recreation: {},
-  partner: {},
+  recreation: {
+    image: "/imgs/for-ads/slide4.png",
+    width: 1774,
+    height: 887,
+  },
+  partner: {
+    image: "/imgs/for-ads/slide5.png",
+    width: 1774,
+    height: 887,
+  },
 };
 
 /** Floating spec plate pinned to the media's bottom-left corner. */
 const SLIDE_PLATE: Partial<Record<SlideKey, { big: string; small: string }>> = {
   hydrogen: { big: "H₂", small: "≤ 1,6 ppm" },
-};
-
-const SLIDE_ICONS: Record<SlideKey, React.ReactNode> = {
-  hydrogen: <CupSodaIcon className="size-16" />,
-  studio: <DumbbellIcon className="size-16" />,
-  equipment: <WrenchIcon className="size-16" />,
-  recreation: <MountainIcon className="size-16" />,
-  partner: <UsersIcon className="size-16" />,
 };
 
 const SLIDE_HREF: Record<SlideKey, string> = {
@@ -92,34 +88,26 @@ const HYDROGEN_CHIPS = [
 function SlideMedia({ slideKey, title }: { slideKey: SlideKey; title: string }) {
   const media = SLIDE_MEDIA[slideKey];
   const plate = SLIDE_PLATE[slideKey];
-  if (media.image) {
-    return (
-      <div className="relative mx-auto w-full">
-        <Image
-          src={media.image}
-          alt={title}
-          width={media.width ?? 1172}
-          height={media.height ?? 1342}
-          priority
-          sizes="(min-width: 768px) 30rem, 90vw"
-          // Desktop: fit the column height without cropping (portrait PNGs
-          // would otherwise overflow the slider); mobile: natural width.
-          className="mx-auto h-auto w-full md:max-h-[26rem] md:w-auto"
-        />
-        {plate && (
-          <div className="absolute bottom-0 left-0 rounded-tr-2xl border-x-0 border-b-0 bg-card/95 px-4 py-3 backdrop-blur-sm">
-            <p className="text-2xl font-bold text-primary">{plate.big}</p>
-            <p className="text-xs text-muted-foreground">{plate.small}</p>
-          </div>
-        )}
-      </div>
-    );
-  }
   return (
-    <div className="flex w-full items-center justify-center bg-gradient-to-br from-[#056ea8]/20 via-muted to-primary/10 py-16">
-      <span className="flex size-32 items-center justify-center text-primary">
-        {SLIDE_ICONS[slideKey as Exclude<SlideKey, "recreation" | "partner">]}
-      </span>
+    <div className="relative mx-auto w-full">
+      <Image
+        src={media.image}
+        alt={title}
+        width={media.width}
+        height={media.height}
+        priority
+        sizes="(min-width: 768px) 30rem, 90vw"
+        // Desktop: fit the column height without cropping (portrait PNGs
+        // would otherwise overflow the slider); wide landscape PNGs are also
+        // capped by the column width. Mobile: natural width.
+        className="mx-auto h-auto w-full md:max-h-[26rem] md:w-auto md:max-w-full"
+      />
+      {plate && (
+        <div className="absolute bottom-0 left-0 rounded-tr-2xl border-x-0 border-b-0 bg-card/95 px-4 py-3 backdrop-blur-sm">
+          <p className="text-2xl font-bold text-primary">{plate.big}</p>
+          <p className="text-xs text-muted-foreground">{plate.small}</p>
+        </div>
+      )}
     </div>
   );
 }

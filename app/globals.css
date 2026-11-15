@@ -826,9 +826,13 @@ body:has(.pwa-install-prompt) .cookie-consent {
 /* ════════════════════════════════════════════════════════════════
    3) SPOTLIGHT CURSOR (data-spotlight, components/fx/spotlight-observer.tsx).
    Observer пишет --spot-x/--spot-y, градиент на ::before. Слой z -1 +
-   isolation: подсветка поверх фона и ПОД контентом. Внимание:
-   data-spotlight делает блок position:relative — absolute-потомки начнут
-   позиционироваться от него. На тач не включается вовсе.
+   isolation: подсветка поверх фона и ПОД контентом.
+   СВЕЧЕНИЕ БЕЗ ОБРЕЗКИ: слой выходит за границы блока на --spot-bleed
+   (inset отрицательный), поэтому у краёв и углов не остаётся «кусков»
+   света — градиент естественно гаснет уже за рамкой. Координаты курсора
+   (px от угла блока) компенсируются на ширину выноса, чтобы пятно
+   осталось точно под курсором. Требование: предки блока не должны
+   иметь overflow:hidden/clip (см. аудит FX ниже). На тач не включается.
    ════════════════════════════════════════════════════════════════ */
 @media (hover: hover) and (pointer: fine) {
   [data-spotlight] {
@@ -838,13 +842,15 @@ body:has(.pwa-install-prompt) .cookie-consent {
   [data-spotlight]::before {
     content: "";
     position: absolute;
-    inset: 0;
+    inset: calc(var(--spot-bleed, 16rem) * -1);
     z-index: -1;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.4s ease;
     background: radial-gradient(
-      260px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      260px circle at
+        calc(var(--spot-x, 50%) + var(--spot-bleed, 16rem))
+        calc(var(--spot-y, 50%) + var(--spot-bleed, 16rem)),
       color-mix(in srgb, var(--color-primary) 15%, transparent),
       color-mix(in srgb, var(--color-accent) 7%, transparent) 50%,
       transparent
@@ -928,4 +934,14 @@ body:has(.pwa-install-prompt) .cookie-consent {
 .notice-close:hover {
   color: var(--color-background);
   background: color-mix(in srgb, var(--color-background) 12%, transparent);
+}
+/* вариант-семантика (notice({ variant: "success" | "error" | "info" | "warning" })):
+   иконка слева окрашивается акцентом варианта; сама плашка остаётся
+   инверсией темы, поэтому dark/light работают без отдельных правил. */
+.notice--success { --notice-accent: #22c55e; }
+.notice--error { --notice-accent: #ef4444; }
+.notice--info { --notice-accent: var(--color-primary); }
+.notice--warning { --notice-accent: #f59e0b; }
+.notice-icon {
+  color: var(--notice-accent, currentColor);
 }

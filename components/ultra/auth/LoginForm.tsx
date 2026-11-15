@@ -10,7 +10,7 @@ import { useI18n } from "@/lib/ultra/i18n-context";
 import { useAuth } from "@/lib/ultra/auth-store";
 import { useSiteConfig } from "@/lib/ultra/site-config-context";
 import { loginViaAPI } from "@/lib/ultra/api";
-import { useToast } from "@/components/ultra/ui/Toast";
+import { useNotice } from "@/components/ui/notice";
 import { LogIn, Mail, Lock, KeyRound } from "lucide-react";
 import { SocialAuthButtons, AuthDivider, EmailDisclosureButton } from "./SocialAuthButtons";
 
@@ -25,7 +25,7 @@ const labelClass = "block text-left text-[13px] text-[var(--text-secondary)] mb-
 export function LoginForm({ onSuccess, onForgotPassword }: { onSuccess: () => void; onForgotPassword: () => void }) {
   const { t } = useI18n();
   const { login } = useAuth();
-  const { toast } = useToast();
+  const { notice } = useNotice();
   const cfg = useSiteConfig();
   const captchaEnabled = cfg?.captcha?.enabled !== false && cfg?.captcha?.forms?.login !== false;
   const telegramAuthEnabled = cfg?.telegram_auth_enabled !== false;
@@ -63,18 +63,18 @@ export function LoginForm({ onSuccess, onForgotPassword }: { onSuccess: () => vo
         const data = await loginViaAPI(email.trim(), password.trim(), token);
         if (data.success && data.user) {
           login(data.user);
-          toast("success", t("success_title") || "Успешный вход");
+          notice({ text: t("success_title") || "Успешный вход", variant: "success" });
           onSuccess();
         } else {
           const msg =
             data.errors?.[0]?.message || data.error || t("login_error") || "Неверный email или пароль";
-          toast("error", msg);
+          notice({ text: msg, variant: "error" });
           setErrors({ credentials: msg });
           resetCaptcha();
           setStep("form");
         }
       } catch {
-        toast("error", t("server_unavailable") || "Сервер недоступен");
+        notice({ text: t("server_unavailable") || "Сервер недоступен", variant: "error" });
         setErrors({ credentials: "Ошибка соединения" });
         resetCaptcha();
         setStep("form");
@@ -82,7 +82,7 @@ export function LoginForm({ onSuccess, onForgotPassword }: { onSuccess: () => vo
         setLoading(false);
       }
     },
-    [email, password, login, onSuccess, t, toast, resetCaptcha]
+    [email, password, login, onSuccess, t, notice, resetCaptcha]
   );
 
   // Keep the latest submitter reachable for the captcha callback (no render-time ref writes).

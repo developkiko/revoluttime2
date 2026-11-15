@@ -3,9 +3,9 @@
 import * as React from "react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { toast } from "sonner";
 
 import { refreshSessionUser } from "@/lib/auth-store";
+import { useNotice } from "@/components/ui/notice";
 
 /**
  * Shows a toast when the user returns from an OAuth redirect
@@ -13,6 +13,7 @@ import { refreshSessionUser } from "@/lib/auth-store";
  */
 export function LoginNotice() {
   const t = useTranslations("auth");
+  const { notice } = useNotice();
   const searchParams = useSearchParams();
 
   React.useEffect(() => {
@@ -20,14 +21,14 @@ export function LoginNotice() {
     if (!login) return;
     refreshSessionUser();
     if (login === "google") {
-      toast.success(t("welcomeToast"));
+      notice({ text: t("welcomeToast"), variant: "success" });
     } else if (login === "cancelled") {
-      toast.info(t("loginCancelled"));
+      notice({ text: t("loginCancelled"), variant: "info" });
     } else if (login === "unconfigured") {
-      toast.error(t("loginUnconfigured"));
+      notice({ text: t("loginUnconfigured"), variant: "error" });
     }
     window.history.replaceState(null, "", window.location.pathname);
-  }, [searchParams, t]);
+  }, [searchParams, t, notice]);
 
   return null;
 }

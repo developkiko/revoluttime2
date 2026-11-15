@@ -11,7 +11,7 @@ export async function UsageSection() {
   const t = await getTranslations("usage");
 
   return (
-    <section id="usage" className="scroll-mt-16 border-t bg-muted/40">
+    <section id="usage" data-spotlight className="scroll-mt-16 border-t bg-muted/40">
       <div className="mx-auto w-full max-w-6xl px-4 py-16">
         <h2 className="text-[1.5rem] font-bold tracking-tight text-foreground sm:text-[2rem] text-center mb-3">
           {t("title")}
@@ -20,7 +20,7 @@ export async function UsageSection() {
 
         <ol className="mt-8 grid gap-4 text-left md:grid-cols-3">
           {STEPS.map(({ key, icon: Icon }, index) => (
-            <li key={key} className="rounded-2xl border bg-card p-5 transition-shadow hover:shadow-md">
+            <li key={key} data-tilt className="rounded-2xl border bg-card p-5 transition-shadow hover:shadow-md">
               <div className="flex items-center gap-2">
                 <span className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-primary">
                   <Icon className="size-4" />

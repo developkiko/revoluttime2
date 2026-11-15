@@ -10,7 +10,7 @@ import { useI18n } from "@/lib/ultra/i18n-context";
 import { useAuth } from "@/lib/ultra/auth-store";
 import { useSiteConfig } from "@/lib/ultra/site-config-context";
 import { registerViaAPI, checkEmail } from "@/lib/ultra/api";
-import { useToast } from "@/components/ultra/ui/Toast";
+import { useNotice } from "@/components/ui/notice";
 import { UserPlus, Mail, Lock, CheckCircle } from "lucide-react";
 import { SocialAuthButtons, AuthDivider, EmailDisclosureButton } from "./SocialAuthButtons";
 
@@ -29,7 +29,7 @@ const labelClass = "block text-left text-[13px] text-[var(--text-secondary)] mb-
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const { t } = useI18n();
   const { login } = useAuth();
-  const { toast } = useToast();
+  const { notice } = useNotice();
   const cfg = useSiteConfig();
   const captchaEnabled = cfg?.captcha?.enabled !== false && cfg?.captcha?.forms?.register !== false;
   const telegramAuthEnabled = cfg?.telegram_auth_enabled !== false;

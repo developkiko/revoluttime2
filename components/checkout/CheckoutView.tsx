@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { toast } from "sonner";
 import { CreditCardIcon, GiftIcon, ShoppingCartIcon, TicketIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -15,6 +14,7 @@ import {
 import { formatPrice, getPack, type Locale } from "@/lib/products";
 import { pricePacks } from "@/lib/pricing";
 import { AnalyticsEvents, track } from "@/lib/analytics/events";
+import { useNotice } from "@/components/ui/notice";
 
 /**
  * Order summary + hand-off to Stripe Checkout (server session in /api/checkout).
@@ -25,6 +25,7 @@ export function CheckoutView() {
   const { items, totalPriceCents } = useCart();
   const locale = useLocale() as Locale;
   const t = useTranslations("checkout");
+  const { notice } = useNotice();
   const [pending, setPending] = React.useState(false);
 
   const packs = items.filter((item): item is PackCartItem => item.kind === "pack");
@@ -56,12 +57,12 @@ export function CheckoutView() {
         return;
       }
       if (response.status === 503) {
-        toast.error(t("notConfigured"));
+        notice({ text: t("notConfigured"), variant: "error" });
       } else {
-        toast.error(t("error"));
+        notice({ text: t("error"), variant: "error" });
       }
     } catch {
-      toast.error(t("error"));
+      notice({ text: t("error"), variant: "error" });
     } finally {
       setPending(false);
     }

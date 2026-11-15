@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { GiftIcon, MinusIcon, PlusIcon, ShoppingCartIcon, SparklesIcon } from "lucide-react";
-import { toast } from "sonner";
 import * as React from "react";
 
 import { useCart } from "@/components/cart/CartProvider";
@@ -12,25 +11,29 @@ import { formatPrice, PACK_VARIANTS, type Locale, type PackId } from "@/lib/prod
 import { pricePacks } from "@/lib/pricing";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { useNotice } from "@/components/ui/notice";
 
 function PackCard({ packId }: { packId: PackId }) {
   const t = useTranslations("variants");
   const tCart = useTranslations("cart");
   const locale = useLocale() as Locale;
   const { addPack, openCart } = useCart();
+  const { notice } = useNotice();
 
   const pack = PACK_VARIANTS.find((variant) => variant.id === packId)!;
   const [quantity, setQuantity] = React.useState(1);
 
   // overflow-visible: the featured badge rides on top of the card edge and
-  // must not be clipped by the Card's own overflow-hidden.
+  // FX (tilt/spotlight) must not be clipped.
   const pricing = pricePacks(pack, quantity);
   const unitCents = pricing.qualifies ? pack.partnerPriceCents : pack.priceCents;
   const perTablet = formatPrice(Math.round(unitCents / pack.tablets), locale);
 
   function handleAdd() {
     addPack(pack.id, quantity);
-    toast.success(tCart("addedToast", { name: t(`packs.${pack.id}.name` as never) }), {
+    notice({
+      text: tCart("addedToast", { name: t(`packs.${pack.id}.name` as never) }),
+      variant: "success",
       action: {
         label: tCart("title"),
         onClick: () => openCart(),

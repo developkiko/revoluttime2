@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { toast } from "sonner";
 import { AnalyticsEvents, track } from "@/lib/analytics/events";
 
 import { CopyIcon, TrendingUpIcon, UserPlusIcon, UsersIcon } from "lucide-react";
+import { useNotice } from "@/components/ui/notice";
 
 /** Deterministic demo referral code from the account email (FNV-1a). */
 function referralCode(email: string): string {
@@ -35,6 +35,7 @@ export function ReferralLink({
 }) {
   const t = useTranslations("cabinet.referral");
   const locale = useLocale();
+  const { notice } = useNotice();
   const [copied, setCopied] = React.useState(false);
 
   const code = referralCode(email);
@@ -52,10 +53,10 @@ export function ReferralLink({
     try {
       await navigator.clipboard.writeText(link);
       setCopied(true);
-      toast.success(t("copied"));
+      notice({ text: t("copied"), variant: "success" });
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      toast.error(t("copyError"));
+      notice({ text: t("copyError"), variant: "error" });
     }
   }
 

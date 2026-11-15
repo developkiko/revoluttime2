@@ -12,8 +12,6 @@ import {
   UsersIcon,
   WrenchIcon,
 } from "lucide-react";
-import { toast } from "sonner";
-
 import {
   isOfferOverridden,
   resetAdminOffer,
@@ -25,6 +23,7 @@ import type { ContactMessage } from "@/lib/contact-inbox";
 import { formatPrice, type Locale } from "@/lib/products";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useNotice } from "@/components/ui/notice";
 
 type Tab = "overview" | "offers" | "users" | "messages";
 
@@ -45,6 +44,7 @@ const DEMO_USERS = [
 function OffersEditor({ locale }: { locale: Locale }) {
   const t = useTranslations("admin.offers");
   const offers = useAdminOffers();
+  const { notice } = useNotice();
   const [editingSlug, setEditingSlug] = React.useState<string | null>(null);
 
   if (editingSlug) {
@@ -94,7 +94,7 @@ function OffersEditor({ locale }: { locale: Locale }) {
                   aria-label={t("reset")}
                   onClick={() => {
                     resetAdminOffer(offer.slug);
-                    toast.success(t("resetDone"));
+                    notice({ text: t("resetDone"), variant: "success" });
                   }}
                 >
                   <RotateCcwIcon />
@@ -119,6 +119,7 @@ function OfferForm({
 }) {
   const t = useTranslations("admin.offers");
   const offers = useAdminOffers();
+  const { notice } = useNotice();
   const draft = offers.find((o) => o.slug === slug)!;
   const [form, setForm] = React.useState<AdminOfferDraft>(draft);
 
@@ -135,7 +136,7 @@ function OfferForm({
 
   function save() {
     saveAdminOffer(form);
-    toast.success(t("savedToast"));
+    notice({ text: t("savedToast"), variant: "success" });
     onDone();
   }
 
