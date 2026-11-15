@@ -87,6 +87,10 @@
   --sidebar-accent-foreground: #1a1a2e;
   --sidebar-border: #d8dae6;
   --sidebar-ring: #6366f1;
+  --cursor-ring: rgba(10, 10, 40, 0.4);
+  --cursor-ring-strong: rgba(10, 10, 40, 0.85);
+  --cursor-hover-bg: rgba(10, 10, 40, 0.07);
+  --cursor-dot: #14142a;
 }
 
 .dark {
@@ -121,6 +125,10 @@
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: #2a2a3a;
   --sidebar-ring: #6366f1;
+  --cursor-ring: rgba(255, 255, 255, 0.5);
+  --cursor-ring-strong: rgba(255, 255, 255, 0.9);
+  --cursor-hover-bg: rgba(255, 255, 255, 0.08);
+  --cursor-dot: #fff;
 }
 
 @layer base {
@@ -134,6 +142,67 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+/* ── Custom cursor (Ultra template ring + dot) — site-wide ──────────────── */
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 100001 !important;
+  will-change: translate, opacity;
+  width: 36px;
+  height: 36px;
+  margin-left: -18px;
+  margin-top: -18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cursor-ring);
+  scale: 1;
+  transition: scale 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s ease,
+    background-color 0.35s ease,
+    opacity 0.3s ease;
+}
+.custom-cursor-ring.is-hover {
+  scale: 1.55;
+  border-color: var(--cursor-ring-strong);
+  background-color: var(--cursor-hover-bg);
+}
+.custom-cursor-ring.is-click {
+  scale: 1.3;
+}
+.custom-cursor-ring.is-logo {
+  scale: 1.8;
+  mix-blend-mode: exclusion;
+  border-color: var(--cursor-ring-strong);
+  background-color: var(--cursor-hover-bg);
+  animation: cursor-logo-glow 1.4s ease-in-out infinite;
+}
+@keyframes cursor-logo-glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--cursor-ring); }
+  50%      { box-shadow: 0 0 16px 6px var(--cursor-hover-bg); }
+}
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 100002 !important;
+  will-change: translate, opacity;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  margin-top: -2.5px;
+  border-radius: 50%;
+  background: var(--cursor-dot);
+  transition: opacity 0.3s ease;
+}
+@media (hover: none), (pointer: coarse) {
+  .custom-cursor-ring,
+  .custom-cursor-dot {
+    display: none;
   }
 }
 
@@ -157,25 +226,25 @@
 .rt-logo > span {
   grid-area: overlap;
   margin: 0;
-  font-weight: 300;
-  letter-spacing: 2px;
+  /* Ultra hero-logo look: uniform bold + indigo -> soft violet -> amber shimmer */
+  font-weight: 800;
+  letter-spacing: 0.02em;
   white-space: nowrap;
   -webkit-text-stroke: 2px transparent;
   background-clip: text;
   -webkit-background-clip: text;
-  /* Ultra-style shimmer, RevolutTIME register kept */
   background-image: linear-gradient(
     135deg,
     #6366f1 0,
-    #f59e0b 35%,
-    #7c3aed 70%,
+    #a78bfa 40%,
+    #f59e0b 70%,
     #6366f1 100%
   );
   background-size: 200% auto;
   animation: rt-shimmer 4s linear infinite;
 }
 .rt-logo > span b {
-  font-weight: 900;
+  font-weight: 800;
 }
 .rt-logo .rt-logo-bg {
   user-select: none;
