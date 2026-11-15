@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useI18n } from "@/lib/ultra/i18n-context";
 import { PolicyModal, type PolicyType } from "@/components/ultra/ui/PolicyModal";
 import { useSiteConfig } from "@/lib/ultra/site-config-context";
-import { Activity, ArrowLeftRight, Cookie, FileText, Gauge, Mail, RefreshCw, Scale, Send, Shield, Sparkles } from "lucide-react";
+import { Activity, ArrowLeftRight, Cookie, Mail, RefreshCw, Scale, Send, Shield, Sparkles } from "lucide-react";
 
 export function Footer() {
   const { t } = useI18n();
@@ -41,9 +41,6 @@ export function Footer() {
               <h4 className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-4">
                 {t("footer_info")}
               </h4>
-              <Link href="/pricing-model" onClick={(e) => { e.preventDefault(); openPolicy("pricing-model"); }} className="inline-flex items-center gap-2 text-sm text-[var(--text-muted)] py-1.5 hover:text-[var(--text-primary)] transition-colors cursor-pointer">
-                <FileText className="w-3.5 h-3.5 shrink-0" />{t("pricing_title")}
-              </Link>
               <Link href="/compare" className="inline-flex items-center gap-2 text-sm text-[var(--text-muted)] py-1.5 hover:text-[var(--text-primary)] transition-colors">
                 <ArrowLeftRight className="w-3.5 h-3.5 shrink-0" />{t("footer_compare")}
               </Link>
@@ -70,9 +67,6 @@ export function Footer() {
               </button>
               <button onClick={() => openPolicy("cookies")} className="inline-flex items-center gap-2 text-sm text-[var(--text-muted)] py-1.5 hover:text-[var(--text-primary)] transition-colors text-left w-full cursor-pointer bg-transparent border-none">
                 <Cookie className="w-3.5 h-3.5 shrink-0" />{t("cookies_title")}
-              </button>
-              <button onClick={() => openPolicy("sla")} className="inline-flex items-center gap-2 text-sm text-[var(--text-muted)] py-1.5 hover:text-[var(--text-primary)] transition-colors text-left w-full cursor-pointer bg-transparent border-none">
-                <Gauge className="w-3.5 h-3.5 shrink-0" />{t("sla_title")}
               </button>
             </div>
             {/* Контакты */}

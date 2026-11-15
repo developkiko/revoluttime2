@@ -10,7 +10,7 @@
 // - Scrollable контент внутри
 // ══════════════════════════════════════════════════════════════
 
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { Link } from "@/i18n/navigation";
 import { useI18n } from "@/lib/ultra/i18n-context";
 import { useSiteConfig } from "@/lib/ultra/site-config-context";
@@ -18,7 +18,7 @@ import { LangSwitcher } from "@/components/ultra/layout/LangSwitcher";
 import { Mail, Send } from "lucide-react";
 import type { ReactNode } from "react";
 
-export type PolicyType = "privacy" | "terms" | "cookies" | "refund" | "sla" | "pricing-model";
+export type PolicyType = "privacy" | "terms" | "cookies" | "refund";
 
 interface PolicyContent {
   titleKey: string;
@@ -97,52 +97,6 @@ const policies: Record<PolicyType, PolicyContent> = {
         <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">{t("refund_how_text")}</p>
         <h2 className="text-lg font-bold text-[var(--text-heading)] mb-2">{t("refund_legal_title")}</h2>
         <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{t("refund_legal_text")}</p>
-      </>
-    ),
-  },
-  sla: {
-    titleKey: "sla_title",
-    render: t => (
-      <>
-        <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">{t("sla_intro")}</p>
-        <h2 className="text-lg font-bold text-[var(--text-heading)] mb-2">{t("sla_covered_title")}</h2>
-        <ul className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6 space-y-2 list-none">
-          <li>• {t("sla_covered_1")}</li>
-          <li>• {t("sla_covered_2")}</li>
-          <li>• {t("sla_covered_3")}</li>
-        </ul>
-        <h2 className="text-lg font-bold text-[var(--text-heading)] mb-2">{t("sla_not_covered_title")}</h2>
-        <ul className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6 space-y-2 list-none">
-          <li>• {t("sla_not_1")}</li>
-          <li>• {t("sla_not_2")}</li>
-          <li>• {t("sla_not_3")}</li>
-        </ul>
-        <h2 className="text-lg font-bold text-[var(--text-heading)] mb-2">{t("sla_comp_title")}</h2>
-        <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">{t("sla_comp_text")}</p>
-        <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{t("sla_comp_how")}</p>
-      </>
-    ),
-  },
-  "pricing-model": {
-    titleKey: "pricing_title",
-    render: t => (
-      <>
-        <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">{t("pricing_intro")}</p>
-        <h2 className="text-lg font-bold text-[var(--text-heading)] mb-3">{t("pricing_how_title")}</h2>
-        <ul className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6 space-y-3 list-none">
-          <li><strong className="text-[var(--text-heading)]">{t("pricing_how_fixed")}</strong> – {t("pricing_how_fixed_text")}</li>
-          <li><strong className="text-[var(--text-heading)]">{t("pricing_how_period")}</strong> – {t("pricing_how_period_text")}</li>
-          <li><strong className="text-[var(--text-heading)]">{t("pricing_how_overpay")}</strong> – {t("pricing_how_overpay_text")}</li>
-          <li><strong className="text-[var(--text-heading)]">{t("pricing_how_discount")}</strong> – {t("pricing_how_discount_text")}</li>
-        </ul>
-        <h2 className="text-lg font-bold text-[var(--text-heading)] mb-2">{t("pricing_regions_title")}</h2>
-        <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">{t("pricing_regions_text")}</p>
-        <h2 className="text-lg font-bold text-[var(--text-heading)] mb-3">{t("pricing_why_title")}</h2>
-        <ul className="text-sm text-[var(--text-secondary)] leading-relaxed space-y-2 list-none">
-          <li>• {t("pricing_why_1")}</li>
-          <li>• {t("pricing_why_2")}</li>
-          <li>• {t("pricing_why_3")}</li>
-        </ul>
       </>
     ),
   },

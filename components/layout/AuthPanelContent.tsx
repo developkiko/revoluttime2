@@ -162,9 +162,15 @@ function UserMenu({
         {t("encyclopediaLink")}
       </Link>
       {isAdmin && (
-        <Link href="/admin" className={MENU_ROW_CLASS} onClick={onDone}>
+        <a
+          href="https://adm-rt.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={MENU_ROW_CLASS}
+          onClick={onDone}
+        >
           {t("adminLink")}
-        </Link>
+        </a>
       )}
 
       <button

@@ -89,6 +89,7 @@ export async function PartnerSection() {
           <PartnerNetworkLazy
             me={{ id: "you", name: tDiagram("you"), joined: "2026-09-01" }}
             childrenByNode={networkChildren}
+            colored
             profileHref="/partner"
             youActions={[
               { label: t("cta.button"), href: SITE.whatsapp },

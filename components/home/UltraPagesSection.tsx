@@ -13,14 +13,12 @@ const ULTRA_PAGES = [
   { href: "/ultra-home", label: "Ultra Proxy — Home" },
   { href: "/features", label: "Features" },
   { href: "/compare", label: "Compare" },
-  { href: "/pricing-model", label: "Pricing Model" },
   { href: "/stats", label: "Stats" },
   { href: "/prev", label: "Prev" },
   { href: "/dashboard", label: "Dashboard" },
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
   { href: "/refund", label: "Refund" },
-  { href: "/sla", label: "SLA" },
   { href: "/cookies", label: "Cookies" },
 ] as const;
 

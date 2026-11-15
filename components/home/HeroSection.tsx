@@ -199,31 +199,32 @@ export function HeroSection() {
         style={{ backgroundImage: "url('/images/wall/hero-bg-1.jpg')" }}
       />
 
+      {/* side arrows — Ultra tinted buttons, pinned to the screen edges */}
+      <button
+        type="button"
+        onClick={() => go(index - 1)}
+        aria-label="←"
+        className="absolute left-4 top-1/2 z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-[10px] border border-primary/25 bg-primary/12 text-primary transition-colors hover:bg-primary/20 md:flex"
+      >
+        <ChevronLeftIcon className="size-5" />
+      </button>
+      <button
+        type="button"
+        onClick={() => go(index + 1)}
+        aria-label="→"
+        className="absolute right-4 top-1/2 z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-[10px] border border-primary/25 bg-primary/12 text-primary transition-colors hover:bg-primary/20 md:flex"
+      >
+        <ChevronRightIcon className="size-5" />
+      </button>
+
       <div className="relative mx-auto flex w-full max-w-6xl min-h-0 flex-1 flex-col px-6 pt-[120px] pb-[60px] sm:pt-[160px] sm:pb-[100px] md:pt-14 md:pb-8">
-        {/* side arrows — Ultra tinted buttons */}
-        <button
-          type="button"
-          onClick={() => go(index - 1)}
-          aria-label="←"
-          className="absolute left-1 top-1/2 z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-[10px] border border-primary/25 bg-primary/12 text-primary transition-colors hover:bg-primary/20 md:left-4 md:flex"
-        >
-          <ChevronLeftIcon className="size-5" />
-        </button>
-        <button
-          type="button"
-          onClick={() => go(index + 1)}
-          aria-label="→"
-          className="absolute right-1 top-1/2 z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-[10px] border border-primary/25 bg-primary/12 text-primary transition-colors hover:bg-primary/20 md:right-4 md:flex"
-        >
-          <ChevronRightIcon className="size-5" />
-        </button>
 
         {/* Slider area — one uniform height for every slide: desktop fills the
             remaining viewport (section is h-screen minus header), mobile is a
             fixed box tall enough for the heaviest slide; the media block flexes
             on desktop to absorb per-slide content variance. */}
         <div
-          className="mx-auto flex h-[46rem] w-full max-w-4xl touch-pan-y select-none flex-col justify-center overflow-y-auto sm:h-[48rem] md:h-auto md:min-h-0 md:flex-1 md:overflow-visible"
+          className="flex h-[46rem] w-full touch-pan-y select-none flex-col justify-center overflow-y-auto sm:h-[48rem] md:h-auto md:min-h-0 md:flex-1 md:overflow-visible"
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}

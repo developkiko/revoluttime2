@@ -95,6 +95,7 @@ export default async function PartnerPage({
             <PartnerNetworkLazy
               me={{ id: "you", name: tDiagram("you"), joined: "2026-09-01" }}
               childrenByNode={networkChildren}
+              colored
               profileHref="/cabinet#network"
             />
           </div>

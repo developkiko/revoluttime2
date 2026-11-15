@@ -40,6 +40,9 @@ export interface PartnerNetworkProps {
   profileHref?: string;
   /** Quick cabinet buttons shown on the «Вы» preview. */
   youActions?: NetworkAction[];
+  /** Paint initial-avatar circles in distinct colors so the text never
+   *  blends into the background (demo contexts: home/partner/dummy). */
+  colored?: boolean;
   className?: string;
 }
 
@@ -59,6 +62,12 @@ const CHIP_COLORS = [
   "bg-emerald-500",
   "bg-rose-500",
 ];
+/** Stable per-person color so an avatar keeps its circle color on every level. */
+const chipOf = (id: string) => {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) hash = (hash * 31 + id.charCodeAt(i)) | 0;
+  return CHIP_COLORS[Math.abs(hash) % CHIP_COLORS.length];
+};
 
 /** Centered slot: cards group around the middle, never hug an edge. */
 const slotLeftPct = (index: number, count: number) =>
@@ -117,6 +126,7 @@ export function PartnerNetwork({
   childrenByNode,
   profileHref = "/cabinet",
   youActions,
+  colored = false,
   className,
 }: PartnerNetworkProps) {
   const t = useTranslations("partner.network");
@@ -273,10 +283,12 @@ export function PartnerNetwork({
             <PersonAvatar
               person={top}
               textClassName="text-sm font-bold"
-              className={`flex size-14 items-center justify-center rounded-full border-2 shadow-md transition-colors md:size-16 ${
+              className={`flex size-14 items-center justify-center rounded-full border-2 shadow-md transition-colors ${
                 active === "you"
                   ? "border-primary bg-primary text-primary-foreground"
-                  : "border-primary/60 bg-card text-primary hover:border-primary hover:shadow-[0_0_0_4px_var(--border-active)] hover:scale-105"
+                  : colored
+                    ? `border-transparent ${chipOf(top.id)} text-white hover:border-primary hover:shadow-[0_0_0_4px_var(--border-active)] hover:scale-105`
+                    : "border-primary/60 bg-card text-primary hover:border-primary hover:shadow-[0_0_0_4px_var(--border-active)] hover:scale-105"
               }`}
             />
             <span className="text-[11px] font-semibold">{top.name}</span>
@@ -320,7 +332,9 @@ export function PartnerNetwork({
                 className={`flex size-11 items-center justify-center rounded-full border-2 shadow-md transition-colors md:size-12 ${
                   active === partner.id
                     ? "border-primary bg-primary text-primary-foreground"
-                    : "border-primary/40 bg-card hover:border-primary hover:shadow-[0_0_0_4px_var(--border-active)] hover:scale-105"
+                    : colored
+                      ? `border-transparent ${chipOf(partner.id)} text-white hover:border-primary hover:shadow-[0_0_0_4px_var(--border-active)] hover:scale-105`
+                      : "border-primary/40 bg-card hover:border-primary hover:shadow-[0_0_0_4px_var(--border-active)] hover:scale-105"
                 }`}
               />
               <span className="max-w-[72px] truncate text-[10px] font-medium text-muted-foreground">

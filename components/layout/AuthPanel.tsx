@@ -43,7 +43,16 @@ export function AuthPanel() {
             title={user.email}
             className={USER_PILL_CLASS}
           >
-            <UserIcon className="w-4 h-4 shrink-0" />
+            {user.picture ? (
+              // eslint-disable-next-line @next/next/no-img-element -- provider CDN hosts are not known at build time
+              <img
+                src={user.picture}
+                alt=""
+                className="size-6 shrink-0 rounded-full object-cover"
+              />
+            ) : (
+              <UserIcon className="w-4 h-4 shrink-0" />
+            )}
             <span className="rt-header-user-name">{user.name}</span>
           </button>
         ) : (
