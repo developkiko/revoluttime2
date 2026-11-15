@@ -6,7 +6,7 @@
  * header (curl, server-to-server) get no CORS headers at all.
  */
 const DEFAULT_ALLOWED_ORIGINS =
-  "https://revolut-time.vercel.app,https://admin.revoluttime.de,https://ultra-proxy-admin.pornorage.workers.dev";
+  "https://revolut-time.vercel.app,https://admin.revoluttime.de,https://adm-rt.vercel.app";
 
 export function corsHeaders(request: Request): Record<string, string> {
   const origin = request.headers.get("origin");

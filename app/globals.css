@@ -386,6 +386,56 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
+/* ── Mobile nav drawer — exact copy of the Ultra template .mobile-nav ──────
+   Full-screen panel below the header (z below the sticky header), slides in
+   from the right; rows are centered card links (template .nav-link). */
+.rt-mobile-nav {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  height: calc(100dvh - var(--header-height));
+  height: calc(100vh - var(--header-height));
+  background: var(--overlay-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2.5rem 1.5rem;
+  padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
+  gap: 0.5rem;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  z-index: 30;
+  will-change: transform;
+}
+.rt-mobile-nav.open {
+  transform: translateX(0);
+}
+.rt-mobile-nav .rt-mobile-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  padding: 0.85rem 1rem;
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+  color: var(--text-primary);
+  background: var(--hover-bg);
+  border-radius: 10px;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.rt-mobile-nav .rt-mobile-link:hover {
+  background: var(--hover-bg-strong);
+  color: var(--text-heading);
+}
+
 /* ── Partner network module: one-way dashed flow (partners → You) ────────── */
 .net-flow-line {
   stroke-dasharray: 6 8;

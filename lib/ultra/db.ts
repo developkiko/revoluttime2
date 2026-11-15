@@ -95,7 +95,8 @@ CREATE TABLE IF NOT EXISTS ultra_products (
   discount text,
   features jsonb,
   popular boolean,
-  sort_order integer
+  sort_order integer,
+  updated_at timestamptz
 );
 CREATE TABLE IF NOT EXISTS ultra_reviews (
   id text PRIMARY KEY,
@@ -107,7 +108,8 @@ CREATE TABLE IF NOT EXISTS ultra_reviews (
   text_en text,
   stars integer,
   avatar text,
-  created_at timestamptz
+  created_at timestamptz,
+  updated_at timestamptz
 );
 CREATE TABLE IF NOT EXISTS site_config (
   id integer PRIMARY KEY DEFAULT 1,
@@ -116,6 +118,8 @@ CREATE TABLE IF NOT EXISTS site_config (
 CREATE TABLE IF NOT EXISTS admin_chats (
   chat_id text,
   kind text,
+  source text,
+  updated_at timestamptz,
   PRIMARY KEY (chat_id, kind)
 );
 CREATE TABLE IF NOT EXISTS ultra_kv (

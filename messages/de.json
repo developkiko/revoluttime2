@@ -148,10 +148,10 @@
   },
   "hydrogen": {
     "hero": {
-      "badge": "Eurofins-geprüft · bis 1,6 ppm H₂",
+      "badge": "Eurofins-geprüft · AR-26-HH-013581-02 · H₂ ≤ 1,6 ppm",
       "title": "Molekularer Wasserstoff.",
       "titleAccent": "Frisch in Ihrem Glas.",
-      "subtitle": "Eine Tablette in 150–200 ml kaltem Wasser — und nach 1–2 Minuten haben Sie erfrischendes Wasserstoffwasser mit Magnesium. Zuhause, im Büro, unterwegs.",
+      "subtitle": "Eine Tablette in 150–200 ml kaltem Wasser — und nach 1–2 Minuten haben Sie ein erfrischendes Getränk mit molekularem Wasserstoff und Magnesium. Zuhause, im Büro, unterwegs.",
       "ctaShop": "Jetzt bestellen",
       "ctaUsage": "So geht's"
     },
@@ -181,22 +181,22 @@
       "title": "Anmerkungen (*)",
       "items": [
         "Mit Sternchen (*) gekennzeichnete Aussagen beschreiben die Wirkungen von molekularem Wasserstoff und Magnesium im Kontext von allgemeinem Wohlbefinden (Wellness) und publizierten wissenschaftlichen Untersuchungen. Es sind keine Heilaussagen: Das Produkt ist nicht zur Diagnose, Behandlung oder Vorbeugung von Krankheiten bestimmt.",
-        "RevolutTIME Magnesium + H₂ ist ein Nahrungsergänzungsmittel. Es ersetzt keine ausgewogene, abwechslungsreiche Ernährung und keine gesunde Lebensweise. Die empfohlene Tagesdosis nicht überschreiten. Außerhalb der Reichweite von kleinen Kindern aufbewahren.",
+        "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) ist ein Nahrungsergänzungsmittel. Es ersetzt keine ausgewogene, abwechslungsreiche Ernährung und keine gesunde Lebensweise. Die empfohlene Tagesdosis nicht überschreiten. Außerhalb der Reichweite von kleinen Kindern aufbewahren.",
         "Die Formulierungen dieser Seite sind auf Vereinbarkeit mit dem deutschen Heilmittelwerbegesetz (HWG) und den lebensmittelrechtlichen Vorgaben geprüft: Das Produkt wird nicht als Arzneimittel dargestellt, daher wird das Werbeverbot für arzneiliche Angaben nicht verletzt."
       ]
     },
     "cta": {
       "title": "Bereit für Wasserstoffwasser?",
-      "text": "Wählen Sie Ihr Format — 90 oder 120 Tabletten mit Aufbewahrungsbox.",
+      "text": "Packung mit 90 Tabletten — mit Versand aus Bayern.",
       "button": "Zum Shop"
     }
   },
   "shop": {
     "hero": {
-      "title": "Magnesium + H₂ Tabletten",
-      "subtitle": "Der Klassiker von RevolutTIME: zwei Formate zur Wahl, Eurofins-geprüft, Versand aus Bayern mit DHL/Hermes.",
-      "perk1": "Eurofins-Analyse: bis 1,6 ppm H₂",
-      "perk2": "Aufbewahrungsbox inklusive",
+      "title": "Redox+ COMPLEX (Magnesium + H₂) Tabletten",
+      "subtitle": "Der Klassiker von RevolutTIME: Format mit 90 Tabletten, Eurofins-geprüft, Versand aus Bayern mit DHL/Hermes.",
+      "perk1": "H₂ ≤ 1,6 ppm (Eurofins-Analyse)",
+      "perk2": "5,13 g Magnesium je Packung",
       "perk3": "Versand 1–2 Werktage (DE)",
       "partnerHint": "Partner: 60 € pro Packung ab 10 Packungen — 1 Packung gratis dazu."
     }
@@ -612,15 +612,15 @@
   },
   "tablets": {
     "meta": {
-      "title": "Die Brausetablette mit H₂ — Zusammensetzung & Aufnahme | RevolutTIME",
-      "description": "Zusammensetzung der Magnesium-H₂-Tablette, Lösungsdauer und Aufnahme, ein ehrlicher Vergleich mit Apotheken-Magnesiumformen und Empfindungen nach der Einnahme."
+      "title": "RevolutTIME Redox+ COMPLEX — Zusammensetzung & Aufnahme | RevolutTIME",
+      "description": "Zusammensetzung der Redox+ COMPLEX (Magnesium + H₂)-Tablette: 5,13 g Magnesium, H₂ ≤ 1,6 ppm laut Eurofins-Analyse (AR-26-HH-013581-02), Lösungsdauer und Aufnahme, ein ehrlicher Vergleich mit Apotheken-Magnesiumformen."
     },
     "badge": "Produkt der Richtung Wasserstoff",
-    "title": "Die Brausetablette mit H₂",
-    "subtitle": "Woraus sie besteht, wie sie aufgenommen wird, was sie von <mg>Apotheken-Magnesiumformen</mg> unterscheidet — und was Menschen spüren, die sie täglich trinken.",
+    "title": "Redox+ COMPLEX: Brausetabletten mit Wasserstoff und Magnesium",
+    "subtitle": "Woraus sie bestehen, wie sie aufgenommen werden, was sie von <mg>Apotheken-Magnesiumformen</mg> unterscheidet — und was Menschen spüren, die das Getränk täglich trinken.",
     "cta": {
       "title": "Selbst ausprobieren",
-      "text": "Packungen mit 90 und 120 Tabletten — Versand aus Bayern in 1–2 Tagen.",
+      "text": "Packung mit 90 Tabletten — Versand aus Bayern in 1–2 Tagen.",
       "button": "Zum Shop"
     },
     "heroCta": "Preise ansehen",
@@ -642,15 +642,15 @@
       "items": {
         "dissolve": {
           "title": "Lösung",
-          "text": "Vollständige Lösung in 1–1,5 Minuten in 150–200 ml kaltem Wasser. Kaltes Wasser hält mehr H₂."
+          "text": "Vollständige Lösung in 1–1,5 Minuten in 150–200 ml kaltem Wasser (10–15 °C). Kaltes Wasser hält mehr H₂."
         },
         "peak": {
           "title": "Konzentrationsmaximum",
-          "text": "Der höchste Gehalt an gelöstem Wasserstoff wird nach 3–4 Minuten erreicht: bis zu 1,6 ppm laut Eurofins-Analyse."
+          "text": "Der höchste Gehalt an gelöstem Wasserstoff wird nach 3–4 Minuten erreicht: bis zu 1,6 ppm laut Eurofins-Analyse (AR-26-HH-013581-02)."
         },
         "drinkNow": {
           "title": "Sofort trinken",
-          "text": "H₂ ist leicht und entweicht schnell — das Getränk wird frisch getrunken, gerade so erhalten Sie das Maximum."
+          "text": "H₂ ist leicht und entweicht schnell — das Getränk wird sofort oder innerhalb von 3–4 Minuten getrunken, solange die Konzentration am höchsten ist."
         }
       }
     },
@@ -667,7 +667,7 @@
           "text": "Eine gut aufnehmbare Form. In unserer Tablette bindet dasselbe Zitronensäure das Magnesium in Lösung."
         },
         "ours": {
-          "title": "Magnesium + H₂",
+          "title": "Redox+ COMPLEX (Magnesium + H₂)",
           "text": "Magnesium + Zitronen- und Apfelsäure: beim Lösen entstehen Magnesiumcitrat/-malat in Trinkform plus molekularer Wasserstoff."
         }
       }
@@ -685,13 +685,13 @@
       "title": "Anmerkungen (*)",
       "items": [
         "Empfindungen nach der Einnahme sind subjektive Erfahrungsberichte und Praxisbeobachtungen, keine Heilaussagen. Das Produkt ist nicht zur Diagnose, Behandlung oder Vorbeugung von Krankheiten bestimmt.",
-        "RevolutTIME Magnesium + H₂ ist ein Nahrungsergänzungsmittel. Es ersetzt keine ausgewogene Ernährung und gesunde Lebensweise. Die empfohlene Tagesdosis nicht überschreiten.",
+        "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) ist ein Nahrungsergänzungsmittel. Es ersetzt keine ausgewogene Ernährung und gesunde Lebensweise. Die empfohlene Tagesdosis nicht überschreiten.",
         "Der Vergleich der Magnesiumformen dient der Information auf Basis öffentlicher Daten zur Bioverfügbarkeit und ist keine Werbung für Arzneimittel — die Formulierungen sind mit den HWG-Anforderungen abgeglichen."
       ]
     },
     "demo": {
       "title": "So arbeitet die Tablette",
-      "subtitle": "Kurzdemonstration: Die Tablette löst sich im Wasser auf und setzt Magnesium sowie molekularen Wasserstoff frei.",
+      "subtitle": "Kurzdemonstration: Die Tablette löst sich im Wasser auf und setzt molekularen Wasserstoff sowie Magnesium frei.",
       "caption": "Video ohne Ton — Ton und Bedienung über den Player."
     }
   },
@@ -840,7 +840,7 @@
     "subtitle": "Drei einfache Schritte — und Ihr H₂-Wasser ist fertig.",
     "step1": {
       "title": "Auflösen",
-      "text": "Eine Tablette in 150–200 ml stiller (nicht sprudelnder) Wasser geben. Kühles Wasser bei 10–12 °C hält den Wasserstoff am besten."
+      "text": "Eine Tablette in 150–200 ml stiller (nicht sprudelnder) Wasser geben. Kühles Wasser bei 10–15 °C hält den Wasserstoff am besten."
     },
     "step2": {
       "title": "Warten",
@@ -861,8 +861,8 @@
     "perTablet": "{price} pro Tablette",
     "packs": {
       "pack-90": {
-        "name": "Packung 90 Tabletten",
-        "note": "Bis zu 30 Tage Versorgung"
+        "name": "Redox+ COMPLEX — 90 Tabletten",
+        "note": "5,13 g Magnesium, H₂ ≤ 1,6 ppm · bis zu 30 Tage"
       }
     }
   },
@@ -939,10 +939,10 @@
     }
   },
   "footer": {
-    "about": "RevolutTIME — Ökosystem für aktives Longevity: Wasserstofftabletten, Biohacking-Studio und Partnerprogramm. Geprüft von Eurofins, versendet aus Bayern.",
+    "about": "RevolutTIME — Ökosystem für aktives Longevity: Redox+ COMPLEX-Tabletten mit Wasserstoff und Magnesium, Biohacking-Studio und Partnerprogramm. Geprüft von Eurofins, versendet aus Bayern.",
     "directionsTitle": "Richtungen",
     "directions": {
-      "tablets": "Tabletten Magnesium + H₂",
+      "tablets": "Tabletten Redox+ COMPLEX",
       "studio": "Fitness-Biohacking-Studio",
       "equipment": "Equipment-Verkauf",
       "recreation": "Konferenz und Erholung",
@@ -1024,9 +1024,9 @@
       "programs": {
         "balance-start": {
           "title": "Balance-Start: Grundversorgung aufbauen",
-          "description": "Sanfter Einstieg mit den Tabletten: erst die Basis mit Magnesium stabilisieren, H₂ als tägliche Begleitung verstehen und die Wirkung dokumentiert beobachten.",
+          "description": "Sanfter Einstieg mit den Tabletten: erst die Basis mit Magnesium stabilisieren, molekularen Wasserstoff (H₂) als tägliche Begleitung verstehen und die Wirkung dokumentiert beobachten.",
           "bullets": [
-            "2–4 Wochen Magnesium + H₂-Tabletten täglich zur Basisversorgung",
+            "2–4 Wochen täglich Tabletten mit H₂ + Magnesium zur Basisversorgung",
             "Studienlage zur Einordnung in der Encyclopedia lesen",
             "Wirkung dokumentieren: Energie, Schlaf, Krämpfe in kurzen Notizen",
             "Anschließend Studio- oder Aktivmodule ergänzen, wenn die Basis steht"
@@ -1044,10 +1044,10 @@
         },
         "mind-body-studio": {
           "title": "Mind und Body: Anwendungen im Studio",
-          "description": "Dein Fokus liegt auf geführten Anwendungen: Atemarbeit, Rotlicht, Vibration und mehr — kombiniert mit einer stabilen Basis aus Magnesium und H₂ zu Hause.",
+          "description": "Dein Fokus liegt auf geführten Anwendungen: Atemarbeit, Rotlicht, Vibration und mehr — kombiniert mit einer stabilen Basis aus H₂ und Magnesium zu Hause.",
           "bullets": [
             "Studio-Beratungstermin vereinbaren (WhatsApp-Kontakt)",
-            "Magnesium + H₂-Tabletten als tägliche Basis",
+            "Tabletten mit H₂ + Magnesium als tägliche Basis",
             "Anwendungen im Zweiwochenrhythmus planen",
             "Wirkung in kurzen Notizen verfolgen"
           ]
@@ -1057,7 +1057,7 @@
           "description": "Bewegung an der frischen Luft als Fundament — Badminton-Events und Aktivprogramme, ergänzt durch Magnesium und H₂ als tägliche Basis.",
           "bullets": [
             "Nächstes Badminton-Event im Freizeitbereich sichern",
-            "Magnesium + H₂-Tabletten als tägliche Basis",
+            "Tabletten mit H₂ + Magnesium als tägliche Basis",
             "Trinkroutine: H₂-Wasser frisch zubereitet einnehmen",
             "Wochenbilanz ziehen: Energie, Schlaf, Belastbarkeit"
           ]

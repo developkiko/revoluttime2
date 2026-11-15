@@ -148,10 +148,10 @@
   },
   "hydrogen": {
     "hero": {
-      "badge": "Eurofins-tested · up to 1.6 ppm H₂",
+      "badge": "Eurofins-tested · AR-26-HH-013581-02 · H₂ ≤ 1.6 ppm",
       "title": "Molecular hydrogen.",
       "titleAccent": "Fresh — right in your glass.",
-      "subtitle": "One tablet into 150–200 ml of cold water — and in 1–2 minutes you have refreshing hydrogen water with magnesium. At home, at work, on the go.",
+      "subtitle": "One tablet into 150–200 ml of cold water — and in 1–2 minutes you have a refreshing drink with molecular hydrogen and magnesium. At home, at work, on the go.",
       "ctaShop": "Order now",
       "ctaUsage": "How to use"
     },
@@ -181,22 +181,22 @@
       "title": "Notes (*)",
       "items": [
         "Statements marked with an asterisk (*) describe the effects of molecular hydrogen and magnesium in the context of general wellbeing (wellness) and published scientific research. They are not medical claims: the product is not intended to diagnose, treat or prevent any disease.",
-        "RevolutTIME Magnesium + H₂ is a food supplement. It does not replace a balanced, varied diet and a healthy lifestyle. Do not exceed the recommended daily dose. Keep out of reach of small children.",
+        "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) is a food supplement. It does not replace a balanced, varied diet and a healthy lifestyle. Do not exceed the recommended daily dose. Keep out of reach of small children.",
         "The wording on this page has been reviewed for compliance with the German Heilmittelwerbegesetz (HWG, Act on the Advertising of Medicinal Products) and food law requirements: the product is not presented as a medicinal product, so the advertising ban on medicinal claims is not violated."
       ]
     },
     "cta": {
       "title": "Ready for hydrogen water?",
-      "text": "Choose your format — 90 or 120 tablets with a storage box.",
+      "text": "Pack of 90 tablets — shipped from Bavaria.",
       "button": "Go to shop"
     }
   },
   "shop": {
     "hero": {
-      "title": "Magnesium + H₂ tablets",
-      "subtitle": "The RevolutTIME classic: two formats to choose from, Eurofins-tested, shipped from Bavaria via DHL/Hermes.",
-      "perk1": "Eurofins analysis: up to 1.6 ppm H₂",
-      "perk2": "Storage box included",
+      "title": "Redox+ COMPLEX (Magnesium + H₂) tablets",
+      "subtitle": "The RevolutTIME classic: a 90-tablet format, Eurofins-tested, shipped from Bavaria via DHL/Hermes.",
+      "perk1": "H₂ ≤ 1.6 ppm (Eurofins analysis)",
+      "perk2": "5.13 g magnesium per pack",
       "perk3": "Shipping in 1–2 business days (DE)",
       "partnerHint": "Partners: 60 € per pack on orders of 10+ packs — 1 pack free."
     }
@@ -612,15 +612,15 @@
   },
   "tablets": {
     "meta": {
-      "title": "The H₂ effervescent tablet — composition & absorption | RevolutTIME",
-      "description": "What's inside the Magnesium + H₂ tablet, how fast it dissolves and absorbs, an honest comparison with pharmacy magnesium forms, and how it feels to take it."
+      "title": "RevolutTIME Redox+ COMPLEX — composition & absorption | RevolutTIME",
+      "description": "What's inside the Redox+ COMPLEX (Magnesium + H₂) tablet: 5.13 g magnesium, H₂ ≤ 1.6 ppm per the Eurofins analysis (AR-26-HH-013581-02), how fast it dissolves and absorbs, an honest comparison with pharmacy magnesium forms."
     },
     "badge": "Product of the hydrogen direction",
-    "title": "The H₂ effervescent tablet",
+    "title": "Redox+ COMPLEX: effervescent tablets with hydrogen and magnesium",
     "subtitle": "What it's made of, how it absorbs, how it differs from <mg>pharmacy magnesium forms</mg> — and what people who drink it daily feel.",
     "cta": {
       "title": "Try it yourself",
-      "text": "Packs of 90 and 120 tablets — delivered from Bavaria in 1–2 days.",
+      "text": "Pack of 90 tablets — delivered from Bavaria in 1–2 days.",
       "button": "Go to shop"
     },
     "heroCta": "See prices",
@@ -642,11 +642,11 @@
       "items": {
         "dissolve": {
           "title": "Dissolving",
-          "text": "Fully dissolved in 1–1.5 minutes in 150–200 ml of cold water. Cold water holds more H₂."
+          "text": "Fully dissolved in 1–1.5 minutes in 150–200 ml of cold water (10–15 °C). Cold water holds more H₂."
         },
         "peak": {
           "title": "Concentration peak",
-          "text": "The highest level of dissolved hydrogen comes at 3–4 minutes: up to 1.6 ppm according to the Eurofins analysis."
+          "text": "The highest level of dissolved hydrogen comes at 3–4 minutes: up to 1.6 ppm according to the Eurofins analysis (AR-26-HH-013581-02)."
         },
         "drinkNow": {
           "title": "Drink it fresh",
@@ -667,7 +667,7 @@
           "text": "A well-absorbed form. In our tablet, the same citric acid binds the magnesium in solution."
         },
         "ours": {
-          "title": "Magnesium + H₂",
+          "title": "Redox+ COMPLEX (Magnesium + H₂)",
           "text": "Magnesium + citric and malic acids: when dissolved, it forms magnesium citrate/malate in drinkable form plus molecular hydrogen."
         }
       }
@@ -685,13 +685,13 @@
       "title": "Notes (*)",
       "items": [
         "How it feels after taking it is the subjective experience of users and practice observations, not medical claims. The product is not intended to diagnose, treat or prevent any disease.",
-        "RevolutTIME Magnesium + H₂ is a food supplement. It does not replace a balanced diet and a healthy lifestyle. Do not exceed the recommended daily dose.",
+        "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) is a food supplement. It does not replace a balanced diet and a healthy lifestyle. Do not exceed the recommended daily dose.",
         "The magnesium-form comparison is provided for informational purposes based on public bioavailability data and is not advertising of medicinal products — the wording has been checked against HWG requirements."
       ]
     },
     "demo": {
       "title": "How the tablet works",
-      "subtitle": "A short demonstration: the tablet dissolves in water, releasing magnesium and molecular hydrogen.",
+      "subtitle": "A short demonstration: the tablet dissolves in water, releasing molecular hydrogen and magnesium.",
       "caption": "Video is silent — sound and controls are on the player."
     }
   },
@@ -840,7 +840,7 @@
     "subtitle": "Three simple steps — and your H₂ water is ready.",
     "step1": {
       "title": "Dissolve",
-      "text": "Add one tablet to 150–200 ml of still (non-carbonated) water. Cool water at 10–12 °C keeps the hydrogen best."
+      "text": "Add one tablet to 150–200 ml of still (non-carbonated) water. Cool water at 10–15 °C keeps the hydrogen best."
     },
     "step2": {
       "title": "Wait",
@@ -861,8 +861,8 @@
     "perTablet": "{price} per tablet",
     "packs": {
       "pack-90": {
-        "name": "Pack of 90 tablets",
-        "note": "Up to 30-day supply"
+        "name": "Redox+ COMPLEX — 90 tablets",
+        "note": "5.13 g magnesium, H₂ ≤ 1.6 ppm · up to 30 days"
       }
     }
   },
@@ -939,10 +939,10 @@
     }
   },
   "footer": {
-    "about": "RevolutTIME — an ecosystem for active longevity: hydrogen tablets, a biohacking studio and a partner program. Eurofins-tested, shipped from Bavaria.",
+    "about": "RevolutTIME — an ecosystem for active longevity: Redox+ COMPLEX tablets with hydrogen and magnesium, a biohacking studio and a partner program. Eurofins-tested, shipped from Bavaria.",
     "directionsTitle": "Directions",
     "directions": {
-      "tablets": "Magnesium + H₂ tablets",
+      "tablets": "Redox+ COMPLEX tablets",
       "studio": "Fitness biohacking studio",
       "equipment": "Equipment sales",
       "recreation": "Conference and Recreation",
@@ -1024,9 +1024,9 @@
       "programs": {
         "balance-start": {
           "title": "Balance start: building the baseline",
-          "description": "A gentle start with the tablets: stabilize the magnesium base first, understand H₂ as a daily companion and observe the effects in a documented way.",
+          "description": "A gentle start with the tablets: stabilize the magnesium base first, understand molecular hydrogen (H₂) as a daily companion and observe the effects in a documented way.",
           "bullets": [
-            "2–4 weeks of daily magnesium + H₂ tablets for baseline support",
+            "2–4 weeks of daily H₂ + magnesium tablets for baseline support",
             "Read the key studies for context in the encyclopedia",
             "Document effects: energy, sleep, cramps in short notes",
             "Add studio or activity modules once the baseline is set"
@@ -1044,10 +1044,10 @@
         },
         "mind-body-studio": {
           "title": "Mind and body: applications at the studio",
-          "description": "Your focus is guided applications: breathwork, red light, vibration and more — combined with a stable magnesium + H₂ baseline at home.",
+          "description": "Your focus is guided applications: breathwork, red light, vibration and more — combined with a stable H₂ + magnesium baseline at home.",
           "bullets": [
             "Book a studio consultation (WhatsApp contact)",
-            "Magnesium + H₂ tablets as a daily baseline",
+            "H₂ + magnesium tablets as a daily baseline",
             "Plan applications in a two-week rhythm",
             "Track effects in short notes"
           ]
@@ -1057,7 +1057,7 @@
           "description": "Movement in fresh air as the foundation — badminton events and activity programs, complemented by magnesium and H₂ as a daily baseline.",
           "bullets": [
             "Secure the next badminton event in the recreation section",
-            "Magnesium + H₂ tablets as a daily baseline",
+            "H₂ + magnesium tablets as a daily baseline",
             "Drinking routine: take HRW freshly prepared",
             "Weekly review: energy, sleep, resilience"
           ]

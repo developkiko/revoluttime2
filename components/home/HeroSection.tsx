@@ -20,7 +20,6 @@ import {
 import * as React from "react";
 
 import { Link } from "@/i18n/navigation";
-import { Button } from "@/components/ui/button";
 import { WikiLink } from "@/components/encyclopedia/WikiLink";
 
 const SLIDE_INTERVAL_MS = 7000;
@@ -80,12 +79,12 @@ function SlideMedia({ slideKey, title }: { slideKey: SlideKey; title: string }) 
         height={1280}
         priority
         sizes="(min-width: 1024px) 28rem, 90vw"
-        className="aspect-[4/5] w-full object-cover"
+        className="h-full w-full object-cover"
       />
     );
   }
   return (
-    <div className="flex aspect-[4/5] w-full items-center justify-center bg-gradient-to-br from-[#056ea8]/20 via-muted to-primary/10">
+    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#056ea8]/20 via-muted to-primary/10">
       <span className="flex size-32 items-center justify-center rounded-3xl bg-card/70 text-primary shadow-lg backdrop-blur-sm">
         {SLIDE_ICONS[slideKey as Exclude<SlideKey, "hydrogen">]}
       </span>
@@ -188,7 +187,7 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative overflow-hidden text-center"
+      className="relative flex flex-col overflow-hidden text-center md:h-[calc(100dvh-var(--header-height))] md:min-h-[42rem]"
       style={{
         background:
           "radial-gradient(ellipse 70% 60% at 50% 0%, color-mix(in oklab, var(--primary) 12%, transparent), transparent)",
@@ -200,7 +199,7 @@ export function HeroSection() {
         style={{ backgroundImage: "url('/images/wall/hero-bg-1.jpg')" }}
       />
 
-      <div className="relative mx-auto w-full max-w-6xl px-6 pt-[120px] pb-[60px] sm:pt-[160px] sm:pb-[100px]">
+      <div className="relative mx-auto flex w-full max-w-6xl min-h-0 flex-1 flex-col px-6 pt-[120px] pb-[60px] sm:pt-[160px] sm:pb-[100px] md:pt-14 md:pb-8">
         {/* side arrows — Ultra tinted buttons */}
         <button
           type="button"
@@ -219,8 +218,12 @@ export function HeroSection() {
           <ChevronRightIcon className="size-5" />
         </button>
 
+        {/* Slider area — one uniform height for every slide: desktop fills the
+            remaining viewport (section is h-screen minus header), mobile is a
+            fixed box tall enough for the heaviest slide; the media block flexes
+            on desktop to absorb per-slide content variance. */}
         <div
-          className="mx-auto min-h-[34rem] max-w-4xl touch-pan-y select-none md:min-h-[30rem]"
+          className="mx-auto flex h-[46rem] w-full max-w-4xl touch-pan-y select-none flex-col justify-center overflow-y-auto sm:h-[48rem] md:h-auto md:min-h-0 md:flex-1 md:overflow-visible"
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
@@ -235,21 +238,21 @@ export function HeroSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: direction * -60 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="flex flex-col items-center gap-6"
+              className="flex min-h-full flex-col items-center justify-center gap-3 sm:gap-5 md:gap-6"
             >
-              <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
+              <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-2.5 py-1 text-[11px] font-medium text-muted-foreground sm:px-3 sm:text-xs">
                 <BadgeCheckIcon className="size-3.5 text-primary" />
                 {t(`slides.${key}.badge`)}
               </p>
 
-              <h1 className="text-[2rem] font-extrabold leading-tight text-foreground sm:text-[2.5rem] md:text-[3rem]">
+              <h1 className="text-[1.7rem] font-extrabold leading-tight text-foreground sm:text-[2.5rem] md:text-[3rem]">
                 {t(`slides.${key}.title`)}{" "}
                 <span className="text-primary">
                   {t(`slides.${key}.titleAccent`)}
                 </span>
               </h1>
 
-              <p className="mx-auto max-w-[600px] text-base leading-relaxed text-muted-foreground sm:text-lg">
+              <p className="mx-auto max-w-[600px] text-sm leading-relaxed text-muted-foreground sm:text-lg">
                 {t.rich(`slides.${key}.subtitle`, {
                   mgh2: (chunks) => (
                     <WikiLink slug="magnesium-h2-synergy">{chunks}</WikiLink>
@@ -265,18 +268,19 @@ export function HeroSection() {
                   {HYDROGEN_CHIPS.map(({ key: chipKey, icon: Icon }) => (
                     <li
                       key={chipKey}
-                      className="inline-flex items-center gap-2 rounded-lg border bg-card px-3 py-2 text-sm text-muted-foreground"
+                      className="inline-flex items-center gap-1.5 rounded-lg border bg-card px-2 py-1 text-xs text-muted-foreground sm:gap-2 sm:px-3 sm:py-2 sm:text-sm"
                     >
-                      <Icon className="size-4 shrink-0 text-primary" />
+                      <Icon className="size-3.5 shrink-0 text-primary sm:size-4" />
                       {t(`chips.${chipKey}`)}
                     </li>
                   ))}
                 </ul>
               )}
 
-              {/* slide media below centered copy */}
-              <div className="relative mx-auto w-full max-w-sm">
-                <div className="overflow-hidden rounded-3xl border bg-card shadow-lg">
+              {/* slide media below centered copy — desktop flexes to fill the
+                  uniform slide height (object-cover crops); mobile fixed box */}
+              <div className="relative mx-auto h-40 w-full max-w-sm flex-none sm:h-48 md:h-auto md:min-h-[10rem] md:flex-1">
+                <div className="h-full w-full overflow-hidden rounded-3xl border bg-card shadow-lg">
                   <SlideMedia slideKey={key} title={t(`slides.${key}.title`)} />
                 </div>
                 {isHydrogen && (
@@ -296,17 +300,17 @@ export function HeroSection() {
                 )}
               </div>
 
-              <div className="flex flex-wrap items-center justify-center gap-4">
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
                 <Link
                   href={SLIDE_HREF[key]}
-                  className="inline-flex items-center gap-2 justify-center rounded-[10px] bg-primary py-[0.85rem] px-8 text-base font-semibold text-white transition-all hover:bg-primary/85 whitespace-nowrap"
+                  className="inline-flex items-center gap-2 justify-center rounded-[10px] bg-primary py-3 px-5 text-sm font-semibold text-white transition-all hover:bg-primary/85 whitespace-nowrap sm:py-[0.85rem] sm:px-8 sm:text-base"
                 >
                   {t(`slides.${key}.cta`)}
                   <ArrowRightIcon className="size-4" />
                 </Link>
                 <a
                   href="#directions"
-                  className="inline-flex items-center gap-2 justify-center rounded-[10px] border border-primary/25 bg-primary/12 py-[0.85rem] px-8 text-base font-semibold text-primary transition-all hover:bg-primary/20 whitespace-nowrap"
+                  className="inline-flex items-center gap-2 justify-center rounded-[10px] border border-primary/25 bg-primary/12 py-3 px-5 text-sm font-semibold text-primary transition-all hover:bg-primary/20 whitespace-nowrap sm:py-[0.85rem] sm:px-8 sm:text-base"
                 >
                   {t("explore")}
                   <ChevronDownIcon className="size-4" />

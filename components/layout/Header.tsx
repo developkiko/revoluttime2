@@ -1,22 +1,23 @@
 "use client";
 
+import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { LayoutDashboardIcon, LogOutIcon } from "lucide-react";
 
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useCart } from "@/components/cart/CartProvider";
+import { signOut, useAuthUser } from "@/lib/auth-store";
 import { AuthPanel } from "@/components/layout/AuthPanel";
 import { Logo } from "@/components/layout/Logo";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { routing } from "@/lib/products";
+import { toast } from "sonner";
 import { ShoppingCartIcon } from "lucide-react";
 import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const NAV_ITEMS = [
   { href: "/encyclopedia", key: "encyclopedia" },
@@ -33,6 +34,12 @@ const LOCALE_CODES: Record<string, string> = {
   en: "EN",
 };
 
+const LOCALE_NAMES: Record<string, string> = {
+  de: "Deutsch",
+  ru: "Русский",
+  en: "English",
+};
+
 /* ═══ Exact Ultra template styles (Header.tsx / LangSwitcher.tsx) ═══ */
 
 const NAV_LINK_CLASS =
@@ -41,34 +48,52 @@ const NAV_LINK_CLASS =
 const ICON_CONTROL_CLASS =
   "inline-flex items-center justify-center size-9 rounded-lg border border-[var(--border-default)] text-[var(--text-secondary)] hover:text-[var(--text-heading)] hover:bg-[var(--hover-bg)] transition-colors shrink-0";
 
-const LANG_PILL_CLASS =
-  "text-[11px] font-semibold px-2.5 py-1 rounded-full transition-all duration-300";
+/* Mobile drawer rows — template .mobile-nav .nav-link (see globals.css) */
+const MOBILE_LINK_CLASS = "rt-mobile-link";
+const MOBILE_ACCENT_CLASS =
+  "rt-mobile-link !bg-[var(--color-accent)] !text-white !font-semibold";
+const MOBILE_LOGOUT_CLASS =
+  "rt-mobile-link !text-[var(--text-secondary)] !border !border-[var(--border-default)]";
 
-/** Language pill — template LangSwitcher, adapted to the 3 site locales. */
-function LanguageSwitcher() {
+/** Language select — closed square button (current code) + template dropdown. */
+function LanguageSelect() {
   const t = useTranslations("header");
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
+  const [open, setOpen] = React.useState(false);
 
   return (
-    <div className="inline-flex items-center rounded-full p-[2px] bg-[var(--color-primary)]/10 transition-colors">
-      {routing.locales.map((loc) => (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
         <button
-          key={loc}
-          className={`${LANG_PILL_CLASS} ${
-            loc === locale
-              ? "bg-[var(--color-primary)] text-white shadow-sm"
-              : "text-[var(--text-muted)] hover:text-[var(--text-heading)]"
-          }`}
-          aria-label={loc === locale ? undefined : t("language")}
-          disabled={loc === locale}
-          onClick={() => router.replace(pathname, { locale: loc })}
+          type="button"
+          aria-label={t("language")}
+          className={`${ICON_CONTROL_CLASS} text-xs font-semibold uppercase tracking-wide`}
         >
-          {LOCALE_CODES[loc]}
+          {LOCALE_CODES[locale]}
         </button>
-      ))}
-    </div>
+      </PopoverTrigger>
+      <PopoverContent align="end" className="w-36 gap-1 p-1.5">
+        {routing.locales.map((loc) => (
+          <button
+            key={loc}
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              if (loc !== locale) router.replace(pathname, { locale: loc });
+            }}
+            className={
+              loc === locale
+                ? "flex w-full items-center rounded-lg bg-[var(--color-primary)] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-primary-hover)]"
+                : "flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium text-[var(--text-link)] transition-colors text-left hover:bg-[var(--hover-bg)] hover:text-[var(--text-heading)]"
+            }
+          >
+            {LOCALE_NAMES[loc]}
+          </button>
+        ))}
+      </PopoverContent>
+    </Popover>
   );
 }
 
@@ -78,7 +103,7 @@ function CartButton() {
   const { totalCount, openCart } = useCart();
 
   return (
-    <button type="button" className={ICON_CONTROL_CLASS} onClick={openCart} aria-label={t("cart")}>
+    <button type="button" className={`${ICON_CONTROL_CLASS} relative`} onClick={openCart} aria-label={t("cart")}>
       <ShoppingCartIcon className="w-4 h-4" />
       {totalCount > 0 && (
         <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-[var(--color-primary)] text-[10px] font-semibold text-white tabular-nums">
@@ -91,85 +116,101 @@ function CartButton() {
 
 export function Header() {
   const t = useTranslations("header");
+  const ta = useTranslations("auth");
+  const user = useAuthUser();
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const closeMenu = React.useCallback(() => setMenuOpen(false), []);
+
+  const handleLogout = async () => {
+    closeMenu();
+    await signOut();
+    toast.success(ta("signedOutToast"));
+  };
 
   return (
-    <header className="sticky top-0 z-40 bg-[var(--glass-bg)] backdrop-blur-[var(--glass-blur)] border-b border-[var(--border-subtle)]">
-      <nav className="relative flex items-center justify-between h-[var(--header-height)] max-w-[var(--max-width)] mx-auto px-6">
-        {/* Logo — left (template wordmark) */}
-        <Link href="/" className="shrink-0" aria-label="RevolutTIME" data-cursor-logo>
-          <Logo />
+    <>
+      <header className="sticky top-0 z-40 bg-[var(--glass-bg)] backdrop-blur-[var(--glass-blur)] border-b border-[var(--border-subtle)]">
+        <nav className="relative flex items-center justify-between h-[var(--header-height)] max-w-[var(--max-width)] mx-auto px-6 gap-2">
+          {/* Logo — left (template wordmark) */}
+          <Link href="/" className="shrink-0" aria-label="RevolutTIME" data-cursor-logo>
+            <Logo />
+          </Link>
+
+          {/* Centered nav — template link styles; long site labels need flex
+              centering (template's absolute center collides with the user pill) */}
+          <div className="hidden xl:flex flex-1 items-center justify-center gap-1 min-w-0">
+            {NAV_ITEMS.map((item) => (
+              <Link key={item.key} href={item.href} className={NAV_LINK_CLASS}>
+                {t(`nav.${item.key}`)}
+              </Link>
+            ))}
+          </div>
+
+          {/* Desktop controls — template layout: auth + divider + theme + lang, cart last */}
+          <div className="hidden xl:flex items-center gap-2">
+            <AuthPanel />
+            <div className="w-px h-6 bg-[var(--border-default)] mx-1" />
+            <ThemeToggle />
+            <LanguageSelect />
+            <div className="w-px h-6 bg-[var(--border-default)]" />
+            <CartButton />
+          </div>
+
+          {/* Mobile header row — template: theme + lang + burger */}
+          <div className="flex xl:hidden items-center gap-2">
+            <ThemeToggle />
+            <LanguageSelect />
+            <CartButton />
+            <button
+              type="button"
+              className={`rt-burger shrink-0 ${menuOpen ? "open" : ""}`}
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
+              aria-expanded={menuOpen}
+            >
+              <span className="rt-burger-line" />
+              <span className="rt-burger-line" />
+              <span className="rt-burger-line" />
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile nav drawer — template .mobile-nav: full-screen below the header */}
+      <div className={`rt-mobile-nav xl:hidden ${menuOpen ? "open" : ""}`}>
+        <Link href="/" className={MOBILE_LINK_CLASS} onClick={closeMenu}>
+          {t("home")}
+        </Link>
+        {NAV_ITEMS.map((item) => (
+          <Link key={item.key} href={item.href} className={MOBILE_LINK_CLASS} onClick={closeMenu}>
+            {t(`nav.${item.key}`)}
+          </Link>
+        ))}
+        <Link href="/#contact" className={MOBILE_LINK_CLASS} onClick={closeMenu}>
+          {t("nav.contact")}
         </Link>
 
-        {/* Centered nav — template link styles; long site labels need flex
-            centering (template's absolute center collides with the user pill) */}
-        <div className="hidden xl:flex flex-1 items-center justify-center gap-1 min-w-0">
-          {NAV_ITEMS.map((item) => (
-            <Link key={item.key} href={item.href} className={NAV_LINK_CLASS}>
-              {t(`nav.${item.key}`)}
-            </Link>
-          ))}
-        </div>
-
-        {/* Desktop controls — template layout: auth + divider + theme + lang, cart last */}
-        <div className="hidden xl:flex items-center gap-2">
-          <AuthPanel />
-          <div className="w-px h-6 bg-[var(--border-default)] mx-1" />
-          <ThemeToggle />
-          <LanguageSwitcher />
-          <div className="w-px h-6 bg-[var(--border-default)]" />
-          <CartButton />
-        </div>
-
-        {/* Mobile: cart + burger (controls live inside the menu sheet) */}
-        <div className="flex xl:hidden items-center gap-2">
-          <CartButton />
-          <Sheet>
-            <SheetTrigger asChild>
-              <button type="button" className="rt-burger shrink-0" aria-label={t("openMenu")}>
-                <span className="rt-burger-line" />
-                <span className="rt-burger-line" />
-                <span className="rt-burger-line" />
-              </button>
-            </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="flex w-72 flex-col max-h-[100dvh] overflow-y-auto pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+        {!user ? (
+          <div className="mt-2 w-full max-w-[300px] [&_button]:w-full [&_button]:justify-center [&_button]:!py-3.5 [&_button]:!text-lg">
+            <AuthPanel />
+          </div>
+        ) : (
+          <>
+            <Link
+              href="/cabinet"
+              className={`${MOBILE_ACCENT_CLASS} gap-2`}
+              onClick={closeMenu}
             >
-              <SheetHeader>
-                <SheetTitle className="pt-2 text-left">
-                  <Logo />
-                </SheetTitle>
-              </SheetHeader>
-              <nav className="flex flex-col gap-1 px-4">
-                <SheetClose asChild>
-                  <Link href="/" className={NAV_LINK_CLASS}>
-                    {t("home")}
-                  </Link>
-                </SheetClose>
-                {NAV_ITEMS.map((item) => (
-                  <SheetClose key={item.key} asChild>
-                    <Link href={item.href} className={NAV_LINK_CLASS}>
-                      {t(`nav.${item.key}`)}
-                    </Link>
-                  </SheetClose>
-                ))}
-                <SheetClose asChild>
-                  <Link href="/#contact" className={NAV_LINK_CLASS}>
-                    {t("nav.contact")}
-                  </Link>
-                </SheetClose>
-              </nav>
-              <div className="mt-auto flex flex-col gap-4 px-4 pb-6">
-                <div className="flex items-center gap-2">
-                  <ThemeToggle />
-                  <LanguageSwitcher />
-                </div>
-                <AuthPanel />
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </nav>
-    </header>
+              <LayoutDashboardIcon className="w-4 h-4" />
+              {ta("cabinet")}
+            </Link>
+            <button type="button" className={MOBILE_LOGOUT_CLASS} onClick={handleLogout}>
+              <LogOutIcon className="w-4 h-4" />
+              {ta("logout")}
+            </button>
+          </>
+        )}
+      </div>
+    </>
   );
 }
