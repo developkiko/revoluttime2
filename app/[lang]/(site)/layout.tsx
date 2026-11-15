@@ -6,10 +6,13 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { LoginNotice } from "@/components/layout/LoginNotice";
 import { Toaster } from "@/components/ui/sonner";
+import { NoticeProvider } from "@/components/ui/notice";
 import { CookieBanner } from "@/components/layout/CookieBanner";
 import { AnalyticsGate } from "@/components/layout/AnalyticsGate";
 import { RefCapture } from "@/components/layout/RefCapture";
 import { SiteUltraWidgets } from "@/components/layout/SiteUltraWidgets";
+import { TiltObserver } from "@/components/fx/tilt-observer";
+import { SpotlightObserver } from "@/components/fx/spotlight-observer";
 
 /** RevolutTIME site chrome: header/footer/cart — Ultra pages (ultra)/ carry their own. */
 export default async function SiteLayout({
@@ -23,23 +26,32 @@ export default async function SiteLayout({
 
   return (
     <CartProvider>
-      <Header />
-      <main className="flex flex-1 flex-col">{children}</main>
-      <Footer />
-      <CartDrawerLazy />
-      {/* Ultra widgets: contact FAB, PWA prompt, custom cursor */}
-      <SiteUltraWidgets locale={lang} />
-      {/* Queue behavior: one visible toast at a time. */}
-      <Toaster position="bottom-right" visibleToasts={1} />
-      <CookieBanner />
-      {/* AnalyticsGate reads pathname -> needs a Suspense boundary for static prerenders */}
-      <React.Suspense fallback={null}>
-        <AnalyticsGate />
-      </React.Suspense>
-      <RefCapture />
-      <React.Suspense fallback={null}>
-        <LoginNotice />
-      </React.Suspense>
+      <NoticeProvider>
+        <Header />
+        <main className="flex flex-1 flex-col">{children}</main>
+        <Footer />
+        <CartDrawerLazy />
+        {/* Ultra widgets: contact FAB, PWA prompt, custom cursor */}
+        <SiteUltraWidgets locale={lang} />
+        {/* Queue behavior: one visible toast at a time. */}
+        <Toaster position="bottom-right" visibleToasts={1} />
+        <CookieBanner />
+        {/* FX modules: 3D tilt + spotlight cursor (re-bind per pathname) */}
+        <React.Suspense fallback={null}>
+          <TiltObserver />
+        </React.Suspense>
+        <React.Suspense fallback={null}>
+          <SpotlightObserver />
+        </React.Suspense>
+        {/* AnalyticsGate reads pathname -> needs a Suspense boundary for static prerenders */}
+        <React.Suspense fallback={null}>
+          <AnalyticsGate />
+        </React.Suspense>
+        <RefCapture />
+        <React.Suspense fallback={null}>
+          <LoginNotice />
+        </React.Suspense>
+      </NoticeProvider>
     </CartProvider>
   );
 }

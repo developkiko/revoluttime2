@@ -14,14 +14,15 @@ const LEVELS = [
 /**
  * The I–V referral cascade (matrix 5 wide): strictly rectangular rows,
  * right edges aligned, level V narrowest — the ladder steps toward level I.
- * Hover does NOT change the shape: the whole row just glides 20px to the
- * left (translate only, so siblings never shift).
+ * Hover: the row GROWS 20px longer extending to the LEFT while its right
+ * edge stays pinned (items-end pins the right edge; margin-auto would
+ * collapse and let the row grow to the right instead).
  */
 export function LevelsCascade() {
   const t = useTranslations("partner.levels");
 
   return (
-    <ol className="flex flex-col gap-2">
+    <ol className="flex flex-col items-end gap-2">
       {LEVELS.map(({ key, letter, chip, tint, text, border }, index) => (
         <motion.li
           key={key}
@@ -29,7 +30,7 @@ export function LevelsCascade() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
-          className={`group ml-auto flex w-[calc(100%-var(--lvl-inset))] items-center gap-3 border bg-card px-4 py-2.5 text-sm font-medium shadow-xs transition-[translate] duration-300 hover:-translate-x-5 ${tint} ${border}`}
+          className={`group flex w-[calc(100%-var(--lvl-inset))] items-center gap-3 border bg-card px-4 py-2.5 text-sm font-medium shadow-xs transition-[width] duration-300 hover:w-[calc(100%-var(--lvl-inset)+1.25rem)] ${tint} ${border}`}
           style={{ ["--lvl-inset" as string]: `${index * 20}px` }}
         >
           <motion.span

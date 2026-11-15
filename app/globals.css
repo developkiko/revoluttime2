@@ -637,3 +637,295 @@ body:has(.pwa-install-prompt) .cookie-consent {
 .pwa-install-prompt__later { min-height: 2.35rem; border: 0; background: transparent; color: var(--muted-foreground); cursor: pointer; font: inherit; font-size: .78rem; }
 .pwa-install-prompt__later:hover { color: var(--foreground); }
 @media (max-width: 560px) { .pwa-install-prompt { align-items: flex-start; padding: .75rem; } .pwa-install-prompt__actions { flex-direction: column; align-items: stretch; } .pwa-install-prompt__actions button { width: 100%; } }
+
+/* ════════════════════════════════════════════════════════════════
+   FX-МОДУЛИ (порт с revoluttime.vercel.app/ru/dummy, адаптация под
+   Ultra-палитру: те же --color-* токены, dark-тема автоматом)
+
+   1) ТУЛТИПЫ — чистый CSS, без JS (основа codepen bNgORvY).
+   API:
+     <elem data-tip="Подсказка">            показ на :hover/:focus-visible
+     <elem data-tip="…" data-tip-pos="top|right|bottom|left">  (дефолт top)
+     <elem data-tip="…" data-tip-variant="primary|accent|danger|card">
+       дефолт — инверсия активной темы (светлая→тёмный бокс, dark→светлый)
+     <elem data-tip="…" data-tip-size="wide">   многострочный (до 17rem)
+     <elem data-tip="…" data-tip-delay="slow">  пауза 0.5с перед появлением
+     <span className="tip-term" data-tip="…">   инлайн-термин (пунктир, help)
+   ОГРАНИЧЕНИЕ: триггер без overflow:hidden — псевдоэлемент обрежется.
+   ════════════════════════════════════════════════════════════════ */
+[data-tip] {
+  position: relative;
+}
+[data-tip]::before {
+  content: attr(data-tip);
+  position: absolute;
+  z-index: 94;
+  background: var(--tip-bg, var(--color-foreground));
+  color: var(--tip-fg, var(--color-background));
+  padding: 6px 11px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.45;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.35);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+[data-tip]::after {
+  content: "";
+  position: absolute;
+  z-index: 94;
+  width: 7px;
+  height: 7px;
+  background: var(--tip-bg, var(--color-foreground));
+  transform: rotate(45deg);
+  border-radius: 1.5px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+[data-tip]:hover::before,
+[data-tip]:hover::after,
+[data-tip]:focus-visible::before,
+[data-tip]:focus-visible::after {
+  opacity: 1;
+}
+[data-tip]::before {
+  bottom: calc(100% + 9px);
+  left: 50%;
+  transform: translate(-50%, 5px) scale(0.95);
+}
+[data-tip]::after {
+  bottom: calc(100% + 5px);
+  left: 50%;
+  margin-left: -3.5px;
+  transform: rotate(45deg) scale(0.6);
+}
+[data-tip]:hover::before,
+[data-tip]:focus-visible::before {
+  transform: translate(-50%, 0) scale(1);
+}
+[data-tip]:hover::after,
+[data-tip]:focus-visible::after {
+  transform: rotate(45deg) scale(1);
+}
+[data-tip][data-tip-pos="bottom"]::before {
+  bottom: auto;
+  top: calc(100% + 9px);
+  transform: translate(-50%, -5px) scale(0.95);
+}
+[data-tip][data-tip-pos="bottom"]::after {
+  bottom: auto;
+  top: calc(100% + 5px);
+  transform: rotate(45deg) scale(0.6);
+}
+[data-tip][data-tip-pos="bottom"]:hover::before,
+[data-tip][data-tip-pos="bottom"]:focus-visible::before {
+  transform: translate(-50%, 0) scale(1);
+}
+[data-tip][data-tip-pos="bottom"]:hover::after,
+[data-tip][data-tip-pos="bottom"]:focus-visible::after {
+  transform: rotate(45deg) scale(1);
+}
+[data-tip][data-tip-pos="right"]::before {
+  bottom: auto;
+  left: calc(100% + 9px);
+  top: 50%;
+  transform: translate(-5px, -50%) scale(0.95);
+}
+[data-tip][data-tip-pos="right"]::after {
+  bottom: auto;
+  left: calc(100% + 5px);
+  top: 50%;
+  margin-left: 0;
+  margin-top: -3.5px;
+  transform: rotate(45deg) scale(0.6);
+}
+[data-tip][data-tip-pos="right"]:hover::before,
+[data-tip][data-tip-pos="right"]:focus-visible::before {
+  transform: translate(0, -50%) scale(1);
+}
+[data-tip][data-tip-pos="right"]:hover::after,
+[data-tip][data-tip-pos="right"]:focus-visible::after {
+  transform: rotate(45deg) scale(1);
+}
+[data-tip][data-tip-pos="left"]::before {
+  bottom: auto;
+  right: calc(100% + 9px);
+  left: auto;
+  top: 50%;
+  transform: translate(5px, -50%) scale(0.95);
+}
+[data-tip][data-tip-pos="left"]::after {
+  bottom: auto;
+  right: calc(100% + 5px);
+  left: auto;
+  top: 50%;
+  margin-left: 0;
+  margin-top: -3.5px;
+  transform: rotate(45deg) scale(0.6);
+}
+[data-tip][data-tip-pos="left"]:hover::before,
+[data-tip][data-tip-pos="left"]:focus-visible::before {
+  transform: translate(0, -50%) scale(1);
+}
+[data-tip][data-tip-pos="left"]:hover::after,
+[data-tip][data-tip-pos="left"]:focus-visible::after {
+  transform: rotate(45deg) scale(1);
+}
+[data-tip][data-tip-variant="primary"] {
+  --tip-bg: var(--color-primary);
+  --tip-fg: var(--color-primary-foreground);
+}
+[data-tip][data-tip-variant="accent"] {
+  --tip-bg: var(--color-accent);
+  --tip-fg: var(--color-accent-foreground);
+}
+[data-tip][data-tip-variant="danger"] {
+  --tip-bg: #ef4444;
+  --tip-fg: #ffffff;
+}
+[data-tip][data-tip-variant="card"] {
+  --tip-bg: var(--color-card);
+  --tip-fg: var(--color-card-foreground);
+}
+[data-tip][data-tip-variant="card"]::before {
+  border: 1px solid var(--color-border);
+}
+[data-tip][data-tip-size="wide"]::before {
+  white-space: normal;
+  width: max-content;
+  max-width: min(17rem, 80vw);
+  text-align: left;
+}
+[data-tip][data-tip-delay="slow"]:hover::before,
+[data-tip][data-tip-delay="slow"]:hover::after,
+[data-tip][data-tip-delay="slow"]:focus-visible::before,
+[data-tip][data-tip-delay="slow"]:focus-visible::after {
+  transition-delay: 0.5s;
+}
+.tip-term {
+  cursor: help;
+  border-bottom: 1.5px dashed
+    color-mix(in srgb, var(--color-muted-foreground) 55%, transparent);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   2) 3D TILT (data-tilt, components/fx/tilt-observer.tsx).
+   Инлайн-трансформ (perspective 700px + rotate ±14° + scale 1.03) ставит
+   JS; здесь только 3D-контекст и подсказка композитору. Пока курсор
+   внутри, инлайн-трансформ перекрывает hover-трансформы элемента.
+   ════════════════════════════════════════════════════════════════ */
+[data-tilt] {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   3) SPOTLIGHT CURSOR (data-spotlight, components/fx/spotlight-observer.tsx).
+   Observer пишет --spot-x/--spot-y, градиент на ::before. Слой z -1 +
+   isolation: подсветка поверх фона и ПОД контентом. Внимание:
+   data-spotlight делает блок position:relative — absolute-потомки начнут
+   позиционироваться от него. На тач не включается вовсе.
+   ════════════════════════════════════════════════════════════════ */
+@media (hover: hover) and (pointer: fine) {
+  [data-spotlight] {
+    position: relative;
+    isolation: isolate;
+  }
+  [data-spotlight]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+      260px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      color-mix(in srgb, var(--color-primary) 15%, transparent),
+      color-mix(in srgb, var(--color-accent) 7%, transparent) 50%,
+      transparent
+    );
+  }
+  [data-spotlight]:hover::before {
+    opacity: 1;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   4) УВЕДОМЛЕНИЯ-СНЕКБАР (components/ui/notice.tsx, порт VYpxpRx).
+   Приезд сверху под шапкой; инверсия активной темы (light→тёмная плашка,
+   dark→светлая), поэтому dark-тема работает без отдельного правила.
+   ════════════════════════════════════════════════════════════════ */
+.notice {
+  position: fixed;
+  left: 50%;
+  top: calc(var(--header-height, 3.25rem) + 0.9rem);
+  z-index: 92;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: min(92vw, 34rem);
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--color-foreground) 92%, transparent);
+  color: var(--color-background);
+  box-shadow: 0 18px 50px rgb(0 0 0 / 0.25);
+  transform: translate(-50%, 0);
+  animation: notice-in 0.22s ease;
+}
+.notice--closing {
+  animation: notice-out 0.2s ease forwards;
+  pointer-events: none;
+}
+@keyframes notice-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 16px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+@keyframes notice-out {
+  to {
+    opacity: 0;
+    transform: translate(-50%, 16px);
+  }
+}
+.notice-text {
+  font-size: 0.9em;
+}
+.notice-action {
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9em;
+  color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-background) 12%, transparent);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+.notice-action:hover {
+  background: color-mix(in srgb, var(--color-background) 25%, transparent);
+}
+.notice-close {
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: color-mix(in srgb, var(--color-background) 60%, transparent);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.notice-close:hover {
+  color: var(--color-background);
+  background: color-mix(in srgb, var(--color-background) 12%, transparent);
+}

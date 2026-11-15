@@ -32,7 +32,7 @@ export async function DirectionsSection() {
   const t = await getTranslations("home.directions");
 
   return (
-    <section id="directions" className="scroll-mt-16 border-t bg-muted/40">
+    <section id="directions" className="scroll-mt-16 border-t bg-muted/40" data-spotlight>
       <div className="mx-auto w-full max-w-6xl px-4 py-16">
         <h2 className="text-[1.5rem] font-bold tracking-tight text-foreground sm:text-[2rem] text-center mb-3">
           {t("title")}
@@ -47,7 +47,7 @@ export async function DirectionsSection() {
 
         <div className="mt-8 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-3">
           {DIRECTIONS.map(({ key, href, icon: Icon }) => (
-            <Card key={key} className="group transition-shadow hover:shadow-md">
+            <Card key={key} data-tilt className="group transition-shadow hover:shadow-md">
               <CardContent className="flex h-full flex-col gap-3 p-5">
                 <span className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
                   <Icon className="size-5" />

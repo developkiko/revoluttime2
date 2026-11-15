@@ -47,10 +47,23 @@ const SLIDE_MEDIA: Record<
     width: 1172,
     height: 1342,
   },
-  studio: { image: "/imgs/brand/add-life.jpg" },
-  equipment: {},
+  studio: {
+    image: "/imgs/for-ads/slide2.png",
+    width: 1535,
+    height: 1024,
+  },
+  equipment: {
+    image: "/imgs/for-ads/slide3.png",
+    width: 1588,
+    height: 991,
+  },
   recreation: {},
   partner: {},
+};
+
+/** Floating spec plate pinned to the media's bottom-left corner. */
+const SLIDE_PLATE: Partial<Record<SlideKey, { big: string; small: string }>> = {
+  hydrogen: { big: "H₂", small: "≤ 1,6 ppm" },
 };
 
 const SLIDE_ICONS: Record<SlideKey, React.ReactNode> = {
@@ -78,25 +91,34 @@ const HYDROGEN_CHIPS = [
 
 function SlideMedia({ slideKey, title }: { slideKey: SlideKey; title: string }) {
   const media = SLIDE_MEDIA[slideKey];
+  const plate = SLIDE_PLATE[slideKey];
   if (media.image) {
-    // Plain unframed render: intrinsic aspect ratio from the PNG, no crop,
-    // no height cap, no border / shadow / radius / background.
     return (
-      <Image
-        src={media.image}
-        alt={title}
-        width={media.width ?? 1172}
-        height={media.height ?? 1342}
-        priority
-        sizes="(min-width: 1024px) 24rem, 90vw"
-        className="h-auto w-full"
-      />
+      <div className="relative mx-auto w-full">
+        <Image
+          src={media.image}
+          alt={title}
+          width={media.width ?? 1172}
+          height={media.height ?? 1342}
+          priority
+          sizes="(min-width: 768px) 30rem, 90vw"
+          // Desktop: fit the column height without cropping (portrait PNGs
+          // would otherwise overflow the slider); mobile: natural width.
+          className="mx-auto h-auto w-full md:max-h-[26rem] md:w-auto"
+        />
+        {plate && (
+          <div className="absolute bottom-0 left-0 rounded-tr-2xl border-x-0 border-b-0 bg-card/95 px-4 py-3 backdrop-blur-sm">
+            <p className="text-2xl font-bold text-primary">{plate.big}</p>
+            <p className="text-xs text-muted-foreground">{plate.small}</p>
+          </div>
+        )}
+      </div>
     );
   }
   return (
     <div className="flex w-full items-center justify-center bg-gradient-to-br from-[#056ea8]/20 via-muted to-primary/10 py-16">
       <span className="flex size-32 items-center justify-center text-primary">
-        {SLIDE_ICONS[slideKey as Exclude<SlideKey, "hydrogen">]}
+        {SLIDE_ICONS[slideKey as Exclude<SlideKey, "recreation" | "partner">]}
       </span>
     </div>
   );
@@ -248,66 +270,69 @@ export function HeroSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: direction * -60 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="flex min-h-full flex-col items-center justify-center gap-3 sm:gap-5 md:gap-6"
+              className="flex min-h-full flex-col items-center justify-center gap-3 sm:gap-5 md:grid md:grid-cols-[1.05fr_1fr] md:items-center md:gap-8 md:text-left lg:gap-12"
             >
-              <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-2.5 py-1 text-[11px] font-medium text-muted-foreground sm:px-3 sm:text-xs">
-                <BadgeCheckIcon className="size-3.5 text-primary" />
-                {t(`slides.${key}.badge`)}
-              </p>
+              {/* left column — copy + CTAs (first on mobile too) */}
+              <div className="flex flex-col items-center gap-3 md:items-start md:gap-5">
+                <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-2.5 py-1 text-[11px] font-medium text-muted-foreground sm:px-3 sm:text-xs">
+                  <BadgeCheckIcon className="size-3.5 text-primary" />
+                  {t(`slides.${key}.badge`)}
+                </p>
 
-              <h1 className="text-[1.7rem] font-extrabold leading-tight text-foreground sm:text-[2.5rem] md:text-[3rem]">
-                {t(`slides.${key}.title`)}{" "}
-                <span className="text-primary">
-                  {t(`slides.${key}.titleAccent`)}
-                </span>
-              </h1>
+                <h1 className="text-[1.7rem] font-extrabold leading-tight text-foreground sm:text-[2.5rem] md:text-[2.6rem] lg:text-[3rem]">
+                  {t(`slides.${key}.title`)}{" "}
+                  <span className="text-primary">
+                    {t(`slides.${key}.titleAccent`)}
+                  </span>
+                </h1>
 
-              <p className="mx-auto max-w-[600px] text-sm leading-relaxed text-muted-foreground sm:text-lg">
-                {t.rich(`slides.${key}.subtitle`, {
-                  mgh2: (chunks) => (
-                    <WikiLink slug="magnesium-h2-synergy">{chunks}</WikiLink>
-                  ),
-                  water: (chunks) => (
-                    <WikiLink slug="h2-water-production">{chunks}</WikiLink>
-                  ),
-                })}
-              </p>
+                <p className="mx-auto max-w-[600px] text-sm leading-relaxed text-muted-foreground sm:text-lg md:mx-0">
+                  {t.rich(`slides.${key}.subtitle`, {
+                    mgh2: (chunks) => (
+                      <WikiLink slug="magnesium-h2-synergy">{chunks}</WikiLink>
+                    ),
+                    water: (chunks) => (
+                      <WikiLink slug="h2-water-production">{chunks}</WikiLink>
+                    ),
+                  })}
+                </p>
 
-              {isHydrogen && (
-                <ul className="flex flex-wrap justify-center gap-2">
-                  {HYDROGEN_CHIPS.map(({ key: chipKey, icon: Icon }) => (
-                    <li
-                      key={chipKey}
-                      className="inline-flex items-center gap-1.5 rounded-lg border bg-card px-2 py-1 text-xs text-muted-foreground sm:gap-2 sm:px-3 sm:py-2 sm:text-sm"
-                    >
-                      <Icon className="size-3.5 shrink-0 text-primary sm:size-4" />
-                      {t(`chips.${chipKey}`)}
-                    </li>
-                  ))}
-                </ul>
-              )}
+                {isHydrogen && (
+                  <ul className="flex flex-wrap justify-center gap-2 md:justify-start">
+                    {HYDROGEN_CHIPS.map(({ key: chipKey, icon: Icon }) => (
+                      <li
+                        key={chipKey}
+                        className="inline-flex items-center gap-1.5 rounded-lg border bg-card px-2 py-1 text-xs text-muted-foreground sm:gap-2 sm:px-3 sm:py-2 sm:text-sm"
+                      >
+                        <Icon className="size-3.5 shrink-0 text-primary sm:size-4" />
+                        {t(`chips.${chipKey}`)}
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
-              {/* slide media below centered copy — plain PNG at its natural
-                  aspect ratio; no frame, crop, height cap or width squeeze */}
-              <div className="mx-auto w-full max-w-xl flex-none">
-                <SlideMedia slideKey={key} title={t(`slides.${key}.title`)} />
+                <div className="mt-1 flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:justify-start">
+                  <Link
+                    href={SLIDE_HREF[key]}
+                    className="inline-flex items-center gap-2 justify-center rounded-[10px] bg-primary py-3 px-5 text-sm font-semibold text-white transition-all hover:bg-primary/85 whitespace-nowrap sm:py-[0.85rem] sm:px-8 sm:text-base"
+                  >
+                    {t(`slides.${key}.cta`)}
+                    <ArrowRightIcon className="size-4" />
+                  </Link>
+                  <a
+                    href="#directions"
+                    className="inline-flex items-center gap-2 justify-center rounded-[10px] border border-primary/25 bg-primary/12 py-3 px-5 text-sm font-semibold text-primary transition-all hover:bg-primary/20 whitespace-nowrap sm:py-[0.85rem] sm:px-8 sm:text-base"
+                  >
+                    {t("explore")}
+                    <ChevronDownIcon className="size-4" />
+                  </a>
+                </div>
               </div>
 
-              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-                <Link
-                  href={SLIDE_HREF[key]}
-                  className="inline-flex items-center gap-2 justify-center rounded-[10px] bg-primary py-3 px-5 text-sm font-semibold text-white transition-all hover:bg-primary/85 whitespace-nowrap sm:py-[0.85rem] sm:px-8 sm:text-base"
-                >
-                  {t(`slides.${key}.cta`)}
-                  <ArrowRightIcon className="size-4" />
-                </Link>
-                <a
-                  href="#directions"
-                  className="inline-flex items-center gap-2 justify-center rounded-[10px] border border-primary/25 bg-primary/12 py-3 px-5 text-sm font-semibold text-primary transition-all hover:bg-primary/20 whitespace-nowrap sm:py-[0.85rem] sm:px-8 sm:text-base"
-                >
-                  {t("explore")}
-                  <ChevronDownIcon className="size-4" />
-                </a>
+              {/* right column — the ad PNG at its natural ratio, spec plate
+                  pinned to its bottom-left corner */}
+              <div className="flex w-full items-center justify-center">
+                <SlideMedia slideKey={key} title={t(`slides.${key}.title`)} />
               </div>
             </motion.div>
           </AnimatePresence>
