@@ -27,18 +27,20 @@ export async function EncyclopediaSection() {
   return (
     <section className="border-y bg-muted/40">
       <div className="mx-auto w-full max-w-6xl px-4 py-16">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
-              <BookOpenIcon className="size-3.5 text-primary" />
-              {t("badge")}
-            </p>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
-              {t("title")}
-            </h2>
-            <p className="mt-2 max-w-2xl text-muted-foreground">{t("subtitle")}</p>
-          </div>
-          <Button asChild variant="outline">
+        <div className="flex flex-col items-center gap-4">
+          <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
+            <BookOpenIcon className="size-3.5 text-primary" />
+            {t("badge")}
+          </p>
+          <h2 className="text-[1.5rem] font-bold tracking-tight text-foreground sm:text-[2rem] text-center">
+            {t("title")}
+          </h2>
+          <p className="mt-2 text-center text-sm text-muted-foreground sm:text-base max-w-[600px] mx-auto">{t("subtitle")}</p>
+          <Button
+            asChild
+            variant="outline"
+            className="rounded-[10px] border-primary/25 bg-primary/12 px-8 py-[0.7rem] text-primary hover:bg-primary/20"
+          >
             <Link href="/encyclopedia">
               {t("cta")}
               <ArrowRightIcon data-icon="inline-end" />
@@ -46,7 +48,7 @@ export async function EncyclopediaSection() {
           </Button>
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <div className="mt-8 grid gap-4 text-left md:grid-cols-3">
           {featured.map((article) => (
             <Card key={article.slug} className="group transition-shadow hover:shadow-md">
               <CardContent className="flex h-full flex-col gap-2 p-5">

@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRightIcon,
   BadgeCheckIcon,
+  ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   CupSodaIcon,
@@ -186,24 +187,26 @@ export function HeroSection() {
   const isHydrogen = key === "hydrogen";
 
   return (
-    <section className="relative overflow-hidden">
+    <section
+      className="relative overflow-hidden text-center"
+      style={{
+        background:
+          "radial-gradient(ellipse 70% 60% at 50% 0%, color-mix(in oklab, var(--primary) 12%, transparent), transparent)",
+      }}
+    >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.15]"
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.07] bg-fixed"
         style={{ backgroundImage: "url('/images/wall/hero-bg-1.jpg')" }}
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 right-[-10%] size-[32rem] rounded-full bg-primary/10 blur-3xl"
-      />
 
-      <div className="relative mx-auto w-full max-w-6xl px-4 py-14 md:py-20">
-        {/* side arrows */}
+      <div className="relative mx-auto w-full max-w-6xl px-6 pt-[120px] pb-[60px] sm:pt-[160px] sm:pb-[100px]">
+        {/* side arrows — Ultra tinted buttons */}
         <button
           type="button"
           onClick={() => go(index - 1)}
           aria-label="←"
-          className="absolute left-1 top-1/2 z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full border bg-background/80 shadow-sm backdrop-blur-sm transition-colors hover:bg-muted md:left-4 md:flex"
+          className="absolute left-1 top-1/2 z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-[10px] border border-primary/25 bg-primary/12 text-primary transition-colors hover:bg-primary/20 md:left-4 md:flex"
         >
           <ChevronLeftIcon className="size-5" />
         </button>
@@ -211,7 +214,7 @@ export function HeroSection() {
           type="button"
           onClick={() => go(index + 1)}
           aria-label="→"
-          className="absolute right-1 top-1/2 z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full border bg-background/80 shadow-sm backdrop-blur-sm transition-colors hover:bg-muted md:right-4 md:flex"
+          className="absolute right-1 top-1/2 z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-[10px] border border-primary/25 bg-primary/12 text-primary transition-colors hover:bg-primary/20 md:right-4 md:flex"
         >
           <ChevronRightIcon className="size-5" />
         </button>
@@ -232,55 +235,47 @@ export function HeroSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: direction * -60 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="grid items-center gap-8 md:grid-cols-2 md:gap-12"
+              className="flex flex-col items-center gap-6"
             >
-              <div className="order-2 flex flex-col items-start gap-5 md:order-1">
-                <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
-                  <BadgeCheckIcon className="size-3.5 text-primary" />
-                  {t(`slides.${key}.badge`)}
-                </p>
+              <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
+                <BadgeCheckIcon className="size-3.5 text-primary" />
+                {t(`slides.${key}.badge`)}
+              </p>
 
-                <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-                  {t(`slides.${key}.title`)}{" "}
-                  <span className="text-primary">
-                    {t(`slides.${key}.titleAccent`)}
-                  </span>
-                </h1>
+              <h1 className="text-[2rem] font-extrabold leading-tight text-foreground sm:text-[2.5rem] md:text-[3rem]">
+                {t(`slides.${key}.title`)}{" "}
+                <span className="text-primary">
+                  {t(`slides.${key}.titleAccent`)}
+                </span>
+              </h1>
 
-                <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
-                  {t.rich(`slides.${key}.subtitle`, {
-                    mgh2: (chunks) => (
-                      <WikiLink slug="magnesium-h2-synergy">{chunks}</WikiLink>
-                    ),
-                    water: (chunks) => (
-                      <WikiLink slug="h2-water-production">{chunks}</WikiLink>
-                    ),
-                  })}
-                </p>
+              <p className="mx-auto max-w-[600px] text-base leading-relaxed text-muted-foreground sm:text-lg">
+                {t.rich(`slides.${key}.subtitle`, {
+                  mgh2: (chunks) => (
+                    <WikiLink slug="magnesium-h2-synergy">{chunks}</WikiLink>
+                  ),
+                  water: (chunks) => (
+                    <WikiLink slug="h2-water-production">{chunks}</WikiLink>
+                  ),
+                })}
+              </p>
 
-                {isHydrogen && (
-                  <ul className="grid w-full gap-2 sm:grid-cols-2">
-                    {HYDROGEN_CHIPS.map(({ key: chipKey, icon: Icon }) => (
-                      <li
-                        key={chipKey}
-                        className="flex items-center gap-2 rounded-lg border bg-card px-3 py-2 text-sm text-muted-foreground"
-                      >
-                        <Icon className="size-4 shrink-0 text-primary" />
-                        {t(`chips.${chipKey}`)}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+              {isHydrogen && (
+                <ul className="flex flex-wrap justify-center gap-2">
+                  {HYDROGEN_CHIPS.map(({ key: chipKey, icon: Icon }) => (
+                    <li
+                      key={chipKey}
+                      className="inline-flex items-center gap-2 rounded-lg border bg-card px-3 py-2 text-sm text-muted-foreground"
+                    >
+                      <Icon className="size-4 shrink-0 text-primary" />
+                      {t(`chips.${chipKey}`)}
+                    </li>
+                  ))}
+                </ul>
+              )}
 
-                <Button size="lg" asChild>
-                  <Link href={SLIDE_HREF[key]}>
-                    {t(`slides.${key}.cta`)}
-                    <ArrowRightIcon data-icon="inline-end" />
-                  </Link>
-                </Button>
-              </div>
-
-              <div className="relative order-1 mx-auto w-full max-w-sm md:order-2">
+              {/* slide media below centered copy */}
+              <div className="relative mx-auto w-full max-w-sm">
                 <div className="overflow-hidden rounded-3xl border bg-card shadow-lg">
                   <SlideMedia slideKey={key} title={t(`slides.${key}.title`)} />
                 </div>
@@ -300,15 +295,37 @@ export function HeroSection() {
                   </motion.div>
                 )}
               </div>
+
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  href={SLIDE_HREF[key]}
+                  className="inline-flex items-center gap-2 justify-center rounded-[10px] bg-primary py-[0.85rem] px-8 text-base font-semibold text-white transition-all hover:bg-primary/85 whitespace-nowrap"
+                >
+                  {t(`slides.${key}.cta`)}
+                  <ArrowRightIcon className="size-4" />
+                </Link>
+                <a
+                  href="#directions"
+                  className="inline-flex items-center gap-2 justify-center rounded-[10px] border border-primary/25 bg-primary/12 py-[0.85rem] px-8 text-base font-semibold text-primary transition-all hover:bg-primary/20 whitespace-nowrap"
+                >
+                  {t("explore")}
+                  <ChevronDownIcon className="size-4" />
+                </a>
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
 
         {/* mobile arrows + dots */}
         <div className="mt-6 flex items-center justify-center gap-4 md:hidden">
-          <Button variant="outline" size="icon" aria-label="←" onClick={() => go(index - 1)}>
+          <button
+            type="button"
+            aria-label="←"
+            onClick={() => go(index - 1)}
+            className="inline-flex size-10 items-center justify-center rounded-[10px] border border-primary/25 bg-primary/12 text-primary transition-colors hover:bg-primary/20"
+          >
             <ChevronLeftIcon className="size-4" />
-          </Button>
+          </button>
           <div className="flex items-center gap-2">
             {SLIDE_KEYS.map((slideKey, i) => (
               <button
@@ -322,9 +339,14 @@ export function HeroSection() {
               />
             ))}
           </div>
-          <Button variant="outline" size="icon" aria-label="→" onClick={() => go(index + 1)}>
+          <button
+            type="button"
+            aria-label="→"
+            onClick={() => go(index + 1)}
+            className="inline-flex size-10 items-center justify-center rounded-[10px] border border-primary/25 bg-primary/12 text-primary transition-colors hover:bg-primary/20"
+          >
             <ChevronRightIcon className="size-4" />
-          </Button>
+          </button>
         </div>
 
         <div className="mt-6 hidden items-center justify-center gap-3 md:flex">

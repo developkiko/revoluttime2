@@ -34,16 +34,18 @@ export async function PartnerSection() {
   return (
     <section id="partner" className="scroll-mt-16 border-t">
       <div className="mx-auto w-full max-w-6xl px-4 py-16">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-              {tTeaser("title")}
-            </h2>
-            <p className="mt-2 max-w-2xl text-muted-foreground">
-              {tTeaser("text")}
-            </p>
-          </div>
-          <Button size="lg" className="shrink-0" asChild>
+        <div className="flex flex-col items-center gap-4">
+          <h2 className="text-[1.5rem] font-bold tracking-tight text-foreground sm:text-[2rem] text-center">
+            {tTeaser("title")}
+          </h2>
+          <p className="mt-2 text-center text-sm text-muted-foreground sm:text-base max-w-[600px] mx-auto">
+            {tTeaser("text")}
+          </p>
+          <Button
+            size="lg"
+            className="shrink-0 rounded-[10px] px-8 py-[0.7rem]"
+            asChild
+          >
             <Link href="/partner">
               {tTeaser("cta")}
               <ArrowRightIcon data-icon="inline-end" />
@@ -51,7 +53,7 @@ export async function PartnerSection() {
           </Button>
         </div>
 
-        <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
+        <div className="mt-10 grid items-center gap-10 text-left lg:grid-cols-2">
           <div className="flex flex-col gap-6">
             <PartnerStepsLazy />
 

@@ -129,8 +129,8 @@ export function Header() {
           <Logo size={22} />
         </Link>
 
-        {/* Centered nav — Ultra-style layout */}
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 lg:flex">
+        {/* Centered nav — Ultra-style layout; template collapses at md (768) */}
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 md:flex">
           {NAV_ITEMS.map((item) => (
             <Button key={item.key} variant="ghost" size="sm" asChild>
               <Link href={item.href}>{t(`nav.${item.key}`)}</Link>
@@ -141,7 +141,7 @@ export function Header() {
         <div className="ml-auto flex items-center gap-1.5">
           {/* Desktop-only controls — on mobile they live inside the menu sheet
               so the menu button can never be pushed off-screen. */}
-          <div className="hidden items-center gap-1.5 lg:flex">
+          <div className="hidden items-center gap-1.5 md:flex">
             <ThemeToggle />
             <LanguageSwitcher />
             <AuthPanel />
@@ -153,7 +153,7 @@ export function Header() {
               <Button
                 variant="outline"
                 size="icon"
-                className="shrink-0 lg:hidden"
+                className="shrink-0 md:hidden"
                 aria-label={t("openMenu")}
               >
                 <MenuIcon />

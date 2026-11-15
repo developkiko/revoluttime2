@@ -34,10 +34,10 @@ export async function DirectionsSection() {
   return (
     <section id="directions" className="scroll-mt-16 border-t bg-muted/40">
       <div className="mx-auto w-full max-w-6xl px-4 py-16">
-        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+        <h2 className="text-[1.5rem] font-bold tracking-tight text-foreground sm:text-[2rem] text-center mb-3">
           {t("title")}
         </h2>
-        <p className="mt-2 max-w-2xl text-muted-foreground">
+        <p className="mt-2 text-center text-sm text-muted-foreground sm:text-base max-w-[600px] mx-auto">
           {t.rich("subtitle", {
             h2: (chunks) => (
               <WikiLink slug="molecular-hydrogen-basics">{chunks}</WikiLink>
@@ -45,7 +45,7 @@ export async function DirectionsSection() {
           })}
         </p>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-3">
           {DIRECTIONS.map(({ key, href, icon: Icon }) => (
             <Card key={key} className="group transition-shadow hover:shadow-md">
               <CardContent className="flex h-full flex-col gap-3 p-5">

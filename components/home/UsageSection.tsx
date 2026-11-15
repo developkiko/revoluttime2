@@ -13,12 +13,12 @@ export async function UsageSection() {
   return (
     <section id="usage" className="scroll-mt-16 border-t bg-muted/40">
       <div className="mx-auto w-full max-w-6xl px-4 py-16">
-        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+        <h2 className="text-[1.5rem] font-bold tracking-tight text-foreground sm:text-[2rem] text-center mb-3">
           {t("title")}
         </h2>
-        <p className="mt-2 max-w-xl text-muted-foreground">{t("subtitle")}</p>
+        <p className="mt-2 text-center text-sm text-muted-foreground sm:text-base max-w-[600px] mx-auto">{t("subtitle")}</p>
 
-        <ol className="mt-8 grid gap-4 md:grid-cols-3">
+        <ol className="mt-8 grid gap-4 text-left md:grid-cols-3">
           {STEPS.map(({ key, icon: Icon }, index) => (
             <li key={key} className="rounded-2xl border bg-card p-5 transition-shadow hover:shadow-md">
               <div className="flex items-center gap-2">
