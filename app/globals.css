@@ -209,7 +209,8 @@
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 100001 !important;
+  /* Above EVERYTHING incl. sonner toasts (999999999) — spec ui.md §4 */
+  z-index: 2147483646 !important;
   will-change: translate, opacity;
   width: 36px;
   height: 36px;
@@ -247,7 +248,7 @@
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 100002 !important;
+  z-index: 2147483647 !important;
   will-change: translate, opacity;
   width: 5px;
   height: 5px;

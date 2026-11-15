@@ -10,6 +10,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 import { PartnerStepsLazy } from "@/components/partner/PartnerStepsLazy";
+import { PartnerNetworkLazy } from "@/components/partner/PartnerNetworkLazy";
 import { LevelsCascadeLazy } from "@/components/partner/LevelsCascadeLazy";
 import { SITE, formatPrice, type Locale } from "@/lib/products";
 import { payoutTable } from "@/lib/mlm-calculator";
@@ -35,6 +36,28 @@ export default async function PartnerPage({
   const { lang } = await params;
   setRequestLocale(lang);
   const t = await getTranslations("partner");
+  const tDiagram = await getTranslations("home.diagram");
+
+  // The same referral-tree demo data as on the home page (ui.md 2.1):
+  // referral-1 -> 2 subs (one with its own sub), referral-3 -> 1 sub.
+  const partners = [1, 2, 3, 4, 5].map((index) => ({
+    id: `referral-${index}`,
+    name: tDiagram(`referral${index}`),
+    joined: `2026-10-${String(index * 4).padStart(2, "0")}`,
+  }));
+  const networkChildren = {
+    you: partners,
+    "referral-1": [
+      { id: "referral-1a", name: tDiagram("sub1"), joined: "2026-11-02" },
+      { id: "referral-1b", name: tDiagram("sub2"), joined: "2026-11-05" },
+    ],
+    "referral-1a": [
+      { id: "referral-1a1", name: tDiagram("sub3"), joined: "2026-11-09" },
+    ],
+    "referral-3": [
+      { id: "referral-3a", name: tDiagram("sub4"), joined: "2026-11-07" },
+    ],
+  };
   const { rows: planRows, totals: planTotals } = payoutTable();
 
   return (
@@ -63,8 +86,17 @@ export default async function PartnerPage({
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
             {t("how.title")}
           </h2>
-          <div className="mt-8 sm:max-w-2xl">
-            <PartnerStepsLazy />
+          {/* Steps left, live referral-tree module right (spec ui.md 2.1) —
+              the same component as on the home page and in the cabinet. */}
+          <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-start">
+            <div className="sm:max-w-2xl">
+              <PartnerStepsLazy />
+            </div>
+            <PartnerNetworkLazy
+              me={{ id: "you", name: tDiagram("you"), joined: "2026-09-01" }}
+              childrenByNode={networkChildren}
+              profileHref="/cabinet#network"
+            />
           </div>
         </div>
       </section>

@@ -43,9 +43,16 @@ export function ReferralLink({ email }: { email: string }) {
       <p className="mt-1 text-sm text-muted-foreground">{t("subtitle")}</p>
 
       <div className="mt-4 flex items-stretch gap-2">
-        <code className="flex min-w-0 flex-1 items-center overflow-hidden rounded-lg border bg-muted/60 px-3 py-2.5 text-sm">
-          <span className="truncate">{link}</span>
-        </code>
+        {/* Real readonly input (spec ui.md 3.1): text scrolls horizontally,
+            is selectable by mouse and copyable via Ctrl+C / context menu. */}
+        <input
+          type="text"
+          readOnly
+          value={link}
+          aria-label={t("title")}
+          onFocus={(event) => event.currentTarget.select()}
+          className="min-w-0 flex-1 rounded-lg border bg-muted/60 px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-primary"
+        />
         <button
           type="button"
           onClick={copy}
