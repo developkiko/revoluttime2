@@ -21,7 +21,7 @@ export function FeaturesSection() {
   return (
     <section id="features" className="py-20 relative">
       <div
-        className="absolute inset-0 opacity-[0.06] bg-fixed bg-cover bg-center bg-no-repeat -z-0"
+        className="absolute inset-0 opacity-[0.06] bg-cover bg-center bg-no-repeat -z-0"
         style={{ backgroundImage: "url('/ultra/why-bg.jpg')" }}
       />
       <div className="max-w-[var(--max-width)] mx-auto px-6 relative z-10">

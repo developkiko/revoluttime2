@@ -25,7 +25,7 @@ export function HeroSection() {
       }}
     >
       <div
-        className="absolute inset-0 opacity-[0.07] bg-fixed bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 opacity-[0.07] bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/ultra/hero-bg.jpg')" }}
       />
       <div className="relative z-10 max-w-[var(--max-width)] mx-auto px-6">

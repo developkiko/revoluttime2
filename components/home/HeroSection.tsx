@@ -210,7 +210,7 @@ export function HeroSection() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.07] bg-fixed"
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.07]"
         style={{ backgroundImage: "url('/images/wall/hero-bg-1.jpg')" }}
       />
 
@@ -235,10 +235,12 @@ export function HeroSection() {
       <div className="relative mx-auto flex w-full max-w-6xl min-h-0 flex-1 flex-col px-6 pt-[120px] pb-[60px] sm:pt-[160px] sm:pb-[100px] md:pt-14 md:pb-8">
 
         {/* Slider area — desktop fills the remaining viewport (section is
-            h-screen minus header), mobile is a fixed box tall enough for the
-            heaviest slide; the transparent PNGs size themselves naturally. */}
+            h-screen minus header). Mobile: natural height — a fixed box
+            caused inner scrolling that clipped the badge/title under the
+            header (iOS screenshot bug). The transparent PNGs size
+            themselves naturally. */}
         <div
-          className="flex h-[46rem] w-full touch-pan-y select-none flex-col justify-center overflow-y-auto sm:h-[48rem] md:h-auto md:min-h-0 md:flex-1 md:overflow-visible"
+          className="flex w-full touch-pan-y select-none flex-col justify-center md:min-h-0 md:flex-1"
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}

@@ -74,7 +74,7 @@ export function TrustCounters() {
   return (
     <section id="trust" className="py-20 relative" ref={sectionRef}>
       <div
-        className="absolute inset-0 opacity-[0.06] bg-fixed bg-cover bg-center bg-no-repeat -z-0"
+        className="absolute inset-0 opacity-[0.06] bg-cover bg-center bg-no-repeat -z-0"
         style={{ backgroundImage: "url('/ultra/trust-bg.jpg')" }}
       />
       <div className="max-w-[var(--max-width)] mx-auto px-6 relative z-10">
