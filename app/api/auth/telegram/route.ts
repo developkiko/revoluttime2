@@ -1,6 +1,7 @@
 import * as crypto from "node:crypto";
 import { NextResponse } from "next/server";
 import { setSessionCookie, type SessionUser } from "@/lib/auth-session";
+import { attachProvider, resolveAnchor } from "@/lib/auth-links";
 
 interface TelegramAuthData {
   id: number;
@@ -62,8 +63,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_signature" }, { status: 401 });
   }
 
+  const providerId = String(data.id);
+  const fallbackEmail = `${data.id}@telegram.revoluttime`;
+  const anchor = await resolveAnchor("telegram", providerId, fallbackEmail);
+  await attachProvider(anchor, "telegram", providerId);
+
   const user: SessionUser = {
-    email: `${data.id}@telegram.revoluttime`,
+    email: anchor,
     name: [data.first_name, data.last_name].filter(Boolean).join(" ") || data.username || `tg:${data.id}`,
     provider: "telegram",
     picture: data.photo_url,

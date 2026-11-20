@@ -127,6 +127,17 @@ CREATE TABLE IF NOT EXISTS ultra_kv (
   value text NOT NULL,
   expires_at timestamptz
 );
+CREATE TABLE IF NOT EXISTS auth_links (
+  email text PRIMARY KEY,
+  google_id text UNIQUE,
+  telegram_id text UNIQUE,
+  facebook_id text UNIQUE,
+  login_email text UNIQUE,
+  display_name text,
+  picture text,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
 `;
 
 let schemaPromise: Promise<void> | null = null;

@@ -40,10 +40,14 @@ export default async function HydrogenPage({
         />
         <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-16 lg:grid-cols-2">
           <div className="flex flex-col items-start gap-6">
-            <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
+            {/* Clickable Eurofins badge → certificates page (owner request). */}
+            <Link
+              href="/certificates"
+              className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+            >
               <DropletsIcon className="size-3.5 text-primary" />
               {t("hero.badge")}
-            </p>
+            </Link>
             <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
               {t("hero.title")}{" "}
               <span className="text-primary">{t("hero.titleAccent")}</span>

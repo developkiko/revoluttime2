@@ -15,6 +15,7 @@ import { Link } from "@/i18n/navigation";
 import { useI18n } from "@/lib/ultra/i18n-context";
 import { useSiteConfig } from "@/lib/ultra/site-config-context";
 import { LangSwitcher } from "@/components/ultra/layout/LangSwitcher";
+import { UltraThemeToggle } from "@/components/ultra/ui/ThemeToggle";
 import { Mail, Send } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -161,7 +162,10 @@ export function PolicyModal({ policy, onClose }: PolicyModalProps) {
               ← {t("nav_back")}
             </button>
           </div>
-          <LangSwitcher />
+          <div className="flex items-center gap-2">
+            <UltraThemeToggle />
+            <LangSwitcher />
+          </div>
         </div>
 
         {/* ── Scrollable Content ── */}

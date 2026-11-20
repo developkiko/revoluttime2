@@ -1,6 +1,9 @@
 {
   "meta": {
-    "title": "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) | Erfrischungsgetränk mit Wasserstoff & Magnesium",
+    "certificates": {
+      "title": "Zertifikate und Analysen — RevolutTIME",
+      "description": "Unabhängige Eurofins-Analyse (AR-26-HH-013581-02): H₂ ≤ 1,6 ppm. Zertifikate von RevolutTIME Redox+ COMPLEX."
+    },    "title": "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) | Erfrischungsgetränk mit Wasserstoff & Magnesium",
     "description": "RevolutTIME Redox+ COMPLEX: Brausetabletten mit molekularem Wasserstoff (H₂ ≤ 1,6 ppm) und Magnesium für ein belebendes Erfrischungsgetränk. Laborgeprüft (Eurofins).",
     "shop": {
       "title": "Shop — RevolutTIME Redox+ COMPLEX (Magnesium + H₂) | RevolutTIME",
@@ -8,7 +11,7 @@
     },
     "hydrogen": {
       "title": "Molekularer Wasserstoff — Wirkung & Anwendung | RevolutTIME",
-      "description": "Was ist molekularer Wasserstoff? So machen Sie zuhause Wasserstoffwasser mit Magnesium — eine Tablette, 150–200 ml kaltes Wasser, 1–2 Minuten."
+      "description": "Was ist molekularer Wasserstoff? So machen Sie zuhause Wasserstoffwasser mit Magnesium — eine Tablette, 100–150 ml kaltes Wasser, 1 Minute."
     },
     "studio": {
       "title": "RevolutTIME Studio — Fitness · Biohacking · Recovery",
@@ -48,7 +51,7 @@
           "badge": "Eurofins-geprüft · AR-26-HH-013581-02 · H₂ ≤ 1,6 ppm",
           "title": "RevolutTIME Redox+ COMPLEX.",
           "titleAccent": "Erfrischungsgetränk.",
-          "subtitle": "RevolutTIME <mgh2>Redox+ COMPLEX (Magnesium + H₂)</mgh2> — Erfrischungsgetränk <water>mit molekularem Wasserstoff (H₂ ≤ 1,6 ppm) und bioverfügbarem Magnesium</water>. Eine Tablette in 150–200 ml kaltes Wasser (10–15 °C), sofort oder innerhalb von 3–4 Minuten trinken.",
+          "subtitle": "RevolutTIME <mgh2>Redox+ COMPLEX (Magnesium + H₂)</mgh2> — Erfrischungsgetränk <water>mit molekularem Wasserstoff (H₂ ≤ 1,6 ppm) und bioverfügbarem Magnesium</water>. Eine Tablette in 100–150 ml kaltes Wasser (10–15 °C), sofort nach der Zubereitung trinken.",
           "cta": "Tabletten bestellen"
         },
         "studio": {
@@ -84,7 +87,7 @@
         "hydrogen": "H₂ ≤ 1,6 ppm",
         "magnesium": "5,13 g Magnesium · 90 Tabletten",
         "kcal": "0 kcal · 0 g Zucker",
-        "shipping": "Versand aus Bayern · DHL/Hermes 1–2 Tage"
+        "shipping": "Versand aus Deutschland in alle Länder · DHL/Hermes"
       },
       "explore": "Richtungen ansehen"
     },
@@ -160,7 +163,7 @@
       "badge": "Eurofins-geprüft · AR-26-HH-013581-02 · H₂ ≤ 1,6 ppm",
       "title": "Molekularer Wasserstoff.",
       "titleAccent": "Frisch in Ihrem Glas.",
-      "subtitle": "Eine Tablette in 150–200 ml kaltem Wasser — und nach 1–2 Minuten haben Sie ein erfrischendes Getränk mit molekularem Wasserstoff und Magnesium. Zuhause, im Büro, unterwegs.",
+      "subtitle": "Eine Tablette in 100–150 ml kaltem Wasser — und schon nach einer Minute haben Sie ein erfrischendes Getränk mit molekularem Wasserstoff und Magnesium. Zuhause, im Büro, unterwegs.",
       "ctaShop": "Jetzt bestellen",
       "ctaUsage": "So geht's"
     },
@@ -203,10 +206,10 @@
   "shop": {
     "hero": {
       "title": "Redox+ COMPLEX (Magnesium + H₂) Tabletten",
-      "subtitle": "Der Klassiker von RevolutTIME: Format mit 90 Tabletten, Eurofins-geprüft, Versand aus Bayern mit DHL/Hermes.",
+      "subtitle": "Der Klassiker von RevolutTIME: Format mit 90 Tabletten, Eurofins-geprüft, Versand aus Deutschland in alle Länder (DHL/Hermes).",
       "perk1": "H₂ ≤ 1,6 ppm (Eurofins-Analyse)",
       "perk2": "5,13 g Magnesium je Packung",
-      "perk3": "Versand 1–2 Werktage (DE)",
+      "perk3": "Versand aus Deutschland in alle Länder",
       "partnerHint": "Partner: 60 € pro Packung ab 10 Packungen — 1 Packung gratis dazu."
     }
   },
@@ -572,6 +575,35 @@
     "errorToast": "Senden fehlgeschlagen — bitte erneut versuchen oder per WhatsApp schreiben"
   },
   "auth": {
+    "register": "Registrieren",
+    "registerTitle": "Konto erstellen",
+    "tabLogin": "Anmelden",
+    "tabRegister": "Registrieren",
+    "emailLabel": "E-Mail oder Login",
+    "passwordLabel": "Passwort",
+    "emailSubmit": "Weiter",
+    "tgCodeTitle": "Anmeldung über Telegram",
+    "tgCodeStep1": "Tippen Sie auf „Bot öffnen“ — der Befehl /start mit dem Code ist im Chat bereits eingefügt. Senden Sie ihn.",
+    "tgCodeStep2": "Der Bot schickt einen Link — öffnen Sie ihn, und Sie sind auf der Website angemeldet.",
+    "tgOpenBot": "Bot öffnen",
+    "tgCopyCmd": "Befehl kopieren",
+    "tgCopied": "Befehl kopiert",
+    "tgWaiting": "Wir warten auf die Bestätigung im Bot …",
+    "tgBack": "Zurück",
+    "tgCodeError": "Code konnte nicht erstellt werden. Bitte Verbindung prüfen und erneut versuchen.",
+    "tgTokenMissing": "Der Link ist unvollständig: Token fehlt. Fordern Sie auf der Anmeldeseite einen neuen Code an.",
+    "tgTokenExpired": "Der Link ist abgelaufen oder wurde bereits verwendet. Fordern Sie einen neuen Code an.",
+    "tgFinishing": "Anmeldung wird abgeschlossen …",
+    "backHome": "Zur Startseite",
+    "linkedTitle": "Anmeldemethoden",
+    "linkedHint": "Verknüpfen Sie Dienste, um sich mit einem Klick anzumelden. E-Mail-Anmeldung folgt später.",
+    "linkedChip": "Verknüpft",
+    "linkCta": "Verknüpfen",
+    "unlinkCta": "Trennen",
+    "unlinkedToast": "Anmeldemethode getrennt",
+    "unlinkFailed": "Trennen fehlgeschlagen. Bitte erneut versuchen.",
+    "lastMethodTitle": "Die einzige Anmeldemethode kann nicht getrennt werden",
+    "lastMethodText": "Wenn Sie Ihr Konto löschen möchten, geht das im Abschnitt",
     "account": "Konto",
     "profile": "Profil",
     "balanceLink": "Guthaben",
@@ -704,15 +736,15 @@
       "items": {
         "dissolve": {
           "title": "Lösung",
-          "text": "Vollständige Lösung in 1–1,5 Minuten in 150–200 ml kaltem Wasser (10–15 °C). Kaltes Wasser hält mehr H₂."
+          "text": "Vollständige Lösung in 1 Minute in 100–150 ml kaltem Wasser (10–15 °C). Kaltes Wasser hält mehr H₂."
         },
         "peak": {
           "title": "Konzentrationsmaximum",
-          "text": "Der höchste Gehalt an gelöstem Wasserstoff wird nach 3–4 Minuten erreicht: bis zu 1,6 ppm laut Eurofins-Analyse (AR-26-HH-013581-02)."
+          "text": "Die maximale Konzentration des gelösten Wasserstoffs ist bereits nach 1 Minute erreicht: bis zu 1,6 ppm laut Eurofins-Analyse (AR-26-HH-013581-02)."
         },
         "drinkNow": {
           "title": "Sofort trinken",
-          "text": "H₂ ist leicht und entweicht schnell — das Getränk wird sofort oder innerhalb von 3–4 Minuten getrunken, solange die Konzentration am höchsten ist."
+          "text": "H₂ ist leicht und entweicht schnell — das Getränk wird sofort nach der Zubereitung getrunken, solange die Konzentration am höchsten ist."
         }
       }
     },
@@ -753,7 +785,7 @@
     },
     "demo": {
       "title": "So arbeitet die Tablette",
-      "subtitle": "Kurzdemonstration: Die Tablette löst sich im Wasser auf und setzt molekularen Wasserstoff sowie Magnesium frei.",
+      "subtitle": "Kurzdemonstration: Die Tablette löst sich im Wasser auf und setzt Wasserstoffmoleküle sowie Magnesiumsalze frei.",
       "caption": "Video ohne Ton — Ton und Bedienung über den Player."
     }
   },
@@ -847,7 +879,7 @@
         },
         {
           "h": "5. Lieferung",
-          "p": "Der Versand erfolgt innerhalb Deutschlands mit DHL bzw. Hermes in der Regel innerhalb von 1–2 Werktagen nach Zahlungseingang. Sendungen in andere Länder werden auf Anfrage abgewickelt."
+          "p": "Der Versand erfolgt innerhalb Deutschlands mit DHL bzw. Hermes in der Regel innerhalb von 1–2 Werktagen nach Zahlungseingang. Der Versand erfolgt in alle Länder."
         },
         {
           "h": "6. Widerrufsrecht",
@@ -897,16 +929,30 @@
       ]
     }
   },
+  "certificates": {
+      "metaTitle": "Zertifikate und Analysen — RevolutTIME",
+      "metaDescription": "Unabhängige Eurofins-Analyse (AR-26-HH-013581-02): H₂ ≤ 1,6 ppm. Zertifikate von RevolutTIME Redox+ COMPLEX.",
+      "title": "Zertifikate und Analysen",
+      "subtitle": "Die Qualität von RevolutTIME Redox+ COMPLEX ist unabhängig bestätigt.",
+      "eurofinsTitle": "Geprüft vom besten Labor Deutschlands — Eurofins",
+      "eurofinsText": "Die unabhängige Eurofins-Analyse bestätigt: Die Tablette löst sich in 1 Minute auf und setzt in 100–150 ml kaltem Wasser bis zu 1,6 ppm molekularen Wasserstoff frei. Den vollständigen Bericht senden wir auf Anfrage.",
+      "reportId": "Eurofins · Bericht AR-26-HH-013581-02 · H₂ ≤ 1,6 ppm",
+      "request": "Bericht als PDF anfragen",
+      "soonTitle": "Konformitätszertifikate",
+      "soonText": "Konformitätserklärungen und Verpackungszertifikate ergänzen wir laufend in diesem Abschnitt. Sie brauchen ein Dokument jetzt? Schreiben Sie uns.",
+      "back": "Zur Startseite"
+    },
+
   "usage": {
     "title": "Anwendung",
     "subtitle": "Drei einfache Schritte — und Ihr H₂-Wasser ist fertig.",
     "step1": {
       "title": "Auflösen",
-      "text": "Eine Tablette in 150–200 ml stiller (nicht sprudelnder) Wasser geben. Kühles Wasser bei 10–15 °C hält den Wasserstoff am besten."
+      "text": "Eine Tablette in 100–150 ml stillen Wassers (nicht sprudelnd) geben. Kühles Wasser bei 10–15 °C hält den Wasserstoff am besten."
     },
     "step2": {
       "title": "Warten",
-      "text": "Die Tablette löst sich in 1–1,5 Minuten auf. Die maximale H₂-Konzentration ist nach 3–4 Minuten erreicht."
+      "text": "Die Tablette löst sich in 1 Minute auf. Die maximale H₂-Konzentration ist bereits nach einer Minute erreicht."
     },
     "step3": {
       "title": "Trinken",

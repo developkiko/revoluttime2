@@ -1,13 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLocale } from "next-intl";
 import { useI18n } from "@/lib/ultra/i18n-context";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import type { Lang } from "@/lib/ultra/i18n";
 
 const LANG_MODAL_KEY = "lang_modal_shown";
 
 export default function LanguageModal() {
-  const { lang, setLang, t } = useI18n();
+  const { t } = useI18n();
+  const locale = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState<Lang>("en");
 
@@ -17,19 +22,22 @@ export default function LanguageModal() {
       // Модалка ещё не показывалась
       setVisible(true);
       // Если текущий язык уже установлен — синхронизируем с ним
-      setSelected(lang);
+      setSelected(locale === "ru" ? "ru" : "en");
     }
-  }, [lang]);
+  }, [locale]);
 
+  // Выбор меняет URL-локаль (как LangSwitcher) — иначе выбор сбрасывался
+  // при перезагрузке, потому что (ultra)-layout сеет язык из URL.
   const handleSelect = (l: Lang) => {
     setSelected(l);
-    setLang(l);
   };
 
   const handleContinue = () => {
-    setLang(selected);
     localStorage.setItem(LANG_MODAL_KEY, "1");
     setVisible(false);
+    if (selected !== locale) {
+      router.replace(pathname, { locale: selected });
+    }
   };
 
   if (!visible) return null;

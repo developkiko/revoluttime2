@@ -259,10 +259,22 @@ export function HeroSection() {
             >
               {/* left column — copy + CTAs (first on mobile too) */}
               <div className="flex flex-col items-center gap-3 md:items-start md:gap-5">
-                <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-2.5 py-1 text-[11px] font-medium text-muted-foreground sm:px-3 sm:text-xs">
-                  <BadgeCheckIcon className="size-3.5 text-primary" />
-                  {t(`slides.${key}.badge`)}
-                </p>
+                {/* Eurofins badge is clickable (owner request): leads to the
+                    certificates/analysis page; other slides keep a plain chip. */}
+                {key === "hydrogen" ? (
+                  <Link
+                    href="/certificates"
+                    className="inline-flex items-center gap-1.5 rounded-full border bg-card px-2.5 py-1 text-[11px] font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground sm:px-3 sm:text-xs"
+                  >
+                    <BadgeCheckIcon className="size-3.5 text-primary" />
+                    {t(`slides.${key}.badge`)}
+                  </Link>
+                ) : (
+                  <p className="inline-flex items-center gap-1.5 rounded-full border bg-card px-2.5 py-1 text-[11px] font-medium text-muted-foreground sm:px-3 sm:text-xs">
+                    <BadgeCheckIcon className="size-3.5 text-primary" />
+                    {t(`slides.${key}.badge`)}
+                  </p>
+                )}
 
                 <h1 className="text-[1.7rem] font-extrabold leading-tight text-foreground sm:text-[2.5rem] md:text-[2.6rem] lg:text-[3rem]">
                   {t(`slides.${key}.title`)}{" "}

@@ -5,7 +5,7 @@ import * as React from "react";
 export interface AuthUser {
   email: string;
   name: string;
-  provider: "telegram" | "google";
+  provider: "telegram" | "google" | "facebook";
   /** Provider avatar URL (Telegram photo_url / Google picture) if present. */
   picture?: string;
 }

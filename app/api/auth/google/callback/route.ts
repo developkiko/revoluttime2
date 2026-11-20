@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { setSessionCookie, type SessionUser } from "@/lib/auth-session";
+import {
+  getSessionUser,
+  setSessionCookie,
+  type SessionUser,
+} from "@/lib/auth-session";
+import { attachProvider, resolveAnchor } from "@/lib/auth-links";
 
 interface GoogleTokens {
   access_token?: string;
@@ -8,6 +13,7 @@ interface GoogleTokens {
 }
 
 interface GoogleUserInfo {
+  sub?: string;
   email?: string;
   name?: string;
   picture?: string;
@@ -61,8 +67,25 @@ export async function GET(request: Request) {
     return fail("userinfo_error");
   }
 
+  const providerId = userinfo.sub ?? userinfo.email;
+  const linkCookie = store.get("rt_oauth_link")?.value === "1";
+  store.set("rt_oauth_state", "", { path: "/", maxAge: 0 });
+  store.set("rt_oauth_link", "", { path: "/", maxAge: 0 });
+
+  if (linkCookie) {
+    const session = await getSessionUser();
+    if (session) {
+      await attachProvider(session.email, "google", providerId);
+      return NextResponse.redirect(new URL("/cabinet#profile", url.origin));
+    }
+    // No session to link onto — fall through to a regular sign-in.
+  }
+
+  const anchor = await resolveAnchor("google", providerId, userinfo.email);
+  await attachProvider(anchor, "google", providerId);
+
   const user: SessionUser = {
-    email: userinfo.email,
+    email: anchor,
     name: userinfo.name ?? userinfo.email.split("@")[0],
     provider: "google",
     picture: userinfo.picture,
@@ -70,6 +93,5 @@ export async function GET(request: Request) {
   const ok = await setSessionCookie(user);
   if (!ok) return fail("unconfigured");
 
-  store.set("rt_oauth_state", "", { path: "/", maxAge: 0 });
   return NextResponse.redirect(new URL("/?login=google", url.origin));
 }

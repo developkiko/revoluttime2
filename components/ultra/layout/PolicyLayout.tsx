@@ -7,6 +7,7 @@
 import { Link } from "@/i18n/navigation";
 import { useI18n } from "@/lib/ultra/i18n-context";
 import { LangSwitcher } from "@/components/ultra/layout/LangSwitcher";
+import { UltraThemeToggle } from "@/components/ultra/ui/ThemeToggle";
 import type { ReactNode } from "react";
 
 interface PolicyLayoutProps {
@@ -36,7 +37,10 @@ export function PolicyLayout({ titleKey, updatedKey, children }: PolicyLayoutPro
               ← {t("nav_back")}
             </button>
           </div>
-          <LangSwitcher />
+          <div className="flex items-center gap-2">
+            <UltraThemeToggle />
+            <LangSwitcher />
+          </div>
         </div>
         <h1 className="text-[1.75rem] sm:text-[2.25rem] font-extrabold text-[var(--text-heading)] mb-8">
           {t(titleKey)}

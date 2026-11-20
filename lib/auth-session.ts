@@ -9,7 +9,7 @@ import { cookies } from "next/headers";
 export interface SessionUser {
   email: string;
   name: string;
-  provider: "telegram" | "google";
+  provider: "telegram" | "google" | "facebook";
   /** Provider avatar URL (Telegram photo_url / Google picture) if present. */
   picture?: string;
   /** Demo-mode admin flag (see /api/auth/dev-admin). */

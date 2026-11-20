@@ -1,6 +1,9 @@
 {
   "meta": {
-    "title": "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) — Refreshing Drink with Hydrogen & Magnesium",
+    "certificates": {
+      "title": "Certificates and analyses — RevolutTIME",
+      "description": "Independent Eurofins analysis (AR-26-HH-013581-02): H₂ ≤ 1.6 ppm. Certificates for RevolutTIME Redox+ COMPLEX."
+    },    "title": "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) — Refreshing Drink with Hydrogen & Magnesium",
     "description": "RevolutTIME Redox+ COMPLEX: effervescent tablets with molecular hydrogen (H₂ ≤ 1.6 ppm) and bioavailable magnesium for a refreshing drink. Lab-tested (Eurofins).",
     "shop": {
       "title": "Shop — RevolutTIME Redox+ COMPLEX (Magnesium + H₂) | RevolutTIME",
@@ -8,7 +11,7 @@
     },
     "hydrogen": {
       "title": "Molecular Hydrogen — Benefits & How to Use | RevolutTIME",
-      "description": "What is molecular hydrogen? Make hydrogen-rich water with magnesium at home: one tablet, 150–200 ml of cold water, 1–2 minutes."
+      "description": "What is molecular hydrogen? Make hydrogen-rich water with magnesium at home: one tablet, 100–150 ml of cold water, 1 minute."
     },
     "studio": {
       "title": "RevolutTIME Studio — Fitness · Biohacking · Recovery",
@@ -48,7 +51,7 @@
           "badge": "Eurofins-tested · AR-26-HH-013581-02 · H₂ ≤ 1.6 ppm",
           "title": "RevolutTIME Redox+ COMPLEX.",
           "titleAccent": "Refreshing drink.",
-          "subtitle": "RevolutTIME <mgh2>Redox+ COMPLEX (Magnesium + H₂)</mgh2> — refreshing drink <water>with molecular hydrogen (H₂ ≤ 1.6 ppm) and bioavailable magnesium</water>. One tablet into 150–200 ml of cold water (10–15 °C); drink it straight away or within 3–4 minutes.",
+          "subtitle": "RevolutTIME <mgh2>Redox+ COMPLEX (Magnesium + H₂)</mgh2> — refreshing drink <water>with molecular hydrogen (H₂ ≤ 1.6 ppm) and bioavailable magnesium</water>. One tablet into 100–150 ml of cold water (10–15 °C); drink it right after preparation.",
           "cta": "Order tablets"
         },
         "studio": {
@@ -84,7 +87,7 @@
         "hydrogen": "H₂ ≤ 1.6 ppm",
         "magnesium": "5.13 g magnesium · 90 tablets",
         "kcal": "0 kcal · 0 g sugar",
-        "shipping": "Ships from Bavaria · DHL/Hermes 1–2 days"
+        "shipping": "Ships from Germany worldwide · DHL/Hermes"
       },
       "explore": "Explore directions"
     },
@@ -160,7 +163,7 @@
       "badge": "Eurofins-tested · AR-26-HH-013581-02 · H₂ ≤ 1.6 ppm",
       "title": "Molecular hydrogen.",
       "titleAccent": "Fresh — right in your glass.",
-      "subtitle": "One tablet into 150–200 ml of cold water — and in 1–2 minutes you have a refreshing drink with molecular hydrogen and magnesium. At home, at work, on the go.",
+      "subtitle": "One tablet into 100–150 ml of cold water — and in one minute you have a refreshing drink with molecular hydrogen and magnesium. At home, at work, on the go.",
       "ctaShop": "Order now",
       "ctaUsage": "How to use"
     },
@@ -203,10 +206,10 @@
   "shop": {
     "hero": {
       "title": "Redox+ COMPLEX (Magnesium + H₂) tablets",
-      "subtitle": "The RevolutTIME classic: a 90-tablet format, Eurofins-tested, shipped from Bavaria via DHL/Hermes.",
+      "subtitle": "The RevolutTIME classic: a 90-tablet format, Eurofins-tested, shipped from Germany worldwide via DHL/Hermes.",
       "perk1": "H₂ ≤ 1.6 ppm (Eurofins analysis)",
       "perk2": "5.13 g magnesium per pack",
-      "perk3": "Shipping in 1–2 business days (DE)",
+      "perk3": "Ships from Germany worldwide",
       "partnerHint": "Partners: 60 € per pack on orders of 10+ packs — 1 pack free."
     }
   },
@@ -572,6 +575,35 @@
     "errorToast": "Failed to send — try again or message us on WhatsApp"
   },
   "auth": {
+    "register": "Sign up",
+    "registerTitle": "Create an account",
+    "tabLogin": "Sign in",
+    "tabRegister": "Sign up",
+    "emailLabel": "Email or username",
+    "passwordLabel": "Password",
+    "emailSubmit": "Continue",
+    "tgCodeTitle": "Sign in with Telegram",
+    "tgCodeStep1": "Tap “Open bot” — the /start command with the code is already typed in the chat. Send it.",
+    "tgCodeStep2": "The bot will reply with a link — open it and you are signed in.",
+    "tgOpenBot": "Open bot",
+    "tgCopyCmd": "Copy the command",
+    "tgCopied": "Command copied",
+    "tgWaiting": "Waiting for confirmation in the bot…",
+    "tgBack": "Back",
+    "tgCodeError": "Could not create a code. Check your connection and try again.",
+    "tgTokenMissing": "The link is incomplete: token missing. Request a new code on the sign-in page.",
+    "tgTokenExpired": "The link has expired or was already used. Request a new code.",
+    "tgFinishing": "Finishing sign-in…",
+    "backHome": "Back to home",
+    "linkedTitle": "Sign-in methods",
+    "linkedHint": "Link services to sign in with one tap. Email sign-in comes later.",
+    "linkedChip": "Linked",
+    "linkCta": "Link",
+    "unlinkCta": "Unlink",
+    "unlinkedToast": "Sign-in method unlinked",
+    "unlinkFailed": "Unlinking failed. Please try again.",
+    "lastMethodTitle": "Cannot unlink the only sign-in method",
+    "lastMethodText": "If you want to delete your account, you can do it in the",
     "account": "Account",
     "profile": "Profile",
     "balanceLink": "Balance",
@@ -704,15 +736,15 @@
       "items": {
         "dissolve": {
           "title": "Dissolving",
-          "text": "Fully dissolved in 1–1.5 minutes in 150–200 ml of cold water (10–15 °C). Cold water holds more H₂."
+          "text": "Fully dissolved in 1 minute in 100–150 ml of cold water (10–15 °C). Cold water holds more H₂."
         },
         "peak": {
           "title": "Concentration peak",
-          "text": "The highest level of dissolved hydrogen comes at 3–4 minutes: up to 1.6 ppm according to the Eurofins analysis (AR-26-HH-013581-02)."
+          "text": "Maximum dissolved hydrogen concentration is reached within 1 minute: up to 1.6 ppm according to the Eurofins analysis (AR-26-HH-013581-02)."
         },
         "drinkNow": {
           "title": "Drink it fresh",
-          "text": "H₂ is light and escapes quickly — the drink is consumed fresh, which is exactly how you get the maximum."
+          "text": "H₂ is light and escapes quickly — the drink is consumed right after preparation, while the concentration is at its highest."
         }
       }
     },
@@ -753,7 +785,7 @@
     },
     "demo": {
       "title": "How the tablet works",
-      "subtitle": "A short demonstration: the tablet dissolves in water, releasing molecular hydrogen and magnesium.",
+      "subtitle": "A short demonstration: the tablet dissolves in water, releasing hydrogen molecules and magnesium salts.",
       "caption": "Video is silent — sound and controls are on the player."
     }
   },
@@ -847,7 +879,7 @@
         },
         {
           "h": "5. Delivery",
-          "p": "Delivery within Germany is handled by DHL or Hermes, usually within 1–2 business days after payment. Shipments to other countries are handled on request."
+          "p": "Delivery within Germany is handled by DHL or Hermes, usually within 1–2 business days after payment. We ship worldwide."
         },
         {
           "h": "6. Right of withdrawal",
@@ -897,16 +929,30 @@
       ]
     }
   },
+  "certificates": {
+      "metaTitle": "Certificates and analyses — RevolutTIME",
+      "metaDescription": "Independent Eurofins analysis (AR-26-HH-013581-02): H₂ ≤ 1.6 ppm. Certificates for RevolutTIME Redox+ COMPLEX.",
+      "title": "Certificates and analyses",
+      "subtitle": "The quality of RevolutTIME Redox+ COMPLEX is independently verified.",
+      "eurofinsTitle": "Tested by Germany's leading laboratory — Eurofins",
+      "eurofinsText": "The independent Eurofins analysis confirms: the tablet dissolves in 1 minute and releases up to 1.6 ppm of molecular hydrogen in 100–150 ml of cold water. The full report is available on request.",
+      "reportId": "Eurofins · report AR-26-HH-013581-02 · H₂ ≤ 1.6 ppm",
+      "request": "Request the PDF report",
+      "soonTitle": "Certificates of conformity",
+      "soonText": "Declarations of conformity and packaging certificates will be added to this section as they are issued. Need a document now? Write to us.",
+      "back": "Back to home"
+    },
+
   "usage": {
     "title": "How to use",
     "subtitle": "Three simple steps — and your H₂ water is ready.",
     "step1": {
       "title": "Dissolve",
-      "text": "Add one tablet to 150–200 ml of still (non-carbonated) water. Cool water at 10–15 °C keeps the hydrogen best."
+      "text": "Add one tablet to 100–150 ml of still (non-carbonated) water. Cool water at 10–15 °C keeps the hydrogen best."
     },
     "step2": {
       "title": "Wait",
-      "text": "The tablet dissolves in 1–1.5 minutes. Maximum H₂ concentration is reached at 3–4 minutes."
+      "text": "The tablet dissolves in 1 minute. Maximum H₂ concentration is reached within a minute."
     },
     "step3": {
       "title": "Drink",

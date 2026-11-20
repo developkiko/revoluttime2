@@ -8,35 +8,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "@/i18n/navigation";
 import { useRouter, usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
 import { useI18n } from "@/lib/ultra/i18n-context";
 import { useAuth } from "@/lib/ultra/auth-store";
 import { LangSwitcher } from "./LangSwitcher";
-import { LogIn, User, LayoutDashboard, LogOut, Sun, Moon } from "lucide-react";
-
-/** Dark/light switch (next-themes mounted at the app root): system default, light fallback. */
-function UltraThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();
-  // false during SSR/prerender, true after hydration — no setState loops.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  const isDark = resolvedTheme === "dark";
-
-  return (
-    <button
-      type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-      className="inline-flex items-center justify-center size-9 rounded-lg border border-[var(--border-default)] text-[var(--text-secondary)] hover:text-[var(--text-heading)] hover:bg-[var(--hover-bg)] transition-colors shrink-0"
-    >
-      {mounted ? (
-        isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />
-      ) : (
-        <Moon className="w-4 h-4 opacity-0" aria-hidden />
-      )}
-    </button>
-  );
-}
+import { UltraThemeToggle } from "@/components/ultra/ui/ThemeToggle";
+import { LogIn, User, LayoutDashboard, LogOut } from "lucide-react";
 
 export function Header() {
   const { t } = useI18n();

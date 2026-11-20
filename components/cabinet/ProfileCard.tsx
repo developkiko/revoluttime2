@@ -12,6 +12,7 @@ import {
 import { refreshSessionUser, signOut } from "@/lib/auth-store";
 import type { SessionUser } from "@/lib/auth-session";
 import { useNotice } from "@/components/ui/notice";
+import { LinkedAccounts } from "@/components/cabinet/LinkedAccounts";
 
 /** Ultra dashboard API (email/password accounts live there). */
 const ACCOUNT_API_BASE =
@@ -237,6 +238,9 @@ export function ProfileCard({ user }: { user: SessionUser }) {
           </p>
         </div>
       </div>
+
+      {/* Способы входа: привязка/отвязка сервисов (см. LinkedAccounts) */}
+      <LinkedAccounts />
 
       <div className="mt-5 flex flex-col gap-1">
         <label htmlFor="cabinet-name" className={labelClass}>

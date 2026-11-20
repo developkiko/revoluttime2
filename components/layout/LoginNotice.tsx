@@ -20,7 +20,7 @@ export function LoginNotice() {
     const login = searchParams.get("login");
     if (!login) return;
     refreshSessionUser();
-    if (login === "google") {
+    if (login === "google" || login === "facebook") {
       notice({ text: t("welcomeToast"), variant: "success" });
     } else if (login === "cancelled") {
       notice({ text: t("loginCancelled"), variant: "info" });
