@@ -255,10 +255,17 @@ export function HeroSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: direction * -60 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="flex min-h-full flex-col items-center justify-center gap-3 sm:gap-5 md:grid md:grid-cols-[1.05fr_1fr] md:items-center md:gap-8 md:text-left lg:gap-12"
+              className="flex min-h-full flex-col items-center justify-center gap-3 sm:gap-5 md:grid md:grid-cols-[1.05fr_1fr] md:items-center md:gap-x-8 md:gap-y-5 md:text-left lg:gap-x-12"
             >
-              {/* left column — copy + CTAs (first on mobile too) */}
-              <div className="flex flex-col items-center gap-3 md:items-start md:gap-5">
+              {/* media column — FIRST on mobile (owner 21.11: картинка над
+                  текстом), second on desktop via order. Spec plate pinned to
+                  the PNG's bottom-left corner. */}
+              <div className="order-1 flex w-full items-center justify-center md:order-2">
+                <SlideMedia slideKey={key} title={t(`slides.${key}.title`)} />
+              </div>
+
+              {/* copy column — badge/title/subtitle (+ chips), CTAs moved out */}
+              <div className="order-2 flex flex-col items-center gap-3 md:order-1 md:items-start md:gap-5">
                 {/* Eurofins badge is clickable (owner request): leads to the
                     certificates/analysis page; other slides keep a plain chip. */}
                 {key === "hydrogen" ? (
@@ -307,29 +314,25 @@ export function HeroSection() {
                     ))}
                   </ul>
                 )}
-
-                <div className="mt-1 flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:justify-start">
-                  <Link
-                    href={SLIDE_HREF[key]}
-                    className="inline-flex items-center gap-2 justify-center rounded-[10px] bg-[var(--primary)] py-3 px-5 text-sm font-semibold text-white transition-all hover:bg-[var(--color-primary-hover)] whitespace-nowrap sm:py-[0.85rem] sm:px-8 sm:text-base"
-                  >
-                    {t(`slides.${key}.cta`)}
-                    <ArrowRightIcon className="size-4" />
-                  </Link>
-                  <a
-                    href="#directions"
-                    className="inline-flex items-center gap-2 justify-center rounded-[10px] border border-primary/25 bg-primary/12 py-3 px-5 text-sm font-semibold text-primary transition-all hover:bg-primary/20 whitespace-nowrap sm:py-[0.85rem] sm:px-8 sm:text-base"
-                  >
-                    {t("explore")}
-                    <ChevronDownIcon className="size-4" />
-                  </a>
-                </div>
               </div>
 
-              {/* right column — the ad PNG at its natural ratio, spec plate
-                  pinned to its bottom-left corner */}
-              <div className="flex w-full items-center justify-center">
-                <SlideMedia slideKey={key} title={t(`slides.${key}.title`)} />
+              {/* CTAs — full-width row BELOW both columns, centered on every
+                  breakpoint (owner 21.11) */}
+              <div className="order-3 flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:col-span-2">
+                <Link
+                  href={SLIDE_HREF[key]}
+                  className="inline-flex items-center gap-2 justify-center rounded-[10px] bg-[var(--primary)] py-3 px-5 text-sm font-semibold text-white transition-all hover:bg-[var(--color-primary-hover)] whitespace-nowrap sm:py-[0.85rem] sm:px-8 sm:text-base"
+                >
+                  {t(`slides.${key}.cta`)}
+                  <ArrowRightIcon className="size-4" />
+                </Link>
+                <a
+                  href="#directions"
+                  className="inline-flex items-center gap-2 justify-center rounded-[10px] border border-primary/25 bg-primary/12 py-3 px-5 text-sm font-semibold text-primary transition-all hover:bg-primary/20 whitespace-nowrap sm:py-[0.85rem] sm:px-8 sm:text-base"
+                >
+                  {t("explore")}
+                  <ChevronDownIcon className="size-4" />
+                </a>
               </div>
             </motion.div>
           </AnimatePresence>

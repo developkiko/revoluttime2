@@ -119,6 +119,11 @@
           "title": "Partnerprogramm",
           "text": "Geld macht Geld: 50 % schon ab der ersten Linie, 5 Ebenen (I–V), lebenslange Boni und schnelle Auszahlung.",
           "cta": "Partner werden"
+        },
+        "idea": {
+          "title": "Sechste Richtung — mit Ihnen",
+          "text": "Wir überlegen bereits, welche Richtung wir in unser Projekt aufnehmen könnten. Wenn Sie Ideen haben — teilen Sie sie gerne mit!",
+          "cta": "Idee mitteilen"
         }
       }
     },
@@ -259,6 +264,31 @@
       "text": "Schreiben Sie uns auf WhatsApp — wir finden einen Termin, der zu Ihnen passt.",
       "button": "WhatsApp schreiben"
     }
+  },
+  "pagesList": {
+    "title": "Alle Seiten der Website",
+    "subtitle": "Klick öffnet die Seite in einem neuen Tab.",
+    "home": "Startseite",
+    "shop": "Tabletten — Shop",
+    "hydrogen": "Wasserstoffwasser",
+    "hydrogenTablets": "Tabletten mit Wasserstoff",
+    "studio": "Biohacking-Studio",
+    "equipment": "Equipment",
+    "recreation": "Konferenz und Erholung",
+    "partner": "Partnerprogramm",
+    "journey": "Journey-Quiz",
+    "cabinet": "Partner-Cabinet",
+    "encyclopedia": "Enzyklopädie",
+    "certificates": "Zertifikate",
+    "contact": "Kontakte",
+    "checkout": "Kasse",
+    "impressum": "Impressum",
+    "datenschutz": "Datenschutzerklärung",
+    "agb": "AGB",
+    "widerruf": "Widerruf und Rückgabe",
+    "status": "Servicestatus",
+    "admin": "Admin",
+    "dummy": "Demo-Seite"
   },
   "partner": {
     "hero": {
@@ -572,7 +602,17 @@
     "sending": "Wird gesendet…",
     "sentToast": "Nachricht an die Admins in Telegram gesendet",
     "queuedToast": "Anfrage erhalten — die Telegram-Benachrichtigung wird verbunden, wir melden uns",
-    "errorToast": "Senden fehlgeschlagen — bitte erneut versuchen oder per WhatsApp schreiben"
+    "errorToast": "Senden fehlgeschlagen — bitte erneut versuchen oder per WhatsApp schreiben",
+    "pageTitle": "Kontakte",
+    "pageSubtitle": "Schreiben Sie uns — wir antworten per WhatsApp oder Telegram, meist innerhalb eines Tages.",
+    "topicLabel": "Anliegen",
+    "topic": {
+      "product": "Frage zum Produkt",
+      "order": "Bestellung und Lieferung",
+      "partner": "Partnerprogramm",
+      "suggestion": "Verbesserungsvorschlag",
+      "other": "Sonstiges"
+    }
   },
   "auth": {
     "register": "Registrieren",
@@ -619,6 +659,7 @@
     "loginCancelled": "Anmeldung abgebrochen",
     "loginUnconfigured": "Anmeldung noch nicht konfiguriert — Provider-Secrets fehlen",
     "loginFailed": "Anmeldung fehlgeschlagen — bitte erneut versuchen",
+    "fbSoon": "Facebook: bald — Business-Verifizierung läuft",
     "welcomeToast": "Willkommen!",
     "signedOutToast": "Sie haben sich abgemeldet",
     "cabinet": "Partner-Cabinet",

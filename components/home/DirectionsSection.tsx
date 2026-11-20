@@ -3,6 +3,7 @@ import {
   ArrowRightIcon,
   CoinsIcon,
   DropletsIcon,
+  LightbulbIcon,
   MountainIcon,
   SparklesIcon,
   WrenchIcon,
@@ -81,6 +82,33 @@ export async function DirectionsSection() {
               </CardContent>
             </Card>
           ))}
+
+          {/* Шестая карточка-«идея» (владелец 21.11): без ссылки-направления,
+              выделена рамкой — текст-приглашение + кнопка на контакты с
+              предвыбранной темой «предложение по улучшению». */}
+          <Card
+            data-tilt
+            className="group border-primary/40 bg-primary/5 transition-shadow hover:shadow-md hover:shadow-primary/10"
+          >
+            <CardContent className="flex h-full flex-col gap-3 p-5">
+              <span className="flex size-10 items-center justify-center rounded-xl bg-primary/15 text-primary transition-transform duration-300 group-hover:scale-110">
+                <LightbulbIcon className="size-5" />
+              </span>
+              <h3 className="font-semibold leading-snug">
+                {t("items.idea.title")}
+              </h3>
+              <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
+                {t("items.idea.text")}
+              </p>
+              <Link
+                href="/contact?topic=suggestion"
+                className="mt-auto inline-flex items-center gap-2 justify-center rounded-[10px] bg-[var(--primary)] px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[var(--color-primary-hover)]"
+              >
+                {t("items.idea.cta")}
+                <ArrowRightIcon className="size-4" />
+              </Link>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

@@ -70,13 +70,16 @@ export async function PartnerSection() {
         </div>
 
         <div className="mt-10 grid items-center gap-10 text-left lg:grid-cols-2">
-          <div className="flex flex-col gap-6">
+          {/* Владелец 21.11: подсветка-фон + 3D на левых блоках (шаги +
+              бенефиты); схема сети справа — БЕЗ 3D, как решено. */}
+          <div className="flex flex-col gap-6" data-spotlight>
             <PartnerStepsLazy />
 
             <ul className="grid gap-2 sm:grid-cols-2">
               {BENEFITS.map(({ key, icon: Icon }) => (
                 <li
                   key={key}
+                  data-tilt
                   className="flex items-center gap-2.5 rounded-lg border bg-card px-3 py-2.5 text-sm text-muted-foreground"
                 >
                   <Icon className="size-4 shrink-0 text-primary" />

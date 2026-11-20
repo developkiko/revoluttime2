@@ -160,10 +160,16 @@ export function AuthModal({
                 <TelegramIcon />
                 Telegram
               </button>
-              <a href="/api/auth/facebook/start" className={SOCIAL_CLASS}>
+              {/* Owner 21.11: Facebook требует подтверждения бизнеса — кнопка выключена. */}
+              <button
+                type="button"
+                disabled
+                title={t("fbSoon")}
+                className={`${SOCIAL_CLASS} cursor-not-allowed opacity-50`}
+              >
                 <FacebookIcon />
                 Facebook
-              </a>
+              </button>
             </div>
           </>
         )}

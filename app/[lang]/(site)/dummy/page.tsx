@@ -14,6 +14,8 @@ import { LevelsCascadeLazy } from "@/components/partner/LevelsCascadeLazy";
 import { PartnerStepsLazy } from "@/components/partner/PartnerStepsLazy";
 import { PartnerNetworkLazy } from "@/components/partner/PartnerNetworkLazy";
 import { UsageSection } from "@/components/home/UsageSection";
+import { UltraPagesSection } from "@/components/home/UltraPagesSection";
+import { SitePagesList } from "@/components/dummy/SitePagesList";
 import { FxDemo } from "@/components/dummy/fx-demo";
 import { PortDemo } from "@/components/dummy/port-demo";
 import { AdminDemoButton } from "@/components/admin/AdminDemoButton";
@@ -191,7 +193,13 @@ export default async function DummyPage({
 
       <PortDemo />
 
+      {/* Владелец 21.11: демо ultra-страниц остаётся только здесь */}
+      <UltraPagesSection />
+
       <UsageSection />
+
+      {/* Владелец 21.11: полный список страниц сайта внизу dummy */}
+      <SitePagesList lang={lang} />
     </>
   );
 }

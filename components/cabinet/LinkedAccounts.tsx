@@ -162,12 +162,12 @@ export function LinkedAccounts() {
                 <button
                   type="button"
                   className={LINK_BTN_CLASS}
+                  disabled={row.key === "facebook"}
+                  title={row.key === "facebook" ? t("fbSoon") : undefined}
                   onClick={() => {
                     setLastMethodAlert(false);
                     if (row.key === "google") {
                       window.location.href = "/api/auth/google/start?link=1";
-                    } else if (row.key === "facebook") {
-                      window.location.href = "/api/auth/facebook/start?link=1";
                     } else if (row.key === "telegram") {
                       setTgFlow(true);
                     } else {
@@ -176,6 +176,7 @@ export function LinkedAccounts() {
                     }
                   }}
                 >
+                  {/* Facebook: owner 21.11 — disabled until business verification. */}
                   {t("linkCta")}
                 </button>
               )}

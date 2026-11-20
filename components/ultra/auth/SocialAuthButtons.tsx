@@ -56,8 +56,14 @@ export function SocialAuthButtons({ telegramEnabled = true }: { telegramEnabled?
 
       {telegramEnabled && <TelegramLoginButton enabled={telegramEnabled} />}
 
-      {/* Facebook: placeholder for a future OAuth flow — intentionally inert. */}
-      <button type="button" className={socialBtnClass} title="Coming soon" aria-disabled="true">
+      {/* Facebook: owner 21.11 — business verification pending, button disabled. */}
+      <button
+        type="button"
+        disabled
+        title="Coming soon"
+        className={`${socialBtnClass} cursor-not-allowed opacity-50`}
+        aria-disabled="true"
+      >
         <FacebookIcon />
         Facebook
       </button>

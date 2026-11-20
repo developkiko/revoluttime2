@@ -119,6 +119,11 @@
           "title": "Partner program",
           "text": "Money makes money: 50% from the first line, 5 levels (I–V), lifetime bonuses and fast payouts.",
           "cta": "Become a partner"
+        },
+        "idea": {
+          "title": "The sixth direction — with you",
+          "text": "We are already thinking about which direction to add to our project. If you have ideas — feel free to share them!",
+          "cta": "Share your idea"
         }
       }
     },
@@ -259,6 +264,31 @@
       "text": "Message us on WhatsApp — we will find a time that suits you.",
       "button": "Write on WhatsApp"
     }
+  },
+  "pagesList": {
+    "title": "All site pages",
+    "subtitle": "Click opens the page in a new tab.",
+    "home": "Home",
+    "shop": "Tablets — shop",
+    "hydrogen": "Hydrogen water",
+    "hydrogenTablets": "Hydrogen tablets",
+    "studio": "Biohacking studio",
+    "equipment": "Equipment",
+    "recreation": "Conference & recreation",
+    "partner": "Partner program",
+    "journey": "Journey quiz",
+    "cabinet": "Partner cabinet",
+    "encyclopedia": "Encyclopedia",
+    "certificates": "Certificates",
+    "contact": "Contacts",
+    "checkout": "Checkout",
+    "impressum": "Impressum",
+    "datenschutz": "Privacy policy",
+    "agb": "Terms (AGB)",
+    "widerruf": "Withdrawal & returns",
+    "status": "Service status",
+    "admin": "Admin",
+    "dummy": "Demo page"
   },
   "partner": {
     "hero": {
@@ -572,7 +602,17 @@
     "sending": "Sending…",
     "sentToast": "Message sent to the admins in Telegram",
     "queuedToast": "Request received — the Telegram notification is being connected, we will reach out",
-    "errorToast": "Failed to send — try again or message us on WhatsApp"
+    "errorToast": "Failed to send — try again or message us on WhatsApp",
+    "pageTitle": "Contacts",
+    "pageSubtitle": "Write to us — we reply on WhatsApp or Telegram, usually within a day.",
+    "topicLabel": "Subject",
+    "topic": {
+      "product": "Product question",
+      "order": "Order and delivery",
+      "partner": "Partner program",
+      "suggestion": "Improvement suggestion",
+      "other": "Other"
+    }
   },
   "auth": {
     "register": "Sign up",
@@ -619,6 +659,7 @@
     "loginCancelled": "Sign-in cancelled",
     "loginUnconfigured": "Sign-in is not configured yet — provider secrets are missing",
     "loginFailed": "Sign-in failed — please try again",
+    "fbSoon": "Facebook: coming soon — business verification in progress",
     "welcomeToast": "Welcome!",
     "signedOutToast": "You have signed out",
     "cabinet": "Partner cabinet",

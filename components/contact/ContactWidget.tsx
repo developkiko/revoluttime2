@@ -15,7 +15,11 @@ import {
 import { SITE } from "@/lib/products";
 import { useNotice } from "@/components/ui/notice";
 
-type FormValues = { name: string; email: string; message: string };
+type FormValues = { name: string; email: string; message: string; topic: string };
+
+/** Allowed «суть вопроса» values (owner 21.11); /contact?topic=X preselects. */
+const TOPIC_KEYS = ["product", "order", "partner", "suggestion", "other"] as const;
+export type TopicKey = (typeof TOPIC_KEYS)[number];
 
 /* Visual classes — exact Ultra template contact form (components/ultra/home/
  * ContactForm.tsx). Logic (RHF + zod + /api/contact + toasts) untouched
@@ -32,7 +36,7 @@ const FIELD_ERROR_CLASS = "text-[11px] text-[var(--color-error)] mt-1";
  * TODO(contact API): replace mockSubmit with the real endpoint
  * (e.g. POST /api/contact → Supabase + Telegram notification).
  */
-export function ContactWidget() {
+export function ContactWidget({ initialTopic }: { initialTopic?: TopicKey }) {
   const t = useTranslations("contact");
   const { notice } = useNotice();
 
@@ -40,6 +44,7 @@ export function ContactWidget() {
     name: z.string().min(2, t("nameRequired")),
     email: z.string().min(1, t("emailRequired")).email(t("emailInvalid")),
     message: z.string().min(10, t("messageRequired")),
+    topic: z.string(),
   });
 
   const {
@@ -49,14 +54,20 @@ export function ContactWidget() {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { name: "", email: "", message: "" },
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+      topic: initialTopic ?? "other",
+    },
   });
 
   async function onSubmit(values: FormValues) {
+    // topic идёт в Telegram как локализованный лейбл, а не ключ
     const response = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
+      body: JSON.stringify({ ...values, topic: t(`topic.${values.topic}`) }),
     });
     if (!response.ok) {
       notice({ text: t("errorToast"), variant: "error" });
@@ -130,6 +141,20 @@ export function ContactWidget() {
             />
             {errors.email && <p className={FIELD_ERROR_CLASS}>{errors.email.message}</p>}
           </div>
+        </div>
+        {/* «Суть вопроса» (владелец 21.11): /contact?topic=suggestion
+            предвыбирает тему из карточки-идеи на главной */}
+        <div className="mb-4">
+          <label htmlFor="contact-topic" className={LABEL_CLASS}>
+            {t("topicLabel")}
+          </label>
+          <select id="contact-topic" className={INPUT_CLASS} {...register("topic")}>
+            {TOPIC_KEYS.map((topicKey) => (
+              <option key={topicKey} value={topicKey}>
+                {t(`topic.${topicKey}`)}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mb-4">
           <label htmlFor="contact-message" className={LABEL_CLASS}>
