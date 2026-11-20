@@ -1,66 +1,62 @@
-# RevolutTIME — roadmap (статус на 10.11.2026, вечер)
+# RevolutTIME — roadmap (статус на 21.11.2026, вечер)
 
-Легенда: ✅ готово и на проде · 🟡 сделано в демо/мок-режиме (ждёт API/БД/ключей) · ❌ не начато
+Легенда: ✅ готово и на проде · 🟡 код готов, ждёт env/ключей/проверки · ❌ не начато
 
-## Спринты
-- ✅ **P0 — безопасность, закон, монетизация** (2f94f25, 78bf060, 2061e6f): Stripe Checkout (/checkout + /api/checkout + success/cancel), CookieBanner (TDDDG §25, gate `lib/consent.ts`), robots.txt + sitemap.xml + manifest.json, Impressum с реальным email и US Corp (Company Reg. 81-4691539), `?ref=` capture (cookie 30д + localStorage), PostHog за consent-гейтом, типизированные события (`lib/analytics/events.ts`).
-- ✅ **P1 — бандл, юнит-экономика, контент-хаб** (7ff9566, ae6f20b, 913d912): 7 компонентов в lazy-чанки (главная 341→284 КБ gz; флор стека ~250), `lib/mlm-calculator.ts` + сетка A–F с евро-суммами на /partner, /encyclopedia (поиск, фильтры категорий, EvidenceBadge, ResearchCard, 2 статьи, HWG-дисклеймеры).
-- 🟡 **P2 — Supabase, энциклопедия 10+, Telegram-уведомления** — активен:
-  - ✅ шаг 1 (10.11, переприкручен): новый проект Supabase **`revtime`** (`jzjezfewouleamrsnzla`, eu-west-3, БЕЗ маркетплейс-интеграции — ключи вручную в Vercel env); миграции `20261110000000_init.sql` + `20261110000001_grants.sql` прогнаны (гранты обязательны: новые проекты Supabase не дают anon SELECT по умолчанию); сид и RLS проверены; **E2E: прод читает статьи из БД** (probe-метод). DB-first загрузчики с фолбэком на статический сид (ca01bd2 + 6b0f727).
-  - ⚙️ 10.11 починен прод-деплой: 6 падений «Resource provisioning timed out» = застрявший сайдкар Supabase-маркетплейс-интеграции; после удаления интеграции деплой прошёл, git-автодеплой восстановлен.
-  - ❌ шаг 2: энциклопедия до 10+ статей (сид `lib/encyclopedia.ts` + БД синхронно, ×3 локали), фильтр по уровню доказательности.
-  - ❌ шаг 3: `/api/webhooks/stripe` (verify signature) → orders + financial_ledger (pending 14д) → Telegram-уведомление админу (бот @revoluttime_bot, chat 5157746090). Для записи нужен от владельца `sb_secret_…` (service_role).
+## Инфраструктура и дизайн
+- ✅ Next.js 16.4.3 + React 19.3 + Tailwind v4 + shadcn + next-intl de/ru/en; route groups `(site)`/`(ultra)`; кеш-гейты cacheComponents
+- ✅ **Ultra Proxy port** (15.11): токен-мост (весь сайт), кабинет на 5 вкладках, ultra-страницы ребрендированы, `/api/ultra/*` (19 роутов) + Neon; FX-модули (тултипы/tilt/spotlight), notice вместо sonner, кастомный курсор, шиммер-логотип
+- ✅ **Primary #070E21 Midnight Navy** (владелец): split-токены (solid/soft/border/logo-grad), все solid-точки переведены
+- ✅ PWA: manifest + sw.js (только статики) + регистрация; иконки-плейсхолдеры (ждут фирменный PNG)
+- ✅ Мобильные фиксы: drawer=шаблон 1:1, iOS 100dvh+safe-area, bg-fixed снят, cookie-бокс на 320px, `.rt-bottom-widgets` (куки+PWA стек/одна строка), `html{overflow-x:clip}` против фантомного отступа
+- ✅ WebKit self-check: `scripts/check-webkit.mjs` (Playwright Safari-движок, iPhone-дескриптор)
 
-## Инфраструктура
-- ✅ Next.js 16.4.3 + React 19.3 + Tailwind v4 (CSS-first) + shadcn (radix-ui pkg) + next-intl de/ru/en
-- ✅ Темы, скелетоны, sonner (очередь по 1), lazy-чанки: hero/partner-steps/levels/cart-drawer/contact/booking/auth-popover
-- ✅ Vercel проект `revolut-time` (домен revolut-time.vercel.app); git-автодеплой проверен (6844792+)
-- ✅ Supabase `revtime` (eu-west-3, без маркетплейс-интеграции): init+grants миграции применены, prod читает БД; доступ с Windows — только через пулер `aws-0-eu-west-3.pooler.supabase.com` (прямой хост IPv6-only)
-- 🟡 Старый проект `revoluttime` (revoluttime.vercel.app) — не трогать, отдельный сайт; после случайного CLI-деплоя откачен на билд 23.10
+## Auth (a3aeb96, 21.11)
+- ✅ Шапка: «Регистрация»+«Войти» → модалки (табы, email/пароль-поля, равные Google/Telegram/Facebook); дропдаун только у вошедших
+- ✅ Google OAuth (было) + **Facebook OAuth** (start/callback/deauthorize) — 🟡 ждёт `FACEBOOK_APP_ID/SECRET` в Vercel (владельцу выданы URL полей приложения)
+- ✅ **Telegram обходной код-флоу** (widget забальзамирован — нужен verify-домен): код → `t.me/bot?start=CODE` → бот шлёт ссылку → `/{lang}/auth-telegram` → сессия — 🟡 e2e на проде (нужен DATABASE_URL, он только в Vercel)
+- ✅ **Привязка аккаунтов**: `auth_links` (Neon), кабинет#profile «Способы входа», unlink-guard «единственный способ» + ссылка на Профиль; email-метод — пустышка
+- ❌ Email-вход (регистрация/восстановление) — после того как владелец подберёт email-сервис на домене
+- ✅ Страницы/модалки политик: язык через URL (фикс сброса после F5), тема в PolicyLayout/PolicyModal
 
 ## Направление 1 — Таблетки
-- ✅ /shop: фасовки 90 (18,99 €) и 120+бокс (24,99 €), корзина, применение
-- ✅ /checkout: summary + Stripe Checkout Session (цены из серверного каталога, DE/AT/CH, metadata.ref)
-- 🟡 Оплата live: код готов, нужен `STRIPE_SECRET_KEY` в Vercel → Redeploy; без ключа — 503 + тост «через WhatsApp/Telegram»
-- ✅ /hydrogen + /hydrogen/tablets (HWG-сноски)
+- ✅ /shop: **90 таб. — 70 €** (партнёрам 60 € от 10 пачек + 1 в подарок), корзина, применение
+- ✅ /checkout + Stripe Checkout Session (DE/AT/CH, metadata.ref) — 🟡 оплата live ждёт `STRIPE_SECRET_KEY` (+ webhook: `STRIPE_WEBHOOK_SECRET` + `SUPABASE_SERVICE_ROLE_KEY`)
+- ✅ /hydrogen + /hydrogen/tablets; **/certificates** (Eurofins + placeholder сертификатов), бейджи кликабельны
+- ✅ Тексты синхронизированы с этикеткой (1 мин растворение, 100–150 мл, пить сразу, «из Германии в любую страну», «молекулы водорода и соли магния») ×3 локали
+- ❌ PDF-отчёт Eurofins и сканы сертификатов на /certificates (ждут владельца); задняя сторона этикетки — сверка
 
 ## Направление 2 — Студия
-- ✅ /studio: 6 услуг + CTA WhatsApp
+- ✅ /studio (6 услуг, FX, CTA WhatsApp)
 - ❌ Онлайн-запись на сессии
 
 ## Направление 3 — Оборудование
-- ✅ /equipment: 4 поставщика, старт-набор, OEM, заявка (мок → Telegram)
+- ✅ /equipment (поставщики, старт-набор, OEM, заявка)
 - ❌ Фото от поставщиков; карточки /equipment/[slug]
 
-## Направление 4 — Активный отдых
-- ✅ /recreation + /recreation/[slug] (BookingWidget, билет в корзину; 9 slug-ов)
-- 🟡 Слоты в статичном seed (lib/catalog.ts) → перенос в БД (badminton_events уже в DDL)
+## Направление 4 — Конференция и отдых
+- ✅ /recreation + [slug] (BookingWidget, OfferSlots-карточки, билет в корзину)
+- 🟡 Слоты в статичном seed → в БД (badminton_events в DDL)
 
-## Направление 5 — Рефералка
-- ✅ /partner: шаги, каскад A–F, сетка фонда (30% → 5,70/7,50 €; A12/B6/C4/D3/E3/F2 % фонда) + §19-сноска
-- ✅ /cabinet: профиль, реф-ссылка, покупки/бонусы (демо-данные), экспорт, удаление
-- ✅ `?ref=` → cookie rt_ref 30д → Stripe metadata.ref/client_reference_id
-- ❌ Реальный расчёт выплат: financial_ledger (таблица в DDL, запись — в P2.3 вебхуке)
-- ❌ Email+пароль вход (ждёт API аккаунтов); Telegram+Google работают
+## Направление 5 — Партнёрка
+- ✅ План **I–V (50/10/2/1/1 %, фонд 64 %)** на /partner + `lib/mlm-calculator.ts`; PartnerNetwork (модуль владельца); кабинет (вкладки, демо-данные, экспорт/GDPR)
+- ✅ `?ref=` → cookie 30д → Stripe metadata; financial_ledger-запись в вебхуке (64 %)
+- ❌ Реальные выплаты: профили/банк-реквизиты, расчёт по ledger
+
+## Контент-хаб
+- ✅ Энциклопедия: 10 статей ×3, DB-first (Supabase `revtime`) с фолбэком на сид, поиск/категории/EvidenceBadge, вики-линки; Journey-квиз + PDF-лид (ru-PDF = en-заглушка — нужен шрифт с кириллицей)
+- ❌ Фильтр по уровню доказательности; OG-картинки; hreflang
 
 ## Админка
-- 🟡 /admin: демо-цифры, офферы (локальный оверлей), сообщения (инбокс в памяти)
-- ❌ Настоящая админка на Supabase (CRUD + роли)
-
-## Юридическое
-- ✅ Impressum (karakymg@gmail.com, Weilbacher Str. 10, YULKK UNITED CORP. + Reg. 81-4691539, Kleinunternehmer §19), Datenschutz, AGB, Widerruf (de/ru/en)
-- ✅ CookieBanner (rt_cookie_consent: granted/essential; аналитика гейтится hasAnalyticsConsent())
+- ✅ Отдельный репо/проект владельца (`revtime2-admin` → adm-rt.vercel.app); на сайте — админ-ссылка в меню + инбокс сообщений
+- ❌ Связка API (NEXT_PUBLIC_UP_ADMIN_API_URL ↔ админка), роли
 
 ## Техдолг
-- ✅ robots.txt, sitemap.xml (66+ URL), manifest.json
-- ❌ SEO: OG-картинки, hreflang-каноникал между локалями
-- ❌ Vercel Blob для аватаров (dataURL в localStorage)
-- ❌ Email-вход в кабинет
-- 🟡 Soft-404: несуществующий slug энциклопедии отдаёт 404-контент с HTTP 200 (cacheComponents/PPR) — доработать
-- 💡 Слайдер hero → «комплексы партнёрки» (массив готов к фиду)
+- 🟡 Soft-404 slug энциклопедии (404-контент при HTTP 200, cacheComponents)
+- ❌ Vercel Blob для аватаров; SEO OG/hreflang; PWA-иконки фирменные
+- ❌ Проверка TG-код-флоу e2e на проде; сертификаты-PDF
+- 💡 Hero-слайды = массив SLIDE_MEDIA (`components/home/HeroSection.tsx`) — готов к расширению; новые креативы кладутся в `public/imgs/for-ads/slide1-5.png`
 
 ## ENV (Vercel → Settings → Environment Variables)
-- ❌ Нужны: `STRIPE_SECRET_KEY` (оплата live), `NEXT_PUBLIC_POSTHOG_KEY` (+ опц. `NEXT_PUBLIC_POSTHOG_HOST`)
-- ✅ Есть: NEXT_PUBLIC_SUPABASE_URL/ANON_KEY (проект revtime, без интеграции), TELEGRAM_BOT_TOKEN, NEXT_PUBLIC_TELEGRAM_BOT_NAME, GOOGLE_CLIENT_*, AUTH_SESSION_SECRET
-- ❌ Нужен позже (ШАГ 3): SUPABASE_SERVICE_ROLE_KEY = `sb_secret_…` (Settings → API → Secret keys)
-- 💡 Рекомендовано: ADMIN_EMAILS, TELEGRAM_ADMIN_CHAT_ID (на проде дефолты кода), NEXT_PUBLIC_SITE_URL
+- ✅ Есть: `DATABASE_URL` (Neon), `NEXT_PUBLIC_SUPABASE_URL/ANON_KEY` (revtime), `TELEGRAM_BOT_TOKEN`, `NEXT_PUBLIC_TELEGRAM_BOT_NAME`, `GOOGLE_CLIENT_*`, `AUTH_SESSION_SECRET`
+- ❌ **Добавить:** `FACEBOOK_APP_ID` + `FACEBOOK_APP_SECRET`; `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` + `SUPABASE_SERVICE_ROLE_KEY` (`sb_secret_…`); `NEXT_PUBLIC_POSTHOG_KEY`; `NEXT_PUBLIC_SITE_URL=https://revolut-time.vercel.app`
+- 💡 После добавления env с NEXT_PUBLIC_* — полный Redeploy

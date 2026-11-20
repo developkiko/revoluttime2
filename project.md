@@ -1,150 +1,148 @@
 # RevolutTIME — обзор проекта
 
-> Прочти также `roadmap.md` (статус задач) и `devlog.md` (история разработки).
+> **Порядок чтения в новом чате:** 1) `DEVLOG_CURRENT.md` (точка передачи сессии, актуальность), 2) этот файл, 3) `roadmap.md` (статус задач), 4) `devlog.md` + `devlog_target.md` (история).
 
 ## Что это
 
-Сайт экосистемы **RevolutTIME** — бренд активного долголетия (Мюнхен, Германия).
-Владелец: Gewerbe Yuriy Moshenets, Weilbacher 10, 85241 Hebertshausen (тел/WhatsApp +49 175 9590916). Бренд принадлежит YULKK UNITED CORP., США.
+Сайт экосистемы **RevolutTIME** — бренд активного долголетия (район Мюнхена, Германия).
+Владелец: Gewerbe Yuriy Moshenets, Weilbacher Str. 10, 85241 Hebertshausen (тел/WhatsApp +49 175 9590916). Бренд принадлежит YULKK UNITED CORP., США (Reg. 81-4691539). Юрлицо на проде — Kleinunternehmer §19 UStG.
 
 **5 направлений (утверждено владельцем):**
-1. **Таблетки** — шипучие таблетки Магний + H₂ (90 таб. €18.99 / 120 таб. + бокс €24.99), покупка онлайн через корзину.
+1. **Таблетки** — RevolutTIME Redox+ COMPLEX: шипучие таблетки Магний + H₂ (H₂ ≤ 1,6 ppm по Eurofins, 5,13 g магния), **фасовка 90 таб. — 70 €**; партнёрам 60 €/пачка при заказе от 10 пачек (+1 пачка в подарок). Покупка через корзину → Stripe Checkout.
 2. **Фитнес биохакинг студия** — Hydrogen Breathing, Red Light, нанокостюм, вибротренинг, силовой тренинг, восстановление.
 3. **Продажа оборудования** — H₂-ингаляторы (900–3600 мл/мин), Red Light панели, EMS miha bodytec, виброплатформы. Цена по запросу.
-4. **Активно спортивный отдых** — бадминтон, термы, забеги, хайкинг. Бронирование: дата + число участников.
-5. **Реферальная программа** — «Деньги делают деньги»: до 30%, уровни A–F, пожизненные бонусы, выплаты на карту/крипто/Telegram.
+4. **Конференция и отдых** (б. «Активно спортивный отдых») — брони: дата + участники.
+5. **Партнёрская программа** — план уровней I–V (50/10/2/1/1 % от покупки, фонд 64 %), вход 600 €, матрица 5×5, потенциал 27 000 € (`lib/mlm-calculator.ts`).
 
-Упрощённый UX: без отдельных карточек товара — всё на направленческих страницах + корзина (общая для таблеток и «билетов»).
+Дизайн — **точный порт шаблона Ultra Proxy** (route groups `(site)`/`(ultra)`), primary бренда — **#070E21 Midnight Navy** (решение владельца, 21.11.2026).
 
 ## Стек и тулчейн
 
-- **Next.js 16.4.3** (App Router, Turbopack, `cacheComponents: true`, `partialPrefetching: true`) + **React 19.3**
-- **Tailwind CSS v4** (CSS-first конфиг в `globals.css`, без tailwind.config) + **shadcn/ui** (style `radix-vega`, компоненты импортируют `cn` из пакета `cn` и примитивы из пакета `radix-ui` — НЕ из `@radix-ui/*`)
-- **next-intl 4.14.9** — локали `de` (дефолт), `ru`, `en`; все тексты только через messages/*.json
-- **framer-motion** (анимации), **sonner** (тосты, visibleToasts=1 — очередь), **next-themes** (dark/light, class-стратегия)
-- **react-hook-form + zod** (формы), **lucide-react** (иконки, эмодзи запрещены)
-- Supabase (`@supabase/ssr`, `supabase-js`) и grammy установлены, **но в код не подключены** (см. roadmap)
-- Хостинг: **Vercel** (Git-интеграция: push в main = автодеплой)
+- **Next.js 16.4.3** (App Router, Turbopack, `cacheComponents: true`) + **React 19.3**
+- **Tailwind CSS v4** (CSS-first конфиг в `app/globals.css`) + **shadcn/ui** (style `radix-vega`: `cn` из пакета `cn`, примитивы из пакета `radix-ui` — НЕ из `@radix-ui/*`)
+- **next-intl 4.14.9** — локали `de` (дефолт), `ru`, `en`; ВСЕ тексты сайта — `messages/{de,ru,en}.json`
+- **framer-motion**, **next-themes** (dark/light, class-стратегия), **react-hook-form + zod**, **lucide-react** (эмодзи запрещены)
+- **notice** — единая система уведомлений (`components/ui/notice`, варианты success/error/info/warning); **sonner удалён**
+- **FX-модули** (порт с дамми старого сайта): CSS-тултипы `data-tip`, 3D-tilt `data-tilt` (+`TiltObserver`), spotlight `data-spotlight` (+`SpotlightObserver`), кастомный курсор (globals.css, z максимальный), шиммер-логотип `.rt-logo`
+- **PWA**: `public/manifest.webmanifest` + `public/sw.js` (кэш только статики) + `PwaRegistration`
+- **БД ×2**: **Neon** (`DATABASE_URL`) — ultra-стек (users, ultra_kv, payments, telegram_*, ultra_products/reviews, site_config, **auth_links**; self-healing DDL в `lib/ultra/db.ts`); **Supabase** проект `revtime` — энциклопедия (DB-first с фолбэком на сид) + orders/financial_ledger (Stripe-вебхук)
+- Хостинг: **Vercel** (git `developkiko/revoluttime2` → main = автодеплой)
 
 ## ⚠️ Важные конвенции и грабли (Next 16 / окружение)
 
-1. **middleware переименован в `proxy.ts`** (Next 16) — локаль-мидлварь next-intl живёт там.
+1. **middleware переименован в `proxy.ts`** (Next 16) — локаль-мидлварь next-intl там.
 2. `params` в страницах/лейаутах — **Promise** (`await params`). Глобальные типы `LayoutProps<'/x'>`, `PageProps<'/x'>` доступны без импорта.
-3. `app/[lang]/layout.tsx` — **корневой layout** (содержит `<html>`); `app/layout.tsx` не существует.
-4. **`cacheComponents: true`**: нельзя `new Date()` при пререндере (год — через `useSyncExternalStore`, см. `components/layout/CurrentYear.tsx`).
-5. **react-hooks v6 (eslint)**: запрещён `setState` напрямую в `useEffect` — сторы на `useSyncExternalStore` (корзина, профиль, auth, CurrentYear).
-6. Route-файлам (`route.ts`/`page.tsx`) **нельзя иметь лишние экспорты** — вспомогательные функции выносить в `lib/` или компоненты.
-7. **`NEXT_PUBLIC_*` запекаются при сборке** — после добавления env в Vercel нужен полный **Redeploy**.
-8. Правило владельца: **все изменения → сразу все 3 локали (de+ru+en) → коммит → push**.
-9. Валидация JSON переводов: `node -e "JSON.parse(...)"` перед билдом.
-10. Кириллица в `curl` на Windows ломает UTF-8 — Telegram API звать через `node -e "fetch(...)"`.
-11. **Vercel MCP работает, НО на личном (Hobby) аккаунте не передавай `teamId` в инструменты MCP**: с явным teamId запросы ломаются — `get_project` → 404 «Project not found», `list_projects` → пусто, `list_deployments` → 403. Без teamId (дефолтный scope сессии = своя команда) видно всё: 14 проектов, деплои, env. Vercel CLI при этом нерабочий: `VERCEL_TOKEN` в окружении невалиден. «Разбудить» деплой по-прежнему можно пустым коммитом в main.
-12. **Turbopack кеширует CSS между сборками**: правки `app/globals.css` могут не попасть в `next build` (JS-модули пересобираются, CSS — нет). При «стили не применились» — `rm -rf .next` и пересборка.
+3. `app/[lang]/layout.tsx` — **корневой layout** (содержит `<html>`); `app/layout.tsx` не существует. Route groups: `app/[lang]/(site)/` (хром сайта) и `app/[lang]/(ultra)/` (свой layout/providers/ultra.css).
+4. **`cacheComponents: true`**: нельзя `new Date()` при пререндере (год — `useSyncExternalStore`); `dynamic`/`dynamicParams` экспорты запрещены (runtime-данным — `await connection()`); `useSearchParams`/`usePathname` — только внутри `<Suspense>`.
+5. **react-hooks v6 (eslint)**: запрещён `setState` напрямую в `useEffect` — сторы на `useSyncExternalStore`.
+6. **`NEXT_PUBLIC_*` запекаются при сборке** — после добавления env в Vercel нужен Redeploy.
+7. **Turbopack кеширует CSS**: правки `globals.css` могут не попасть в билд → `rm -rf .next` перед пересборкой.
+8. **Off-canvas drawer + translateX(100%) раздувает scrollWidth в WebKit даже при `position: fixed`** → в `@layer base` стоит `html { overflow-x: clip }` + `visibility: hidden` у закрытого `.rt-mobile-nav` — не удалять (иначе «фантомный правый отступ»). Ширину документа мерить probe'ом (`scrollWidth` vs `clientWidth`).
+9. **Cookie+PWA промпты** живут в общем fixed-контейнере `.rt-bottom-widgets` (грид; мобайл — стек, десктоп — одна строка). Стили ultra-виджетов, используемые на (site), должны жить в **globals.css** (ultra.css на site-страницах не грузится!).
+10. **CustomCursor держать ВНЕ стекинг-контейнеров** (он в `SiteUltraWidgets` снаружи `.rt-bottom-widgets`) — его z-index глобальный, выше тостов.
+11. **Токен-мост**: shadcn-переменные перезаписаны палитрой Ultra в globals.css. **Primary split (Midnight Navy #070E21)**: `--primary` — solid (заливные кнопки через `bg-[var(--primary)]` + `--primary-border` окантовка в dark), `--color-primary` = `var(--primary-soft)` — акцентные text/border/тинты (steel `#8fa2e0` на dark — иначе navy-текст на navy-фоне невидим). Логотип-градиент — на отдельном `--logo-grad-primary` (синие концы). НЕ заливать navy напрямую в text-*.
+12. Правило владельца: **все изменения → сразу все 3 локали (de+ru+en) → валидация JSON → коммит → push** (main = автодеплой). Ошибок сборки перед пушем быть не должно.
+13. Кириллица в `curl` на Windows ломает UTF-8 — Telegram/JSON звать через `node -e "fetch(...)"`.
+14. **Vercel MCP/CLI**: не передавать `teamId` (личный Hobby-аккаунт — с ним 404/403); env `VERCEL_TOKEN` протух — CLI-фолбэк `env -u VERCEL_TOKEN vercel …`, рабочий токен в `~/AppData/Roaming/com.vercel.cli/Data/auth.json`. Деплой-статус проверять через `gh api repos/developkiko/revoluttime2/commits/<sha>/status`.
+15. **Зомби `next start`** держит порт после прерванной сессии — убивать (`netstat -ano | grep :PORT` → `taskkill //F //PID`). Локальные пробы — на свободных портах (3100+).
+16. Мобильная верификация без владельца: `node scripts/check-webkit.mjs` (Playwright WebKit = движок Safari, iPhone-дескриптор; гидрация 4–8 с — ждать селектор). Владелец проверяет редко — проверять самому.
+17. `/api/ultra/auth/telegram` и `/api/auth/telegram` — разные стеки; у site-варианта HMAC считается по ВСЕМ полям payload — лишние поля ломают подпись.
 
 ## Дерево проекта (корень = репозиторий)
 
 ```
-revoluttime/                     ← здесь .env.local, .gitignore, AGENTS.md
-├── proxy.ts                     ← next-intl middleware (Next 16 конвенция)
-├── i18n/                        ← routing.ts (локали), request.ts (messages loader), navigation.ts (Link/useRouter)
-├── messages/                    ← de.json, ru.json, en.json — ВСЕ тексты сайта
-├── lib/
-│   ├── products.ts              ← фасовки таблеток, SITE (телефон/WhatsApp/Telegram), formatPrice
-│   ├── catalog.ts               ← офферы (спорт/отдых/туризм/equipment) + слоты бронирования; мок под Supabase
-│   ├── auth-session.ts          ← подписанная HMAC session-cookie (сервер)
-│   ├── auth-store.ts            ← клиентская сессия (useSyncExternalStore, /api/auth/me)
-│   ├── profile-store.ts         ← displayName + аватар (dataURL) в localStorage
-│   ├── partner-demo.ts          ← демо-данные кабинета (партнёры, покупки, бонусы, баланс)
-│   ├── admin-store.ts           ← демо-оверлей офферов для админки (localStorage)
-│   ├── contact-inbox.ts         ← инбокс заявок (в памяти, demo)
-│   └── utils.ts                 ← cn()
-├── components/
-│   ├── layout/                  ← Header, Footer, Logo (2-слойный брендовый), ThemeToggle, AuthPanel, TelegramLoginWidget, LoginNotice, CtaBanner, CurrentYear
-│   ├── home/                    ← HeroSection (слайдер 5 блоков), DirectionsSection (5 карточек), PartnerSection (+pentagon), UsageSection
-│   ├── shop/ProductVariants.tsx ← карточки фасовок 90/120 + корзина
-│   ├── cart/                    ← CartProvider (useSyncExternalStore+localStorage; pack|ticket), CartDrawer
-│   ├── booking/BookingWidget.tsx← выбор даты + участники + цена → билет в корзину
-│   ├── sections/                ← SectionOffers, OfferDetail (общие для списков/деталей броней)
-│   ├── partner/                 ← PartnerSteps (цветные анимированные), LevelsCascade (A–F)
-│   ├── contact/ContactWidget.tsx← форма → /api/contact
-│   ├── cabinet/                 ← ProfileCard (аватар/имя/экспорт/удаление), ReferralLink, WithdrawButton
-│   ├── admin/                   ← AdminPanel (вкладки), AdminDemoButton
-│   └── ui/                      ← shadcn: button, card, input, sheet, dialog, dropdown-menu, popover, skeleton, sonner…
+revoluttime/
+├── proxy.ts                      ← next-intl middleware (Next 16)
+├── i18n/                         ← routing.ts, request.ts, navigation.ts (Link/usePathname/useRouter с локалью)
+├── messages/                     ← de.json, ru.json, en.json — ВСЕ тексты site-стека
 ├── app/
+│   ├── globals.css               ← токен-мост Ultra (весь дизайн), cookie/pwa, FX, курсор, bottom-widgets
+│   ├── styles/port.css           ← порт с дамми (селект Popover API, tabs-glider, rb-кнопки)
 │   ├── api/
-│   │   ├── auth/google/start|callback/ ← OAuth code flow
-│   │   ├── auth/telegram/          ← POST: HMAC-проверка Login Widget → сессия
-│   │   ├── auth/me, auth/logout, auth/dev-admin (демо-админ; отключается AUTH_DEMO_MODE=false)
-│   │   ├── telegram/webhook/       ← POST: бот; /start отвечает chat_id
-│   │   ├── contact/                ← заявка формы → Telegram админам + инбокс
-│   │   └── admin/messages/         ← GET: инбокс (только isAdmin)
+│   │   ├── auth/                 ← me, logout, telegram (widget), google/{start,callback},
+│   │   │                           facebook/{start,callback,deauthorize}, tg/{code,exchange} (код-флоу),
+│   │   │                           links (+links/unlink — привязка аккаунтов), dev-admin (демо)
+│   │   ├── telegram/webhook/     ← бот: /start → chat id; /start <code> → код-вход (ссылка в чат)
+│   │   ├── contact/, admin/messages/, journey/lead/
+│   │   ├── checkout/             ← Stripe Checkout Session (цены из серверного каталога)
+│   │   ├── webhooks/stripe/      ← constructEventAsync → orders + financial_ledger + Telegram
+│   │   └── ultra/                ← 19 роутов шаблона (auth, payment, products, reviews, visits…)
 │   └── [lang]/
-│       ├── layout.tsx  ← КОРНЕВОЙ layout: <html lang>, шрифты, ThemeProvider, NextIntlClientProvider, CartProvider, Header/Footer/CartDrawer/Toaster/LoginNotice
-│       ├── page.tsx    ← главная: HeroSection (5 слайдов) + DirectionsSection + PartnerSection
-│       ├── loading.tsx ← скелетон навигации
-│       ├── shop/       ← покупка таблеток (ProductVariants + UsageSection)
-│       ├── hydrogen/   ← наука H₂ (+ hydrogen/tablets — под-страница «состав/усвоение/сравнение»)
-│       ├── studio/     ← студия (6 услуг из визитки)
-│       ├── equipment/  ← оборудование (поставщики, старт-набор студии, OEM, форма)
-│       ├── recreation/ ← все брони (спорт+отдых+туризм) + recreation/[slug] (деталь + BookingWidget)
-│       ├── partner/    ← рефералка: как работает, выгоды, каскад A–F, выплаты, CTA
-│       ├── cabinet/    ← кабинет (гейт: вход обязателен)
-│       ├── admin/      ← админка (гейт: ADMIN_EMAILS)
-│       ├── dummy/      ← песочница всех компонентов (noindex)
-│       └── legal/[slug]/ ← impressum | datenschutz | agb | widerruf
-├── public/imgs/                ← product/ (таблетки), brand/ (бокс ADD LIFE + revoluttime-hero.svg — точная SVG-копия hero-логотипа, текст → кривые)
-├── messages/*.json, i18n/, proxy.ts
-└── AGENTS.md                   ← автоген Next.js, не трогать
+│       ├── layout.tsx            ← КОРНЕВОЙ: <html>, шрифты, ThemeProvider, NextIntl
+│       ├── (site)/               ← хром сайта: Header/Footer/CartDrawer/CookieBanner/AnalyticsGate/SiteUltraWidgets
+│       │   ├── page.tsx          ← главная (HeroSection — слайдер 5, Directions, Encyclopedia, Reviews, Partner, UltraPages)
+│       │   ├── shop/ hydrogen/(+tablets) studio/ equipment/ recreation/(+[slug]) partner/ journey/
+│       │   ├── cabinet/          ← 5 вкладок (CabinetTabs, хеш-роутинг #balance/#profile/…)
+│       │   ├── encyclopedia/(+[slug]) legal/[slug] checkout/ admin/ dummy/ left/ status/
+│       │   ├── certificates/     ← Eurofins + сертификаты (цель кликабельных бейджей)
+│       │   └── auth-telegram/    ← лендинг ссылки из бота (обмен токена на сессию)
+│       └── (ultra)/              ← ultra-home, features, compare, stats, prev, privacy, terms, refund, cookies, dashboard…
+│           ├── layout.tsx (Providers, PwaRegistration), ultra.css (своя палитра)
+├── components/
+│   ├── layout/                   ← Header, Footer, Logo, ThemeToggle, AuthPanel (2 кнопки+AuthModal | user-pill),
+│   │                              AuthModal (табы Вход/Регистрация + соцсети), TgCodeFlow, AuthTelegramClient,
+│   │                              CookieBanner, SiteUltraWidgets (курсор+FAB+bottom-widgets), LoginNotice, ModalControls
+│   ├── home/ hero ultra/home/    ← HeroSection (5 слайдов, слайды /imgs/for-ads/slide1-5.png)
+│   ├── shop/ cart/ booking/ sections/ partner/ encyclopedia/ wiki/ journey/ cabinet/ (CabinetTabs, ProfileCard, LinkedAccounts, PartnerNetwork) admin/ fx/
+│   ├── ultra/                    ← auth/ (AuthModal шаблона, SocialAuthButtons), dashboard/, home/, layout/ (Header, PolicyLayout, LangSwitcher), ui/ (ModalEngine, LanguageModal, PolicyModal, ThemeToggle)
+│   └── ui/                       ← shadcn + notice
+├── lib/                          ← auth-session/auth-store/auth-links, ultra/{db,db-data,kv,session,auth-store,i18n,…},
+│                                   mlm-calculator, catalog, products, journey{,-pdf}, encyclopedia*, telegram, analytics, consent
+├── supabase/migrations/          ← init+grants+expansion+pricing_v2 (энциклопедия/продукты)
+├── public/                       ← imgs/for-ads (слайды), ultra/, fonts (Poppins), manifest, sw.js
+└── scripts/                      ← check-webkit.mjs, generate-expansion-sql.mjs, ultra/* (миграции/вебхуки)
 ```
 
 ## Модули (данные и состояние)
 
 | Модуль | Хранилище | Что держит |
 |---|---|---|
-| `lib/catalog.ts` | статичный seed → потом Supabase | офферы 4 секций, слоты (date/maxPeople/priceCents), suppliers[], LocalizedText de/ru/en |
-| `components/cart/CartProvider` | localStorage `revoluttime-cart-v2` | товары `pack` (90/120 таб) и `ticket` (оффер+слот+люди) — корзина общая |
-| `lib/auth-store.ts` | httpOnly cookie (`rt_session`, HMAC-SHA256) | сессия: email/name/provider/picture/isAdmin |
-| `lib/profile-store.ts` | localStorage `revoluttime-profile-v1:<email>` | displayName, аватар (dataURL 256px) |
-| `lib/admin-store.ts` | localStorage `revoluttime-admin-offers-v1` | демо-оверлей правок офферов (до Supabase) |
-| `lib/contact-inbox.ts` | память сервера (эфемерно) | заявки формы для вкладки «Сообщения» |
-| `lib/partner-demo.ts` | статика | демо: партнёры, покупки, бонусы, баланс 84.50 € |
+| `lib/ultra/db.ts` + `db-data.ts` | Neon (`DATABASE_URL`) | self-healing схема: users, ultra_kv, payments, telegram_*, ultra_products/reviews, site_config, admin_chats, **auth_links** |
+| `lib/auth-session.ts` / `auth-store.ts` | HMAC-cookie `rt_session` (30д) | сессия site-стека: email/name/provider (google\|telegram\|facebook)/picture/isAdmin |
+| `lib/auth-links.ts` | Neon `auth_links` | привязка провайдеров к anchor-email; unlink-guard «последний способ» |
+| `lib/ultra/auth-store.tsx` | `up_session` (KV 7д) + /api/auth/me | ultra-сессия (мост: пробует site /api/auth/me первым) |
+| `lib/catalog.ts`, `lib/products.ts` | статичный сид (→ потом БД) | офферы/слоты, фасовки 90 таб. 70 €, SITE-контакты |
+| `lib/mlm-calculator.ts` | чистые функции | план I–V: 50/10/2/1/1 %, TOTAL_FUND_RATIO 0.64 |
+| CartProvider / profile-store / admin-store / contact-inbox | localStorage/память | корзина `revoluttime-cart-v2` (pack\|ticket), профиль `…-v1:<email>`, оверлей офферов, инбокс |
+| `lib/consent.ts` | `rt_cookie_consent` | granted\|essential — гейт аналитики |
+| Supabase `revtime` | postgres (eu-west-3) | энциклопедия (research/claims/articles), orders, financial_ledger |
 
-## API-эндпоинты
+## API-эндпоинты (основные)
 
-| Метод | Путь | Что делает | Env |
-|---|---|---|---|
-| GET | `/api/auth/me` | текущий юзер или null | — |
-| POST | `/api/auth/logout` | очистить cookie | — |
-| POST | `/api/auth/telegram` | HMAC-проверка данных Login Widget → сессия | TELEGRAM_BOT_TOKEN |
-| GET | `/api/auth/google/start` | 302 на согласие Google | NEXT_PUBLIC_GOOGLE_CLIENT_ID |
-| GET | `/api/auth/google/callback` | обмен кода → userinfo → сессия | + GOOGLE_CLIENT_SECRET |
-| POST | `/api/auth/dev-admin` | ДЕМО: вход admin@revoluttime.de (отключить: AUTH_DEMO_MODE=false) | — |
-| POST | `/api/telegram/webhook` | вебхук бота; /start → отвечает chat_id | TELEGRAM_BOT_TOKEN |
-| POST | `/api/contact` | заявка формы → Telegram админам + инбокс | TELEGRAM_BOT_TOKEN, TELEGRAM_ADMIN_CHAT_ID |
-| GET | `/api/admin/messages` | инбокс (только isAdmin) | — |
+| Путь | Что | Env |
+|---|---|---|
+| `/api/auth/me`·`logout`·`dev-admin` | сессия site-стека | — |
+| `/api/auth/google/{start,callback}` | OAuth Google (+`?link=1` привязка) | GOOGLE_CLIENT_* |
+| `/api/auth/facebook/{start,callback,deauthorize}` | OAuth Facebook (+link, deauthorize-callback FB) | FACEBOOK_APP_ID/SECRET |
+| `/api/auth/telegram` | HMAC Login Widget (забальзамирован в UI) | TELEGRAM_BOT_TOKEN |
+| `/api/auth/tg/code` → `/api/auth/tg/exchange` | обходной код-вход: код → бот → одноразовая ссылка → сессия/привязка | +DATABASE_URL, NEXT_PUBLIC_TELEGRAM_BOT_NAME |
+| `/api/auth/links` (+`/unlink`) | список/отвязка способов входа (guard 409 last_method) | +DATABASE_URL |
+| `/api/telegram/webhook` | бот: `/start` → chat id; `/start <code>` → ссылка входа | TELEGRAM_BOT_TOKEN(+SECRET) |
+| `/api/checkout`, `/api/webhooks/stripe` | Stripe Checkout + ledger/orders + TG-алерт | STRIPE_* (+SUPABASE_SERVICE_ROLE_KEY) |
+| `/api/contact`, `/api/journey/lead`, `/api/admin/messages` | заявки → Telegram+инбокс; PDF-лид; инбокс | TELEGRAM_ADMIN_CHAT_ID |
+| `/api/ultra/*` (19 роутов) | шаблон: auth/products/reviews/visits/payments/site-config/tg-боты | DATABASE_URL, CLIENT_BOT_TOKEN… |
 
 ## Внешние сервисы
 
 | Сервис | Детали |
 |---|---|
-| **Vercel** | проект `revolut-time` (id `prj_fByD65LZUCP3K84JexOgF1IVs5Q6`), team `team_TWbuf03uGZI1HmKdbpyzJvNR`; прод: https://revolut-time.vercel.app; git: `developkiko/revoluttime2` → main. ⚠️ Vercel MCP не имеет доступа к деплоям/env этого проекта (403/404) |
-| **Supabase** | `sb-revolut-db` → https://qyksdgzguhtjhnrswiib.supabase.co — проект поднят; ключи интеграции УЖЕ заведены в Vercel env (SUPABASE_URL/anon/service_role + POSTGRES_* от маркетплейс-интеграции), но в код не подключены и таблиц нет |
-| **Telegram** | бот @revoluttime_bot (токен в .env.local); webhook → `/api/telegram/webhook`; чат владельца **5157746090** (туда падают заявки формы); для Login Widget нужен `/setdomain` в BotFather |
-| **Google OAuth** | клиент `375681716439-2fjf695spkeoba8tnsaji618g00n1b15...` (проект hunefo в консоли); redirect: `<origin>/api/auth/google/callback`; статус Testing → добавить test users или Publish |
-| **Контакты владельца** | +49 175 9590916 (WhatsApp/Tel) — визитка; адрес Hebertshausen |
+| **Vercel** | проект `revolut-time` (`prj_fByD65LZUCP3K84JexOgF1IVs5Q6`), team `team_TWbuf03uGZI1HmKdbpyzJvNR` (Hobby); прод https://revolut-time.vercel.app; git `developkiko/revoluttime2` → main. MCP — без teamId |
+| **GitHub** | developkiko/revoluttime2 (main); админка — отдельный репо `revtime2-admin` (adm-rt.vercel.app, запущен владельцем) |
+| **Neon** | Postgres ultra-стека (`DATABASE_URL` в Vercel env; локально в .env.local НЕТ — API отдают graceful 503) |
+| **Supabase** | проект `revtime` (`jzjezfewouleamrsnzla`, eu-west-3), ключи вручную в Vercel env (БЕЗ маркетплейс-интеграции — она валила деплои). С Windows доступ только через пулер `aws-0-eu-west-3.pooler.supabase.com:5432` (юзер `postgres.<ref>`) |
+| **Telegram** | @revoluttime_bot, chat владельца **5157746090**; webhook → `/api/telegram/webhook`; для старого widget-входа нужен `/setdomain` (куплен нормальный домен) |
+| **Google OAuth** | redirect `<origin>/api/auth/google/callback` |
+| **Facebook** | приложение создано владельцем; redirect `https://revolut-time.vercel.app/api/auth/facebook/callback`, deauthorize `…/deauthorize`, JS-SDK домен `revolut-time.vercel.app`; env FACEBOOK_APP_ID/SECRET — добавить в Vercel |
+| **Eurofins** | анализ AR-26-HH-013581-02 (H₂ ≤ 1,6 ppm) — страница /certificates |
 
-## Env-переменные (`.env.local` локально; те же — в Vercel Settings → Environment Variables)
+## Env-переменные
 
-```
-TELEGRAM_BOT_TOKEN, NEXT_PUBLIC_TELEGRAM_BOT_NAME,
-NEXT_PUBLIC_GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET,
-AUTH_SESSION_SECRET, TELEGRAM_ADMIN_CHAT_ID=5157746090,
-ADMIN_EMAILS=admin@revoluttime.de,5157746090@telegram.revoluttime
-```
-Плюс в Vercel env уже лежат ключи Supabase-интеграции (SUPABASE_URL/ключи, POSTGRES_*). ⚠️ TELEGRAM_ADMIN_CHAT_ID и ADMIN_EMAILS в Vercel env отсутствуют — на проде работают дефолты из кода (владелец 5157746090).
+**Есть в Vercel:** `DATABASE_URL` (Neon), `NEXT_PUBLIC_SUPABASE_URL/ANON_KEY` (revtime), `TELEGRAM_BOT_TOKEN`, `NEXT_PUBLIC_TELEGRAM_BOT_NAME`, `NEXT_PUBLIC_GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `AUTH_SESSION_SECRET`, `STRIPE_SECRET_KEY`?(проверить).
+**Есть локально (.env.local):** тот же набор минус DATABASE_URL (+ ADMIN_EMAILS, TELEGRAM_ADMIN_CHAT_ID, POSTGRES_URL_NON_POOLING — пулер Supabase для миграций).
+**Ждут добавления в Vercel:** `FACEBOOK_APP_ID` + `FACEBOOK_APP_SECRET` (Facebook-вход), `STRIPE_WEBHOOK_SECRET` + `SUPABASE_SERVICE_ROLE_KEY` (`sb_secret_…`, для вебхука записей), `NEXT_PUBLIC_POSTHOG_KEY` (аналитика за consent-гейтом), `NEXT_PUBLIC_SITE_URL=https://revolut-time.vercel.app` (ссылки TG-входа/sitemap).
 
 ## Ссылки
 
 - Прод: https://revolut-time.vercel.app · GitHub: https://github.com/developkiko/revoluttime2 (main)
-- Старые сайты (источник идей): revoluttimenew.vercel.app (партнёрка), revoluttime.vercel.app (магазин v1), hidrogen-hho.vercel.app (архив)
-- Документы бренда: `../infos/*.md`, фото/визитка: `../imgs/`
+- Исходники/архивы: `F:\WebstormProjects\revoluttime` (старый сайт, revolut-first-eight), revoluttime.vercel.app (v1), hidrogen-hho.vercel.app (архив)
+- Документы бренда: `../infos/*.md`; ассеты: `../imgs-finally/` (слайды, этикетка `эттикетка/`, иконки)

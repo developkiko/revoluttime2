@@ -1,7 +1,8 @@
 # RevolutTIME — devlog
 
 Хронология разработки нового сайта. Коммиты в `main` → автодеплой на Vercel.
-Последние коммиты — см. `git log`; логотип-исходник — `c60e5db`.
+**Свежие батчи (15.11+) — в `devlog_target.md`**, точка передачи сессии — `DEVLOG_CURRENT.md`,
+статусы — `roadmap.md`, стек/грабли — `project.md`. Логотип-исходник — `c60e5db`.
 
 ## 01.11.2026
 
@@ -97,3 +98,17 @@
 - SVG-копия hero: `public/imgs/brand/revoluttime-hero.svg` — Poppins → кривые (opentype.js, baseline 152/190 по метрикам hhea), полосы 105° → linearGradient spreadMethod=repeat (один период 12% оси), scaleY(1.05)+drop-shadow как в CSS; fg — сплошная #1A2438.
 - Vercel MCP перепроверен: авторизация ок (developkiko, team по умолчанию верная), но API команду не отдаёт: проекты — пустой список, `GET /v9/projects/{id}` → 404, deployments → 403; CLI бесполезен (`VERCEL_TOKEN` в окружении невалиден). Диагноз уточнён в project.md (грабля №11).
 - Уточнение по Vercel (тот же день): переавторизация НЕ понадобилась, API жив. Причина прошлых 404/403 — явный `teamId` в вызовах MCP на личном Hobby-аккаунте; без него видны все 14 проектов, деплои и env. Обнаружено: ключи Supabase-интеграции уже есть в Vercel env; TELEGRAM_ADMIN_CHAT_ID и ADMIN_EMAILS в Vercel env нет — на проде работают дефолты из кода (владелец 5157746090). project.md (№11, Supabase, env) и roadmap переписаны. Пуш `34dd9ea` задеплоился сам, прод `/de/dummy` отдаёт секцию логотипа.
+
+## 10–13.11.2026 (батч P2, детали в git log)
+
+- `2f94f25`/`78bf060`/`2061e6f` — P0: Stripe Checkout, Legal+SEO (CookieBanner/consent, robots/sitemap/manifest), RefCapture + PostHog за consent-гейтом + Impressum YULKK Corp.
+- `7ff9566`/`ae6f20b`/`913d912` — P1: lazy-бандл (341→284 КБ gz), mlm-calculator + сетка на /partner, энциклопедия v1 (2 статьи).
+- `ca01bd2`+`6b0f727` — Supabase переприкручен на новый проект `revtime` (eu-west-3) БЕЗ маркетплейс-интеграции (сайдкар интеграции валил 6 деплоев «provisioning timed out»); E2E: прод читает статьи из БД. Инцидент задокументирован в старом DEVLOG_CURRENT (грабля: сайдкар застревает после suspend/restore).
+- `b4735c9` — свайпы Hero (Pointer Events), видео на tablets, фоны-стены, `/api/webhooks/stripe` (orders + ledger + Telegram через `lib/telegram.ts`).
+- `d0efa2d` — энциклопедия 10 статей ×3 (`lib/encyclopedia-expansion.json` → генератор → миграция; 6 PubMed-пейперов, PMID верифицированы).
+- `b73cf34` — Discovery Journey `/journey`: квиз → рекомендация → PDF-лид (`lib/journey-pdf.ts`, ru = en-заглушка — core-шрифты без кириллицы).
+- `4ae78c3` — вики-линки (t.rich `<mgh2>/<water>/<h2>/<mg>`), encyclopedia в шапку/футер/главную, слайдер-троттлинг.
+- `8de1b97` — фикс «полупрозрачного текста» (absolute-оверлеи поверх static) + iOS-шторка (100dvh+safe-area) — оба по жалобам владельца, уроки в `project.md`.
+- `8b8d6c1`+`8f78d6a` — **Pricing v2 по листу владельца**: 70 € (pack-90), партнёрам 60 € от 10 + 1 в подарок, pack-120 удалён (миграция), **план I–V 50/10/2/1/1 %** (НЕ выдуманный A–F), «Отдых и спорт» → «Конференция и отдых».
+- `e088e33` — PartnerNetwork (спец-модуль владельца: «Вы» + 5 партнёров, односторонние пунктиры, вкладки) в /cabinet#network и на главной.
+- `acf2cea` — auth UX: аватар провайдера, разграниченные ссылки меню (Кабинет/Профиль/Покупки/Бонусы/Сеть/Энциклопедия/Админ/Выйти).
