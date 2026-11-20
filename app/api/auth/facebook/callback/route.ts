@@ -45,7 +45,7 @@ export async function GET(request: Request) {
   }
 
   const tokenResponse = await fetch(
-    "https://graph.facebook.com/v19.0/oauth/access_token?" +
+    "https://graph.facebook.com/v23.0/oauth/access_token?" +
       new URLSearchParams({
         code,
         client_id: appId,
@@ -57,7 +57,7 @@ export async function GET(request: Request) {
   if (!tokenResponse.ok || !tokens.access_token) return fail("token_error");
 
   const meResponse = await fetch(
-    "https://graph.facebook.com/v19.0/me?fields=id,name,email,picture.type(large)&access_token=" +
+    "https://graph.facebook.com/v23.0/me?fields=id,name,email,picture.type(large)&access_token=" +
       encodeURIComponent(tokens.access_token)
   );
   const me = (await meResponse.json()) as FacebookUserInfo;

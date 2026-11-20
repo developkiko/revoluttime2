@@ -618,6 +618,7 @@
     "closePanel": "Schließen",
     "loginCancelled": "Anmeldung abgebrochen",
     "loginUnconfigured": "Anmeldung noch nicht konfiguriert — Provider-Secrets fehlen",
+    "loginFailed": "Anmeldung fehlgeschlagen — bitte erneut versuchen",
     "welcomeToast": "Willkommen!",
     "signedOutToast": "Sie haben sich abgemeldet",
     "cabinet": "Partner-Cabinet",

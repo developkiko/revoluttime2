@@ -26,6 +26,9 @@ export function LoginNotice() {
       notice({ text: t("loginCancelled"), variant: "info" });
     } else if (login === "unconfigured") {
       notice({ text: t("loginUnconfigured"), variant: "error" });
+    } else {
+      // state_mismatch, token_error, userinfo_error, …
+      notice({ text: `${t("loginFailed")} (${login})`, variant: "error" });
     }
     window.history.replaceState(null, "", window.location.pathname);
   }, [searchParams, t, notice]);

@@ -618,6 +618,7 @@
     "closePanel": "Close",
     "loginCancelled": "Sign-in cancelled",
     "loginUnconfigured": "Sign-in is not configured yet — provider secrets are missing",
+    "loginFailed": "Sign-in failed — please try again",
     "welcomeToast": "Welcome!",
     "signedOutToast": "You have signed out",
     "cabinet": "Partner cabinet",

@@ -618,6 +618,7 @@
     "closePanel": "Закрыть",
     "loginCancelled": "Вход отменён",
     "loginUnconfigured": "Вход ещё не настроен — добавьте секреты провайдера",
+    "loginFailed": "Вход не выполнен — повтори попытку",
     "welcomeToast": "Добро пожаловать!",
     "signedOutToast": "Вы вышли из аккаунта",
     "cabinet": "Кабинет партнёра",

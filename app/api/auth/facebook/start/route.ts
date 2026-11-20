@@ -21,7 +21,7 @@ export async function GET(request: Request) {
   const linkMode = url.searchParams.get("link") === "1";
   const state = crypto.randomBytes(16).toString("hex");
 
-  const authUrl = new URL("https://www.facebook.com/v19.0/dialog/oauth");
+  const authUrl = new URL("https://www.facebook.com/v23.0/dialog/oauth");
   authUrl.searchParams.set("client_id", appId);
   authUrl.searchParams.set("redirect_uri", `${origin}/api/auth/facebook/callback`);
   authUrl.searchParams.set("response_type", "code");
