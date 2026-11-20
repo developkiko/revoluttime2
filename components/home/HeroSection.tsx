@@ -205,7 +205,7 @@ export function HeroSection() {
       className="relative flex flex-col overflow-hidden text-center md:h-[calc(100dvh-var(--header-height))] md:min-h-[42rem]"
       style={{
         background:
-          "radial-gradient(ellipse 70% 60% at 50% 0%, color-mix(in oklab, var(--primary) 12%, transparent), transparent)",
+          "radial-gradient(ellipse 70% 60% at 50% 0%, color-mix(in oklab, var(--color-primary) 12%, transparent), transparent)",
       }}
     >
       <div
@@ -299,7 +299,7 @@ export function HeroSection() {
                 <div className="mt-1 flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:justify-start">
                   <Link
                     href={SLIDE_HREF[key]}
-                    className="inline-flex items-center gap-2 justify-center rounded-[10px] bg-primary py-3 px-5 text-sm font-semibold text-white transition-all hover:bg-primary/85 whitespace-nowrap sm:py-[0.85rem] sm:px-8 sm:text-base"
+                    className="inline-flex items-center gap-2 justify-center rounded-[10px] bg-[var(--primary)] py-3 px-5 text-sm font-semibold text-white transition-all hover:bg-[var(--color-primary-hover)] whitespace-nowrap sm:py-[0.85rem] sm:px-8 sm:text-base"
                   >
                     {t(`slides.${key}.cta`)}
                     <ArrowRightIcon className="size-4" />

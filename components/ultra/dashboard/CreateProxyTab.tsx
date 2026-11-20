@@ -271,7 +271,7 @@ export function CreateProxyTab({ onDeposit }: CreateProxyTabProps) {
                 className={
                   "inline-flex items-center gap-2 h-11 px-6 rounded-lg text-sm font-semibold transition-all " +
                   (canCreate
-                    ? "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+                    ? "bg-[var(--primary)] text-white hover:bg-[var(--color-primary-hover)]"
                     : "bg-[var(--border-default)] text-[var(--text-muted)] cursor-not-allowed")
                 }
               >

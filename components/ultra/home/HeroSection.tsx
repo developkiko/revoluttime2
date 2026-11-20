@@ -21,7 +21,7 @@ export function HeroSection() {
     <section
       className="pt-[120px] sm:pt-[160px] pb-[60px] sm:pb-[100px] text-center relative"
       style={{
-        background: "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(99,102,241,0.12), transparent)",
+        background: "radial-gradient(ellipse 70% 60% at 50% 0%, color-mix(in oklab, var(--color-primary) 12%, transparent), transparent)",
       }}
     >
       <div

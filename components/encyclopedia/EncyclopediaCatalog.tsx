@@ -50,7 +50,7 @@ export function EncyclopediaCatalog({ articles }: { articles: EncyclopediaArticl
             onClick={() => setCategory("all")}
             className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
               category === "all"
-                ? "border-primary bg-primary text-primary-foreground"
+                ? "border-[var(--color-primary-border)] bg-[var(--primary)] text-primary-foreground"
                 : "bg-card text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -63,7 +63,7 @@ export function EncyclopediaCatalog({ articles }: { articles: EncyclopediaArticl
               onClick={() => setCategory(key)}
               className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
                 category === key
-                  ? "border-primary bg-primary text-primary-foreground"
+                  ? "border-[var(--color-primary-border)] bg-[var(--primary)] text-primary-foreground"
                   : "bg-card text-muted-foreground hover:text-foreground"
               }`}
             >

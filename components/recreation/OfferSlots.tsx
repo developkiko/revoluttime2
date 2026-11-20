@@ -96,7 +96,7 @@ export function OfferSlots({ offers }: { offers: CatalogOffer[] }) {
                   <div className="slot-buy flex items-center justify-between gap-3">
                     <Link
                       href={offerHref(offer)}
-                      className="inline-flex items-center gap-1.5 justify-center rounded-[10px] bg-primary py-2.5 px-5 text-sm font-semibold text-white transition-all hover:bg-primary/85 whitespace-nowrap"
+                      className="inline-flex items-center gap-1.5 justify-center rounded-[10px] bg-[var(--primary)] py-2.5 px-5 text-sm font-semibold text-white transition-all hover:bg-[var(--color-primary-hover)] whitespace-nowrap"
                     >
                       <TicketIcon className="size-4" aria-hidden="true" />
                       {ts("book")}

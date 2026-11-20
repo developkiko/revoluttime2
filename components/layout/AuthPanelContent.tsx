@@ -125,7 +125,7 @@ function UserMenu({
             className="size-10 shrink-0 rounded-full object-cover"
           />
         ) : (
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-lg font-bold uppercase text-white">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--primary)] text-lg font-bold uppercase text-white">
             {name.charAt(0)}
           </span>
         )}

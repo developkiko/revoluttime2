@@ -99,7 +99,7 @@ export function PlansTab({ onDeposit }: PlansTabProps) {
               tabIndex={showOverlay ? -1 : 0}
               className={`px-4 py-1.5 text-xs font-semibold rounded-full border transition-all ${
                 proto === pt
-                  ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-white"
+                  ? "border-[var(--color-primary-border)] bg-[var(--primary)] text-white"
                   : "border-[var(--border-default)] bg-transparent text-[var(--text-muted)] hover:border-[var(--color-primary)]/40 hover:text-[var(--text-secondary)]"
               }`}
             >
@@ -145,7 +145,7 @@ export function PlansTab({ onDeposit }: PlansTabProps) {
                   ))}
                 </ul>
                 <button
-                  className="w-full py-3 text-sm font-semibold rounded-lg transition-all bg-[var(--color-primary)] text-white"
+                  className="w-full py-3 text-sm font-semibold rounded-lg transition-all bg-[var(--primary)] text-white"
                   tabIndex={showOverlay ? -1 : 0}
                 >
                   {t("plan_select_btn")}

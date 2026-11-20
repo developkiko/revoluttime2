@@ -19,14 +19,14 @@
   --border-subtle: rgba(10, 10, 30, 0.06);
   --border-default: #d8dae6;
   --border-strong: #c0c3d4;
-  --border-active: rgba(99, 102, 241, 0.35);
+  --border-active: rgba(7, 14, 33, 0.3);
   --text-primary: #1a1a2e;
   --text-heading: #0e0e1c;
   --text-secondary: #565672;
   --text-muted: #85859c;
   --text-link: #4b4b62;
-  --color-primary: #6366f1;
-  --color-primary-hover: #4f46e5;
+  --color-primary: var(--primary-soft);
+  --color-primary-hover: #18234d;
   --color-accent: #7c3aed;
   --color-accent-hover: #6d28d9;
   --color-accent-soft: #a78bfa;
@@ -60,7 +60,7 @@
   --border-subtle: rgba(255, 255, 255, 0.04);
   --border-default: #2a2a3a;
   --border-strong: #3a3a4a;
-  --border-active: rgba(99, 102, 241, 0.25);
+  --border-active: rgba(143, 162, 224, 0.35);
   --text-primary: #e0e0e0;
   --text-heading: #fff;
   --text-secondary: #888;
@@ -165,7 +165,7 @@ html:has(.ultra-root) {
 }
 
 .logo {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-warning), var(--color-accent), var(--color-primary));
+  background: linear-gradient(135deg, var(--logo-grad-primary), var(--color-warning), var(--color-accent), var(--logo-grad-primary));
   background-size: 200% auto !important;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -413,7 +413,7 @@ html:has(.ultra-root) {
   background: var(--hover-bg);
 }
 .cookie-btn-accept {
-  background: var(--color-primary);
+  background: var(--primary);
   color: var(--on-primary);
 }
 .cookie-btn-accept:hover {

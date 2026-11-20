@@ -25,7 +25,7 @@ const USER_PILL_CLASS =
   "rt-header-user-link inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-link)] hover:text-[var(--text-heading)] transition-colors px-3 py-1.5 rounded-lg hover:bg-[var(--hover-bg)] border border-[var(--color-primary)]/40 hover:border-[var(--color-primary)]/70 whitespace-nowrap";
 
 const LOGIN_BUTTON_CLASS =
-  "inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg transition-colors whitespace-nowrap bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]";
+  "inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg transition-colors whitespace-nowrap bg-[var(--primary)] text-white hover:bg-[var(--color-primary-hover)] border border-[var(--color-primary-border)]";
 
 export function AuthPanel() {
   const t = useTranslations("auth");

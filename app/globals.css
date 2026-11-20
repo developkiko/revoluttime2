@@ -36,7 +36,13 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
+  /* Midnight Navy split: --color-primary (text-primary / border-primary /
+     tint utilities + raw refs) is the accent face — navy on light, a
+     readable steel-blue on dark. Solid filled surfaces use var(--primary)
+     directly (buttons, badges) so they stay deep navy in both themes. */
+  --color-primary: var(--primary-soft);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-border: var(--primary-border);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -52,7 +58,8 @@
 
 /* ── Token bridge to the Ultra Proxy design system ────────────────────────
    Our shadcn components consume these variables, so remapping them to the
-   Ultra palette (indigo primary, #f4f5fa / #0a0a0f surfaces, 14px radius)
+   Ultra palette (Midnight Navy primary #070E21 per owner, 2026-11-21,
+   #f4f5fa / #0a0a0f surfaces, 14px radius)
    re-skins every site page 1:1 with the new design. Brand blue (logo) keeps
    its own vars below. */
 :root {
@@ -65,8 +72,12 @@
   --card-foreground: #1a1a2e;
   --popover: #ffffff;
   --popover-foreground: #1a1a2e;
-  --primary: #6366f1;
+  --primary: #070e21;
   --primary-foreground: #ffffff;
+  /* Accent face: same navy on light bg; .dark lifts it to a steel-blue tint
+     so text-primary / border-primary stay readable on dark surfaces. */
+  --primary-soft: #070e21;
+  --primary-border: transparent;
   --secondary: #eef0f7;
   --secondary-foreground: #1a1a2e;
   --muted: #eef0f7;
@@ -76,7 +87,7 @@
   --destructive: #dc2626;
   --border: #d8dae6;
   --input: #d8dae6;
-  --ring: #6366f1;
+  --ring: #3c4c92;
   --chart-1: #6366f1;
   --chart-2: #7c3aed;
   --chart-3: #22c55e;
@@ -85,16 +96,16 @@
   --radius: 0.875rem;
   --sidebar: #ffffff;
   --sidebar-foreground: #1a1a2e;
-  --sidebar-primary: #6366f1;
+  --sidebar-primary: #070e21;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #eef0f7;
   --sidebar-accent-foreground: #1a1a2e;
   --sidebar-border: #d8dae6;
-  --sidebar-ring: #6366f1;
+  --sidebar-ring: #3c4c92;
   /* Ultra template tokens — site-wide (widgets/cabinet use them) */
   --bg-elevated: #eef0f7;
   --bg-input: #ffffff;
-  --color-primary-hover: #4f46e5;
+  --color-primary-hover: #18234d;
   --color-accent: #7c3aed;
   --color-accent-hover: #6d28d9;
   --color-accent-soft: #a78bfa;
@@ -103,7 +114,7 @@
   --color-warning: #d97706;
   --color-info: #2563eb;
   --border-strong: #c0c3d4;
-  --border-active: rgba(99, 102, 241, 0.35);
+  --border-active: rgba(7, 14, 33, 0.3);
   --hover-bg: rgba(10, 10, 40, 0.05);
   --hover-bg-strong: rgba(10, 10, 40, 0.09);
   /* Ultra header tokens (site header = template header styles) */
@@ -134,8 +145,10 @@
   --card-foreground: #e0e0e0;
   --popover: #14141f;
   --popover-foreground: #e0e0e0;
-  --primary: #6366f1;
+  --primary: #070e21;
   --primary-foreground: #ffffff;
+  --primary-soft: #8fa2e0;
+  --primary-border: rgba(143, 162, 224, 0.3);
   --secondary: #1a1a2e;
   --secondary-foreground: #e0e0e0;
   --muted: #1a1a2e;
@@ -145,7 +158,7 @@
   --destructive: #ef4444;
   --border: #2a2a3a;
   --input: #2a2a3a;
-  --ring: #6366f1;
+  --ring: #8fa2e0;
   --chart-1: #818cf8;
   --chart-2: #a78bfa;
   --chart-3: #22c55e;
@@ -153,15 +166,15 @@
   --chart-5: #3b82f6;
   --sidebar: #14141f;
   --sidebar-foreground: #e0e0e0;
-  --sidebar-primary: #6366f1;
+  --sidebar-primary: #070e21;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #1a1a2e;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: #2a2a3a;
-  --sidebar-ring: #6366f1;
+  --sidebar-ring: #8fa2e0;
   --bg-elevated: #1a1a2e;
   --bg-input: #0a0a0f;
-  --color-primary-hover: #4f46e5;
+  --color-primary-hover: #18234d;
   --color-accent: #7c3aed;
   --color-accent-hover: #6d28d9;
   --color-accent-soft: #a78bfa;
@@ -170,7 +183,7 @@
   --color-warning: #f59e0b;
   --color-info: #3b82f6;
   --border-strong: #3a3a4a;
-  --border-active: rgba(99, 102, 241, 0.25);
+  --border-active: rgba(143, 162, 224, 0.35);
   --hover-bg: rgba(255, 255, 255, 0.06);
   --hover-bg-strong: rgba(255, 255, 255, 0.1);
   /* Ultra header tokens (dark) */
@@ -201,6 +214,10 @@
   }
   html {
     @apply font-sans;
+    /* The off-canvas mobile drawer (translateX(100%)) inflates document
+       scrollWidth in WebKit even while position: fixed — that read as a
+       phantom right-side gap on wide screens. Clip it at the viewport. */
+    overflow-x: clip;
   }
 }
 
@@ -271,6 +288,12 @@
   --brand-blue: #056ea8;
   --brand-blue-light: #0a5d8c;
   --brand-blue-dark: #083d5c;
+  /* Wordmark gradient endpoints stay on the readable blue: --primary is
+     Midnight Navy #070E21 now and would vanish on the dark glass header. */
+  --logo-grad-primary: #6366f1;
+}
+.dark {
+  --logo-grad-primary: #818cf8;
 }
 
 /* ── Wordmark — exact copy of the Ultra template .logo ────────────────────
@@ -282,10 +305,10 @@
   line-height: 1.2;
   background: linear-gradient(
     135deg,
-    var(--color-primary),
+    var(--logo-grad-primary),
     var(--color-warning),
     var(--color-accent),
-    var(--color-primary)
+    var(--logo-grad-primary)
   );
   background-size: 200% auto;
   background-clip: text;
@@ -409,7 +432,12 @@
   padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
   gap: 0.5rem;
   transform: translateX(100%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Hidden while off-canvas: out of the a11y tree / tab order, and its
+     translated box stops contributing to paint. */
+  visibility: hidden;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s 0.3s;
   overflow-y: auto;
   overscroll-behavior: contain;
   z-index: 30;
@@ -417,6 +445,10 @@
 }
 .rt-mobile-nav.open {
   transform: translateX(0);
+  visibility: visible;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s 0s;
 }
 .rt-mobile-nav .rt-mobile-link {
   display: flex;
@@ -553,10 +585,10 @@
   color: transparent;
   background-image: linear-gradient(
     135deg,
-    var(--color-primary),
+    var(--logo-grad-primary),
     var(--color-warning),
     var(--color-accent),
-    var(--color-primary)
+    var(--logo-grad-primary)
   );
   background-size: 200% auto;
   animation: rt-shimmer 4s linear infinite;
@@ -576,8 +608,10 @@
   }
 }
 /* ── Cookie consent (Ultra widget) — site-wide ────────────────────────────
-   Bottom-left, same height as the PWA install prompt; when the prompt is
-   visible the banner rests directly on top of it (body:has selector).
+   The banner and the PWA install prompt share the fixed .rt-bottom-widgets
+   grid: on mobile they stack (each on its own line, never overlapping), on
+   desktop they sit in one row — banner left, prompt centered. Outside the
+   container (ultra pages) .cookie-consent keeps its legacy fixed position.
    Text that does not fit is cut with an ellipsis (cookie-consent-text). */
 .cookie-consent {
   position: fixed;
@@ -597,9 +631,6 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(10px);
   animation: cookie-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-body:has(.pwa-install-prompt) .cookie-consent {
-  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 4.4rem);
 }
 .cookie-consent-text {
   min-width: 0;
@@ -621,8 +652,77 @@ body:has(.pwa-install-prompt) .cookie-consent {
   from { transform: translateY(24px); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
 }
+
+/* Shared fixed row/stack for the cookie banner + PWA prompt (site layout).
+   Grid instead of flex so the empty column keeps the banner left and the
+   prompt centered when only one of them is visible. The container swallows
+   no clicks; only the two cards take pointer events. */
+.rt-bottom-widgets {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.625rem;
+  align-items: end;
+  padding: 0 0.75rem;
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  pointer-events: none;
+}
+.rt-bottom-widgets > .cookie-consent,
+.rt-bottom-widgets > .pwa-install-prompt {
+  position: static;
+  pointer-events: auto;
+  margin: 0;
+  max-width: none;
+  z-index: auto;
+  left: auto;
+  right: auto;
+  bottom: auto;
+}
+/* Cookie banner first (top on mobile); the prompt sits at the very bottom. */
+.rt-bottom-widgets > .cookie-consent { order: -1; height: auto; }
+@media (min-width: 768px) {
+  .rt-bottom-widgets {
+    grid-template-columns: auto 1fr auto;
+    padding: 0 1rem;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  .rt-bottom-widgets > .cookie-consent {
+    grid-column: 1;
+    order: 0;
+    justify-self: start;
+    max-width: min(100%, 30rem);
+  }
+  .rt-bottom-widgets > .pwa-install-prompt {
+    grid-column: 2;
+    justify-self: center;
+    width: 100%;
+    max-width: 34rem;
+  }
+}
+/* Cookie card on phones: two lines of text + a full-width button row
+   (fixed 4.4rem height crushed the row at 320px viewport widths). */
 @media (max-width: 640px) {
-  .cookie-consent { right: 1rem; max-width: none; }
+  .rt-bottom-widgets > .cookie-consent {
+    flex-wrap: wrap;
+    row-gap: 0.45rem;
+    padding: 0.65rem 0.8rem;
+  }
+  .rt-bottom-widgets > .cookie-consent .cookie-consent-text {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+  .rt-bottom-widgets > .cookie-consent .cookie-consent-actions {
+    flex: 1 1 100%;
+  }
+  .rt-bottom-widgets > .cookie-consent .cookie-consent-actions > * {
+    flex: 1 1 auto;
+  }
 }
 
 /* ── PWA install prompt (Ultra widget) — site-wide ──────────────────────── */
@@ -633,8 +733,8 @@ body:has(.pwa-install-prompt) .cookie-consent {
 .pwa-install-prompt__content p { margin: .2rem 0 0; color: var(--muted-foreground); font-size: .78rem; line-height: 1.35; }
 .pwa-install-prompt__steps { color: var(--color-warning, #d97706) !important; font-weight: 700; }
 .pwa-install-prompt__actions { display: flex; align-items: center; gap: .5rem; flex: 0 0 auto; }
-.pwa-install-prompt__install { min-height: 2.35rem; height: 2.35rem; padding: 0 .9rem; border: 0; border-radius: .65rem; background: var(--primary); color: var(--primary-foreground); cursor: pointer; font: inherit; font-size: .8rem; font-weight: 700; }
-.pwa-install-prompt__install:hover { background: var(--color-primary-hover, #4f46e5); }
+.pwa-install-prompt__install { min-height: 2.35rem; height: 2.35rem; padding: 0 .9rem; border: 1px solid var(--color-primary-border, transparent); border-radius: .65rem; background: var(--primary); color: var(--primary-foreground); cursor: pointer; font: inherit; font-size: .8rem; font-weight: 700; }
+.pwa-install-prompt__install:hover { background: var(--color-primary-hover, #18234d); }
 .pwa-install-prompt__later { min-height: 2.35rem; border: 0; background: transparent; color: var(--muted-foreground); cursor: pointer; font: inherit; font-size: .78rem; }
 .pwa-install-prompt__later:hover { color: var(--foreground); }
 @media (max-width: 560px) { .pwa-install-prompt { align-items: flex-start; padding: .75rem; } .pwa-install-prompt__actions { flex-direction: column; align-items: stretch; } .pwa-install-prompt__actions button { width: 100%; } }

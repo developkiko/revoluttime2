@@ -164,7 +164,7 @@ export default function StatsPage() {
             </div>
             <div className="flex gap-1 p-1 rounded-lg bg-white/[0.04] border border-white/[0.06]">
               {periods.map((p) => (
-                <button key={p.id} type="button" onClick={() => setPeriod(p.id)} className={`px-3 py-1.5 text-xs rounded-md transition-colors ${period === p.id ? "bg-[var(--color-primary)] text-white" : "text-[var(--text-muted)] hover:text-white"}`}>
+                <button key={p.id} type="button" onClick={() => setPeriod(p.id)} className={`px-3 py-1.5 text-xs rounded-md transition-colors ${period === p.id ? "bg-[var(--primary)] text-white" : "text-[var(--text-muted)] hover:text-white"}`}>
                   {lang === "en" ? p.en : p.ru}
                 </button>
               ))}

@@ -95,7 +95,7 @@ export function BookingWidget({ offer }: { offer: CatalogOffer }) {
                   aria-pressed={slotId === s.id}
                   className={`rounded-lg border px-3 py-1.5 text-sm transition-colors ${
                     slotId === s.id
-                      ? "border-primary bg-primary text-primary-foreground"
+                      ? "border-[var(--color-primary-border)] bg-[var(--primary)] text-primary-foreground"
                       : "bg-background hover:border-primary/50"
                   }`}
                 >

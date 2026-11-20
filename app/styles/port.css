@@ -164,7 +164,7 @@
   bottom: 0.375rem;
   left: 0;
   border-radius: 9999px;
-  background: var(--color-primary);
+  background: var(--primary);
   box-shadow: 0 2px 12px
     color-mix(in srgb, var(--color-primary) 35%, transparent);
   transition:
@@ -376,9 +376,9 @@
   --rb-tag-fg: var(--color-primary);
   --rb-dim: var(--color-muted);
   --rb-rule: var(--color-border);
-  --rb-btn-bg: var(--color-primary);
+  --rb-btn-bg: var(--primary);
   --rb-btn-fg: var(--color-primary-foreground);
-  --rb-btn-bg-hover: color-mix(in srgb, var(--color-primary) 88%, black);
+  --rb-btn-bg-hover: var(--color-primary-hover);
   --rb-mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas,
     monospace;
 }

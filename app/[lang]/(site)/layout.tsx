@@ -30,9 +30,12 @@ export default async function SiteLayout({
         <main className="flex flex-1 flex-col">{children}</main>
         <Footer />
         <CartDrawerLazy />
-        {/* Ultra widgets: contact FAB, PWA prompt, custom cursor */}
-        <SiteUltraWidgets locale={lang} />
-        <CookieBanner />
+        {/* Ultra widgets: contact FAB, custom cursor. CookieBanner renders
+            inside the fixed .rt-bottom-widgets row together with the PWA
+            prompt (stacked on mobile, one row on desktop). */}
+        <SiteUltraWidgets locale={lang}>
+          <CookieBanner />
+        </SiteUltraWidgets>
         {/* FX modules: 3D tilt + spotlight cursor (re-bind per pathname) */}
         <React.Suspense fallback={null}>
           <TiltObserver />

@@ -174,7 +174,7 @@ export function JourneyQuiz() {
       <div className="mb-6 flex items-center gap-3">
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
           <div
-            className="h-full rounded-full bg-primary transition-all duration-300"
+            className="h-full rounded-full bg-[var(--primary)] transition-all duration-300"
             style={{ width: `${((step + 1) / STEP_KEYS.length) * 100}%` }}
           />
         </div>

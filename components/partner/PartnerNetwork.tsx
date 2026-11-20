@@ -366,7 +366,7 @@ export function PartnerNetwork({
               textClassName="text-xl font-bold"
               className={`flex size-20 items-center justify-center rounded-full text-white ring-4 ring-primary/20 ${
                 active === "you"
-                  ? "bg-primary"
+                  ? "bg-[var(--primary)]"
                   : CHIP_COLORS[shown.findIndex((p) => p.id === active) % CHIP_COLORS.length]
               }`}
             />

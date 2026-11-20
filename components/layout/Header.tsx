@@ -87,7 +87,7 @@ function LanguageSelect() {
             }}
             className={
               loc === locale
-                ? "flex w-full items-center rounded-lg bg-[var(--color-primary)] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-primary-hover)]"
+                ? "flex w-full items-center rounded-lg bg-[var(--primary)] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-primary-hover)]"
                 : "flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium text-[var(--text-link)] transition-colors text-left hover:bg-[var(--hover-bg)] hover:text-[var(--text-heading)]"
             }
           >
@@ -115,7 +115,7 @@ function CartButton() {
     >
       <ShoppingCartIcon className="w-4 h-4" />
       {totalCount > 0 && (
-        <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-[var(--color-primary)] text-[10px] font-semibold text-white tabular-nums">
+        <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-[var(--primary)] text-[10px] font-semibold text-white tabular-nums">
           {totalCount > 99 ? "99+" : totalCount}
         </span>
       )}
@@ -128,6 +128,7 @@ export function Header() {
   const ta = useTranslations("auth");
   const user = useAuthUser();
   const { notice } = useNotice();
+  const { openCart } = useCart();
   const [menuOpen, setMenuOpen] = React.useState(false);
   const closeMenu = React.useCallback(() => setMenuOpen(false), []);
 
@@ -166,11 +167,13 @@ export function Header() {
             <CartButton />
           </div>
 
-          {/* Mobile header row — template: theme + lang + burger */}
+          {/* Mobile header row — template: theme + lang + burger. Cart lives in
+              the drawer for signed-out users (owner request): the icon is easy
+              to misclick on touch, and the drawer row is labeled. */}
           <div className="flex xl:hidden items-center gap-2">
             <ThemeToggle />
             <LanguageSelect />
-            <CartButton />
+            {user && <CartButton />}
             <button
               type="button"
               className={`rt-burger shrink-0 ${menuOpen ? "open" : ""}`}
@@ -199,6 +202,20 @@ export function Header() {
         <Link href="/#contact" className={MOBILE_LINK_CLASS} onClick={closeMenu}>
           {t("nav.contact")}
         </Link>
+
+        {!user && (
+          <button
+            type="button"
+            className={MOBILE_LINK_CLASS}
+            onClick={() => {
+              closeMenu();
+              openCart();
+            }}
+          >
+            <ShoppingCartIcon className="w-4 h-4" />
+            {t("cart")}
+          </button>
+        )}
 
         {!user ? (
           <div className="mt-2 w-full max-w-[300px] [&_button]:w-full [&_button]:justify-center [&_button]:!py-3.5 [&_button]:!text-lg">

@@ -44,7 +44,7 @@ function PackCard({ packId }: { packId: PackId }) {
   return (
     <Card className="relative flex flex-col overflow-visible">
       {pack.featured && (
-        <p className="absolute -top-3 left-4 z-10 inline-flex items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
+        <p className="absolute -top-3 left-4 z-10 inline-flex items-center gap-1 rounded-full bg-[var(--primary)] px-3 py-1 text-xs font-semibold text-primary-foreground">
           <SparklesIcon className="size-3" />
           {t("featured")}
         </p>
