@@ -159,7 +159,7 @@ export function Header() {
               <NavDropdown
                 label={<NavPulseLabel />}
                 items={toItems(PROGRAM_NAV)}
-                triggerClassName={`${NAV_LINK_CLASS} !text-[var(--text-heading)] font-semibold`}
+                triggerClassName={`${NAV_LINK_CLASS} !text-[var(--text-heading)] font-semibold inline-flex items-center gap-1`}
               />
               <NavDropdown label={t("nav.legal")} items={legalItems} />
               <Link href="/contact" className={NAV_LINK_CLASS}>
