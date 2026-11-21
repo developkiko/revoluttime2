@@ -192,6 +192,11 @@ export function ReviewsSection() {
           gap: 1.5rem;
           width: max-content;
           will-change: transform;
+          /* Vertical headroom for the 3D-tilt (scale+rotate clips at the
+             track's overflow boundary — owner: карточки «съедались»
+             сверху/снизу при наведении) */
+          padding: 1.75rem 0;
+          margin: -0.5rem 0;
         }
         .review-card,
         .review-card img {

@@ -45,7 +45,7 @@ export async function OffersGrid({
                   />
                 </div>
               ) : (
-                <div className="flex aspect-[3/1] items-center justify-center rounded-xl border bg-gradient-to-br from-[#056ea8]/15 via-muted to-primary/10">
+                <div className="flex aspect-[3/1] items-center justify-center rounded-xl border bg-gradient-to-br from-[#1084fa]/15 via-muted to-primary/10">
                   <span className="flex size-14 items-center justify-center rounded-2xl bg-card/70 text-primary shadow-sm">
                     <Icon className="size-7" />
                   </span>

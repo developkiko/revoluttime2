@@ -127,7 +127,7 @@ export default async function PartnerPage({
         </div>
       </section>
 
-      <section className="border-t">
+      <section className="border-t" data-spotlight>
         <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 lg:grid-cols-2">
           <div>
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
@@ -136,7 +136,7 @@ export default async function PartnerPage({
             <p className="mt-2 max-w-xl text-muted-foreground">
               {t("levels.subtitle")}
             </p>
-            <div className="mt-8 rounded-2xl border bg-card p-6">
+            <div data-tilt className="mt-8 rounded-2xl border bg-card p-6">
               <h3 className="font-semibold">{t("payouts.title")}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {t("payouts.text")}
@@ -158,7 +158,7 @@ export default async function PartnerPage({
             {t("fund.subtitle")}
           </p>
 
-          <div className="mt-8 overflow-x-auto rounded-2xl border bg-card">
+          <div data-tilt className="mt-8 overflow-x-auto rounded-2xl border bg-card">
             <table className="w-full min-w-[42rem] text-sm">
               <thead>
                 <tr className="border-b text-left text-xs uppercase tracking-wider text-muted-foreground">

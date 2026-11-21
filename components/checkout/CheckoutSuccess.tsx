@@ -92,7 +92,7 @@ export function CheckoutSuccess() {
     <div className="mx-auto max-w-xl">
       {snapshot ? (
         <>
-          <div className="order-done">
+          <div data-tilt className="order-done">
             <p className="order-done-ico">
               <CheckCircle2Icon className="size-10 text-green-600" />
             </p>
@@ -125,7 +125,7 @@ export function CheckoutSuccess() {
           </div>
         </>
       ) : (
-        <div className="mx-auto max-w-xl rounded-xl border bg-card p-8 text-center">
+        <div data-tilt className="mx-auto max-w-xl rounded-xl border bg-card p-8 text-center">
           <CheckCircle2Icon className="mx-auto size-10 text-emerald-500" />
           <h2 className="mt-4 text-xl font-bold">{t("successTitle")}</h2>
           <p className="mt-2 text-sm text-muted-foreground">{t("successText")}</p>

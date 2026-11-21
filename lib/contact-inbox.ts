@@ -9,6 +9,8 @@ export interface ContactMessage {
   name: string;
   email: string;
   message: string;
+  /** «Суть вопроса» (localized label, owner 21.11) — optional for non-form entries. */
+  topic?: string;
   date: string;
 }
 
@@ -18,6 +20,7 @@ export function addInboxMessage(entry: {
   name: string;
   email: string;
   message: string;
+  topic?: string;
 }) {
   inbox.unshift({
     id: crypto.randomUUID(),

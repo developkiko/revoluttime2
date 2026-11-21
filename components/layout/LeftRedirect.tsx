@@ -52,7 +52,7 @@ export function LeftRedirect() {
 
   if (state === "blocked") {
     return (
-      <div className="left-card mx-auto max-w-md">
+      <div data-tilt className="left-card mx-auto max-w-md">
         <span className="left-ico left-ico--block">
           <ShieldXIcon className="size-7" aria-hidden="true" />
         </span>
@@ -66,7 +66,7 @@ export function LeftRedirect() {
   }
 
   return (
-    <div className="left-card mx-auto max-w-md">
+    <div data-tilt className="left-card mx-auto max-w-md">
       <span className="left-ico left-ico--warn">
         <ClockIcon aria-hidden="true" />
       </span>

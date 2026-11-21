@@ -266,6 +266,25 @@
     }
   },
   "pagesList": {
+    "catSite": "Seiten der Website",
+    "catTech": "Technisch",
+    "catUnknown": "Unklassifiziert",
+    "left": "Externer Link-Übergang",
+    "authTelegram": "Telegram-Anmeldung",
+    "status403": "Fehler 403 (Zugriff verweigert)",
+    "status410": "Fehler 410 (entfernt)",
+    "status429": "Fehler 429 (zu häufig)",
+    "status503": "Fehler 503 (Wartung)",
+    "ultraHome": "Ultra: Start (Demo)",
+    "ultraFeatures": "Ultra: Funktionen (Demo)",
+    "ultraCompare": "Ultra: Vergleich (Demo)",
+    "ultraStats": "Ultra: Statistik (Demo)",
+    "ultraPrev": "Ultra: Vorschau (Demo)",
+    "ultraPrivacy": "Ultra: Datenschutz (Demo)",
+    "ultraTerms": "Ultra: AGB (Demo)",
+    "ultraRefund": "Ultra: Widerruf (Demo)",
+    "ultraCookies": "Ultra: Cookies (Demo)",
+    "ultraDashboard": "Ultra: Cabinet (Demo)",
     "title": "Alle Seiten der Website",
     "subtitle": "Klick öffnet die Seite in einem neuen Tab.",
     "home": "Startseite",
@@ -556,6 +575,7 @@
       "joined": "Registriert"
     },
     "messagesTab": {
+      "noTopic": "Ohne Betreff",
       "loading": "Wird geladen…",
       "empty": "Noch keine Nachrichten — das Formular auf /equipment und das Kontakt-Widget landen hier und bei den Admins in Telegram."
     }
@@ -611,6 +631,7 @@
       "order": "Bestellung und Lieferung",
       "partner": "Partnerprogramm",
       "suggestion": "Verbesserungsvorschlag",
+      "account": "Problem mit dem Konto",
       "other": "Sonstiges"
     }
   },
@@ -660,6 +681,8 @@
     "loginUnconfigured": "Anmeldung noch nicht konfiguriert — Provider-Secrets fehlen",
     "loginFailed": "Anmeldung fehlgeschlagen — bitte erneut versuchen",
     "fbSoon": "Facebook: bald — Business-Verifizierung läuft",
+    "forgotPassword": "Passwort vergessen?",
+    "needHelp": "Hilfe benötigt?",
     "welcomeToast": "Willkommen!",
     "signedOutToast": "Sie haben sich abgemeldet",
     "cabinet": "Partner-Cabinet",
@@ -1112,6 +1135,7 @@
     }
   },
   "footer": {
+    "contactPage": "Kontaktseite",
     "about": "RevolutTIME — Ökosystem für aktives Longevity: Redox+ COMPLEX-Tabletten mit Wasserstoff und Magnesium, Biohacking-Studio und Partnerprogramm. Geprüft von Eurofins, versendet aus Bayern.",
     "directionsTitle": "Richtungen",
     "directions": {

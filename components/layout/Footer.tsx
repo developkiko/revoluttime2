@@ -5,6 +5,7 @@ import { useState } from "react";
 import {
   DumbbellIcon,
   FileTextIcon,
+  MailIcon,
   MapPinIcon,
   MountainIcon,
   PhoneIcon,
@@ -105,6 +106,11 @@ export function Footer() {
           <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             {t("contactsTitle")}
           </h2>
+          {/* Владелец 21.11: страница контактов — в футере тоже */}
+          <Link href="/contact" className={linkClass}>
+            <MailIcon className="h-3.5 w-3.5 shrink-0" />
+            {t("contactPage")}
+          </Link>
           <address className="flex flex-col gap-2 text-sm not-italic text-muted-foreground">
             <span className="font-medium text-foreground">{t("company")}</span>
             <span className="flex items-start gap-1.5">

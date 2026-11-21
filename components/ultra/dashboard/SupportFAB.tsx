@@ -57,14 +57,14 @@ export function SupportFAB() {
       const isWhatsapp = emailAddr.includes("wa.me") || emailAddr.toLowerCase().includes("whatsapp");
       if (isWhatsapp) {
         list.push({
-          icon: <WhatsAppIcon className="h-8 w-8" />,
+          icon: <WhatsAppIcon className="h-6 w-6" />,
           label: "WhatsApp",
           href: emailAddr.startsWith("http") ? emailAddr : `https://${emailAddr}`,
           style: "whatsapp",
         });
       } else {
         list.push({
-          icon: <Mail className="h-8 w-8" />,
+          icon: <Mail className="h-6 w-6" />,
           label: "Email",
           href: emailAddr.startsWith("mailto:") || emailAddr.startsWith("http") || emailAddr.startsWith("tel:")
             ? emailAddr
@@ -87,15 +87,15 @@ export function SupportFAB() {
         href = "https://t.me/" + href.replace(/^@/, "");
       }
       list.push({
-        icon: <TelegramIcon className="h-8 w-8" />,
+        icon: <TelegramIcon className="h-6 w-6" />,
         label: "Telegram",
         href,
         style: "telegram",
       });
     }
     if (list.length === 0) {
-      list.push({ icon: <WhatsAppIcon className="h-8 w-8" />, label: "WhatsApp", href: SITE.whatsapp, style: "whatsapp" });
-      list.push({ icon: <TelegramIcon className="h-8 w-8" />, label: "Telegram", href: SITE.telegram, style: "telegram" });
+      list.push({ icon: <WhatsAppIcon className="h-6 w-6" />, label: "WhatsApp", href: SITE.whatsapp, style: "whatsapp" });
+      list.push({ icon: <TelegramIcon className="h-6 w-6" />, label: "Telegram", href: SITE.telegram, style: "telegram" });
     }
     return list;
   }, [widgetEnabled, emailAddr, tgLink]);
@@ -129,12 +129,13 @@ export function SupportFAB() {
     return btns;
   }, [widgetEnabled, showTop, open, contacts, t]);
 
-  // Brand color per contact icon; bare icon — no circle (owner 21.11).
-  const iconColor = (style?: string) => {
-    if (style === "telegram") return "text-[#0088cc]";
-    if (style === "whatsapp") return "text-[#25D366]";
-    if (style === "email") return "text-[var(--color-primary)]";
-    return "text-[var(--text-heading)]";
+  // Contact buttons: brand-colored circle + white icon on any theme
+  // (owner 21.11: «фон в цвет бренда связи, иконка белой»).
+  const contactClass = (style?: string) => {
+    if (style === "telegram") return "bg-[#0088cc] text-white hover:bg-[#006daa]";
+    if (style === "whatsapp") return "bg-[#25D366] text-white hover:bg-[#1fb857]";
+    if (style === "email") return "bg-[var(--primary)] text-white hover:bg-[var(--color-primary-hover)]";
+    return "bg-[var(--bg-card)] border border-[var(--border-default)] text-[var(--text-heading)]";
   };
 
   // Widget OFF → only scroll-to-top in the FAB slot (fully hide when not scrolled)
@@ -193,8 +194,8 @@ export function SupportFAB() {
               title={btn.label}
               target="_blank"
               rel="noopener noreferrer"
-              className={`fab-item flex h-11 w-11 items-center justify-center transition-transform hover:scale-110 ${iconColor(btn.style)}`}
-              style={{ animationDelay: `${i * 60}ms`, filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.25))" }}
+              className={`fab-item flex h-11 w-11 items-center justify-center rounded-full shadow-lg transition-transform hover:scale-110 ${contactClass(btn.style)}`}
+              style={{ animationDelay: `${i * 60}ms` }}
             >
               {btn.icon}
             </a>

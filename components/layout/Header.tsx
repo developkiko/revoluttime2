@@ -13,11 +13,9 @@ import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { routing } from "@/lib/products";
 import { ShoppingCartIcon } from "lucide-react";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
 } from "@/components/ui/popover";
 import { useNotice } from "@/components/ui/notice";
+import { LanguageMenu } from "@/components/layout/LanguageMenu";
 
 const NAV_ITEMS = [
   { href: "/encyclopedia", key: "encyclopedia" },
@@ -26,19 +24,8 @@ const NAV_ITEMS = [
   { href: "/equipment", key: "equipment" },
   { href: "/recreation", key: "recreation" },
   { href: "/partner", key: "partner" },
+  { href: "/contact", key: "contact" },
 ] as const;
-
-const LOCALE_CODES: Record<string, string> = {
-  de: "DE",
-  ru: "RU",
-  en: "EN",
-};
-
-const LOCALE_NAMES: Record<string, string> = {
-  de: "Deutsch",
-  ru: "Русский",
-  en: "English",
-};
 
 /* ═══ Exact Ultra template styles (Header.tsx / LangSwitcher.tsx) ═══ */
 
@@ -54,50 +41,6 @@ const MOBILE_ACCENT_CLASS =
   "rt-mobile-link !bg-[var(--color-accent)] !text-white !font-semibold";
 const MOBILE_LOGOUT_CLASS =
   "rt-mobile-link !text-[var(--text-secondary)] !border !border-[var(--border-default)]";
-
-/** Language select — closed square button (current code) + template dropdown. */
-function LanguageSelect() {
-  const t = useTranslations("header");
-  const locale = useLocale();
-  const pathname = usePathname();
-  const router = useRouter();
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <button
-          type="button"
-          aria-label={t("language")}
-          data-tip={LOCALE_NAMES[locale]}
-          data-tip-pos="bottom"
-          className={`${ICON_CONTROL_CLASS} text-xs font-semibold uppercase tracking-wide`}
-        >
-          {LOCALE_CODES[locale]}
-        </button>
-      </PopoverTrigger>
-      <PopoverContent align="end" className="w-36 gap-1 p-1.5">
-        {routing.locales.map((loc) => (
-          <button
-            key={loc}
-            type="button"
-            onClick={() => {
-              setOpen(false);
-              if (loc !== locale) router.replace(pathname, { locale: loc });
-            }}
-            className={
-              loc === locale
-                ? "flex w-full items-center rounded-lg bg-[var(--primary)] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-primary-hover)]"
-                : "flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium text-[var(--text-link)] transition-colors text-left hover:bg-[var(--hover-bg)] hover:text-[var(--text-heading)]"
-            }
-          >
-            {LOCALE_NAMES[loc]}
-          </button>
-        ))}
-      </PopoverContent>
-    </Popover>
-  );
-}
 
 /** Cart — icon only (no label), control styled like the template icon buttons. */
 function CartButton() {
@@ -162,7 +105,7 @@ export function Header() {
             <AuthPanel />
             <div className="w-px h-6 bg-[var(--border-default)] mx-1" />
             <ThemeToggle />
-            <LanguageSelect />
+            <LanguageMenu />
             <div className="w-px h-6 bg-[var(--border-default)]" />
             <CartButton />
           </div>
@@ -172,7 +115,7 @@ export function Header() {
               to misclick on touch, and the drawer row is labeled. */}
           <div className="flex xl:hidden items-center gap-2">
             <ThemeToggle />
-            <LanguageSelect />
+            <LanguageMenu />
             {user && <CartButton />}
             <button
               type="button"
@@ -199,9 +142,6 @@ export function Header() {
             {t(`nav.${item.key}`)}
           </Link>
         ))}
-        <Link href="/#contact" className={MOBILE_LINK_CLASS} onClick={closeMenu}>
-          {t("nav.contact")}
-        </Link>
 
         {!user && (
           <button

@@ -13,3 +13,16 @@ const ContactWidgetInner = dynamic(
 export function ContactWidgetLazy({ initialTopic }: { initialTopic?: TopicKey }) {
   return <ContactWidgetInner initialTopic={initialTopic} />;
 }
+
+// Глобальная «форма обратной связи» (владелец 21.11) — ленивая загрузка с
+// параметрами: name/title, поля, обязательные, темы.
+const FeedbackFormInner = dynamic(
+  () => import("./ContactWidget").then((m) => m.FeedbackForm),
+  { ssr: false },
+);
+
+export type { FeedbackFormProps } from "./ContactWidget";
+
+export function FeedbackFormLazy(props: import("./ContactWidget").FeedbackFormProps) {
+  return <FeedbackFormInner {...props} />;
+}

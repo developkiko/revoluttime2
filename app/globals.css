@@ -36,13 +36,15 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
-  /* Midnight Navy split: --color-primary (text-primary / border-primary /
-     tint utilities + raw refs) is the accent face — navy on light, a
-     readable steel-blue on dark. Solid filled surfaces use var(--primary)
-     directly (buttons, badges) so they stay deep navy in both themes. */
+  /* Primary split (owner 21.11): solid fills (buttons) use var(--primary) —
+     brand blue #1084FA. --color-primary (text-primary / border-primary /
+     tint utilities) is the accent face — blue variant per theme. Deep navy
+     #070E21 moved to --primary-bg: dark background accents on dark theme,
+     "dark" text on light theme. White is secondary (buttons on dark). */
   --color-primary: var(--primary-soft);
   --color-primary-soft: var(--primary-soft);
   --color-primary-border: var(--primary-border);
+  --color-primary-bg: var(--primary-bg);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -72,14 +74,15 @@
   --card-foreground: #1a1a2e;
   --popover: #ffffff;
   --popover-foreground: #1a1a2e;
-  --primary: #070e21;
+  --primary: #1084fa;
   --primary-foreground: #ffffff;
-  /* Accent face: same navy on light bg; .dark lifts it to a steel-blue tint
-     so text-primary / border-primary stay readable on dark surfaces. */
-  --primary-soft: #070e21;
+  /* Accent face: brand blue on both themes (owner 21.11: primary #1084FA) */
+  --primary-soft: #1084fa;
   --primary-border: transparent;
-  --secondary: #eef0f7;
-  --secondary-foreground: #1a1a2e;
+  /* Deep navy #070E21: dark text on light theme / bg accents (primary-bg) */
+  --primary-bg: #070e21;
+  --secondary: #ffffff;
+  --secondary-foreground: #070e21;
   --muted: #eef0f7;
   --muted-foreground: #565672;
   --accent: #eef0f7;
@@ -87,7 +90,7 @@
   --destructive: #dc2626;
   --border: #d8dae6;
   --input: #d8dae6;
-  --ring: #3c4c92;
+  --ring: #1084fa;
   --chart-1: #6366f1;
   --chart-2: #7c3aed;
   --chart-3: #22c55e;
@@ -96,16 +99,16 @@
   --radius: 0.875rem;
   --sidebar: #ffffff;
   --sidebar-foreground: #1a1a2e;
-  --sidebar-primary: #070e21;
+  --sidebar-primary: #1084fa;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #eef0f7;
   --sidebar-accent-foreground: #1a1a2e;
   --sidebar-border: #d8dae6;
-  --sidebar-ring: #3c4c92;
+  --sidebar-ring: #1084fa;
   /* Ultra template tokens — site-wide (widgets/cabinet use them) */
   --bg-elevated: #eef0f7;
   --bg-input: #ffffff;
-  --color-primary-hover: #18234d;
+  --color-primary-hover: #0a63c2;
   --color-accent: #7c3aed;
   --color-accent-hover: #6d28d9;
   --color-accent-soft: #a78bfa;
@@ -114,7 +117,7 @@
   --color-warning: #d97706;
   --color-info: #2563eb;
   --border-strong: #c0c3d4;
-  --border-active: rgba(7, 14, 33, 0.3);
+  --border-active: rgba(16, 132, 250, 0.3);
   --hover-bg: rgba(10, 10, 40, 0.05);
   --hover-bg-strong: rgba(10, 10, 40, 0.09);
   /* Ultra header tokens (site header = template header styles) */
@@ -145,12 +148,13 @@
   --card-foreground: #e0e0e0;
   --popover: #14141f;
   --popover-foreground: #e0e0e0;
-  --primary: #070e21;
+  --primary: #1084fa;
   --primary-foreground: #ffffff;
-  --primary-soft: #8fa2e0;
-  --primary-border: rgba(143, 162, 224, 0.3);
-  --secondary: #1a1a2e;
-  --secondary-foreground: #e0e0e0;
+  --primary-soft: #4da3ff;
+  --primary-border: rgba(16, 132, 250, 0.35);
+  --primary-bg: #070e21;
+  --secondary: #ffffff;
+  --secondary-foreground: #070e21;
   --muted: #1a1a2e;
   --muted-foreground: #888888;
   --accent: #1a1a2e;
@@ -158,7 +162,7 @@
   --destructive: #ef4444;
   --border: #2a2a3a;
   --input: #2a2a3a;
-  --ring: #8fa2e0;
+  --ring: #1084fa;
   --chart-1: #818cf8;
   --chart-2: #a78bfa;
   --chart-3: #22c55e;
@@ -166,15 +170,15 @@
   --chart-5: #3b82f6;
   --sidebar: #14141f;
   --sidebar-foreground: #e0e0e0;
-  --sidebar-primary: #070e21;
+  --sidebar-primary: #1084fa;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #1a1a2e;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: #2a2a3a;
-  --sidebar-ring: #8fa2e0;
+  --sidebar-ring: #1084fa;
   --bg-elevated: #1a1a2e;
   --bg-input: #0a0a0f;
-  --color-primary-hover: #18234d;
+  --color-primary-hover: #3a9bff;
   --color-accent: #7c3aed;
   --color-accent-hover: #6d28d9;
   --color-accent-soft: #a78bfa;
@@ -183,7 +187,7 @@
   --color-warning: #f59e0b;
   --color-info: #3b82f6;
   --border-strong: #3a3a4a;
-  --border-active: rgba(143, 162, 224, 0.35);
+  --border-active: rgba(16, 132, 250, 0.4);
   --hover-bg: rgba(255, 255, 255, 0.06);
   --hover-bg-strong: rgba(255, 255, 255, 0.1);
   /* Ultra header tokens (dark) */
@@ -283,17 +287,17 @@
   }
 }
 
-/* ── Brand blue (revoluttimenew logo/diagram accent) ─────────────────────── */
+/* ── Brand palette (owner 21.11: primary #1084FA, secondary white,
+      primary-bg deep navy #070E21) + wordmark gradient variants ──────────── */
 :root {
-  --brand-blue: #056ea8;
-  --brand-blue-light: #0a5d8c;
-  --brand-blue-dark: #083d5c;
-  /* Wordmark gradient endpoints stay on the readable blue: --primary is
-     Midnight Navy #070E21 now and would vanish on the dark glass header. */
-  --logo-grad-primary: #6366f1;
+  --brand-primary: #1084fa;
+  --brand-primary-light: #4da3ff;
+  --brand-primary-dark: #0a63c2;
+  --brand-deep: #070e21;
+  --logo-grad-primary: #1084fa;
 }
 .dark {
-  --logo-grad-primary: #818cf8;
+  --logo-grad-primary: #4da3ff;
 }
 
 /* ── Wordmark — exact copy of the Ultra template .logo ────────────────────
@@ -498,7 +502,8 @@
   font-family: "Poppins", sans-serif;
 }
 .src8-logo-wrap > div,
-.src8-logo-wrap > h1 {
+.src8-logo-wrap > h1,
+.src8-logo-wrap > span {
   display: block;
   grid-area: overlap;
   margin: 0;
@@ -518,9 +523,9 @@
   user-select: none;
   background-image: repeating-linear-gradient(
     105deg,
-    #056ea8 0,
-    #083d5c 5%,
-    #056ea8 12%
+    var(--brand-primary) 0,
+    var(--brand-deep) 5%,
+    var(--brand-primary) 12%
   );
   color: transparent;
   filter: drop-shadow(5px 15px 15px black);
@@ -579,16 +584,16 @@
   filter: drop-shadow(0 3px 3px rgb(0 0 0 / 0.12));
 }
 /* header-shimmer variant (spec dummy.md §1): same wrap structure + float as
-   the hero variant, but the fg text carries the exact header wordmark
-   gradient (rt-logo: 135° primary→warning→accent→primary, 200% shimmer) */
+   the hero variant, but the fg text carries the wordmark shimmer in the
+   brand palette (owner 21.11: primary #1084FA + его варианты) */
 .src8-shimmer .src8-logo-wrap .fg {
   color: transparent;
   background-image: linear-gradient(
     135deg,
-    var(--logo-grad-primary),
-    var(--color-warning),
-    var(--color-accent),
-    var(--logo-grad-primary)
+    var(--brand-primary-light),
+    var(--brand-primary),
+    var(--brand-primary-dark),
+    var(--brand-primary-light)
   );
   background-size: 200% auto;
   animation: rt-shimmer 4s linear infinite;
@@ -605,6 +610,41 @@
   }
   50% {
     transform: translateY(-15px);
+  }
+}
+
+/* Site logo (header/footer/mobile nav) — the dummy's «Вариант шапки»
+   (градиент + шиммер как в Header, spec dummy.md §1) at the old .rt-logo
+   size. Two overlapped layers: .bg = brand repeating gradient + drop
+   shadow, .fg = brand shimmer gradient; gentle float (−5px). */
+.src8-logo-header {
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+}
+.src8-logo-header > span {
+  -webkit-text-stroke: 2px transparent;
+}
+.src8-logo-header .fg {
+  transform: translateY(-1px);
+}
+.src8-logo-header.src8-float {
+  animation: src8-header-float 3s ease-in-out infinite;
+}
+.src8-logo-header.src8-float:hover {
+  animation-play-state: paused;
+}
+@keyframes src8-header-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .src8-logo-header.src8-float {
+    animation: none;
   }
 }
 /* ── Cookie consent (Ultra widget) — site-wide ────────────────────────────

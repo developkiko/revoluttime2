@@ -56,7 +56,7 @@ export function PartnerSteps() {
 
   return (
     <ol className="grid gap-4 sm:grid-cols-2">
-      {STEPS.map(({ key, icon: Icon, chip, ring, bar }, index) => (
+      {STEPS.map(({ key, icon: Icon, chip, ring }, index) => (
         <motion.li
           key={key}
           initial={{ opacity: 0, y: 24 }}
@@ -73,13 +73,6 @@ export function PartnerSteps() {
             data-tilt
             className={`relative h-full rounded-2xl border bg-card p-5 shadow-xs transition-shadow hover:shadow-lg ${ring} hover:ring-2`}
           >
-            {/* accent bar on top edge — rounded-t-2xl повторяет скругление
-                карточки: родитель без overflow-hidden (FX tilt/свечение
-                не должны обрезаться), бар скругляется сам */}
-            <span
-              aria-hidden
-              className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r ${bar} opacity-60 transition-opacity group-hover:opacity-100`}
-            />
             <div className="flex items-center gap-2.5">
               <motion.span
                 className={`flex size-10 items-center justify-center rounded-full ${chip}`}

@@ -30,19 +30,27 @@ export function LevelsCascade() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
-          className={`group flex w-[calc(100%-var(--lvl-inset))] items-center gap-3 border bg-card px-4 py-2.5 text-sm font-medium shadow-xs transition-[width] duration-300 hover:w-[calc(100%-var(--lvl-inset)+1.25rem)] ${tint} ${border}`}
+          className="group flex w-[calc(100%-var(--lvl-inset))] items-center transition-[width] duration-300 hover:w-[calc(100%-var(--lvl-inset)+1.25rem)]"
           style={{ ["--lvl-inset" as string]: `${index * 20}px` }}
         >
-          <motion.span
-            className={`flex size-7 shrink-0 items-center justify-center rounded-full font-bold ${chip}`}
-            whileHover={{ rotate: 360 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+          {/* Владелец 21.11: 3D-tilt на строчках уровней + скруглённые углы.
+              Внутренний слой — чтобы inline-трансформация tilt не воевала
+              с framer-motion (transform на том же элементе). */}
+          <div
+            data-tilt
+            className={`flex h-full w-full items-center gap-3 rounded-xl border bg-card px-4 py-2.5 text-sm font-medium shadow-xs transition-colors ${tint} ${border}`}
           >
-            {letter}
-          </motion.span>
-          <span className={`transition-colors duration-300 ${text}`}>
-            {t(key)}
-          </span>
+            <motion.span
+              className={`flex size-7 shrink-0 items-center justify-center rounded-full font-bold ${chip}`}
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              {letter}
+            </motion.span>
+            <span className={`transition-colors duration-300 ${text}`}>
+              {t(key)}
+            </span>
+          </div>
         </motion.li>
       ))}
     </ol>

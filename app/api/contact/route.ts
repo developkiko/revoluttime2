@@ -8,8 +8,13 @@ const schema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   message: z.string().min(10),
-  // «Суть вопроса» — локализованный лейбл из формы (владелец 21.11)
-  topic: z.string().min(1).max(100).optional(),
+  // «Суть вопроса» — обязательное поле с названием (владелец 21.11):
+  // хоть одно значение + осмысленное название, не пустая строка
+  topic: z
+    .string()
+    .trim()
+    .min(2, "topic label required")
+    .max(100),
 });
 
 export async function POST(request: Request) {
@@ -26,7 +31,7 @@ export async function POST(request: Request) {
   }
 
   const { name, email, message, topic } = parsed.data;
-  addInboxMessage({ name, email, message });
+  addInboxMessage({ name, email, message, topic });
 
   const delivered = await notifyAdminChat(
     [

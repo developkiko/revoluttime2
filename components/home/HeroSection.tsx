@@ -232,7 +232,7 @@ export function HeroSection() {
         <ChevronRightIcon className="size-5" />
       </button>
 
-      <div className="relative mx-auto flex w-full max-w-6xl min-h-0 flex-1 flex-col px-6 pt-[120px] pb-[60px] sm:pt-[160px] sm:pb-[100px] md:pt-14 md:pb-8">
+      <div className="relative mx-auto flex w-full max-w-6xl min-h-0 flex-1 flex-col px-6 pt-[60px] pb-[60px] sm:pt-[100px] sm:pb-[100px] md:pt-14 md:pb-8">
 
         {/* Slider area — desktop fills the remaining viewport (section is
             h-screen minus header). Mobile: natural height — a fixed box

@@ -62,7 +62,7 @@ export function BookingWidget({ offer }: { offer: CatalogOffer }) {
 
   if (offer.comingSoon || offer.slots.length === 0) {
     return (
-      <div className="rounded-2xl border bg-card p-6 text-center">
+      <div data-tilt className="rounded-2xl border bg-card p-6 text-center">
         <CalendarDaysIcon className="mx-auto size-8 text-muted-foreground/50" />
         <p className="mt-3 font-medium">{t("comingSoon")}</p>
         <p className="mt-1 text-sm text-muted-foreground">{t("comingSoonHint")}</p>
@@ -71,7 +71,7 @@ export function BookingWidget({ offer }: { offer: CatalogOffer }) {
   }
 
   return (
-    <div className="rounded-2xl border bg-card p-6">
+    <div data-tilt className="rounded-2xl border bg-card p-6">
       <h3 className="flex items-center gap-2 font-semibold">
         <CalendarDaysIcon className="size-4 text-primary" />
         {t("pickDate")}
@@ -168,7 +168,7 @@ export function OfferCover({
 }) {
   if (offer.images.length > 0) {
     return (
-      <div className={`overflow-hidden rounded-xl border bg-muted ${className ?? ""}`}>
+      <div data-tilt className={`overflow-hidden rounded-xl border bg-muted ${className ?? ""}`}>
         <Image
           src={offer.images[0]}
           alt={offer.title.en}
@@ -182,7 +182,8 @@ export function OfferCover({
   }
   return (
     <div
-      className={`relative flex items-center justify-center overflow-hidden rounded-xl border bg-gradient-to-br from-[#056ea8]/15 via-muted to-primary/10 ${className ?? ""}`}
+      data-tilt
+      className={`relative flex items-center justify-center overflow-hidden rounded-xl border bg-gradient-to-br from-[#1084fa]/15 via-muted to-primary/10 ${className ?? ""}`}
     >
       <span className="flex size-16 items-center justify-center rounded-2xl bg-card/70 text-primary shadow-sm">
         {icon}

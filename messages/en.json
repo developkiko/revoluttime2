@@ -266,6 +266,25 @@
     }
   },
   "pagesList": {
+    "catSite": "Site theme",
+    "catTech": "Technical",
+    "catUnknown": "Unclassified",
+    "left": "External link transition",
+    "authTelegram": "Telegram sign-in",
+    "status403": "Error 403 (forbidden)",
+    "status410": "Error 410 (gone)",
+    "status429": "Error 429 (rate limit)",
+    "status503": "Error 503 (maintenance)",
+    "ultraHome": "Ultra: home (demo)",
+    "ultraFeatures": "Ultra: features (demo)",
+    "ultraCompare": "Ultra: compare (demo)",
+    "ultraStats": "Ultra: stats (demo)",
+    "ultraPrev": "Ultra: preview (demo)",
+    "ultraPrivacy": "Ultra: privacy (demo)",
+    "ultraTerms": "Ultra: terms (demo)",
+    "ultraRefund": "Ultra: refund (demo)",
+    "ultraCookies": "Ultra: cookies (demo)",
+    "ultraDashboard": "Ultra: dashboard (demo)",
     "title": "All site pages",
     "subtitle": "Click opens the page in a new tab.",
     "home": "Home",
@@ -556,6 +575,7 @@
       "joined": "Joined"
     },
     "messagesTab": {
+      "noTopic": "No subject",
       "loading": "Loading…",
       "empty": "No messages yet — the /equipment form and the contact widget land here and in the admins' Telegram."
     }
@@ -611,6 +631,7 @@
       "order": "Order and delivery",
       "partner": "Partner program",
       "suggestion": "Improvement suggestion",
+      "account": "Account issue",
       "other": "Other"
     }
   },
@@ -660,6 +681,8 @@
     "loginUnconfigured": "Sign-in is not configured yet — provider secrets are missing",
     "loginFailed": "Sign-in failed — please try again",
     "fbSoon": "Facebook: coming soon — business verification in progress",
+    "forgotPassword": "Forgot password?",
+    "needHelp": "Need help?",
     "welcomeToast": "Welcome!",
     "signedOutToast": "You have signed out",
     "cabinet": "Partner cabinet",
@@ -1112,6 +1135,7 @@
     }
   },
   "footer": {
+    "contactPage": "Contacts page",
     "about": "RevolutTIME — an ecosystem for active longevity: Redox+ COMPLEX tablets with hydrogen and magnesium, a biohacking studio and a partner program. Eurofins-tested, shipped from Bavaria.",
     "directionsTitle": "Directions",
     "directions": {

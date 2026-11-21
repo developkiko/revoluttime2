@@ -169,7 +169,7 @@ function OfferForm({
           type="checkbox"
           checked={form.comingSoon}
           onChange={(e) => setForm((f) => ({ ...f, comingSoon: e.target.checked }))}
-          className="size-4 accent-[#056ea8]"
+          className="size-4 accent-[#1084fa]"
         />
         {t("comingSoon")}
       </label>
@@ -290,6 +290,18 @@ function MessagesTab() {
             </p>
             <p className="text-xs tabular-nums text-muted-foreground">{m.date}</p>
           </div>
+          {/* «Суть вопроса» — проверка наличия названия (владелец 21.11) */}
+          {m.topic ? (
+            <p className="mt-1.5">
+              <span className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                {m.topic}
+              </span>
+            </p>
+          ) : (
+            <p className="mt-1.5 text-xs italic text-muted-foreground/70">
+              ⚠ {t("noTopic")}
+            </p>
+          )}
           <p className="mt-1 text-sm text-muted-foreground">{m.message}</p>
         </div>
       ))}

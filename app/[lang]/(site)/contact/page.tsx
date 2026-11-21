@@ -6,7 +6,7 @@ import type { TopicKey } from "@/components/contact/ContactWidget";
 
 // Значения «сути вопроса» — дублированы здесь белым списком: экспортировать
 // константы из "use client"-модуля в серверный компонент нельзя (client refs).
-const VALID_TOPICS = ["product", "order", "partner", "suggestion", "other"];
+const VALID_TOPICS = ["product", "order", "partner", "account", "suggestion", "other"];
 
 export async function generateMetadata(
   props: PageProps<"/[lang]/contact">

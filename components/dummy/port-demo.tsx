@@ -48,7 +48,7 @@ export function PortDemo() {
 
       {/* QR-проверка: три исхода */}
       <div className="mt-10 grid gap-4 sm:grid-cols-3">
-        <div className="check-result check-result--ok">
+        <div data-tilt className="check-result check-result--ok">
           <span className="check-ico">
             <CheckCircle2Icon className="text-green-600" aria-hidden="true" />
           </span>
@@ -59,14 +59,14 @@ export function PortDemo() {
             <p>2 чел. · 20.00 € · Stripe</p>
           </div>
         </div>
-        <div className="check-result check-result--err">
+        <div data-tilt className="check-result check-result--err">
           <span className="check-ico">
             <XCircleIcon className="text-red-500" aria-hidden="true" />
           </span>
           <p className="check-title check-title--err">Заказ не найден</p>
           <p className="check-sub check-sub--plain">Код есть, но не в этой базе</p>
         </div>
-        <div className="check-result check-result--warn">
+        <div data-tilt className="check-result check-result--warn">
           <span className="check-ico">
             <AlertTriangleIcon className="text-amber-500" aria-hidden="true" />
           </span>

@@ -117,7 +117,7 @@ export default async function EquipmentPage({
         </div>
 
         {/* Minimal studio starter */}
-        <section className="mt-12 rounded-3xl border bg-card p-6 md:p-8">
+        <section data-tilt className="mt-12 rounded-3xl border bg-card p-6 md:p-8">
           <h2 className="text-xl font-bold tracking-tight sm:text-2xl">
             {t("starter.title")}
           </h2>
@@ -144,7 +144,7 @@ export default async function EquipmentPage({
             {STARTER_TAGS.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-gradient-to-r from-[#056ea8]/15 to-primary/10 px-3 py-1 text-xs font-semibold text-foreground"
+                className="rounded-full bg-gradient-to-r from-[#1084fa]/15 to-primary/10 px-3 py-1 text-xs font-semibold text-foreground"
               >
                 ✓ {tag}
               </span>
@@ -156,7 +156,7 @@ export default async function EquipmentPage({
         </section>
 
         {/* OEM tablets block */}
-        <section className="mt-10 grid gap-6 rounded-3xl border bg-muted/40 p-6 md:grid-cols-[1.2fr_1fr] md:p-8">
+        <section data-tilt className="mt-10 grid gap-6 rounded-3xl border bg-muted/40 p-6 md:grid-cols-[1.2fr_1fr] md:p-8">
           <div>
             <h2 className="text-xl font-bold tracking-tight">
               {t("oem.title")}
