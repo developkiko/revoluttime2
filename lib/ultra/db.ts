@@ -150,6 +150,27 @@ ALTER TABLE financial_ledger ADD COLUMN IF NOT EXISTS kind text DEFAULT 'fund';
 ALTER TABLE financial_ledger ADD COLUMN IF NOT EXISTS ref_code text;
 ALTER TABLE financial_ledger ADD COLUMN IF NOT EXISTS beneficiary_email text;
 ALTER TABLE auth_links ADD COLUMN IF NOT EXISTS ref_code text;
+/* Видео и записи стримов (Фаза B — владелец 21.11): provider разделяет
+   Blob-файлы и YouTube-ссылки (без скачивания), kind — видео или запись
+   стрима. on_home + home_until — «Онлайн»-блок главной (Фаза C): одно видео
+   с галочкой «на главную», авто-гашение через настраиваемые 12 ч. */
+CREATE TABLE IF NOT EXISTS site_videos (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  title text NOT NULL,
+  description text,
+  provider text NOT NULL DEFAULT 'blob',
+  url text NOT NULL,
+  kind text NOT NULL DEFAULT 'video',
+  on_home boolean NOT NULL DEFAULT false,
+  home_until timestamptz,
+  poster text,
+  duration_seconds integer,
+  size_bytes bigint,
+  content_type text,
+  active boolean NOT NULL DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
 `;
 
 let schemaPromise: Promise<void> | null = null;

@@ -3,7 +3,8 @@
     "certificates": {
       "title": "Zertifikate und Analysen — RevolutTIME",
       "description": "Unabhängige Eurofins-Analyse (AR-26-HH-013581-02): H₂ ≤ 1,6 ppm. Zertifikate von RevolutTIME Redox+ COMPLEX."
-    },    "title": "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) | Erfrischungsgetränk mit Wasserstoff & Magnesium",
+    },
+    "title": "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) | Erfrischungsgetränk mit Wasserstoff & Magnesium",
     "description": "RevolutTIME Redox+ COMPLEX: Brausetabletten mit molekularem Wasserstoff (H₂ ≤ 1,6 ppm) und Magnesium für ein belebendes Erfrischungsgetränk. Laborgeprüft (Eurofins).",
     "shop": {
       "title": "Shop — RevolutTIME Redox+ COMPLEX (Magnesium + H₂) | RevolutTIME",
@@ -20,6 +21,14 @@
     "partner": {
       "title": "Partnerprogramm — bis zu 50 % Provision | RevolutTIME",
       "description": "Werden Sie RevolutTIME-Partner: empfehlen Sie unsere Produkte und verdienen Sie an jedem Verkauf — in 5 Ebenen (I–V), lebenslang, mit schneller Auszahlung."
+    },
+    "videos": {
+      "title": "Videos — RevolutTIME",
+      "description": "Videos über molekularen Wasserstoff von RevolutTIME: Anwendung, Wissenschaft, Ergebnisse. Jetzt in der Galerie ansehen."
+    },
+    "streams": {
+      "title": "Streams — RevolutTIME",
+      "description": "Live-Streams und Aufzeichnungen von RevolutTIME über Wasserstoffwasser und Gesundheit."
     }
   },
   "brand": {
@@ -1003,19 +1012,18 @@
     }
   },
   "certificates": {
-      "metaTitle": "Zertifikate und Analysen — RevolutTIME",
-      "metaDescription": "Unabhängige Eurofins-Analyse (AR-26-HH-013581-02): H₂ ≤ 1,6 ppm. Zertifikate von RevolutTIME Redox+ COMPLEX.",
-      "title": "Zertifikate und Analysen",
-      "subtitle": "Die Qualität von RevolutTIME Redox+ COMPLEX ist unabhängig bestätigt.",
-      "eurofinsTitle": "Geprüft vom besten Labor Deutschlands — Eurofins",
-      "eurofinsText": "Die unabhängige Eurofins-Analyse bestätigt: Die Tablette löst sich in 1 Minute auf und setzt in 100–150 ml kaltem Wasser bis zu 1,6 ppm molekularen Wasserstoff frei. Den vollständigen Bericht senden wir auf Anfrage.",
-      "reportId": "Eurofins · Bericht AR-26-HH-013581-02 · H₂ ≤ 1,6 ppm",
-      "request": "Bericht als PDF anfragen",
-      "soonTitle": "Konformitätszertifikate",
-      "soonText": "Konformitätserklärungen und Verpackungszertifikate ergänzen wir laufend in diesem Abschnitt. Sie brauchen ein Dokument jetzt? Schreiben Sie uns.",
-      "back": "Zur Startseite"
-    },
-
+    "metaTitle": "Zertifikate und Analysen — RevolutTIME",
+    "metaDescription": "Unabhängige Eurofins-Analyse (AR-26-HH-013581-02): H₂ ≤ 1,6 ppm. Zertifikate von RevolutTIME Redox+ COMPLEX.",
+    "title": "Zertifikate und Analysen",
+    "subtitle": "Die Qualität von RevolutTIME Redox+ COMPLEX ist unabhängig bestätigt.",
+    "eurofinsTitle": "Geprüft vom besten Labor Deutschlands — Eurofins",
+    "eurofinsText": "Die unabhängige Eurofins-Analyse bestätigt: Die Tablette löst sich in 1 Minute auf und setzt in 100–150 ml kaltem Wasser bis zu 1,6 ppm molekularen Wasserstoff frei. Den vollständigen Bericht senden wir auf Anfrage.",
+    "reportId": "Eurofins · Bericht AR-26-HH-013581-02 · H₂ ≤ 1,6 ppm",
+    "request": "Bericht als PDF anfragen",
+    "soonTitle": "Konformitätszertifikate",
+    "soonText": "Konformitätserklärungen und Verpackungszertifikate ergänzen wir laufend in diesem Abschnitt. Sie brauchen ein Dokument jetzt? Schreiben Sie uns.",
+    "back": "Zur Startseite"
+  },
   "usage": {
     "title": "Anwendung",
     "subtitle": "Drei einfache Schritte — und Ihr H₂-Wasser ist fertig.",
@@ -1316,5 +1324,38 @@
       "title": "Wartungsarbeiten",
       "text": "Die Seite ist kurzzeitig geschlossen — bald wieder da."
     }
+  },
+  "videos": {
+    "videosTitle": "Videos",
+    "videosSubtitle": "Sehen Sie Videos über molekularen Wasserstoff, die Anwendung von Redox+ COMPLEX und die Ergebnisse unserer Nutzer.",
+    "videosEmpty": "Videos erscheinen hier in Kürze — wir bereiten die ersten Folgen schon vor.",
+    "durationLabel": "Dauer:",
+    "watchOnYoutube": "Auf YouTube ansehen",
+    "upload": {
+      "pick": "Videodatei auswählen",
+      "limits": "bis {size} · MP4, WebM, MOV, MKV, MPEG, OGV, AVI",
+      "clear": "Datei entfernen",
+      "start": "Hochladen",
+      "cancel": "Abbrechen",
+      "working": "Wird hochgeladen…",
+      "progress": "Upload: {percent}%",
+      "done": "Fertig! Eintrag erstellt: {url}",
+      "apiError": "Upload-Fehler: {message}",
+      "errors": {
+        "no_file": "Keine Datei ausgewählt.",
+        "bad_extension": "Format wird nicht unterstützt. Bitte MP4, WebM, MOV, MKV, MPEG, OGV oder AVI verwenden.",
+        "bad_type": "Dateityp passt nicht zur Endung — bitte Video erneut auswählen.",
+        "too_large": "Datei ist größer als 512 MB — bitte verkleinern oder komprimieren.",
+        "too_small": "Datei ist zu klein (unter 1 KB).",
+        "bad_filename": "Ungültiger Dateiname."
+      }
+    }
+  },
+  "streams": {
+    "streamsTitle": "Streams und Aufzeichnungen",
+    "streamsSubtitle": "Live-Streams über Wasserstoffwasser, Gesundheit und Biohacking — sowie Aufzeichnungen vergangener Sendungen.",
+    "streamsEmpty": "Noch keine Aufzeichnungen — den nächsten Stream kündigen wir auf der Startseite und in Telegram an.",
+    "durationLabel": "Dauer:",
+    "watchOnYoutube": "Auf YouTube ansehen"
   }
 }

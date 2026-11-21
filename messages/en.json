@@ -3,7 +3,8 @@
     "certificates": {
       "title": "Certificates and analyses — RevolutTIME",
       "description": "Independent Eurofins analysis (AR-26-HH-013581-02): H₂ ≤ 1.6 ppm. Certificates for RevolutTIME Redox+ COMPLEX."
-    },    "title": "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) — Refreshing Drink with Hydrogen & Magnesium",
+    },
+    "title": "RevolutTIME Redox+ COMPLEX (Magnesium + H₂) — Refreshing Drink with Hydrogen & Magnesium",
     "description": "RevolutTIME Redox+ COMPLEX: effervescent tablets with molecular hydrogen (H₂ ≤ 1.6 ppm) and bioavailable magnesium for a refreshing drink. Lab-tested (Eurofins).",
     "shop": {
       "title": "Shop — RevolutTIME Redox+ COMPLEX (Magnesium + H₂) | RevolutTIME",
@@ -20,6 +21,14 @@
     "partner": {
       "title": "Partner program — up to 50% commission | RevolutTIME",
       "description": "Become a RevolutTIME partner: recommend our products and earn on every sale — across 5 levels (I–V), for life, with fast payouts."
+    },
+    "videos": {
+      "title": "Videos — RevolutTIME",
+      "description": "Videos about molecular hydrogen by RevolutTIME: usage, science, results. Watch them in the gallery."
+    },
+    "streams": {
+      "title": "Streams — RevolutTIME",
+      "description": "Live streams and recordings by RevolutTIME about hydrogen water and health."
     }
   },
   "brand": {
@@ -1003,19 +1012,18 @@
     }
   },
   "certificates": {
-      "metaTitle": "Certificates and analyses — RevolutTIME",
-      "metaDescription": "Independent Eurofins analysis (AR-26-HH-013581-02): H₂ ≤ 1.6 ppm. Certificates for RevolutTIME Redox+ COMPLEX.",
-      "title": "Certificates and analyses",
-      "subtitle": "The quality of RevolutTIME Redox+ COMPLEX is independently verified.",
-      "eurofinsTitle": "Tested by Germany's leading laboratory — Eurofins",
-      "eurofinsText": "The independent Eurofins analysis confirms: the tablet dissolves in 1 minute and releases up to 1.6 ppm of molecular hydrogen in 100–150 ml of cold water. The full report is available on request.",
-      "reportId": "Eurofins · report AR-26-HH-013581-02 · H₂ ≤ 1.6 ppm",
-      "request": "Request the PDF report",
-      "soonTitle": "Certificates of conformity",
-      "soonText": "Declarations of conformity and packaging certificates will be added to this section as they are issued. Need a document now? Write to us.",
-      "back": "Back to home"
-    },
-
+    "metaTitle": "Certificates and analyses — RevolutTIME",
+    "metaDescription": "Independent Eurofins analysis (AR-26-HH-013581-02): H₂ ≤ 1.6 ppm. Certificates for RevolutTIME Redox+ COMPLEX.",
+    "title": "Certificates and analyses",
+    "subtitle": "The quality of RevolutTIME Redox+ COMPLEX is independently verified.",
+    "eurofinsTitle": "Tested by Germany's leading laboratory — Eurofins",
+    "eurofinsText": "The independent Eurofins analysis confirms: the tablet dissolves in 1 minute and releases up to 1.6 ppm of molecular hydrogen in 100–150 ml of cold water. The full report is available on request.",
+    "reportId": "Eurofins · report AR-26-HH-013581-02 · H₂ ≤ 1.6 ppm",
+    "request": "Request the PDF report",
+    "soonTitle": "Certificates of conformity",
+    "soonText": "Declarations of conformity and packaging certificates will be added to this section as they are issued. Need a document now? Write to us.",
+    "back": "Back to home"
+  },
   "usage": {
     "title": "How to use",
     "subtitle": "Three simple steps — and your H₂ water is ready.",
@@ -1316,5 +1324,38 @@
       "title": "Maintenance",
       "text": "The site is briefly closed — back soon."
     }
+  },
+  "videos": {
+    "videosTitle": "Videos",
+    "videosSubtitle": "Watch videos about molecular hydrogen, Redox+ COMPLEX usage and results from our users.",
+    "videosEmpty": "Videos will appear here very soon — we are already preparing the first episodes.",
+    "durationLabel": "Duration:",
+    "watchOnYoutube": "Watch on YouTube",
+    "upload": {
+      "pick": "Choose a video file",
+      "limits": "up to {size} · MP4, WebM, MOV, MKV, MPEG, OGV, AVI",
+      "clear": "Remove file",
+      "start": "Upload",
+      "cancel": "Cancel",
+      "working": "Uploading…",
+      "progress": "Uploading: {percent}%",
+      "done": "Done! Record created: {url}",
+      "apiError": "Upload error: {message}",
+      "errors": {
+        "no_file": "No file selected.",
+        "bad_extension": "Unsupported format. Please use MP4, WebM, MOV, MKV, MPEG, OGV or AVI.",
+        "bad_type": "File type does not match its extension — please pick the video again.",
+        "too_large": "File exceeds 512 MB — please reduce its size or compress the video.",
+        "too_small": "File is too small (below 1 KB).",
+        "bad_filename": "Invalid file name."
+      }
+    }
+  },
+  "streams": {
+    "streamsTitle": "Streams and recordings",
+    "streamsSubtitle": "Live streams about hydrogen water, health and biohacking — plus recordings of past broadcasts.",
+    "streamsEmpty": "No recordings yet — the next stream will be announced on the homepage and in Telegram.",
+    "durationLabel": "Duration:",
+    "watchOnYoutube": "Watch on YouTube"
   }
 }
