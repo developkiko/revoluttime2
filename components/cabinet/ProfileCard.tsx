@@ -14,10 +14,14 @@ import type { SessionUser } from "@/lib/auth-session";
 import { isSyntheticAnchor } from "@/lib/anchor";
 import { useNotice } from "@/components/ui/notice";
 import { LinkedAccounts } from "@/components/cabinet/LinkedAccounts";
+import { GoogleIcon } from "@/components/layout/auth-icons";
 
-/** Ultra dashboard API (email/password accounts live there). */
-const ACCOUNT_API_BASE =
-  process.env.NEXT_PUBLIC_UP_ADMIN_API_URL || "https://admin.revoluttime.de";
+/** Провайдер для подписи «email из сервиса» (Фаза E). */
+const PROVIDER_LABEL: Record<SessionUser["provider"], string> = {
+  google: "Google",
+  telegram: "Telegram",
+  facebook: "Facebook",
+};
 
 const inputClass =
   "w-full min-w-0 px-4 py-2.5 bg-[var(--bg-input)] border border-[var(--border-default)] rounded-lg text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[var(--color-primary)]";
@@ -114,81 +118,6 @@ export function ProfileCard({ user }: { user: SessionUser }) {
     notice({ text: t("exportDone"), variant: "success" });
   }
 
-  // ── Change password (email/password accounts) ──
-  const [oldPass, setOldPass] = React.useState("");
-  const [newPass, setNewPass] = React.useState("");
-  const [newPass2, setNewPass2] = React.useState("");
-  const [passLoading, setPassLoading] = React.useState(false);
-
-  async function handleChangePassword() {
-    if (!oldPass) { notice({ text: t("errPasswordEmpty"), variant: "error" }); return; }
-    if (!newPass || newPass.length < 8) { notice({ text: t("errPasswordShort"), variant: "error" }); return; }
-    if (newPass !== newPass2) { notice({ text: t("errConfirmMismatch"), variant: "error" }); return; }
-
-    setPassLoading(true);
-    try {
-      const res = await fetch(`${ACCOUNT_API_BASE}/api/user/change-password`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: user.email,
-          oldPassword: oldPass,
-          newPassword: newPass,
-        }),
-      });
-      const data = (await res.json()) as { success?: boolean; error?: string };
-      if (data.success) {
-        notice({ text: t("passChanged"), variant: "success" });
-        setOldPass("");
-        setNewPass("");
-        setNewPass2("");
-      } else {
-        notice({ text: data.error || t("errServer"), variant: "error" });
-      }
-    } catch {
-      notice({ text: t("serverUnavailable"), variant: "error" });
-    } finally {
-      setPassLoading(false);
-    }
-  }
-
-  // ── Change email ──
-  const [newEmail, setNewEmail] = React.useState("");
-  const [emailPass, setEmailPass] = React.useState("");
-  const [emailLoading, setEmailLoading] = React.useState(false);
-
-  async function handleChangeEmail() {
-    if (!newEmail) { notice({ text: t("errEmailEmpty"), variant: "error" }); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) { notice({ text: t("errEmailFormat"), variant: "error" }); return; }
-    if (!emailPass) { notice({ text: t("errPasswordEmpty"), variant: "error" }); return; }
-
-    setEmailLoading(true);
-    try {
-      const res = await fetch(`${ACCOUNT_API_BASE}/api/user/change-email`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: user.email,
-          newEmail,
-          password: emailPass,
-        }),
-      });
-      const data = (await res.json()) as { success?: boolean; error?: string };
-      if (data.success) {
-        notice({ text: t("emailChanged"), variant: "success" });
-        setNewEmail("");
-        setEmailPass("");
-        await refreshSessionUser();
-      } else {
-        notice({ text: data.error || t("errServer"), variant: "error" });
-      }
-    } catch {
-      notice({ text: t("serverUnavailable"), variant: "error" });
-    } finally {
-      setEmailLoading(false);
-    }
-  }
-
   async function handleDelete() {
     if (!window.confirm(t("deleteConfirm"))) return;
     await signOut();
@@ -266,105 +195,81 @@ export function ProfileCard({ user }: { user: SessionUser }) {
         <p className="text-[11px] text-muted-foreground">{t("displayNameHint")}</p>
       </div>
 
-      {/* Change password */}
+      {/* Пароль: email-входа нет (решение владельца 21.11) — вход через сервисы.
+          Поле disabled с «Пароль не создавался»; смена пароля появится
+          вместе с email-сервисом (need-connect.md). */}
       <div className="mt-6 flex flex-col gap-2 border-t pt-4">
         <h3 className={sectionTitleClass}>
           <KeyRoundIcon className="size-4 text-primary" />
-          {t("changePassTitle")}
+          {t("passTitle")}
         </h3>
-        <div className="grid gap-2 sm:grid-cols-3">
-          <div>
-            <label htmlFor="old-pass" className={labelClass}>{t("oldPass")}</label>
-            <input
-              id="old-pass"
-              type="password"
-              className={inputClass}
-              placeholder="••••••••"
-              autoComplete="off"
-              name="old-password-settings"
-              value={oldPass}
-              onChange={(e) => setOldPass(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="new-pass" className={labelClass}>{t("newPass")}</label>
-            <input
-              id="new-pass"
-              type="password"
-              className={inputClass}
-              placeholder={t("newPassPh")}
-              autoComplete="new-password"
-              name="new-password-settings"
-              value={newPass}
-              onChange={(e) => setNewPass(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="new-pass2" className={labelClass}>{t("newPass2")}</label>
-            <input
-              id="new-pass2"
-              type="password"
-              className={inputClass}
-              placeholder={t("newPassPh")}
-              autoComplete="new-password"
-              name="confirm-password-settings"
-              value={newPass2}
-              onChange={(e) => setNewPass2(e.target.value)}
-            />
-          </div>
+        <div>
+          <label htmlFor="old-pass" className={labelClass}>{t("oldPass")}</label>
+          <input
+            id="old-pass"
+            type="text"
+            className={`${inputClass} cursor-not-allowed opacity-60`}
+            placeholder={t("passNotCreated")}
+            value=""
+            readOnly
+            disabled
+            aria-disabled="true"
+            autoComplete="off"
+            name="old-password-settings"
+          />
         </div>
-        <button
-          type="button"
-          onClick={handleChangePassword}
-          disabled={passLoading}
-          className={`${btnPrimary} mt-1 self-start`}
-        >
-          {passLoading ? "…" : t("passBtn")}
-        </button>
+        <p className="text-[11px] leading-relaxed text-muted-foreground">{t("passHint")}</p>
       </div>
 
-      {/* Change email */}
+      {/* Email аккаунта: email приходит из сервиса входа (владелец 21.11).
+          Синтетический якорь (Telegram/Facebook) — предлагаем привязать Google,
+          у реального email — показываем его и честный знак, что смена
+          будет позже, с email-сервисом. */}
       <div className="mt-6 flex flex-col gap-2 border-t pt-4">
         <h3 className={sectionTitleClass}>
           <MailIcon className="size-4 text-primary" />
-          {t("changeEmailTitle")}
+          {t("emailTitle")}
         </h3>
-        <div className="grid gap-2 sm:grid-cols-2">
-          <div>
-            <label htmlFor="new-email" className={labelClass}>{t("newEmail")}</label>
-            <input
-              id="new-email"
-              type="text"
-              name="change-email"
-              className={inputClass}
-              placeholder="new@email.com"
-              autoComplete="off"
-              value={newEmail}
-              onChange={(e) => setNewEmail(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="email-pass" className={labelClass}>{t("currentPass")}</label>
-            <input
-              id="email-pass"
-              type="password"
-              className={inputClass}
-              placeholder="••••••••"
-              autoComplete="off"
-              name="password-for-email-change"
-              value={emailPass}
-              onChange={(e) => setEmailPass(e.target.value)}
-            />
-          </div>
-        </div>
-        <button
-          type="button"
-          onClick={handleChangeEmail}
-          disabled={emailLoading}
-          className={`${btnPrimary} mt-1 self-start`}
-        >
-          {emailLoading ? "…" : t("emailBtn")}
-        </button>
+        {isSyntheticAnchor(user.email) ? (
+          <>
+            <div className="rounded-xl border border-dashed border-[var(--border-default)] bg-[var(--bg-elevated)] px-4 py-3 text-sm text-muted-foreground">
+              {t("emailMissing")}
+            </div>
+            <p className="text-[11px] leading-relaxed text-muted-foreground">
+              {t("emailLinkGoogleHint")}
+            </p>
+            {/* API-эндпоинт OAuth (ставит cookie и редиректит) — <a> корректен,
+                полная навигация нужна; Link тут не применим. */}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+            <a
+              href="/api/auth/google/start?link=1"
+              className={`${btnPrimary} mt-1 self-start no-underline`}
+            >
+              <GoogleIcon className="size-4" />
+              {t("emailLinkGoogleCta")}
+            </a>
+          </>
+        ) : (
+          <>
+            <div>
+              <label htmlFor="account-email" className={labelClass}>{t("emailLabel")}</label>
+              <input
+                id="account-email"
+                type="text"
+                className={`${inputClass} cursor-not-allowed opacity-60`}
+                value={user.email}
+                readOnly
+                disabled
+                aria-disabled="true"
+                autoComplete="off"
+                name="account-email"
+              />
+            </div>
+            <p className="text-[11px] leading-relaxed text-muted-foreground">
+              {t("emailFromProvider", { provider: PROVIDER_LABEL[user.provider] })}
+            </p>
+          </>
+        )}
       </div>
 
       {/* Data: export in three formats + delete */}

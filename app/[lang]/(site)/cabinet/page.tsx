@@ -4,6 +4,7 @@ import {
   CircleAlertIcon,
   CircleDotIcon,
   LayoutDashboardIcon,
+  MailWarningIcon,
   NetworkIcon,
   PercentIcon,
   ShoppingBagIcon,
@@ -29,6 +30,10 @@ import { BalanceTopUp } from "@/components/cabinet/BalanceTopUp";
 import { CabinetTabs, type CabinetTabDef } from "@/components/cabinet/CabinetTabs";
 import { PartnerNetworkLazy } from "@/components/partner/PartnerNetworkLazy";
 import { getSessionUser } from "@/lib/auth-session";
+import {
+  getAccountEmailStatus,
+  shouldOfferEmailLink,
+} from "@/lib/account-status";
 
 const LEVEL_CHIP: Record<string, string> = {
   I: "bg-sky-500",
@@ -103,6 +108,13 @@ export default async function CabinetPage({
   const totalEarned = DEMO_BONUSES.reduce((s, b) => s + b.amountCents, 0);
 
   const referralStats = computeReferralStats();
+
+  // Фаза E (владелец 21.11): баннер «привяжите email» — якорь синтетический,
+  // реального email (Google/login_email) нет и оплата уже была. Без БД или
+  // без оплат баннер не показывается (проверка грейсфул).
+  const emailBanner = shouldOfferEmailLink(await getAccountEmailStatus(user.email));
+  const providerLabel =
+    user.provider === "google" ? "Google" : user.provider === "facebook" ? "Facebook" : "Telegram";
 
   const tabs: CabinetTabDef[] = [
     {
@@ -365,6 +377,28 @@ export default async function CabinetPage({
         partnersCount={DEMO_PARTNERS.length}
         userName={user.name ?? user.email}
       />
+
+      {emailBanner && (
+        <div className="mb-6 flex flex-col gap-4 rounded-2xl border border-amber-500/40 bg-amber-500/[0.06] p-5 sm:flex-row sm:items-center">
+          <MailWarningIcon className="size-8 shrink-0 text-amber-500" />
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold text-amber-600 dark:text-amber-400">
+              {t("emailBanner.title")}
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+              {t("emailBanner.text", { provider: providerLabel })}
+            </p>
+          </div>
+          {/* API-эндпоинт OAuth — <a> корректен (см. коммент в ProfileCard). */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a
+            href="/api/auth/google/start?link=1"
+            className="shrink-0 rounded-lg border border-[var(--primary-border)] bg-[var(--primary)] px-4 py-2 text-center text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          >
+            {t("emailBanner.cta")}
+          </a>
+        </div>
+      )}
 
       <CabinetTabs ariaLabel={t("title")} tabs={tabs} />
     </div>
