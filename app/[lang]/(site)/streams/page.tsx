@@ -3,6 +3,8 @@ import { connection } from "next/server";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { MonitorPlayIcon } from "lucide-react";
 
+import { ShareButton } from "@/components/videos/ShareButton";
+
 import { VideoPlayerCard } from "@/components/videos/VideoPlayerCard";
 import { AtomLoader } from "@/components/videos/AtomLoader";
 import { listSiteVideos } from "@/lib/videos-data";
@@ -55,6 +57,9 @@ export default async function StreamsPage({
           <p className="mt-2 max-w-2xl text-muted-foreground">
             {t("streamsSubtitle")}
           </p>
+          <div className="mt-4">
+            <ShareButton path="/streams" />
+          </div>
         </div>
       </section>
 

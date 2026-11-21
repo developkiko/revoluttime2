@@ -26,6 +26,31 @@ export async function generateMetadata(
     title: t("title"),
     description: t("description"),
     manifest: "/manifest.webmanifest",
+    // OG/соцсети (Фаза G): брендированная карточка с атомом
+    // (scripts/generate-og-image.mjs). Домен в need-connect — база от env.
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_SITE_URL ?? "https://revoluttime.de"
+    ),
+    openGraph: {
+      type: "website",
+      siteName: "RevolutTIME",
+      title: t("title"),
+      description: t("description"),
+      images: [
+        {
+          url: "/imgs/brand/og.png",
+          width: 1200,
+          height: 630,
+          alt: "RevolutTIME — molecular hydrogen",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["/imgs/brand/og.png"],
+    },
     icons: {
       icon: [
         { url: "/imgs/icons/favicon.svg", type: "image/svg+xml" },

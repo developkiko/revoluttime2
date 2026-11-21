@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import QRCode from "qrcode";
 import { CheckCircle2Icon, ReceiptTextIcon, RotateCcwIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+
+import { BrandedQr } from "@/components/checkout/BrandedQr";
 
 /**
  * «Печать чека» — порт codepen.io/karakym/pen/NPpMpeQ со старого дамми
@@ -51,7 +52,6 @@ export function ReceiptPrint({
   const [face, setFace] = useState<Face>("idle");
   const [mode, setMode] = useState<Mode>("idle");
   const [shown, setShown] = useState(0);
-  const [qr, setQr] = useState<string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const morphRef = useRef<number | null>(null);
 
@@ -66,15 +66,6 @@ export function ReceiptPrint({
     ...(thanks ? [{ kind: "thanks", text: thanks } as const] : []),
     { kind: "qr" } as const,
   ];
-
-  useEffect(() => {
-    const payload = qrPayload ?? code;
-    QRCode.toDataURL(payload, {
-      margin: 0,
-      width: 280,
-      color: { dark: "#0f172aff", light: "#ffffffff" },
-    }).then(setQr);
-  }, [code, qrPayload]);
 
   // Морф высоты панели idle ↔ paper (WAAPI, как в пене).
   useLayoutEffect(() => {
@@ -184,12 +175,8 @@ export function ReceiptPrint({
                   {row.kind === "qr" && (
                     <div className="rb-qr">
                       <div className="rb-qr-label">{t("qrLabel")}</div>
-                      {qr ? (
-                        // eslint-disable-next-line @next/next/no-img-element -- data URL из qrcode
-                        <img src={qr} alt="QR" className="rb-qr-img" />
-                      ) : (
-                        <div className="rb-qr-img" />
-                      )}
+                      {/* Брендированный QR с атомом в центре (Фаза G) */}
+                      <BrandedQr payload={qrPayload ?? code} size={132} />
                       <div className="rb-qr-note">{qrPayload ?? "revoluttime.de"}</div>
                     </div>
                   )}

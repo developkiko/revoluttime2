@@ -23,6 +23,7 @@ import { Link } from "@/i18n/navigation";
 import { CurrentYear } from "@/components/layout/CurrentYear";
 import { LegalModal, type LegalSlug } from "@/components/layout/LegalModal";
 import { Logo } from "@/components/layout/Logo";
+import { PwaInstallButton } from "@/components/layout/PwaInstall";
 import { SITE } from "@/lib/products";
 
 /* Ultra-template footer structure: brand + link columns with inline icons;
@@ -141,6 +142,8 @@ export function Footer() {
             <span>
               © <CurrentYear /> RevolutTIME. {t("rightsSuffix")}
             </span>
+            {/* PWA-модалка инструкций (Фаза G) — скрыта в standalone */}
+            <PwaInstallButton />
             <span>{t("brandOwner")}</span>
           </div>
         </div>

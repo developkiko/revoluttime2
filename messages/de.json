@@ -1414,5 +1414,44 @@
     "cancel": "Abbrechen",
     "allowedToast": "Domain {domain} zur Whitelist hinzugefügt",
     "errorToast": "Whitelist konnte nicht aktualisiert werden — bitte erneut versuchen"
+  },
+  "share": {
+    "share": "Teilen",
+    "close": "Schließen",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "facebook": "Facebook",
+    "x": "X (Twitter)",
+    "email": "E-Mail",
+    "copy": "Link kopieren",
+    "copied": "Link kopiert",
+    "copyError": "Kopieren fehlgeschlagen — bitte aus der Adressleiste kopieren"
+  },
+  "favorites": {
+    "add": "Zu Favoriten",
+    "addShort": "Favorit",
+    "added": "Favorit ✓",
+    "remove": "Aus Favoriten entfernen"
+  },
+  "pwa": {
+    "install": "App installieren",
+    "close": "Schließen",
+    "title": "RevolutTIME als App",
+    "note": "Die App öffnet sich ohne Adressleiste und arbeitet schneller — Seiten werden zwischengespeichert.",
+    "iosStep1": "Öffnen Sie in Safari das Teilen-Menü (Quadrat mit Pfeil)",
+    "iosStep2": "Wählen Sie „Zum Home-Bildschirm“",
+    "iosStep3": "Tippen Sie auf „Hinzufügen“",
+    "androidStep1": "Öffnen Sie das Chrome-Menü (drei Punkte)",
+    "androidStep2": "Wählen Sie „App installieren“ oder „Zum Startbildschirm hinzufügen“",
+    "androidStep3": "Installation bestätigen",
+    "desktopStep1": "Klicken Sie auf das Installationssymbol in der Adressleiste",
+    "desktopStep2": "Oder Browser-Menü → „RevolutTIME installieren…“"
+  },
+  "encyclopediaTips": {
+    "close": "Tipps ausblenden",
+    "tip1": "Jeder Artikel enthält den Button „Forschung“ mit PubMed-Quellen.",
+    "tip2": "Der Abschnitt „Anwendung“ im Artikel — Schritt-für-Schritt-Schemata.",
+    "tip3": "Das Inhaltsverzeichnis lässt sich einklappen — auf die Überschrift klicken.",
+    "tip4": "Lesen Sie den Artikel in Ihrer Sprachversion — Sprache im Kopf umschalten."
   }
 }

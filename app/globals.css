@@ -1100,3 +1100,27 @@
 .notice-icon {
   color: var(--notice-accent, currentColor);
 }
+
+/* ═══ Брендированный скроллбар (Фаза G, владелец 21.11) ═══
+   Токены --primary → обе темы без отдельных правил; тонкий,
+   полупрозрачный thumb, hover — полный primary. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--primary) 55%, transparent) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--primary) 55%, transparent);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}

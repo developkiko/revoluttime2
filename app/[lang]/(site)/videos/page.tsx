@@ -3,6 +3,8 @@ import { connection } from "next/server";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { FilmIcon } from "lucide-react";
 
+import { ShareButton } from "@/components/videos/ShareButton";
+
 import { VideoPlayerCard } from "@/components/videos/VideoPlayerCard";
 import { AtomLoader } from "@/components/videos/AtomLoader";
 import { listSiteVideos } from "@/lib/videos-data";
@@ -55,6 +57,10 @@ export default async function VideosPage({
           <p className="mt-2 max-w-2xl text-muted-foreground">
             {t("videosSubtitle")}
           </p>
+          {/* Поделиться (Фаза G): нативный шаринг или меню для немцев */}
+          <div className="mt-4">
+            <ShareButton path="/videos" />
+          </div>
         </div>
       </section>
 

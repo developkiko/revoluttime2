@@ -1414,5 +1414,44 @@
     "cancel": "Cancel",
     "allowedToast": "Domain {domain} added to the whitelist",
     "errorToast": "Could not update the whitelist — please try again"
+  },
+  "share": {
+    "share": "Share",
+    "close": "Close",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "facebook": "Facebook",
+    "x": "X (Twitter)",
+    "email": "Email",
+    "copy": "Copy link",
+    "copied": "Link copied",
+    "copyError": "Could not copy — please copy from the address bar"
+  },
+  "favorites": {
+    "add": "Add to favorites",
+    "addShort": "Favorite",
+    "added": "Favorited ✓",
+    "remove": "Remove from favorites"
+  },
+  "pwa": {
+    "install": "Install the app",
+    "close": "Close",
+    "title": "RevolutTIME as an app",
+    "note": "The app opens without an address bar and runs faster — pages are cached.",
+    "iosStep1": "Open the Share menu in Safari (square with an arrow)",
+    "iosStep2": "Choose “Add to Home Screen”",
+    "iosStep3": "Tap “Add”",
+    "androidStep1": "Open the Chrome menu (three dots)",
+    "androidStep2": "Choose “Install app” or “Add to Home screen”",
+    "androidStep3": "Confirm the installation",
+    "desktopStep1": "Click the install icon in the browser address bar",
+    "desktopStep2": "Or browser menu → “Install RevolutTIME…”"
+  },
+  "encyclopediaTips": {
+    "close": "Hide tips",
+    "tip1": "Every article has a “Research” button with PubMed sources.",
+    "tip2": "The “Usage” section inside an article — step-by-step intake schemes.",
+    "tip3": "The table of contents can be collapsed — tap its heading.",
+    "tip4": "Read the article in your interface language — switch it in the header."
   }
 }

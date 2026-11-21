@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { EncyclopediaCatalog } from "@/components/encyclopedia/EncyclopediaCatalog";
+import { EncyclopediaTips } from "@/components/encyclopedia/EncyclopediaTips";
 import { listArticles } from "@/lib/encyclopedia-db";
 import type { Locale } from "@/lib/products";
 
@@ -38,6 +39,9 @@ export default async function EncyclopediaPage({
       <section data-spotlight className="mx-auto w-full max-w-6xl px-4 py-12">
         <EncyclopediaCatalog articles={articles} />
       </section>
+
+      {/* Типсы на мобиле (Фаза G): только по флагу владельца */}
+      <EncyclopediaTips />
     </>
   );
 }

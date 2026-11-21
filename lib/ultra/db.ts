@@ -150,6 +150,10 @@ ALTER TABLE financial_ledger ADD COLUMN IF NOT EXISTS kind text DEFAULT 'fund';
 ALTER TABLE financial_ledger ADD COLUMN IF NOT EXISTS ref_code text;
 ALTER TABLE financial_ledger ADD COLUMN IF NOT EXISTS beneficiary_email text;
 ALTER TABLE auth_links ADD COLUMN IF NOT EXISTS ref_code text;
+/* Избранное (Фаза G — владелец: «локально всем + синк в БД
+   авторизованным»): список id (видео, статьи) прямо на юзере —
+   объём маленький, отдельная таблица не нужна. */
+ALTER TABLE users ADD COLUMN IF NOT EXISTS favorites jsonb NOT NULL DEFAULT '[]'::jsonb;
 /* Видео и записи стримов (Фаза B — владелец 21.11): provider разделяет
    Blob-файлы и YouTube-ссылки (без скачивания), kind — видео или запись
    стрима. on_home + home_until — «Онлайн»-блок главной (Фаза C): одно видео

@@ -1,5 +1,6 @@
 import { VideoIcon } from "lucide-react";
 
+import { FavoriteButton } from "@/components/videos/FavoriteButton";
 import { formatDuration, type SiteVideo } from "@/lib/videos-data";
 
 /** Фирменный YouTube-глиф (брендовые иконки удалены из lucide-react). */
@@ -79,17 +80,21 @@ export function VideoPlayerCard({
           <span>{addedLabel}</span>
         </div>
 
-        {video.provider === "youtube" && (
-          <a
-            href={video.url.replace("/embed/", "/watch?v=")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/40 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary transition hover:bg-primary/10"
-          >
-            <YoutubeGlyph className="size-3.5" />
-            {watchOnYoutube}
-          </a>
-        )}
+        <div className="flex flex-wrap items-center gap-2">
+          {video.provider === "youtube" && (
+            <a
+              href={video.url.replace("/embed/", "/watch?v=")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/40 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary transition hover:bg-primary/10"
+            >
+              <YoutubeGlyph className="size-3.5" />
+              {watchOnYoutube}
+            </a>
+          )}
+          {/* Избранное (Фаза G): локально гостям, синк вошедшим */}
+          <FavoriteButton id={video.id} />
+        </div>
       </div>
     </article>
   );
