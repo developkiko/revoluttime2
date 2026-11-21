@@ -1062,6 +1062,7 @@
       "footIdle": "Tap print — the receipt prints itself",
       "footPrinting": "Printing",
       "footDone": "Reset to print again",
+      "printed": "Printed",
       "title": "Receipt"
     },
     "total": "Total"

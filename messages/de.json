@@ -1062,6 +1062,7 @@
       "footIdle": "Tippe auf „drucken“ — der Beleg wird gedruckt",
       "footPrinting": "Druckt",
       "footDone": "Zurücksetzen, um erneut zu drucken",
+      "printed": "Gedruckt",
       "title": "Beleg"
     },
     "total": "Gesamt"

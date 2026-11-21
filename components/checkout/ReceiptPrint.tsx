@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
-import { ReceiptTextIcon, RotateCcwIcon } from "lucide-react";
+import { CheckCircle2Icon, ReceiptTextIcon, RotateCcwIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 /**
@@ -129,8 +129,10 @@ export function ReceiptPrint({
             {mode === "idle" ? (
               <span className="rb-status-text">{t("ready")}</span>
             ) : isDone ? (
-              <span className="rb-status-text rb-status-text--mono">
-                {t("printing", { done: shown, total: rows.length })}
+              // Владелец 21.11: после печати — зелёная «Распечатан» + OK
+              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                <CheckCircle2Icon width={15} height={15} strokeWidth={2.25} />
+                {t("printed")}
               </span>
             ) : (
               <button type="button" onClick={reset} className="rb-tear">
@@ -201,14 +203,18 @@ export function ReceiptPrint({
           {mode === "idle" ? (
             <span>{t("footIdle")}</span>
           ) : isDone ? (
+            // Владелец 21.11: «Печатаем...» висело и после конца анимации
+            <span className="inline-flex items-center gap-1.5 font-medium text-emerald-600 dark:text-emerald-400">
+              <CheckCircle2Icon width={14} height={14} strokeWidth={2.25} />
+              {t("printed")}
+            </span>
+          ) : (
             <span className="rb-dots">
               {t("footPrinting")}
               <span>.</span>
               <span>.</span>
               <span>.</span>
             </span>
-          ) : (
-            <span>{t("footDone")}</span>
           )}
         </div>
       </div>

@@ -96,7 +96,8 @@ async function handleTopupSession(session: Stripe.Checkout.Session, paid: boolea
     [
       paid ? "💳 <b>Пополнение баланса (оплачено)</b>" : "💳 <b>Пополнение баланса (ожидает оплаты)</b>",
       "",
-      `Сумма: <b>${formatEuros((session.amount_total ?? 0) / 100)}</b>`,
+      // amount_total — в центах, formatEuros делит на 100 сама (фикс ×100)
+      `Сумма: <b>${formatEuros(session.amount_total ?? 0)}</b>`,
       order.customer_email ? `E-mail: ${order.customer_email}` : null,
       order.ref_code ? `Ref: ${order.ref_code}` : null,
       `Session: ${session.id}`,
@@ -207,7 +208,8 @@ export async function POST(request: Request) {
     [
       paid ? "💰 <b>Новый оплаченный заказ</b>" : "🧾 <b>Новый заказ (ожидает оплаты)</b>",
       "",
-      `Сумма: <b>${formatEuros((session.amount_total ?? 0) / 100)}</b>`,
+      // amount_total — в центах, formatEuros делит на 100 сама (фикс ×100)
+      `Сумма: <b>${formatEuros(session.amount_total ?? 0)}</b>`,
       order.customer_email ? `E-mail: ${order.customer_email}` : null,
       refCode ? `Ref: ${refCode}` : null,
       `Позиции: ${itemsText}`,
