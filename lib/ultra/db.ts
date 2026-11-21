@@ -1,5 +1,10 @@
-/** Neon access layer (Postgres HTTP driver — runs fine on Vercel Node runtime). */
-import { Client } from "@neondatabase/serverless";
+/** Supabase Postgres access layer (pg driver via the Supabase pooler).
+ *  Owner decision 21.11: ONE database — the ultra/auth stack (users,
+ *  auth_links, ultra_kv, …) lives in the same Supabase `revtime` project as
+ *  the encyclopedia/orders, instead of a separate Neon. DATABASE_URL is the
+ *  Supabase pooler connection string (transaction pooler port 6543). */
+
+import { Client } from "pg";
 
 function connectionString(): string {
   return process.env.DATABASE_URL || "";
@@ -11,7 +16,7 @@ export function dbConfigured(): boolean {
 
 /**
  * Self-healing schema for the Ultra APIs (ported from ultra-proxy-next-main).
- * Runs once per process before the first query, so a fresh Neon database
+ * Runs once per process before the first query, so a fresh database
  * works without a separate migration step. Data lives as-is; the official
  * backfill is scripts/ultra/migrate-kv-to-neon.mjs.
  */
@@ -162,10 +167,14 @@ export async function db<T = Record<string, unknown>>(text: string, params: unkn
 }
 
 async function rawQuery<T = Record<string, unknown>>(text: string, params: unknown[] = []): Promise<T[]> {
-  const client = new Client(connectionString());
+  const client = new Client({ connectionString: connectionString() });
   await client.connect();
   try {
     const result = await client.query(text, params);
+    // Multi-statement queries (no params → simple protocol) return an array.
+    if (Array.isArray(result)) {
+      return result.flatMap((r) => (r.rows ?? [])) as T[];
+    }
     return result.rows as T[];
   } finally {
     await client.end().catch(() => {});
