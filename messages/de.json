@@ -141,7 +141,7 @@
     },
     "partnerTeaser": {
       "title": "Geld macht Geld",
-      "text": "Bis zu 50 % Provision ab der ersten Linie, lebenslange Boni in 5 Ebenen (I–V), Auszahlung auf Karte, in Krypto oder Telegram.",
+      "text": "Bis zu 50 % ab der ersten Linie, lebenslange Boni in 5 Ebenen (I–V) und 300 € Cashback für jeden Geworbenen. Auszahlung auf Karte, in Krypto oder Telegram.",
       "cta": "Mehr übers Partnerprogramm"
     },
     "encyclopedia": {
@@ -351,6 +351,10 @@
         "instant": {
           "title": "Schnelle Auszahlung",
           "text": "Verdientes Geld landet ohne lange Wartezeiten bei Ihnen."
+        },
+        "cashback": {
+          "title": "Cashback 300 €",
+          "text": "Jeder geworbene Nutzer, der sein Guthaben um 600 € auflädt oder das Partner-Set bestellt, bringt dir 300 €. Gutschrift nach 14-tägiger Haltefrist (Schutz gegen Zahlungsrücklastungen)."
         },
         "transparent": {
           "title": "Transparente Statistik",
@@ -965,6 +969,10 @@
         {
           "h": "10. Urheber- und Markenrechte",
           "p": "Alle Inhalte, Texte und Bildmaterialien dieser Website sowie die Marke RevolutTIME (YULKK UNITED CORP., USA) sind urheberrechtlich bzw. markenrechtlich geschützt. Jede Verwendung bedarf unserer vorherigen Zustimmung."
+        },
+        {
+          "h": "11. Partner-Cashback",
+          "p": "Für jeden über den Partnerlink geworbenen Nutzer, der sein Guthaben um 600 € auflädt oder ein Partner-Set erwirbt, erhält der Partner ein Cashback von 300 €. Das Cashback wird mit dem Status „ausstehend“ erfasst und nach Ablauf einer 14-tägigen Haltefrist ab Zahlung ausgezahlt — Fenster für mögliche Rücklastungen/Streitfälle des Zahlungsdienstes. Das Cashback ist USt-frei (Kleinunternehmer § 19 UStG)."
         }
       ]
     },

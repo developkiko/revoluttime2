@@ -34,6 +34,33 @@ export const TOTAL_FUND_RATIO = MLM_LEVELS.reduce(
   0,
 );
 
+/* ── Кеш-бэк за приведённого (владелец 21.11) ──────────────────────────────
+   Партнёр получает 300 € за каждого приведённого по его ссылке, который:
+   • пополнил счёт на 600 €, или
+   • заказал партнёрский набор (партнёрский вход ≥ 10 пачек).
+   Зачисление — НЕ сразу: Stripe может вернуть платёж уже после success, поэтому
+   кеш-бэк фиксируется в ledger со статусом pending и «размораживается» по
+   истечении холдинга (lazy-проверка unlocks_at при чтении — без крона). */
+export const CASHBACK_CENTS = 30_000; // 300 €
+/** Целевое пополнение счёта приведённого. */
+export const CASHBACK_TARGET_TOPUP_CENTS = 60_000; // 600 €
+/** Холдинг кеш-бэка (дни) — окно возврата/спора Stripe. */
+export const CASHBACK_HOLDING_DAYS = 14;
+
+/**
+ * Детерминированный партнёрский код по якорю (FNV-1a): RT-XXXXXX.
+ * Один источник правды — компонент кабинета импортирует отсюда же,
+ * вебхук по коду находит партнёра (auth_links.ref_code).
+ */
+export function referralCodeFor(email: string): string {
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < email.length; i++) {
+    hash ^= email.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return `RT-${(hash >>> 0).toString(16).toUpperCase().slice(0, 6).padStart(6, "0")}`;
+}
+
 /**
  * Total partner fund for a purchase in euro cents — recorded as one pending
  * ledger row per order (per-level split once beneficiaries exist).

@@ -10,6 +10,7 @@
  */
 
 import { db, dbConfigured, dbOne } from "@/lib/ultra/db";
+import { referralCodeFor } from "@/lib/mlm-calculator";
 
 export type AuthProvider = "google" | "telegram" | "facebook";
 
@@ -86,6 +87,17 @@ export async function attachProvider(
        picture = COALESCE($4, auth_links.picture),
        updated_at = now()`,
     [anchorEmail, providerId, profile?.displayName ?? null, profile?.picture ?? null]
+  ).catch(() => {});
+}
+
+/** Проставляет партнёрский код (RT-XXXXXX) якорю при входе — по нему
+ *  вебхук находит получателя кеш-бэка (владелец 21.11). */
+export async function stampRefCode(anchorEmail: string): Promise<void> {
+  if (!dbConfigured()) return;
+  await db(
+    `UPDATE auth_links SET ref_code = $1, updated_at = now()
+     WHERE email = $2 AND (ref_code IS NULL OR ref_code <> $1)`,
+    [referralCodeFor(anchorEmail), anchorEmail]
   ).catch(() => {});
 }
 

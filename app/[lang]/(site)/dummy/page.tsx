@@ -18,7 +18,6 @@ import { UltraPagesSection } from "@/components/home/UltraPagesSection";
 import { SitePagesList } from "@/components/dummy/SitePagesList";
 import { FxDemo } from "@/components/dummy/fx-demo";
 import { PortDemo } from "@/components/dummy/port-demo";
-import { AdminDemoButton } from "@/components/admin/AdminDemoButton";
 import { getOffer } from "@/lib/catalog";
 import { BookingWidgetLazy } from "@/components/booking/BookingWidgetLazy";
 
@@ -134,11 +133,6 @@ export default async function DummyPage({
           {t("contactSubtitle")}
         </p>
         <ContactWidgetLazy />
-      </section>
-
-      {/* Admin demo sign-in */}
-      <section className="mx-auto w-full max-w-6xl px-4 pb-4">
-        <AdminDemoButton />
       </section>
 
       {/* Partner steps + pentagon */}

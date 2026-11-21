@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   BarChart3Icon,
+  CoinsIcon,
   InfinityIcon,
   PercentIcon,
   ZapIcon,
@@ -16,6 +17,7 @@ import { SITE, formatPrice, type Locale } from "@/lib/products";
 import { payoutTable } from "@/lib/mlm-calculator";
 
 const BENEFITS = [
+  { key: "cashback", icon: CoinsIcon },
   { key: "commission", icon: PercentIcon },
   { key: "lifetime", icon: InfinityIcon },
   { key: "instant", icon: ZapIcon },

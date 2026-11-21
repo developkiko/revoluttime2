@@ -2,9 +2,15 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 import { getPack, PACK_VARIANTS, type PackId } from "@/lib/products";
-import { partnerFundCents } from "@/lib/mlm-calculator";
+import {
+  CASHBACK_CENTS,
+  CASHBACK_HOLDING_DAYS,
+  CASHBACK_TARGET_TOPUP_CENTS,
+  partnerFundCents,
+} from "@/lib/mlm-calculator";
 import { getSupabaseAdminClient } from "@/lib/supabase/server";
 import { notifyAdminChat } from "@/lib/telegram";
+import { db, dbConfigured } from "@/lib/ultra/db";
 
 /** Widerrufsfrist — partner ledger entries unlock 14 days after the sale. */
 const HOLDING_DAYS = 14;
@@ -31,6 +37,56 @@ interface LedgerInsert {
   amount: number;
   status: "pending";
   unlocks_at: string;
+  /** 'fund' — фонд 64 % (уровни I–V); 'cashback' — 300 € за приведённого. */
+  kind?: "fund" | "cashback";
+  ref_code?: string | null;
+  beneficiary_email?: string | null;
+}
+
+/**
+ * Кеш-бэк 300 € (владелец 21.11): ref-код → партнёр (auth_links.ref_code,
+ * проставляется при входе). Холдинг CASHBACK_HOLDING_DAYS под возвраты
+ * Stripe — статус pending, разморозка по unlocks_at (lazy, без крона).
+ */
+async function resolveRefPartner(
+  refCode: string
+): Promise<{ email: string | null; db: "resolved" | "skipped" }> {
+  if (!dbConfigured()) return { email: null, db: "skipped" };
+  try {
+    const rows = await db<{ email: string }>(
+      `SELECT email FROM auth_links WHERE ref_code = $1 LIMIT 1`,
+      [refCode]
+    );
+    return { email: rows[0]?.email ?? null, db: "resolved" };
+  } catch {
+    return { email: null, db: "skipped" };
+  }
+}
+
+async function recordCashback(
+  supabase: NonNullable<ReturnType<typeof getSupabaseAdminClient>>,
+  orderId: string | null,
+  refCode: string
+): Promise<"inserted" | "no_partner" | "skipped"> {
+  const partner = await resolveRefPartner(refCode);
+  if (!partner.email) return "no_partner";
+  const unlocksAt = new Date(
+    Date.now() + CASHBACK_HOLDING_DAYS * 24 * 60 * 60 * 1000
+  ).toISOString();
+  const { error } = await supabase.from("financial_ledger").insert({
+    source_order_id: orderId,
+    amount: CASHBACK_CENTS / 100,
+    status: "pending",
+    unlocks_at: unlocksAt,
+    kind: "cashback",
+    ref_code: refCode,
+    beneficiary_email: partner.email,
+  });
+  if (error) {
+    console.error("stripe webhook: cashback insert failed", error);
+    return "skipped";
+  }
+  return "inserted";
 }
 
 function parseCartLines(raw: string | undefined): WebhookCartLine[] {
@@ -80,6 +136,7 @@ async function handleTopupSession(session: Stripe.Checkout.Session, paid: boolea
 
   const supabase = getSupabaseAdminClient();
   let db: "inserted" | "skipped" = "skipped";
+  let cashback: "inserted" | "no_partner" | "skipped" | null = null;
   if (supabase) {
     const { error } = await supabase
       .from("orders")
@@ -90,6 +147,14 @@ async function handleTopupSession(session: Stripe.Checkout.Session, paid: boolea
       return NextResponse.json({ error: "db_order_failed" }, { status: 500 });
     }
     db = "inserted";
+    // Кеш-бэк 300 €: целевое пополнение приведённого (≥ 600 €) по ref-ссылке.
+    if (
+      paid &&
+      order.ref_code &&
+      (session.amount_total ?? 0) >= CASHBACK_TARGET_TOPUP_CENTS
+    ) {
+      cashback = await recordCashback(supabase, null, order.ref_code);
+    }
   }
 
   const delivered = await notifyAdminChat(
@@ -100,6 +165,9 @@ async function handleTopupSession(session: Stripe.Checkout.Session, paid: boolea
       `Сумма: <b>${formatEuros(session.amount_total ?? 0)}</b>`,
       order.customer_email ? `E-mail: ${order.customer_email}` : null,
       order.ref_code ? `Ref: ${order.ref_code}` : null,
+      cashback === "inserted"
+        ? `🪙 Кеш-бэк ${formatEuros(CASHBACK_CENTS)} (pending, холдинг ${CASHBACK_HOLDING_DAYS} дн.) → партнёру по ${order.ref_code}`
+        : null,
       `Session: ${session.id}`,
       `БД: ${db === "inserted" ? "✅ записано" : "⚠️ пропущено (нет ключа БД)"}`,
     ]
@@ -107,7 +175,7 @@ async function handleTopupSession(session: Stripe.Checkout.Session, paid: boolea
       .join("\n"),
   );
 
-  return NextResponse.json({ received: true, kind: "balance_topup", db, notified: delivered });
+  return NextResponse.json({ received: true, kind: "balance_topup", db, cashback, notified: delivered });
 }
 
 export async function POST(request: Request) {
@@ -172,6 +240,7 @@ export async function POST(request: Request) {
   const supabase = getSupabaseAdminClient();
   let db: "inserted" | "skipped" = "skipped";
   let orderId: string | null = null;
+  let cashback: "inserted" | "no_partner" | "skipped" | null = null;
   if (supabase) {
     const { data: insertedOrder, error: orderError } = await supabase
       .from("orders")
@@ -185,19 +254,25 @@ export async function POST(request: Request) {
     }
     orderId = insertedOrder?.id ?? null;
 
-    // Pending ledger row keeps the money trail; beneficiary is backfilled once
-    // profiles/auth exist (see referral_tree).
+    // Pending ledger row keeps the money trail (фонд 64 %); beneficiary is
+    // backfilled once profiles/auth exist (see referral_tree).
     const ledger: LedgerInsert = {
       source_order_id: orderId,
       amount: fundCents / 100,
       status: "pending",
       unlocks_at: unlocksAt,
+      kind: "fund",
     };
     const { error: ledgerError } = await supabase.from("financial_ledger").insert(ledger);
     if (ledgerError) {
       console.error("stripe webhook: ledger insert failed", ledgerError);
     } else {
       db = "inserted";
+    }
+
+    // Кеш-бэк 300 €: партнёрский набор приведённого (metadata partner_bundle).
+    if (paid && refCode && session.metadata?.partner_bundle) {
+      cashback = await recordCashback(supabase, orderId, refCode);
     }
   }
 
@@ -214,6 +289,11 @@ export async function POST(request: Request) {
       refCode ? `Ref: ${refCode}` : null,
       `Позиции: ${itemsText}`,
       `Фонд 64% (уровни I–V, холдинг до ${unlocksAt.slice(0, 10)}): ${formatEuros(fundCents)}`,
+      cashback === "inserted"
+        ? `🪙 Кеш-бэк ${formatEuros(CASHBACK_CENTS)} (pending, холдинг ${CASHBACK_HOLDING_DAYS} дн.) → партнёру по ${refCode}`
+        : cashback === "no_partner"
+          ? `⚠️ Кеш-бэк не начислен: партнёр по ${refCode} не найден`
+          : null,
       `Session: ${session.id}`,
       `БД: ${db === "inserted" ? "✅ записано" : "⚠️ пропущено (нет ключа БД)"}`,
     ]
@@ -221,5 +301,5 @@ export async function POST(request: Request) {
       .join("\n"),
   );
 
-  return NextResponse.json({ received: true, db, order_id: orderId, notified: delivered });
+  return NextResponse.json({ received: true, db, order_id: orderId, cashback, notified: delivered });
 }

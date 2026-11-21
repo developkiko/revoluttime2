@@ -142,6 +142,14 @@ CREATE TABLE IF NOT EXISTS auth_links (
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
 );
+/* Финансовый леджер и партнёрские коды (владелец 21.11 — кеш-бэк 300 €):
+   kind разделяет «фонд 64 %» и «кеш-бэк за приведённого», beneficiary_email —
+   получатель (ref_code → anchor), статус pending размораживается по
+   unlocks_at (lazy, без крона — холдинг под возвраты Stripe). */
+ALTER TABLE financial_ledger ADD COLUMN IF NOT EXISTS kind text DEFAULT 'fund';
+ALTER TABLE financial_ledger ADD COLUMN IF NOT EXISTS ref_code text;
+ALTER TABLE financial_ledger ADD COLUMN IF NOT EXISTS beneficiary_email text;
+ALTER TABLE auth_links ADD COLUMN IF NOT EXISTS ref_code text;
 `;
 
 let schemaPromise: Promise<void> | null = null;

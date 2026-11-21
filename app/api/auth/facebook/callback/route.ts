@@ -6,7 +6,7 @@ import {
   setSessionCookie,
   type SessionUser,
 } from "@/lib/auth-session";
-import { attachProvider, resolveAnchor } from "@/lib/auth-links";
+import { attachProvider, resolveAnchor, stampRefCode } from "@/lib/auth-links";
 
 interface FacebookTokens {
   access_token?: string;
@@ -87,6 +87,7 @@ export async function GET(request: Request) {
 
   const anchor = await resolveAnchor("facebook", providerId, providerEmail);
   await attachProvider(anchor, "facebook", providerId);
+  await stampRefCode(anchor);
 
   const user: SessionUser = {
     email: anchor,

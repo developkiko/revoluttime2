@@ -4,7 +4,7 @@ import {
   setSessionCookie,
   type SessionUser,
 } from "@/lib/auth-session";
-import { attachProvider, resolveAnchor } from "@/lib/auth-links";
+import { attachProvider, resolveAnchor, stampRefCode } from "@/lib/auth-links";
 import { kvDelete, kvGetJson } from "@/lib/ultra/kv";
 
 interface TgLinkPayload {
@@ -52,6 +52,7 @@ export async function POST(request: Request) {
 
   const anchor = await resolveAnchor("telegram", id, anchorBase);
   await attachProvider(anchor, "telegram", id, { displayName, picture });
+  await stampRefCode(anchor);
 
   const user: SessionUser = {
     email: anchor,

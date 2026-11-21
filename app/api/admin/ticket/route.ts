@@ -2,6 +2,7 @@ import * as crypto from "node:crypto";
 import { NextResponse } from "next/server";
 import { notFound } from "next/navigation";
 import { getSessionUser, type SessionUser } from "@/lib/auth-session";
+import { mintAdminApiToken } from "@/lib/admin-auth";
 import { db, dbConfigured, dbOne } from "@/lib/ultra/db";
 
 /**
@@ -156,5 +157,8 @@ export async function POST(request: Request) {
     name: data.name,
     picture: data.picture,
     provider: data.provider,
+    // Долгоживущий Bearer для server-to-server админ-API сайта (события,
+    // настройки). 7 дней, HMAC AUTH_SESSION_SECRET — секрет не выдаётся.
+    apiToken: mintAdminApiToken(data.email),
   });
 }

@@ -6,7 +6,7 @@ import {
   setSessionCookie,
   type SessionUser,
 } from "@/lib/auth-session";
-import { attachProvider, resolveAnchor } from "@/lib/auth-links";
+import { attachProvider, resolveAnchor, stampRefCode } from "@/lib/auth-links";
 
 interface GoogleTokens {
   access_token?: string;
@@ -84,6 +84,7 @@ export async function GET(request: Request) {
 
   const anchor = await resolveAnchor("google", providerId, userinfo.email);
   await attachProvider(anchor, "google", providerId);
+  await stampRefCode(anchor);
 
   const user: SessionUser = {
     email: anchor,

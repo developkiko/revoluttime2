@@ -141,7 +141,7 @@
     },
     "partnerTeaser": {
       "title": "Money makes money",
-      "text": "Up to 50% commission from the first line, lifetime bonuses in 5 levels (I–V), payouts to card, crypto or Telegram.",
+      "text": "Up to 50% from the first line, lifetime bonuses in 5 levels (I–V) and a €300 cashback for every referral. Paid out to a card, in crypto or via Telegram.",
       "cta": "About the program"
     },
     "encyclopedia": {
@@ -351,6 +351,10 @@
         "instant": {
           "title": "Fast payouts",
           "text": "Your earnings arrive without long waiting times."
+        },
+        "cashback": {
+          "title": "€300 cashback",
+          "text": "Everyone you refer who tops up their balance by €600 or orders the partner set brings you €300. Credited after a 14-day holding period (protection against payment reversals)."
         },
         "transparent": {
           "title": "Transparent statistics",
@@ -965,6 +969,10 @@
         {
           "h": "10. Trademark and copyright",
           "p": "All content and media on this website as well as the RevolutTIME brand (YULKK UNITED CORP., USA) are protected by copyright and trademark law. Any use requires our prior consent."
+        },
+        {
+          "h": "11. Partner cashback",
+          "p": "For every user referred via a partner link who tops up their balance by €600 or purchases the partner set, the partner receives a €300 cashback. The cashback is recorded as “pending” and paid out after a 14-day holding period from payment — a window for possible payment reversals/disputes. The cashback is VAT-free (small business § 19 UStG)."
         }
       ]
     },
