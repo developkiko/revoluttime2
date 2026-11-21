@@ -39,7 +39,9 @@ export const OWNER_SETTINGS_DEFAULTS: Required<
   encyclopedia_tips_mobile: false,
   income_block: {
     mode: "dummy",
-    label: "Зарабатывают уже сейчас",
+    // Пусто = на сайте работает i18n-фолбэк t("title"). Непустой русский
+    // текст в дефолте показывался на de/en (заголовок был русским везде).
+    label: "",
     interval_min_minutes: 2,
     interval_max_minutes: 15,
   },
@@ -124,15 +126,18 @@ export function sanitizeOwnerSettings(
   return out;
 }
 
-/** Читает owner_settings из БД (site_config id=1) с дефолтами. Без БД —
- *  дефолты, чтобы публичный сайт всегда рендерился. */
+/** Читает owner_settings из БД (site_config id=1, ключ config.owner_settings
+ *  — именно туда пишет админ-API) и мержит с дефолтами. Без БД — дефолты,
+ *  чтобы публичный сайт всегда рендерился. */
 export async function readOwnerSettings(): Promise<OwnerSettings> {
   if (!dbConfigured()) return { ...OWNER_SETTINGS_DEFAULTS };
   try {
     const row = await dbOne<{ config: Record<string, unknown> }>(
       `SELECT config FROM site_config WHERE id = 1`
     );
-    return { ...OWNER_SETTINGS_DEFAULTS, ...((row?.config as OwnerSettings | undefined) ?? {}) };
+    const stored = (row?.config as { owner_settings?: OwnerSettings } | undefined)
+      ?.owner_settings;
+    return { ...OWNER_SETTINGS_DEFAULTS, ...(stored ?? {}) };
   } catch {
     return { ...OWNER_SETTINGS_DEFAULTS };
   }

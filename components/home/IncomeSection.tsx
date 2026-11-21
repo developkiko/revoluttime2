@@ -60,8 +60,10 @@ async function IncomeList() {
          ORDER BY created_at DESC
          LIMIT ${REAL_LIMIT}`
       );
-      entries = rows.map((row) => ({
-        index: 0,
+      entries = rows.map((row, i) => ({
+        // index = позиция (уникальный React-ключ): created_at у строк одного
+        // вебхук-transaction может совпасть (Postgres now() один на транзакцию).
+        index: i,
         type: row.kind === "cashback" ? "cashback" : "percent",
         amountCents: Math.round(Number(row.amount) * 100),
         ...anonymizeLedgerEmail(row.beneficiary_email),
