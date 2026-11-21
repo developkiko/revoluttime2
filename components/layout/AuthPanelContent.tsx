@@ -104,16 +104,17 @@ function UserMenu({
   email,
   name,
   picture,
+  isAdmin,
   onDone,
 }: {
   email: string;
   name: string;
   picture?: string;
+  isAdmin?: boolean;
   onDone?: () => void;
 }) {
   const t = useTranslations("auth");
   const { notice } = useNotice();
-  const isAdmin = email === "admin@revoluttime.de";
 
   return (
     <div className="flex flex-col gap-1">
@@ -196,7 +197,13 @@ export function AuthPanelContent({ onDone }: { onDone: () => void }) {
   const user = useAuthUser();
 
   return user ? (
-    <UserMenu email={user.email} name={user.name} picture={user.picture} onDone={onDone} />
+    <UserMenu
+      email={user.email}
+      name={user.name}
+      picture={user.picture}
+      isAdmin={user.isAdmin}
+      onDone={onDone}
+    />
   ) : (
     <ProvidersPanel onDone={onDone} />
   );

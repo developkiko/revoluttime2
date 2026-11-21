@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import {
   getSessionUser,
+  isAdminEmail,
   setSessionCookie,
   type SessionUser,
 } from "@/lib/auth-session";
@@ -92,6 +93,7 @@ export async function GET(request: Request) {
     name,
     provider: "facebook",
     picture,
+    isAdmin: isAdminEmail(anchor),
   };
   const ok = await setSessionCookie(user);
   if (!ok) return fail("unconfigured");

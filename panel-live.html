@@ -1,0 +1,665 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RevolutTIME — Админ панель</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/admin-panel.css">
+    <style>
+        .review-star { cursor:pointer; color:var(--text-muted); margin-right:2px; transition:color 0.2s; display:inline-flex; vertical-align:middle; }
+        .review-star.filled { color:#f59e0b; }
+        .review-star:hover { color:#fbbf24; }
+        .review-star svg { width:14px; height:14px; }
+        [data-lucide] { display:inline-block; vertical-align:-0.2em; width:1em; height:1em; }
+        .admin-tab [data-lucide] { width:16px; height:16px; }
+        h2 [data-lucide], legend [data-lucide], h3 [data-lucide], h4 [data-lucide] {
+            width:18px; height:18px; margin-right:6px; vertical-align:-0.25em;
+        }
+        .btn-act { display:inline-flex; align-items:center; justify-content:center; gap:0; }
+        .btn-act [data-lucide] { width:14px; height:14px; }
+        .badge-version [data-lucide] { width:14px; height:14px; margin-right:4px; vertical-align:-0.2em; }
+        .icon-muted { opacity:0.7; }
+        .ph-icon { width:48px; height:48px; margin:0 auto 12px; color:var(--text-muted); }
+        .avatar-ph {
+            width:36px;height:36px;border-radius:50%;background:#333;
+            display:flex;align-items:center;justify-content:center;flex-shrink:0;
+        }
+        .avatar-ph [data-lucide] { width:18px; height:18px; color:#888; }
+        .avatar-ph.sm { width:32px; height:32px; }
+        .avatar-ph.sm [data-lucide] { width:16px; height:16px; }
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 1199px) { .main-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 759px) { .main-grid { grid-template-columns: 1fr; } }
+        .main-grid fieldset {
+            border: 1px solid var(--border-default, #2a2a3a);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin: 0;
+            background: rgba(255,255,255,0.02);
+        }
+        .main-grid legend {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-heading, #ccc);
+            padding: 0 6px;
+        }
+        .main-grid .hint {
+            font-size: 11px;
+            color: var(--text-muted, #888);
+            margin: 0 0 10px;
+            line-height: 1.35;
+        }
+        .main-grid .field-row {
+            margin-bottom: 8px;
+            gap: 8px;
+        }
+        .main-grid .field-row label {
+            min-width: 110px;
+            font-size: 12px;
+        }
+        .main-grid input[type="text"],
+        .main-grid input[type="number"],
+        .main-grid select {
+            padding: 6px 10px !important;
+            font-size: 12px !important;
+        }
+        .main-grid .btn-save { margin-top: 6px; height: 30px; padding: 0 14px; font-size: 12px; }
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .toggle-row:last-of-type { border-bottom: none; }
+        .toggle-row > span { font-size: 12px; color: var(--text-heading, #ddd); line-height: 26px; }
+        /* ═══ Toggle Switch ═══ */
+        .toggle-switch {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+        }
+        .toggle-switch input { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+        .toggle-track {
+            position: relative;
+            width: 44px;
+            height: 26px;
+            background: #2a2a3a;
+            border: 1px solid var(--border-default);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            flex-shrink: 0;
+        }
+        .toggle-track::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: #777;
+            border-radius: 50%;
+            transition: transform 0.2s ease, background 0.2s;
+        }
+        .toggle-switch input:checked + .toggle-track {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--color-primary);
+        }
+        .toggle-switch input:checked + .toggle-track::after {
+            transform: translateX(18px);
+            background: var(--color-primary);
+        }
+        .toggle-switch:hover .toggle-track { border-color: rgba(255,255,255,0.15); }
+        .toggle-switch input:checked:hover .toggle-track { border-color: var(--color-primary-hover); }
+        .toggle-label {
+            font-size: 11px;
+            color: #777;
+            min-width: 0 !important;
+            text-align: left !important;
+            line-height: 1;
+        }
+        .toggle-switch input:checked ~ .toggle-label { color: var(--text-heading); }
+        .chk-inline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .chk-inline input { width: 16px; height: 16px; accent-color: #f59e0b; cursor: pointer; }
+        .span-2 { grid-column: span 1; }
+        .skeleton{background:linear-gradient(90deg, #1a1a2e 25%, #2a2a3a 50%, #1a1a2e 75%);background-size:200% 100%;animation:sk-shimmer 1.5s ease-in-out infinite;border-radius:4px;min-height:16px;width:100%;}@keyframes sk-shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}.skeleton-row{display:flex;gap:8px;margin:8px 0;}.skeleton-row .skeleton{flex:1;min-height:20px;}.skeleton-table{margin:10px 0;}.skeleton-table .skeleton{height:32px;margin:6px 0;}.skeleton-card{height:120px;margin:8px 0;border-radius:10px;}.loading-text{color:var(--text-muted,#888);font-size:12px;text-align:center;padding:20px;animation:pulse 1s ease-in-out infinite;}@keyframes pulse{0%,100%{opacity:0.5}50%{opacity:1}}
+        .pager{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:10px 0;padding:8px 0;}.pager .pager-info{font-size:12px;color:var(--text-muted,#888);}.pager .pager-btns{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}.pager button{min-width:32px;height:30px;padding:0 10px;background:var(--bg-elevated,#1a1a2e);border:1px solid var(--border-default,#2a2a3a);border-radius:6px;color:var(--text-heading,#ddd);font-size:12px;cursor:pointer;}.pager button:hover:not(:disabled){border-color:#3b82f6;color:#fff;}.pager button:disabled{opacity:0.4;cursor:default;}.pager button.active{background:#3b82f6;border-color:#3b82f6;color:#fff;}.pager select.page-size{min-width:auto;width:60px;height:30px;padding:0 6px;background:var(--bg-elevated,#1a1a2e);border:1px solid var(--border-default,#2a2a3a);border-radius:6px;color:var(--text-heading,#ddd);font-size:12px;cursor:pointer;}.load-overlay{display:none;position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1;align-items:center;justify-content:center;border-radius:6px;}.load-overlay.active{display:flex;}.spinner{width:32px;height:32px;border:3px solid #2a2a3a;border-top-color:#3b82f6;border-radius:50%;animation:spin 0.7s linear infinite;}@keyframes spin{to{transform:rotate(360deg)}}.admin-section{position:relative;}.refresh-btn{display:inline-flex;align-items:center;gap:4px;min-width:auto;height:30px;padding:0 10px;background:var(--bg-elevated,#1a1a2e);border:1px solid var(--border-default,#2a2a3a);border-radius:6px;color:var(--text-heading,#ddd);font-size:12px;cursor:pointer;}.refresh-btn:hover{border-color:#3b82f6;color:#fff;}        .pager-top-wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 4px;}
+        /* Telegram panel parity with Good Cards; RevolutTIME keeps its blocked-admin controls. */
+        .tg-admins-page{display:flex;flex-direction:column;gap:18px;}
+        .tg-section{display:flex;flex-direction:column;gap:12px;}
+        .tg-section-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+        .tg-section-heading h2{margin:0 0 4px;}
+        .tg-section-description{font-size:12px;color:var(--text-muted,#888);margin:0;line-height:1.4;}
+        .tg-two-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:start;}
+        .tg-card{border:1px solid var(--border-default,#2a2a3a);border-radius:10px;padding:14px;background:rgba(255,255,255,.02);margin:0;min-width:0;}
+        .tg-card legend{font-size:13px;font-weight:600;color:var(--text-heading,#ddd);padding:0 6px;}
+        .tg-card .field-row{margin-bottom:10px;}
+        .tg-card .btn-save{min-height:30px;}
+        .tg-hint{font-size:11px;color:var(--text-muted,#888);line-height:1.4;margin:6px 0 10px;}
+        .tg-pager{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:10px;min-height:30px;}
+        .tg-pager-info{font-size:12px;color:var(--text-muted,#888);}
+        .tg-broadcast-card textarea{width:100%;box-sizing:border-box;padding:9px 11px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:var(--radius-sm);color:var(--text-heading);font:inherit;resize:vertical;}
+        .tg-broadcast-preview{min-height:80px;margin:4px 0 12px;padding:12px;border:1px dashed var(--border-default);border-radius:var(--radius-sm);color:var(--text-muted);}
+        .tg-broadcast-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+        .tg-checkbox-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-heading);cursor:pointer;}
+        .tg-checkbox-row input{width:16px;height:16px;accent-color:var(--color-primary);}
+        .tg-file-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
+        .tg-file-picker{display:flex;align-items:center;gap:8px;flex-wrap:wrap;cursor:pointer;}
+        .tg-file-picker-button{display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border:1px solid var(--border-default);border-radius:var(--radius-sm);background:var(--bg-elevated);font-size:12px;color:var(--text-heading);}
+        .tg-file-picker-name{font-size:11px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px;}
+        @media (max-width:760px){.tg-two-columns{grid-template-columns:1fr;}.tg-section-heading{align-items:stretch;}.tg-section-heading .refresh-btn{align-self:flex-start;}}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+    <div class="admin-header">
+        <div class="logo-wrap">
+            <a href="https://revolut-time.vercel.app" target="_blank" style="color:inherit;text-decoration:none;font-weight:700;font-size:16px;letter-spacing:0.04em;">RevolutTIME</a>
+            <span class="badge-version" id="visitorBadge" style="cursor:pointer;" title="Открыть посещения"><i data-lucide="eye"></i> <span id="visitorCount">—</span></span>
+        </div>
+        <button class="logout" id="btnLogout"><i data-lucide="log-out"></i> Выйти</button>
+    </div>
+    <div class="admin-body">
+        <div class="admin-tabs">
+                        <button class="admin-tab active" data-tab="main" title="Главная"><i data-lucide="settings"></i></button>
+            <button class="admin-tab" data-tab="top-locations"><i data-lucide="globe-2"></i> Локации</button>
+            <button class="admin-tab" data-tab="live"><i data-lucide="radio"></i> LIVE</button>
+            <button class="admin-tab" data-tab="stats"><i data-lucide="activity"></i> Статы</button>
+            <button class="admin-tab" data-tab="users"><i data-lucide="user"></i> Юзеры</button>
+            <button class="admin-tab" data-tab="products"><i data-lucide="package"></i> Тарифы</button>
+            <button class="admin-tab" data-tab="reviews"><i data-lucide="star"></i> Отзывы</button>
+            <button class="admin-tab" data-tab="admins"><i data-lucide="users"></i> TG</button>
+            <button class="admin-tab" data-tab="visits"><i data-lucide="eye"></i> Посещения</button>
+            <button class="admin-tab" data-tab="proxies"><i data-lucide="wallet"></i> Платежи</button>
+        </div>
+        <div class="admin-panel active" id="panel-main">
+            <div class="admin-section">
+                <h2><i data-lucide="settings"></i> Главная</h2>
+                <div class="main-grid">
+                    <fieldset>
+                        <legend><i data-lucide="message-circle"></i> Виджет + Капча</legend>
+                        <p style="font-size:13px;font-weight:600;color:var(--text-heading);margin-bottom:12px;">Виджет связи</p>
+                        <div class="toggle-row">
+                            <span>Состояние</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="widgetEnabled" checked>
+                                <span class="toggle-track"></span>
+                            </label>
+                        </div>
+                        <div class="field-row"><label>Email</label><input type="text" id="widgetEmail" placeholder="mailto:support@..."></div>
+                        <div class="field-row"><label>Telegram</label><input type="text" id="widgetTelegram" placeholder="https://t.me/..."></div>
+                        <div class="toggle-row">
+                            <span>Авторизация через Telegram</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="telegramAuthEnabled" checked>
+                                <span class="toggle-track"></span>
+                            </label>
+                        </div>
+                        <hr style="border-style:dashed;">
+                        <p style="font-size:13px;font-weight:600;color:var(--text-heading);margin-bottom:12px;"><i data-lucide="shield"></i> Капча</p>
+                        <p class="hint">Turnstile · API: <span id="captchaApiStatus">…</span></p>
+                        <div class="toggle-row">
+                            <span>Глобально</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="captchaEnabled" checked>
+                                <span class="toggle-track"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <span>Регистрация</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="captchaRegister" checked>
+                                <span class="toggle-track"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <span>Логин</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="captchaLogin" checked>
+                                <span class="toggle-track"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <span>Контакты</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="captchaContact" checked>
+                                <span class="toggle-track"></span>
+                            </label>
+                        </div>
+                        <button class="btn-save" id="btnSaveWidgetAndCaptcha" onclick="saveWidgetAndCaptcha()">Применить всё</button>
+                    </fieldset>
+                    <fieldset>
+                        <legend><i data-lucide="wallet"></i> Платежи</legend>
+                        <div id="paymentForm"><p style="color:var(--text-muted)">Загрузка...</p></div>
+                    </fieldset>
+                    <fieldset>
+                        <legend><i data-lucide="mail"></i> Footer контакты</legend>
+                        <p class="hint">Два контакта в подвале сайта (RU/EN).</p>
+                        <div id="footerContactsForm"><p style="color:var(--text-muted)">Загрузка...</p></div>
+                    </fieldset>
+                    <fieldset>
+                        <legend><i data-lucide="message-circle"></i> Форма «Связаться»</legend>
+                        <p class="hint">Контакты под формой обратной связи.</p>
+                        <div id="contactSectionForm"><p style="color:var(--text-muted)">Загрузка...</p></div>
+                    </fieldset>
+                    <fieldset>
+                        <legend><i data-lucide="key-round"></i> Восстановление пароля</legend>
+                        <p class="hint">Модалка «Забыли пароль?». Ссылки: <code>Текст|URL</code></p>
+                        <div id="pswdRecoveryForm"><p style="color:var(--text-muted)">Загрузка...</p></div>
+                    </fieldset>
+                    <fieldset>
+                        <legend><i data-lucide="file-text"></i> Контакты для политик</legend>
+                        <p class="hint">Email и Telegram для страниц политик (Privacy, Terms, etc).</p>
+                        <div id="policiesContactsForm"><p style="color:var(--text-muted)">Загрузка...</p></div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="admin-panel" id="panel-top-locations">
+            <div class="admin-section">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+                    <h2 style="margin:0;"><i data-lucide="globe-2"></i> Топ-локации</h2>
+                    <button class="btn-save" type="button" id="btnSaveTopLocations" onclick="saveTopLocations()">Сохранить</button>
+                </div>
+                <p class="hint">Страны отображаются в ленте «Локации» на главной. Порядок задаётся списком ниже; флаги берутся из каталога сайта.</p>
+                <fieldset class="top-locations-fieldset">
+                    <legend>Добавить страну</legend>
+                    <div id="topLocationsSelect" class="top-locations-select"></div>
+                </fieldset>
+                <fieldset class="top-locations-fieldset">
+                    <legend>Текущий порядок</legend>
+                    <div id="topLocationsSelected" class="top-locations-selected"><p class="hint">Загрузка...</p></div>
+                </fieldset>
+            </div>
+        </div>
+                <div class="admin-panel" id="panel-live">
+            <div class="admin-section demo-settings-panel">
+                <div class="settings-heading"><div><h2><i data-lucide="radio"></i> LIVE — покупки в реальном времени</h2><p class="hint">Управление демонстрационными покупками: ритм, реалистичность, списки и тексты. Это не реальные платежи.</p></div><button class="btn-save" type="button" id="btnSaveLiveDemo" onclick="saveLiveDemo()">Сохранить</button></div>
+                <div class="settings-grid">
+                    <fieldset><legend>Показ и поведение</legend>
+                        <div class="toggle-row"><span>Включить demo LIVE</span><label class="toggle-switch"><input type="checkbox" id="liveEnabled"><span class="toggle-track"></span></label></div>
+                        <div class="toggle-row"><span>Поток прокси</span><label class="toggle-switch"><input type="checkbox" id="liveShowProxy"><span class="toggle-track"></span></label></div>
+                        <div class="toggle-row"><span>Поток тарифов</span><label class="toggle-switch"><input type="checkbox" id="liveShowPlans"><span class="toggle-track"></span></label></div>
+                                                <div class="demo-sync-note"><i data-lucide="link-2"></i><span>Тарифы и типы прокси для LIVE берутся из вкладки «Тарифы». Изменения там применяются к LIVE автоматически.</span></div>
+
+                        <div class="toggle-row"><span>Маскировать email</span><label class="toggle-switch"><input type="checkbox" id="liveMaskEmail"><span class="toggle-track"></span></label></div>
+                        <div class="toggle-row"><span>Не повторять страну</span><label class="toggle-switch"><input type="checkbox" id="liveAvoidCountry"><span class="toggle-track"></span></label></div>
+                        <div class="toggle-row"><span>Не повторять item</span><label class="toggle-switch"><input type="checkbox" id="liveAvoidItem"><span class="toggle-track"></span></label></div>
+                        <div class="toggle-row"><span>Пауза при скрытой вкладке</span><label class="toggle-switch"><input type="checkbox" id="livePauseHidden"><span class="toggle-track"></span></label></div>
+                    </fieldset>
+                    <fieldset><legend>Ритм и лимиты</legend>
+                        <div class="field-row"><label>Начальные строки</label><input type="number" id="liveInitialRows" min="0" max="12"></div>
+                        <div class="field-row"><label>Макс. строк</label><input type="number" id="liveMaxRows" min="1" max="12"></div>
+                        <div class="field-row"><label>Proxy min/max ms</label><input type="number" id="liveProxyMin"><input type="number" id="liveProxyMax"></div>
+                        <div class="field-row"><label>Plans min/max ms</label><input type="number" id="livePlanMin"><input type="number" id="livePlanMax"></div>
+                        <div class="field-row"><label>Подсветка ms</label><input type="number" id="liveFlashMs"></div>
+                        <div class="field-row"><label>Валюта</label><input type="text" id="liveCurrency" maxlength="8"></div>
+                    </fieldset>
+                    <fieldset><legend>Диапазон цен</legend>
+                        <div class="field-row"><label>Proxy min/max</label><input type="number" step="0.01" id="livePriceMin"><input type="number" step="0.01" id="livePriceMax"></div>
+                        <div class="field-row"><label>Discount min/max %</label><input type="number" id="liveDiscountMin"><input type="number" id="liveDiscountMax"></div>
+                    </fieldset>
+                    <fieldset><legend>Тексты RU / EN</legend>
+                        <div class="field-row"><label>Heading RU</label><input type="text" id="liveHeadingRu"></div><div class="field-row"><label>Heading EN</label><input type="text" id="liveHeadingEn"></div>
+                        <div class="field-row"><label>Proxy title RU</label><input type="text" id="liveProxyTitleRu"></div><div class="field-row"><label>Proxy title EN</label><input type="text" id="liveProxyTitleEn"></div>
+                        <div class="field-row"><label>Plans title RU</label><input type="text" id="livePlanTitleRu"></div><div class="field-row"><label>Plans title EN</label><input type="text" id="livePlanTitleEn"></div>
+                    </fieldset>
+                </div>
+                <div class="demo-list-grid">
+                    <fieldset><legend>Email domains</legend><p class="hint">По одному домену на строку.</p><textarea id="liveDomains" class="demo-textarea" rows="9"></textarea></fieldset>
+                    <fieldset><legend>Страны и name patterns</legend><p class="hint">Коды стран через запятую. Patterns: letters, letters_digits, short_name_digits.</p><textarea id="liveCountries" class="demo-textarea" rows="4"></textarea><input type="text" id="livePatterns" placeholder="letters, letters_digits, short_name_digits"></fieldset>
+                </div>
+                <fieldset><legend>Типы прокси и веса из «Тарифов»</legend><p class="hint">Только просмотр. Список и веса вычисляются из актуальных тарифов; редактируйте их во вкладке «Тарифы».</p><div id="liveProxyTypesForm" class="demo-editor-table"></div></fieldset>
+                <fieldset><legend>Резервные тарифы</legend><p class="hint">Используются только если публичный список тарифов временно пуст. Основной LIVE-поток всегда использует вкладку «Тарифы».</p></fieldset>
+            </div>
+        </div>
+        <div class="admin-panel" id="panel-stats">
+            <div class="admin-section demo-settings-panel">
+                <div class="settings-heading"><div><h2><i data-lucide="activity"></i> Статистика — demo generator</h2><p class="hint">Управление реалистичной демонстрационной статистикой страницы /stats. Данные не являются operational telemetry.</p></div><button class="btn-save" type="button" id="btnSaveStatsDemo" onclick="saveStatsDemo()">Сохранить</button></div>
+                <div class="settings-grid">
+                    <fieldset><legend>Показ</legend>
+                        <div class="toggle-row"><span>Включить generator</span><label class="toggle-switch"><input type="checkbox" id="statsEnabled"><span class="toggle-track"></span></label></div><div class="toggle-row"><span>Activity factor</span><label class="toggle-switch"><input type="checkbox" id="statsShowActivity"><span class="toggle-track"></span></label></div><div class="toggle-row"><span>UTC hour</span><label class="toggle-switch"><input type="checkbox" id="statsShowHour"><span class="toggle-track"></span></label></div><div class="toggle-row"><span>Sparklines</span><label class="toggle-switch"><input type="checkbox" id="statsShowSparklines"><span class="toggle-track"></span></label></div><div class="toggle-row"><span>Incidents</span><label class="toggle-switch"><input type="checkbox" id="statsShowIncidents"><span class="toggle-track"></span></label></div>
+                    </fieldset>
+                    <fieldset><legend>История и обновление</legend><div class="field-row"><label>Refresh seconds</label><input type="number" id="statsRefreshSeconds" min="5" max="3600"></div><div class="field-row"><label>History days</label><input type="number" id="statsHistoryDays" min="1" max="90"></div><div class="field-row"><label>Max points</label><input type="number" id="statsMaxHistory" min="1" max="90"></div><div class="field-row"><label>Baseline factor</label><input type="number" step="0.01" id="statsHistoryBaseline"></div><div class="field-row"><label>Factor range/noise</label><input type="number" step="0.01" id="statsHistoryRange"><input type="number" step="0.01" id="statsHistoryNoise"></div></fieldset>
+                    <fieldset><legend>Пулы и сервера</legend><div class="field-row"><label>Total pool base/range</label><input type="number" id="statsPoolBase"><input type="number" id="statsPoolRange"></div><div class="field-row"><label>Online base/range</label><input type="number" step="0.01" id="statsOnlineBase"><input type="number" step="0.01" id="statsOnlineRange"></div><div class="field-row"><label>Servers base/range</label><input type="number" id="statsServersBase"><input type="number" id="statsServersRange"></div></fieldset>
+                    <fieldset><legend>Latency / bandwidth</legend><div class="field-row"><label>Ping base/delta/noise</label><input type="number" id="statsPingBase"><input type="number" id="statsPingDelta"><input type="number" id="statsPingNoise"></div><div class="field-row"><label>Bandwidth base/delta/noise</label><input type="number" step="0.01" id="statsBwBase"><input type="number" step="0.01" id="statsBwDelta"><input type="number" step="0.01" id="statsBwNoise"></div></fieldset>
+                    <fieldset><legend>Rates / activity</legend><div class="field-row"><label>Success base/delta/noise</label><input type="number" step="0.01" id="statsSuccessBase"><input type="number" step="0.01" id="statsSuccessDelta"><input type="number" step="0.01" id="statsSuccessNoise"></div><div class="field-row"><label>Uptime base/noise</label><input type="number" step="0.001" id="statsUptimeBase"><input type="number" step="0.001" id="statsUptimeNoise"></div><div class="field-row"><label>Activity base/amplitude</label><input type="number" step="0.01" id="statsActivityBase"><input type="number" step="0.01" id="statsActivityAmp"></div><div class="field-row"><label>Activity min/max/noise</label><input type="number" step="0.01" id="statsActivityMin"><input type="number" step="0.01" id="statsActivityMax"><input type="number" step="0.01" id="statsActivityNoise"></div></fieldset>
+                </div>
+                <fieldset><legend>Регионы</legend><div id="statsRegionsForm" class="demo-editor-table"></div><button class="btn-act" type="button" onclick="addStatsRegion()">+ Добавить регион</button></fieldset>
+                <fieldset><legend>Инциденты</legend><div id="statsIncidentsForm" class="demo-editor-table"></div><button class="btn-act" type="button" onclick="addStatsIncident()">+ Добавить инцидент</button></fieldset>
+            </div>
+        </div>
+        <div class="admin-panel" id="panel-products">
+
+            <div class="admin-section">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+                    <h2 style="margin:0;"><i data-lucide="package"></i> Тарифы</h2>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <button class="btn-save" type="button" onclick="openProductModal()"><i data-lucide="plus"></i> Добавить</button>
+                        <button class="btn-cancel" type="button" onclick="seedProducts()" title="Залить дефолтные 4 тарифа"><i data-lucide="sprout"></i> Seed</button>
+                        <button class="btn-save" type="button" onclick="saveProductsOrder()"><i data-lucide="save"></i> Сохранить порядок</button>
+                    </div>
+                </div>
+                <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Данные из KV <code>products_list</code> — те же, что видит сайт. Стрелки меняют order.</p>
+                <table>
+                    <thead><tr>
+                        <th style="width:70px">Order</th>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Name RU / EN</th>
+                        <th>Traffic</th>
+                        <th>Price</th>
+                        <th>Old</th>
+                        <th>%</th>
+                        <th>LIVE weight</th>
+                        <th><i data-lucide="star" class="icon-muted"></i></th>
+                        <th style="width:140px">Действия</th>
+                    </tr></thead>
+                    <tbody id="productsBody"><tr><td colspan="11" class="empty-state">Загрузка...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="admin-panel" id="panel-users">
+            <div class="admin-section">
+                <h2><i data-lucide="users"></i> Все пользователи</h2>
+                <div class="pager-top-wrap"><button class="refresh-btn" onclick="loadUsers()"><i data-lucide="refresh-cw"></i> Обновить</button><div class="pager" id="pagerUsersTop" style="display:none"><div class="pager-btns" id="pagerUsersTopBtns"></div></div></div>
+                <table>
+                    <thead><tr>
+                        <th>Email</th>
+                        <th>Оплата</th>
+                        <th>Дата</th>
+                        <th>IP + Geo</th>
+                        <th>UA</th>
+                        <th>Жив/Где?</th>
+                        <th style="width:100px">Действия</th>
+                    </tr></thead>
+                    <tbody id="usersBody"><tr><td colspan="7" class="empty-state">Нет данных</td></tr></tbody>
+                </table>
+                <div class="pager" id="pagerUsers" style="display:none"><div class="pager-info" id="pagerUsersInfo"></div><select class="page-size" id="pageSizeUsers" onchange="changePageSize('users', this.value)"><option value="10">10</option><option value="15">15</option><option value="20" selected>20</option><option value="25">25</option></select><div class="pager-btns" id="pagerUsersBtns"></div></div>
+            </div>
+        </div>
+        <div class="admin-panel" id="panel-proxies">
+            <div class="admin-section">
+                <h2><i data-lucide="wallet"></i> Платежи</h2>
+                <div class="pager-top-wrap"><button class="refresh-btn" onclick="loadPayments()"><i data-lucide="refresh-cw"></i> Обновить</button><div class="pager" id="pagerPaymentsTop" style="display:none"><div class="pager-btns" id="pagerPaymentsTopBtns"></div></div></div>
+                <table>
+                    <thead><tr>
+                        <th>Email</th>
+                        <th>Сумма</th>
+                        <th>Статус</th>
+                        <th>Ссылка</th>
+                        <th>Дата</th>
+                        <th style="width:160px">Действия</th>
+                    </tr></thead>
+                    <tbody id="paymentsBody"><tr><td colspan="6" class="empty-state">Нет запросов</td></tr></tbody>
+                </table>
+                <div class="pager" id="pagerPayments" style="display:none"><div class="pager-info" id="pagerPaymentsInfo"></div><select class="page-size" id="pageSizePayments" onchange="changePageSize('payments', this.value)"><option value="10">10</option><option value="15">15</option><option value="20" selected>20</option><option value="25">25</option></select><div class="pager-btns" id="pagerPaymentsBtns"></div></div>
+            </div>
+        </div>
+        <!-- ═══ REVIEWS PANEL ═══ -->
+        <div class="admin-panel" id="panel-reviews">
+            <div class="admin-section">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                    <h2><i data-lucide="star"></i> Отзывы</h2>
+                    <button class="btn-save" onclick="openReviewModal()"><i data-lucide="plus"></i> Добавить отзыв</button>
+                </div>
+                <table>
+                    <thead><tr>
+                        <th>Аватар</th>
+                        <th>Name RU</th>
+                        <th>Name EN</th>
+                        <th>Role RU/EN</th>
+                        <th>Stars</th>
+                        <th>Text (RU)</th>
+                        <th>Действия</th>
+                    </tr></thead>
+                    <tbody id="reviewsBody"><tr><td colspan="7" class="empty-state">Загрузка...</td></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ═══ ADMINS PANEL ═══ -->
+        <div class="admin-panel" id="panel-admins">
+            <div class="admin-section tg-admins-page">
+                <div class="tg-section tg-admin-section">
+                    <div class="tg-section-heading"><div><h2><i data-lucide="shield-check"></i> Админский бот</h2><p class="tg-section-description">Управление администраторами и доступом к админскому боту.</p></div><button class="refresh-btn" type="button" onclick="refreshAdmins()"><i data-lucide="refresh-cw"></i> Обновить</button></div>
+                    <div class="tg-two-columns">
+                        <fieldset class="tg-card"><legend><i data-lucide="user-plus"></i> Добавить админа</legend><div class="field-row"><label>Из писавших боту</label><select id="adminChatSelect"><option value="">— Выберите пользователя —</option></select></div><button class="btn-save" type="button" onclick="addAdminFromSelect()"><i data-lucide="user-plus"></i> Добавить из списка</button><div class="field-row" style="margin-top:14px;"><label>Или chat_id вручную</label><input type="text" id="adminChatIdManual" placeholder="например 123456789"></div><p class="tg-hint">Пользователь должен хотя бы раз написать боту <code>/start</code>.</p><button class="btn-save" type="button" onclick="addAdminByChatId()"><i data-lucide="hash"></i> Добавить по chat_id</button></fieldset>
+                        <fieldset class="tg-card"><legend><i data-lucide="shield-check"></i> Активные админы</legend><div id="activeAdminsList"><p class="loading-text">Загрузка...</p></div></fieldset>
+                    </div>
+                </div>
+                <div class="tg-section tg-client-section">
+                    <div class="tg-section-heading"><div><h2><i data-lucide="bot"></i> Клиентский бот</h2><p class="tg-section-description">Клиенты, которые запускали клиентского бота.</p></div></div>
+                    <div class="tg-two-columns">
+                        <fieldset class="tg-card"><legend><i data-lucide="users"></i> Клиенты</legend><div id="clientBotUsersList"><p class="loading-text">Загрузка...</p></div><div id="clientBotUsersPager" class="tg-pager"></div></fieldset>
+                        <fieldset class="tg-card tg-broadcast-card"><legend><i data-lucide="megaphone"></i> Рассылка клиентам</legend><div class="field-row"><label for="broadcastText">Текст рассылки</label><textarea id="broadcastText" rows="6" maxlength="1000" placeholder="Введите текст рассылки"></textarea><small class="tg-hint"><span id="broadcastTextCount">0</span>/1000</small></div><div class="field-row"><label for="broadcastImage">Изображение</label><label class="tg-file-picker" for="broadcastImage"><span class="tg-file-picker-button"><i data-lucide="upload"></i> Выбрать изображение</span><span class="tg-file-picker-name" id="broadcastImageName">Файл не выбран</span></label><input id="broadcastImage" class="tg-file-input" type="file" accept="image/*"></div><div class="field-row"><label class="tg-checkbox-row"><input id="broadcastAddButton" type="checkbox" onchange="toggleBroadcastButtonFields()"><span>Добавить HTTPS-кнопку</span></label></div><div id="broadcastButtonFields" style="display:none"><div class="field-row"><label for="broadcastButtonText">Название кнопки</label><input id="broadcastButtonText" maxlength="64" placeholder="Например, Открыть сайт"></div><div class="field-row"><label for="broadcastButtonUrl">Ссылка</label><input id="broadcastButtonUrl" type="url" value="https://revolut-time.vercel.app/" placeholder="https://revolut-time.vercel.app/"></div></div><div id="broadcastPreview" class="tg-broadcast-preview"><span>Предпросмотр появится здесь</span></div><div class="tg-broadcast-actions"><button class="btn-save" type="button" onclick="previewClientBroadcast()"><i data-lucide="eye"></i> Предпросмотр</button><button class="btn-save" type="button" id="broadcastSendBtn" onclick="sendClientBroadcast()"><i data-lucide="send"></i> Отправить</button><button class="btn-cancel" type="button" onclick="resetClientBroadcast()">Очистить</button></div><div id="broadcastResult" class="tg-hint"></div></fieldset>
+                    </div>
+                </div>
+                <div class="tg-section tg-blocked-section">
+                    <div class="tg-section-heading"><div><h2><i data-lucide="ban"></i> Заблокированные админы</h2><p class="tg-section-description">Заблокированные пользователи сохраняются отдельно и не теряются при миграции.</p></div></div>
+                    <fieldset class="tg-card"><legend><i data-lucide="ban"></i> Заблокированные</legend><div id="blockedAdminsList"><p class="loading-text">Загрузка...</p></div></fieldset>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ VISITS PANEL ═══ -->
+        <div class="admin-panel" id="panel-visits">
+            <div class="admin-section">
+                <h2><i data-lucide="eye"></i> Посещения</h2>
+                <div style="margin-bottom:16px;display:flex;gap:12px;align-items:center;">
+                    <label style="font-size:14px;font-weight:600;color:var(--text-heading);">Дата:</label>
+                    <select id="visitDateSelect" style="flex:1;max-width:200px;padding:8px 12px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:var(--radius-sm);color:var(--text-heading);font-size:13px;outline:none;">
+                        <option value="">Загрузка дат...</option>
+                    </select>
+                    <span id="visitDateTotal" style="font-size:13px;color:var(--text-muted);"></span>
+                </div>
+                <div class="pager-top-wrap"><button class="refresh-btn" onclick="loadVisitDates()"><i data-lucide="refresh-cw"></i> Обновить</button><div class="pager" id="pagerVisitsTop" style="display:none"><select class="page-size" id="pageSizeVisitsTop" onchange="changePageSize('visits', this.value)"><option value="10">10</option><option value="15">15</option><option value="20" selected>20</option><option value="25">25</option></select><div class="pager-btns" id="pagerVisitsTopBtns"></div></div></div>
+                <table>
+                    <thead><tr>
+                        <th>Время</th>
+                        <th>Страница</th>
+                        <th>IP + Geo</th>
+                        <th>UA</th>
+                        <th>Referer</th>
+                        <th>User / TG</th>
+                        <th>Статус</th>
+                    </tr></thead>
+                    <tbody id="visitsBody"><tr><td colspan="7" class="empty-state">Выберите дату</td></tbody>
+                </table>
+                <div class="pager" id="pagerVisits" style="display:none"><div class="pager-info" id="pagerVisitsInfo"></div><select class="page-size" id="pageSizeVisits" onchange="changePageSize('visits', this.value)"><option value="10">10</option><option value="15">15</option><option value="20" selected>20</option><option value="25">25</option></select><div class="pager-btns" id="pagerVisitsBtns"></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="toast" id="toast"></div>
+
+    <!-- ═══ MODAL: REVIEW EDIT/ADD ═══ -->
+    <div class="modal-overlay" id="modalReview" style="display:none;">
+        <div class="modal-box wide">
+            <h3 id="reviewModalTitle">Новый отзыв</h3>
+            <form id="reviewForm" onsubmit="return false">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+                    <div><label>Имя RU</label><input type="text" id="reviewNameRu" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;"></div>
+                    <div><label>Имя EN</label><input type="text" id="reviewNameEn" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;"></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+                    <div><label>Должность RU</label><input type="text" id="reviewRoleRu" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;"></div>
+                    <div><label>Должность EN</label><input type="text" id="reviewRoleEn" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;"></div>
+                </div>
+                <div style="margin-bottom:12px;"><label>Отзыв RU</label><textarea id="reviewTextRu" rows="3" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;resize:vertical;"></textarea></div>
+                <div style="margin-bottom:12px;"><label>Отзыв EN</label><textarea id="reviewTextEn" rows="3" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;resize:vertical;"></textarea></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+                    <div>
+                        <label>Звёзды (1–5)</label>
+                        <select id="reviewStars" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected>5</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Аватарка (jpg/png/webp/bmp/gif)</label>
+                        <input type="file" id="reviewAvatarFile" accept="image/jpeg,image/png,image/webp,image/bmp,image/gif" style="padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;">
+                        <div id="reviewAvatarPreview" style="margin-top:8px;"></div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-btns">
+                <button class="btn-save" onclick="saveReview()">Сохранить</button>
+                <button class="btn-cancel" onclick="document.getElementById('modalReview').style.display='none'">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalProduct" style="display:none;">
+        <div class="modal-box wide">
+            <h3 id="productModalTitle">Новый тариф</h3>
+            <form id="productForm" onsubmit="return false">
+                <input type="hidden" id="productId" value="">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;">
+                    <div>
+                        <label>Type</label>
+                        <select id="productType" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;">
+                            <option value="fast">fast</option>
+                            <option value="wifi">wifi</option>
+                            <option value="mobile">mobile</option>
+                            <option value="shared">shared</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Popular</label>
+                        <select id="productPopular" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;">
+                            <option value="false">Нет</option>
+                            <option value="true">Да</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>LIVE weight</label>
+                        <input type="number" id="productLiveWeight" min="0" max="1000" step="1" placeholder="auto" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;">
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+                    <div><label>Name RU</label><input type="text" id="productNameRu" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;"></div>
+                    <div><label>Name EN</label><input type="text" id="productNameEn" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;"></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+                    <div><label>Traffic RU</label><input type="text" id="productTrafficRu" placeholder="35 ГБ трафика" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;"></div>
+                    <div><label>Traffic EN</label><input type="text" id="productTrafficEn" placeholder="35 GB traffic" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;"></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;">
+                    <div><label>Price</label><input type="number" id="productPrice" step="0.01" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;"></div>
+                    <div><label>Old price</label><input type="number" id="productOldPrice" step="0.01" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;"></div>
+                    <div><label>Discount %</label><input type="number" id="productDiscount" step="1" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;"></div>
+                </div>
+                <div style="margin-bottom:12px;">
+                    <label>Features (через запятую, ключи i18n)</label>
+                    <input type="text" id="productFeatures" placeholder="plan_feat_locations, plan_feat_rotate" style="width:100%;padding:8px;background:#1a1a2e;border:1px solid #2a2a3a;border-radius:6px;color:#fff;font-size:13px;">
+                </div>
+            </form>
+            <div class="modal-btns">
+                <button class="btn-save" onclick="saveProduct()">Сохранить</button>
+                <button class="btn-cancel" onclick="document.getElementById('modalProduct').style.display='none'">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка редактирования пользователя -->
+    <div class="modal-overlay" id="modalEdit" style="display:none;">
+        <div class="modal-box">
+            <h3><i data-lucide="pencil"></i> Редактирование пользователя</h3>
+            <form id="editForm" onsubmit="return false">
+                <label>Email</label><input type="email" id="editEmail" autocomplete="off"><br>
+                <label>Логин</label><input type="text" id="editLogin" autocomplete="off"><br>
+                <label>Пароль</label><input type="password" id="editPassword" placeholder="Нажмите для редактирования" autocomplete="new-password"><br>
+                <div class="modal-btns">
+                    <button type="button" class="btn-save" id="btnSaveUser" disabled>Сохранить</button>
+                    <button type="button" class="btn-cancel" id="btnCancelEdit">Отменить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модалка удаления -->
+    <div class="modal-overlay" id="modalDelete" style="display:none;">
+        <div class="modal-box">
+            <h3><i data-lucide="trash-2"></i> Удаление пользователя</h3>
+            <p style="color:#ef4444;margin:16px 0;"><i data-lucide="triangle-alert"></i> Это действие необратимо. Все данные пользователя будут удалены навсегда.</p>
+            <p id="deleteEmail" style="color:#ccc;font-weight:600;margin-bottom:16px;"></p>
+            <div class="modal-btns">
+                <button class="btn-save" style="background:#ef4444;" id="btnConfirmDelete">Удалить</button>
+                <button class="btn-cancel" id="btnCancelDelete">Отменить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка подробной информации -->
+    <div class="modal-overlay" id="modalDetail" style="display:none;">
+                <div class="modal-box wide detail-modal" id="detailContent"></div>
+
+    </div>
+
+    <!-- Модалка экспорта -->
+    <div class="modal-overlay" id="modalExport" style="display:none;">
+        <div class="modal-box">
+            <h3><i data-lucide="package"></i> Экспорт данных</h3>
+            <p id="exportEmail" style="color:#888;font-size:13px;margin-bottom:8px;"></p>
+            <div class="export-btns">
+                <button onclick="exportAs('txt')">TXT</button>
+                <button onclick="exportAs('csv')">CSV</button>
+                <button onclick="exportAs('json')">JSON</button>
+                <button onclick="exportAs('md')">MD</button>
+            </div>
+            <div class="modal-btns"><button class="btn-cancel" id="btnCancelExport">Закрыть</button></div>
+        </div>
+    </div>
+
+    <!-- Модалка ввода платёжной ссылки -->
+    <div class="modal-overlay" id="modalPaymentUrl" style="display:none;">
+        <div class="modal-box wide">
+            <h3><i data-lucide="link"></i> Ввести платёжную ссылку</h3>
+            <p id="paymentUrlEmail" style="color:#888;font-size:13px;margin-bottom:4px;"></p>
+            <p id="paymentUrlAmount" style="color:#ccc;font-size:14px;font-weight:600;margin-bottom:12px;"></p>
+            <label>Платёжная ссылка (Cryptomus)</label>
+            <input type="text" id="paymentUrlInput" placeholder="https://cryptomus-maql-.../pay/...?amount=10" autocomplete="off">
+            <div class="modal-btns">
+                <button class="btn-save" id="btnSavePaymentUrl" onclick="savePaymentUrl()">Установить ссылку</button>
+                <button class="btn-cancel" onclick="document.getElementById('modalPaymentUrl').style.display='none'">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка подтверждения оплаты -->
+    <div class="modal-overlay" id="modalConfirmPayment" style="display:none;">
+        <div class="modal-box">
+            <h3><i data-lucide="badge-check"></i> Подтверждение оплаты</h3>
+            <p style="color:#888;font-size:13px;margin-bottom:4px;" id="confirmPaymentEmail"></p>
+            <p style="color:#ccc;font-size:14px;font-weight:600;margin-bottom:16px;" id="confirmPaymentAmount"></p>
+            <p style="color:#22c55e;font-size:13px;">Подтвердить получение средств и зачислить баланс пользователю?</p>
+            <div class="modal-btns">
+                <button class="btn-save" style="background:#22c55e;" id="btnConfirmPayment" onclick="confirmPayment()">Подтвердить</button>
+                <button class="btn-cancel" onclick="document.getElementById('modalConfirmPayment').style.display='none'">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin-app.js?v=20260805a"></script>
+</body>
+</html>

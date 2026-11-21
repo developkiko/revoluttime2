@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import {
+  isAdminEmail,
   setSessionCookie,
   type SessionUser,
 } from "@/lib/auth-session";
@@ -57,6 +58,7 @@ export async function POST(request: Request) {
     name: displayName,
     provider: "telegram",
     picture,
+    isAdmin: isAdminEmail(anchor),
   };
   const ok = await setSessionCookie(user);
   if (!ok) {

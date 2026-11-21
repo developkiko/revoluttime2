@@ -19,6 +19,15 @@ export interface SessionUser {
 const COOKIE_NAME = "rt_session";
 const MAX_AGE_SECONDS = 60 * 60 * 24 * 30; // 30 days
 
+/** Список админ-email из env (владелец 21.11: karakymg@gmail.com — главный). */
+export function isAdminEmail(email: string): boolean {
+  const admins = (process.env.ADMIN_EMAILS || "")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+  return admins.includes(email.toLowerCase());
+}
+
 function sessionSecret(): string | undefined {
   const secret = process.env.AUTH_SESSION_SECRET;
   return secret && secret.length >= 16 ? secret : undefined;
