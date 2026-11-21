@@ -8,6 +8,8 @@ export interface AuthUser {
   provider: "telegram" | "google" | "facebook";
   /** Provider avatar URL (Telegram photo_url / Google picture) if present. */
   picture?: string;
+  /** Admin flag: cookie + env-проверка на /api/auth/me (владелец 21.11). */
+  isAdmin?: boolean;
 }
 
 /**
