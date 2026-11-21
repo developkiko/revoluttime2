@@ -28,10 +28,10 @@ export async function generateMetadata(
     manifest: "/manifest.webmanifest",
     icons: {
       icon: [
-        { url: "/ultra/favicon.svg", type: "image/svg+xml" },
-        { url: "/favicon.ico", sizes: "48x48" },
+        { url: "/imgs/icons/favicon.svg", type: "image/svg+xml" },
+        { url: "/imgs/icons/favicon.png", type: "image/png" },
       ],
-      apple: "/ultra/apple-icon.png",
+      apple: "/imgs/icons/apple-icon.png",
     },
   };
 }

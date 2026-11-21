@@ -38,7 +38,7 @@ export function ReviewsSection() {
             const name = r['name_' + lang] || r.name_en || '';
             const initials = name.split(" ").map((w: string) => w[0]).join("").toUpperCase();
             // Если avatar пустая — показываем заглушку av0
-            const avatar = (r.avatar && r.avatar !== '' && !r.avatar.startsWith('data:')) ? r.avatar : '/avas/ava0.jpg';
+            const avatar = (r.avatar && r.avatar !== '' && !r.avatar.startsWith('data:')) ? r.avatar : '/imgs/avas/ava0.jpg';
             return {
               name,
               role: r['role_' + lang] || r.role_en || '',
@@ -65,7 +65,7 @@ export function ReviewsSection() {
         text: r.text[lang],
         stars: r.stars,
         initials: r.name[lang].split(" ").map((w: string) => w[0]).join("").toUpperCase(),
-        avatar: r.avatar || '/avas/ava0.jpg',
+        avatar: r.avatar || '/imgs/avas/ava0.jpg',
       }));
       setReviews(mapped);
     }
@@ -108,7 +108,7 @@ export function ReviewsSection() {
                 {r.avatar && r.avatar.startsWith('data:') ? (
                   // Base64 avatar from admin upload
                   <img src={r.avatar} alt={r.name} className="review-avatar-img" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                ) : r.avatar && r.avatar !== '/avas/ava0.jpg' ? (
+                ) : r.avatar && r.avatar !== '/imgs/avas/ava0.jpg' ? (
                   <img src={r.avatar} alt={r.name} className="review-avatar-img" />
                 ) : (
                   <div className="review-avatar">{r.initials}</div>
@@ -131,7 +131,7 @@ export function ReviewsSection() {
                 {r.avatar && r.avatar.startsWith('data:') ? (
                   // Base64 avatar from admin upload
                   <img src={r.avatar} alt={r.name} className="review-avatar-img" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                ) : r.avatar && r.avatar !== '/avas/ava0.jpg' ? (
+                ) : r.avatar && r.avatar !== '/imgs/avas/ava0.jpg' ? (
                   <img src={r.avatar} alt={r.name} className="review-avatar-img" />
                 ) : (
                   <div className="review-avatar">{r.initials}</div>

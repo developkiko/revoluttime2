@@ -613,24 +613,38 @@
   }
 }
 
-/* Site logo (header/footer/mobile nav) — the dummy's «Вариант шапки»
-   (градиент + шиммер как в Header, spec dummy.md §1) at the old .rt-logo
-   size. Two overlapped layers: .bg = brand repeating gradient + drop
-   shadow, .fg = brand shimmer gradient; gentle float (−5px). */
-.src8-logo-header {
+/* Site logo (header/footer) — simple wordmark (owner 22.11, вместо
+   двухслойного дамми-варианта): одна надпись «RevolutTIME» основным
+   шрифтом Poppins, брендовый градиент + шиммер-анимация. */
+.src8-logo-text {
+  display: inline-block;
   font-size: 1.25rem;
+  font-weight: 300;
   letter-spacing: 2px;
+  line-height: 1;
+  white-space: nowrap;
+  background-image: linear-gradient(
+    135deg,
+    var(--brand-primary-light),
+    var(--brand-primary),
+    var(--brand-primary-dark),
+    var(--brand-primary-light)
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: rt-shimmer 4s linear infinite;
 }
-.src8-logo-header > span {
-  -webkit-text-stroke: 2px transparent;
+.src8-logo-text b {
+  font-weight: 900;
 }
-.src8-logo-header .fg {
-  transform: translateY(-1px);
+.src8-logo-text.src8-float {
+  animation:
+    rt-shimmer 4s linear infinite,
+    src8-header-float 3s ease-in-out infinite;
 }
-.src8-logo-header.src8-float {
-  animation: src8-header-float 3s ease-in-out infinite;
-}
-.src8-logo-header.src8-float:hover {
+.src8-logo-text.src8-float:hover {
   animation-play-state: paused;
 }
 @keyframes src8-header-float {
@@ -643,8 +657,8 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .src8-logo-header.src8-float {
-    animation: none;
+  .src8-logo-text.src8-float {
+    animation: rt-shimmer 4s linear infinite;
   }
 }
 /* ── Cookie consent (Ultra widget) — site-wide ────────────────────────────

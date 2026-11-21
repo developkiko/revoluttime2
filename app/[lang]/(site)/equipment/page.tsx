@@ -53,7 +53,7 @@ export default async function EquipmentPage({
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.15]"
-          style={{ backgroundImage: "url('/images/wall/equipment-bg-1.jpg')" }}
+          style={{ backgroundImage: "url('/imgs/wall/equipment-bg-1.jpg')" }}
         />
         <div className="relative mx-auto w-full max-w-6xl px-4 py-12">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">

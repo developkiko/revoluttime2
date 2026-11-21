@@ -38,27 +38,27 @@ const SLIDE_MEDIA: Record<
   { image: string; width: number; height: number }
 > = {
   hydrogen: {
-    image: "/imgs/for-ads/slide1.png",
+    image: "/imgs/slides/slide1.png",
     width: 1172,
     height: 1342,
   },
   studio: {
-    image: "/imgs/for-ads/slide2.png",
+    image: "/imgs/slides/slide2.png",
     width: 1535,
     height: 1024,
   },
   equipment: {
-    image: "/imgs/for-ads/slide3.png",
+    image: "/imgs/slides/slide3.png",
     width: 1588,
     height: 991,
   },
   recreation: {
-    image: "/imgs/for-ads/slide4.png",
+    image: "/imgs/slides/slide4.png",
     width: 1774,
     height: 887,
   },
   partner: {
-    image: "/imgs/for-ads/slide5.png",
+    image: "/imgs/slides/slide5.png",
     width: 1774,
     height: 887,
   },
@@ -211,7 +211,7 @@ export function HeroSection() {
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.07]"
-        style={{ backgroundImage: "url('/images/wall/hero-bg-1.jpg')" }}
+        style={{ backgroundImage: "url('/imgs/wall/hero-bg-1.jpg')" }}
       />
 
       {/* side arrows — Ultra tinted buttons, pinned to the screen edges */}

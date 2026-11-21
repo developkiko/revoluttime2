@@ -52,7 +52,7 @@ export default async function StudioPage({
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.15]"
-          style={{ backgroundImage: "url('/images/wall/studio-bg-1.jpg')" }}
+          style={{ backgroundImage: "url('/imgs/wall/studio-bg-1.jpg')" }}
         />
         <div
           aria-hidden

@@ -84,7 +84,7 @@ export const DEFAULT_REVIEWS: Review[] = [
   {
     name: { ru: "Анна-Мария В.", en: "Anne-Marie V." },
     role: { ru: "E-commerce аналитик", en: "E-commerce Analyst" },
-    avatar: "/ultra/avas/ava1.jpg",
+    avatar: "/imgs/avas/ava1.jpg",
     text: {
       ru: "Мониторю цены на Amazon и Wildberries ежедневно. Прокси работают без перебоев уже 4 месяца. Только один раз лагало — поддержка решила за 10 минут.",
       en: "I monitor Amazon and Wildberries prices daily. Proxies have been running smoothly for 4 months. Only one hiccup — support fixed it in 10 minutes.",
@@ -94,7 +94,7 @@ export const DEFAULT_REVIEWS: Review[] = [
   {
     name: { ru: "Руслан П.", en: "Ruslan P." },
     role: { ru: "Арбитражник", en: "Affiliate Marketer" },
-    avatar: "/ultra/avas/ava2.jpg",
+    avatar: "/imgs/avas/ava2.jpg",
     text: {
       ru: "Лью трафик на FB через резидентов RevolutTIME. За 3 месяца ни одного бана аккаунта. Гео США, Германия — стабильно. Цена/качество — топ.",
       en: "Running FB ads through RevolutTIME residentials for 3 months. Zero account bans. US and Germany geo — solid. Best bang for the buck.",
@@ -104,7 +104,7 @@ export const DEFAULT_REVIEWS: Review[] = [
   {
     name: { ru: "Сергей Т.", en: "Serge T." },
     role: { ru: "DevOps инженер", en: "DevOps Engineer" },
-    avatar: "/ultra/avas/ava3.jpg",
+    avatar: "/imgs/avas/ava3.jpg",
     text: {
       ru: "Беру серверные прокси пачками для парсинга SERP. 95 ГБ хватает на месяц плотной работы. API не хватает, но для веба — отлично.",
       en: "Grabbing datacenter proxies in bulk for SERP scraping. 95 GB lasts a month of heavy use. Missing an API, but for web it's great.",
@@ -114,7 +114,7 @@ export const DEFAULT_REVIEWS: Review[] = [
   {
     name: { ru: "Ольга Л.", en: "Olga L." },
     role: { ru: "SMM-менеджер", en: "SMM Manager" },
-    avatar: "/ultra/avas/ava4.jpg",
+    avatar: "/imgs/avas/ava4.jpg",
     text: {
       ru: "Запускаю мобильные прокси для TikTok и Insta. Гео Европы подтягиваются быстро, IP чистые. Ценник чуть выше рынка, но стабильность того стоит.",
       en: "Running mobile proxies for TikTok and Insta. European geo connects fast, IPs are clean. Prices a bit above market but the reliability pays off.",
@@ -124,7 +124,7 @@ export const DEFAULT_REVIEWS: Review[] = [
   {
     name: { ru: "Артём З.", en: "Artem Z." },
     role: { ru: "Data Scientist", en: "Data Scientist" },
-    avatar: "/ultra/avas/ava5.jpg",
+    avatar: "/imgs/avas/ava5.jpg",
     text: {
       ru: "Собираю данные для ML-моделей через резидентов + ротацию каждые 10 мин. Никаких капч и блокировок. То, что надо для big data сбора.",
       en: "Collecting data for ML models via residentials with 10-min rotation. No captchas, no blocks. Exactly what you need for big data collection.",
@@ -134,7 +134,7 @@ export const DEFAULT_REVIEWS: Review[] = [
   {
     name: { ru: "Мартин К.", en: "Martin K." },
     role: { ru: "Growth Hacker", en: "Growth Hacker" },
-    avatar: "/ultra/avas/ava8.jpg",
+    avatar: "/imgs/avas/ava8.jpg",
     text: {
       ru: "Пользуюсь несколькими провайдерами. У Ultra — лучшая скорость ротации среди всех. Для A/B тестов лендингов в 30 странах — огонь.",
       en: "Using multiple providers. Ultra has the fastest rotation among all. For A/B testing landing pages across 30 countries — it's fire.",
@@ -144,7 +144,7 @@ export const DEFAULT_REVIEWS: Review[] = [
   {
     name: { ru: "Игорь Б.", en: "Igor B." },
     role: { ru: "Фрилансер", en: "Freelancer" },
-    avatar: "/ultra/avas/ava7.jpg",
+    avatar: "/imgs/avas/ava7.jpg",
     text: {
       ru: "Беру small-пакеты под задачи. Всё устраивает, кроме одного: разок пришлось ждать замену IP около часа. В остальном — молодцы.",
       en: "Grabbing small packages per task. Everything's fine, except once had to wait ~1 hour for an IP swap. Otherwise — solid.",
@@ -154,7 +154,7 @@ export const DEFAULT_REVIEWS: Review[] = [
   {
     name: { ru: "Елена Г.", en: "Elena G." },
     role: { ru: "Контент-менеджер", en: "Content Manager" },
-    avatar: "/ultra/avas/ava6.jpg",
+    avatar: "/imgs/avas/ava6.jpg",
     text: {
       ru: "Работаю с зарубежными соцсетями через мобильные прокси. Быстрое подключение, чистые IP. Ни одной блокировки за полгода. Рекомендую команде.",
       en: "Working with foreign social media via mobile proxies. Fast connection, clean IPs. Zero blocks in 6 months. Recommended to the team.",
@@ -163,7 +163,7 @@ export const DEFAULT_REVIEWS: Review[] = [
   },
 ];
 
-/** Same SVG set as allLocations / CreateProxy (`/ultra/flags/{code}.svg`). No emoji. */
+/** Same SVG set as allLocations / CreateProxy (`/imgs/flags/{code}.svg`). No emoji. */
 export const topLocations = [
   { code: "us", label: { ru: "США", en: "USA" } },
   { code: "gb", label: { ru: "Великобритания", en: "UK" } },

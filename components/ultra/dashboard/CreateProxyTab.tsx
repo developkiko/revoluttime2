@@ -221,7 +221,7 @@ export function CreateProxyTab({ onDeposit }: CreateProxyTabProps) {
                           {FLAG_CODES.has(c.code) ? (
                             // eslint-disable-next-line @next/next/no-img-element
                             <img
-                              src={`/ultra/flags/${c.code}.svg`}
+                              src={`/imgs/flags/${c.code}.svg`}
                               alt=""
                               className="w-6 h-[18px] rounded-[2px] object-cover shrink-0"
                             />

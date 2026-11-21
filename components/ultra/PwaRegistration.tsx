@@ -126,7 +126,7 @@ export default function PwaRegistration() {
 
   return (
     <aside className="pwa-install-prompt" role="dialog" aria-live="polite" aria-label={ios ? text.iosTitle : text.title}>
-      <img src="/ultra/images/pwa-icon.svg" alt="" className="pwa-install-prompt__icon" />
+      <img src="/imgs/icons/pwa-icon.svg" alt="" className="pwa-install-prompt__icon" />
       <div className="pwa-install-prompt__content">
         <strong>{ios ? text.iosTitle : text.title}</strong>
         <p>{description}</p>

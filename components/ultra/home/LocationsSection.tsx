@@ -51,7 +51,7 @@ export function LocationsSection() {
               className="flex-shrink-0 mx-2 sm:mx-4 bg-[var(--bg-card)] border border-[var(--border-default)] rounded-lg px-4 py-2.5 flex items-center gap-2.5 whitespace-nowrap"
             >
               <Image
-                src={`/ultra/flags/${loc.code}.svg`}
+                src={`/imgs/flags/${loc.code}.svg`}
                 alt={loc.label}
                 width={20}
                 height={20}

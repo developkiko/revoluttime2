@@ -66,10 +66,10 @@ export async function generateMetadata({ params }: UltraMetadataProps): Promise<
     },
     icons: {
       icon: [
-        { url: "/ultra/favicon.svg", type: "image/svg+xml" },
-        { url: "/ultra/favicon.png", type: "image/png" },
+        { url: "/imgs/icons/favicon.svg", type: "image/svg+xml" },
+        { url: "/imgs/icons/favicon.png", type: "image/png" },
       ],
-      apple: { url: "/ultra/apple-icon.png", sizes: "180x180" },
+      apple: { url: "/imgs/icons/apple-icon.png", sizes: "180x180" },
     },
     openGraph: {
       type: "website",

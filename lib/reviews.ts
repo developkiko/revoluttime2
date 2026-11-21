@@ -20,7 +20,7 @@ export const REVIEWS: Review[] = [
   {
     name: "Анна-Мария В.",
     role: { ru: "Постоянный покупатель", de: "Stammkundin", en: "Regular customer" },
-    avatar: "/ultra/avas/ava1.jpg",
+    avatar: "/imgs/avas/ava1.jpg",
     stars: 4,
     text: {
       ru: "Заказываю Redox+ уже второй месяц подряд. Пью по утрам вместо сладкого кофе — привыкла быстро. Посылка из Баварии пришла за два дня, упаковка аккуратная.",
@@ -31,7 +31,7 @@ export const REVIEWS: Review[] = [
   {
     name: "Руслан П.",
     role: { ru: "Тренер по фитнесу", de: "Fitness-Trainer", en: "Fitness coach" },
-    avatar: "/ultra/avas/ava2.jpg",
+    avatar: "/imgs/avas/ava2.jpg",
     stars: 5,
     text: {
       ru: "Советую таблетки клиентам: магний плюс водород — понятная история для восстановления после нагрузок. Сам пью после тренировок: вкус нейтральный, растворяется за минуту.",
@@ -42,7 +42,7 @@ export const REVIEWS: Review[] = [
   {
     name: "Сергей Т.",
     role: { ru: "DevOps-инженер", de: "DevOps-Ingenieur", en: "DevOps engineer" },
-    avatar: "/ultra/avas/ava3.jpg",
+    avatar: "/imgs/avas/ava3.jpg",
     stars: 5,
     text: {
       ru: "Работаю за компьютером по десять часов в день — бросаю таблетку в бутылку воды утром, и день идёт заметно легче. Заказ через сайт занял три минуты.",
@@ -53,7 +53,7 @@ export const REVIEWS: Review[] = [
   {
     name: "Ольга Л.",
     role: { ru: "SMM-менеджер", de: "SMM-Managerin", en: "SMM manager" },
-    avatar: "/ultra/avas/ava4.jpg",
+    avatar: "/imgs/avas/ava4.jpg",
     stars: 5,
     text: {
       ru: "Взяла стартовый набор, чтобы просто попробовать. Через две недели оформила партнёрку — первые два реферала уже окупили мой стартовый заказ.",
@@ -64,7 +64,7 @@ export const REVIEWS: Review[] = [
   {
     name: "Артём З.",
     role: { ru: "Data Scientist", de: "Data Scientist", en: "Data Scientist" },
-    avatar: "/ultra/avas/ava5.jpg",
+    avatar: "/imgs/avas/ava5.jpg",
     stars: 5,
     text: {
       ru: "Ценю конкретику: состав на упаковке, протокол Eurofins прямо на сайте, НДС не выделяется — всё прозрачно. Вода с H₂ стала моей утренней привычкой.",
@@ -75,7 +75,7 @@ export const REVIEWS: Review[] = [
   {
     name: "Мартин К.",
     role: { ru: "Growth-хакер", de: "Growth Hacker", en: "Growth hacker" },
-    avatar: "/ultra/avas/ava8.jpg",
+    avatar: "/imgs/avas/ava8.jpg",
     stars: 5,
     text: {
       ru: "Сравнивал несколько брендов водородных таблеток. У RevolutTIME лучший баланс цены и качества: десять пачек по 60 € плюс одна в подарок — выгоднее всех, кого я нашёл.",
