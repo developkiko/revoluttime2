@@ -25,7 +25,7 @@
 - **notice** — единая система уведомлений (`components/ui/notice`, варианты success/error/info/warning); **sonner удалён**
 - **FX-модули** (порт с дамми старого сайта): CSS-тултипы `data-tip`, 3D-tilt `data-tilt` (+`TiltObserver`), spotlight `data-spotlight` (+`SpotlightObserver`), кастомный курсор (globals.css, z максимальный), шиммер-логотип `.rt-logo`
 - **PWA**: `public/manifest.webmanifest` + `public/sw.js` (кэш только статики) + `PwaRegistration`
-- **БД ×2**: **Neon** (`DATABASE_URL`) — ultra-стек (users, ultra_kv, payments, telegram_*, ultra_products/reviews, site_config, **auth_links**; self-healing DDL в `lib/ultra/db.ts`); **Supabase** проект `revtime` — энциклопедия (DB-first с фолбэком на сид) + orders/financial_ledger (Stripe-вебхук)
+- **БД — одна, Supabase `revtime`** (владелец 21.11: «neon или supabase?» → консолидация): энциклопедия, orders/financial_ledger (Stripe-вебхук) **+ весь ultra/auth-стек** (users, auth_links, ultra_kv, payments, telegram_*, ultra_products/reviews, site_config, admin_chats, visits; self-healing DDL в `lib/ultra/db.ts`). Драйвер `pg` через Supabase transaction-pooler (`DATABASE_URL`, порт 6543); Neon-драйвер выпилен. `profiles`/`referral_tree` — заготовки под выплаты.
 - Хостинг: **Vercel** (git `developkiko/revoluttime2` → main = автодеплой)
 
 ## ⚠️ Важные конвенции и грабли (Next 16 / окружение)
@@ -97,9 +97,9 @@ revoluttime/
 
 | Модуль | Хранилище | Что держит |
 |---|---|---|
-| `lib/ultra/db.ts` + `db-data.ts` | Neon (`DATABASE_URL`) | self-healing схема: users, ultra_kv, payments, telegram_*, ultra_products/reviews, site_config, admin_chats, **auth_links** |
+| `lib/ultra/db.ts` + `db-data.ts` | Supabase (`DATABASE_URL`, pooler) | self-healing схема: users, ultra_kv, payments, telegram_*, ultra_products/reviews, site_config, admin_chats, **auth_links** |
 | `lib/auth-session.ts` / `auth-store.ts` | HMAC-cookie `rt_session` (30д) | сессия site-стека: email/name/provider (google\|telegram\|facebook)/picture/isAdmin |
-| `lib/auth-links.ts` | Neon `auth_links` | привязка провайдеров к anchor-email; unlink-guard «последний способ» |
+| `lib/auth-links.ts` | Supabase `auth_links` | привязка провайдеров к anchor-email; unlink-guard «последний способ» |
 | `lib/ultra/auth-store.tsx` | `up_session` (KV 7д) + /api/auth/me | ultra-сессия (мост: пробует site /api/auth/me первым) |
 | `lib/catalog.ts`, `lib/products.ts` | статичный сид (→ потом БД) | офферы/слоты, фасовки 90 таб. 70 €, SITE-контакты |
 | `lib/mlm-calculator.ts` | чистые функции | план I–V: 50/10/2/1/1 %, TOTAL_FUND_RATIO 0.64 |
@@ -128,7 +128,7 @@ revoluttime/
 |---|---|
 | **Vercel** | проект `revolut-time` (`prj_fByD65LZUCP3K84JexOgF1IVs5Q6`), team `team_TWbuf03uGZI1HmKdbpyzJvNR` (Hobby); прод https://revolut-time.vercel.app; git `developkiko/revoluttime2` → main. MCP — без teamId |
 | **GitHub** | developkiko/revoluttime2 (main); админка — отдельный репо `revtime2-admin` (adm-rt.vercel.app, запущен владельцем) |
-| **Neon** | Postgres ultra-стека (`DATABASE_URL` в Vercel env; локально в .env.local НЕТ — API отдают graceful 503) |
+| **Supabase** | единая БД: пулер `aws-0-eu-west-3.pooler.supabase.com:6543` (`DATABASE_URL` в Vercel + локально в .env.local) |
 | **Supabase** | проект `revtime` (`jzjezfewouleamrsnzla`, eu-west-3), ключи вручную в Vercel env (БЕЗ маркетплейс-интеграции — она валила деплои). С Windows доступ только через пулер `aws-0-eu-west-3.pooler.supabase.com:5432` (юзер `postgres.<ref>`) |
 | **Telegram** | @revoluttime_bot, chat владельца **5157746090**; webhook → `/api/telegram/webhook`; для старого widget-входа нужен `/setdomain` (куплен нормальный домен) |
 | **Google OAuth** | redirect `<origin>/api/auth/google/callback` |
@@ -137,7 +137,7 @@ revoluttime/
 
 ## Env-переменные
 
-**Есть в Vercel:** `DATABASE_URL` (Neon), `NEXT_PUBLIC_SUPABASE_URL/ANON_KEY` (revtime), `TELEGRAM_BOT_TOKEN`, `NEXT_PUBLIC_TELEGRAM_BOT_NAME`, `NEXT_PUBLIC_GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `AUTH_SESSION_SECRET`, `STRIPE_SECRET_KEY`?(проверить).
+**Есть в Vercel:** `DATABASE_URL` (Supabase pooler), `NEXT_PUBLIC_SUPABASE_URL/ANON_KEY` (revtime), `TELEGRAM_BOT_TOKEN`, `NEXT_PUBLIC_TELEGRAM_BOT_NAME`, `NEXT_PUBLIC_GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `AUTH_SESSION_SECRET`, `STRIPE_SECRET_KEY`?(проверить).
 **Есть локально (.env.local):** тот же набор минус DATABASE_URL (+ ADMIN_EMAILS, TELEGRAM_ADMIN_CHAT_ID, POSTGRES_URL_NON_POOLING — пулер Supabase для миграций).
 **Ждут добавления в Vercel:** `FACEBOOK_APP_ID` + `FACEBOOK_APP_SECRET` (Facebook-вход), `STRIPE_WEBHOOK_SECRET` + `SUPABASE_SERVICE_ROLE_KEY` (`sb_secret_…`, для вебхука записей), `NEXT_PUBLIC_POSTHOG_KEY` (аналитика за consent-гейтом), `NEXT_PUBLIC_SITE_URL=https://revolut-time.vercel.app` (ссылки TG-входа/sitemap).
 
