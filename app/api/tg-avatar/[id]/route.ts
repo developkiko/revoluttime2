@@ -53,10 +53,14 @@ export async function GET(
       return new NextResponse("Not found", { status: 404 });
     }
 
+    // Telegram иногда отдаёт application/octet-stream — форсируем image/*
+    const rawType = image.headers.get("content-type");
+    const contentType =
+      rawType && rawType.startsWith("image/") ? rawType : "image/jpeg";
     return new NextResponse(image.body, {
       status: 200,
       headers: {
-        "Content-Type": image.headers.get("content-type") ?? "image/jpeg",
+        "Content-Type": contentType,
         "Cache-Control": "public, max-age=86400, s-maxage=86400",
       },
     });
