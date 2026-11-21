@@ -88,9 +88,12 @@ export async function POST(request: NextRequest) {
     request,
     body,
     onBeforeGenerateToken: async (pathname) => {
-      // Проверка пути: только под префиксом videos/ и с видео-расширением.
+      // Проверка пути: строго под префиксом videos/ + видео-расширение.
       // MIME/вес уйдут в client-токен — сервис Blob отклонит нарушителя
       // независимо от того, каким UI его отправили.
+      if (!pathname.startsWith(VIDEO_PATH_PREFIX)) {
+        throw new Error("upload_rejected_bad_path");
+      }
       const check = checkVideoFile({
         name: pathname,
         size: MAX_VIDEO_SIZE_BYTES, // вес проверяется самим Blob по лимиту токена
@@ -105,6 +108,11 @@ export async function POST(request: NextRequest) {
         maximumSizeInBytes: MAX_VIDEO_SIZE_BYTES,
         addRandomSuffix: true,
         validUntil: Date.now() + TOKEN_TTL_MS,
+        // Колбэк завершения: SDK не может вывести URL сам вне Vercel
+        // (локально/превью) — задаём явно от origin запроса. В превью
+        // Vercel Authentication может закрыть колбэк — тогда запись
+        // создаётся вручную через CRUD.
+        callbackUrl: `${new URL(request.url).origin}/api/admin/videos/upload`,
         // Атрибуция админа в колбэке завершения.
         tokenPayload: JSON.stringify({ via: "admin_videos_upload" }),
       };

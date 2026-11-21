@@ -1379,7 +1379,8 @@
         "bad_type": "File type does not match its extension — please pick the video again.",
         "too_large": "File exceeds 512 MB — please reduce its size or compress the video.",
         "too_small": "File is too small (below 1 KB).",
-        "bad_filename": "Invalid file name."
+        "bad_filename": "Invalid file name.",
+        "bad_path": "Invalid upload path."
       }
     }
   },

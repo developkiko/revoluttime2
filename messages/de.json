@@ -1379,7 +1379,8 @@
         "bad_type": "Dateityp passt nicht zur Endung — bitte Video erneut auswählen.",
         "too_large": "Datei ist größer als 512 MB — bitte verkleinern oder komprimieren.",
         "too_small": "Datei ist zu klein (unter 1 KB).",
-        "bad_filename": "Ungültiger Dateiname."
+        "bad_filename": "Ungültiger Dateiname.",
+        "bad_path": "Ungültiger Upload-Pfad."
       }
     }
   },
