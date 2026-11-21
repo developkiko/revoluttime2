@@ -33,6 +33,10 @@
     "redirect": {
       "title": "Leaving for an external site — RevolutTIME",
       "description": "Warning page before navigating to an external site."
+    },
+    "gallery": {
+      "title": "Галерея — RevolutTIME",
+      "description": "Фото и видео RevolutTIME: мероприятия, лаборатория, партнёрская жизнь. Смотрите в альбомах галереи."
     }
   },
   "brand": {
@@ -57,7 +61,8 @@
       "videos": "Видео",
       "streams": "Стримы",
       "cashback": "Кеш-бэк 300 €",
-      "levels": "Уровни плана"
+      "levels": "Уровни плана",
+      "gallery": "Галерея"
     },
     "home": "Home",
     "cart": "Cart",
@@ -1510,5 +1515,17 @@
     "tip2": "The “Usage” section inside an article — step-by-step intake schemes.",
     "tip3": "The table of contents can be collapsed — tap its heading.",
     "tip4": "Read the article in your interface language — switch it in the header."
+  },
+  "gallery": {
+    "title": "Галерея",
+    "subtitle": "Фотографии и видео из жизни RevolutTIME — мероприятия, лаборатория Eurofins, партнёрские встречи. Открывайте альбомы и смотрите.",
+    "empty": "Альбомы появятся здесь совсем скоро — мы уже собираем первые материалы.",
+    "allAlbums": "Все альбомы"
+  },
+  "notifications": {
+    "title": "Уведомления",
+    "empty": "Пока тихо — уведомления о заказах, оплатах и друзьях появятся здесь.",
+    "markAll": "Прочитать все",
+    "markRead": "Прочитано"
   }
 }

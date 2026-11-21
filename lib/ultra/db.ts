@@ -175,6 +175,43 @@ CREATE TABLE IF NOT EXISTS site_videos (
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
 );
+/* Уведомления (владелец 22.11 №9): категории заказы/оплаты/друзья/выводы/
+   системные; статусы info/success/warning/danger; read — прочитано. */
+CREATE TABLE IF NOT EXISTS notifications (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_email text NOT NULL,
+  category text NOT NULL DEFAULT 'system',
+  status text NOT NULL DEFAULT 'info',
+  title text NOT NULL,
+  body text,
+  href text,
+  read boolean NOT NULL DEFAULT false,
+  created_at timestamptz DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS notifications_user_idx ON notifications (user_email, created_at DESC);
+/* Галерея (владелец 22.11 №6): альбомы/разделы с фото и видео. */
+CREATE TABLE IF NOT EXISTS gallery_albums (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug text UNIQUE NOT NULL,
+  title text NOT NULL,
+  description text,
+  cover text,
+  sort integer NOT NULL DEFAULT 0,
+  active boolean NOT NULL DEFAULT true,
+  created_at timestamptz DEFAULT now()
+);
+CREATE TABLE IF NOT EXISTS gallery_items (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  album_id uuid NOT NULL REFERENCES gallery_albums(id) ON DELETE CASCADE,
+  title text,
+  type text NOT NULL DEFAULT 'photo',
+  url text NOT NULL,
+  poster text,
+  sort integer NOT NULL DEFAULT 0,
+  active boolean NOT NULL DEFAULT true,
+  created_at timestamptz DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS gallery_items_album_idx ON gallery_items (album_id, sort);
 `;
 
 let schemaPromise: Promise<void> | null = null;

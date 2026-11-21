@@ -187,3 +187,68 @@ export function formatBytes(bytes: number): string {
 
 /** Человекочитаемый лимит веса (для текстов подсказок). */
 export const MAX_VIDEO_SIZE_LABEL = formatBytes(MAX_VIDEO_SIZE_BYTES);
+
+/* ── Изображения (галерея, №6 от 22.11) ───────────────────────────────
+   Те же проверки, что для видео: белый список MIME, сверка расширения,
+   лимит 5 MB (картинки кешируются всегда — лимит кеша Blob 512 MB
+   неприменим), путь только images/. */
+
+export const IMAGE_PATH_PREFIX = "images/";
+export const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
+
+export const IMAGE_MIME_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+] as const;
+
+const EXT_TO_IMAGE_MIME: Record<string, string> = {
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+  png: "image/png",
+  webp: "image/webp",
+  gif: "image/gif",
+};
+
+/** Единая проверка файла изображения (mirror checkVideoFile). */
+export function checkImageFile(file: {
+  name?: string | null;
+  type?: string | null;
+  size?: number | null;
+}): VideoFileCheck {
+  const filename = (file.name ?? "").trim();
+  const contentType = (file.type ?? "").toLowerCase();
+  const sizeBytes = file.size ?? 0;
+
+  if (!filename || !sizeBytes) {
+    return { ok: false, error: "no_file", filename, contentType, sizeBytes };
+  }
+
+  const ext = filename.includes(".")
+    ? filename.split(".").pop()?.toLowerCase() ?? ""
+    : "";
+  const mimeFromExt = EXT_TO_IMAGE_MIME[ext];
+  if (!mimeFromExt) {
+    return { ok: false, error: "bad_extension", filename, contentType, sizeBytes };
+  }
+
+  if (
+    contentType &&
+    !IMAGE_MIME_TYPES.includes(contentType as (typeof IMAGE_MIME_TYPES)[number])
+  ) {
+    return { ok: false, error: "bad_type", filename, contentType, sizeBytes };
+  }
+
+  if (sizeBytes > MAX_IMAGE_SIZE_BYTES) {
+    return { ok: false, error: "too_large", filename, contentType, sizeBytes };
+  }
+
+  return {
+    ok: true,
+    error: null,
+    filename,
+    contentType: contentType || mimeFromExt,
+    sizeBytes,
+  };
+}

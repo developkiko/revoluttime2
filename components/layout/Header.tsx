@@ -25,6 +25,7 @@ import { BalanceTopUp } from "@/components/cabinet/BalanceTopUp";
 import { LanguageMenu } from "@/components/layout/LanguageMenu";
 import { LegalModal, type LegalSlug } from "@/components/layout/LegalModal";
 import { Logo } from "@/components/layout/Logo";
+import { NotificationsBell } from "@/components/layout/NotificationsBell";
 import { NavDropdown, type NavDropdownItem } from "@/components/layout/NavDropdown";
 import { NavPulseLabel } from "@/components/layout/NavPulseLabel";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
@@ -63,6 +64,7 @@ const ABOUT_NAV = [
   { href: "/certificates", key: "certificates" },
   { href: "/videos", key: "videos" },
   { href: "/streams", key: "streams" },
+  { href: "/gallery", key: "gallery" },
 ] as const;
 
 const PROGRAM_NAV = [
@@ -238,6 +240,8 @@ export function Header() {
             <LanguageMenu />
             <div className="w-px h-6 bg-[var(--border-default)]" />
             <CartButton />
+            {/* Уведомления (владелец 22.11 №9) — только вошедшим */}
+            {user && <NotificationsBell />}
             {cabinetMode && (
               <button
                 type="button"

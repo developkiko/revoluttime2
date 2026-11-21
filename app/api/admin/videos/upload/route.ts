@@ -23,9 +23,13 @@ import { requireAdmin } from "@/lib/admin-auth";
 import { corsHeaders } from "@/lib/ultra/cors";
 import { db, dbConfigured } from "@/lib/ultra/db";
 import {
+  IMAGE_MIME_TYPES,
+  IMAGE_PATH_PREFIX,
+  MAX_IMAGE_SIZE_BYTES,
   MAX_VIDEO_SIZE_BYTES,
   VIDEO_MIME_TYPES,
   VIDEO_PATH_PREFIX,
+  checkImageFile,
   checkVideoFile,
 } from "@/lib/videos";
 
@@ -92,24 +96,31 @@ export async function POST(request: NextRequest) {
     request,
     body,
     onBeforeGenerateToken: async (pathname) => {
-      // Проверка пути: строго под префиксом videos/ + видео-расширение.
+      // Владелец 22.11 №6: путь videos/ ИЛИ images/ — ветка проверок своя.
       // MIME/вес уйдут в client-токен — сервис Blob отклонит нарушителя
       // независимо от того, каким UI его отправили.
-      if (!pathname.startsWith(VIDEO_PATH_PREFIX)) {
+      const isImage = pathname.startsWith(IMAGE_PATH_PREFIX);
+      const isVideo = pathname.startsWith(VIDEO_PATH_PREFIX);
+      if (!isImage && !isVideo) {
         throw new Error("upload_rejected_bad_path");
       }
-      const check = checkVideoFile({
-        name: pathname,
-        size: MAX_VIDEO_SIZE_BYTES, // вес проверяется самим Blob по лимиту токена
-      });
+
+      const check = isImage
+        ? checkImageFile({ name: pathname, size: MAX_IMAGE_SIZE_BYTES })
+        : checkVideoFile({
+            name: pathname,
+            size: MAX_VIDEO_SIZE_BYTES, // вес проверяет сам Blob по лимиту токена
+          });
       if (!check.ok) {
         throw new Error(`upload_rejected_${check.error}`);
       }
 
       return {
-        // Жёсткие ограничения в токене: белый список MIME + вес 512 MB.
-        allowedContentTypes: [...VIDEO_MIME_TYPES],
-        maximumSizeInBytes: MAX_VIDEO_SIZE_BYTES,
+        // Жёсткие ограничения в токене: белый список MIME + вес ветки.
+        allowedContentTypes: isImage
+          ? [...IMAGE_MIME_TYPES]
+          : [...VIDEO_MIME_TYPES],
+        maximumSizeInBytes: isImage ? MAX_IMAGE_SIZE_BYTES : MAX_VIDEO_SIZE_BYTES,
         addRandomSuffix: true,
         validUntil: Date.now() + TOKEN_TTL_MS,
         // Колбэк завершения: SDK не может вывести URL сам вне Vercel
@@ -118,19 +129,24 @@ export async function POST(request: NextRequest) {
         // создаётся вручную через CRUD.
         callbackUrl: `${new URL(request.url).origin}/api/admin/videos/upload`,
         // Атрибуция админа в колбэке завершения.
-        tokenPayload: JSON.stringify({ via: "admin_videos_upload" }),
+        tokenPayload: JSON.stringify({
+          via: isImage ? "admin_gallery_upload" : "admin_videos_upload",
+        }),
       };
     },
     onUploadCompleted: async (completed) => {
-      // Сценарий 2: файл загружен — создаём запись в site_videos.
-      // Ошибку БД не пробрасываем в ответ колбэку (Blob должен получить ok),
-      // но логируем: запись всегда можно добавить вручную через CRUD.
+      // Сценарий 2: файл загружен. Видео — создаём запись в site_videos;
+      // изображения (галерея) — только в Blob, их раскладывает по альбомам
+      // CRUD /api/admin/gallery. Ошибку БД не пробрасываем в ответ колбэку.
       try {
+        const blob = completed.blob;
+        if (blob.pathname.startsWith(IMAGE_PATH_PREFIX)) {
+          return;
+        }
         if (!dbConfigured()) {
           console.error("[admin/videos/upload] db_unconfigured on completion");
           return;
         }
-        const blob = completed.blob;
         const title = titleFromPathname(blob.pathname);
         // size у PutBlobResult нет (в 2.9 колбэк завершения не несёт вес) —
         // вес остаётся null, значение можно проставить через CRUD PATCH.
