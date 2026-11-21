@@ -11,6 +11,7 @@ import {
 } from "@/lib/profile-store";
 import { refreshSessionUser, signOut } from "@/lib/auth-store";
 import type { SessionUser } from "@/lib/auth-session";
+import { isSyntheticAnchor } from "@/lib/anchor";
 import { useNotice } from "@/components/ui/notice";
 import { LinkedAccounts } from "@/components/cabinet/LinkedAccounts";
 
@@ -232,7 +233,11 @@ export function ProfileCard({ user }: { user: SessionUser }) {
         </div>
         <div className="min-w-0 text-sm">
           <p className="font-semibold">{overlay?.displayName ?? user.name}</p>
-          <p className="truncate text-muted-foreground">{user.email}</p>
+          {/* Синтетические якоря (id@telegram.revoluttime) не показываем —
+              провайдер виден по чипу ниже (владелец 21.11) */}
+          {!isSyntheticAnchor(user.email) && (
+            <p className="truncate text-muted-foreground">{user.email}</p>
+          )}
           <p className="mt-1 inline-flex rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide">
             {user.provider}
           </p>

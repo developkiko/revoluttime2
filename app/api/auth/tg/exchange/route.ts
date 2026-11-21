@@ -9,7 +9,7 @@ import { kvDelete, kvGetJson } from "@/lib/ultra/kv";
 interface TgLinkPayload {
   purpose: "login" | "link";
   anchor?: string;
-  telegram: { id: string; name?: string; username?: string };
+  telegram: { id: string; name?: string; username?: string; photoPath?: string };
 }
 
 /**
@@ -38,22 +38,25 @@ export async function POST(request: Request) {
   }
   await kvDelete(`auth_tg_link:${token}`).catch(() => {});
 
-  const { id, name, username } = payload.telegram;
+  const { id, name, username, photoPath } = payload.telegram;
   const displayName = name || username || `tg:${id}`;
   const anchorBase = `${id}@telegram.revoluttime`;
+  // Аватар отдаётся через прокси-роут (URL файла Bot API содержит токен бота)
+  const picture = photoPath ? `/api/tg-avatar/${id}` : undefined;
 
   if (payload.purpose === "link" && payload.anchor) {
-    await attachProvider(payload.anchor, "telegram", id);
+    await attachProvider(payload.anchor, "telegram", id, { displayName, picture });
     return NextResponse.json({ ok: true, linked: true, redirect: "/cabinet#profile" });
   }
 
   const anchor = await resolveAnchor("telegram", id, anchorBase);
-  await attachProvider(anchor, "telegram", id);
+  await attachProvider(anchor, "telegram", id, { displayName, picture });
 
   const user: SessionUser = {
     email: anchor,
     name: displayName,
     provider: "telegram",
+    picture,
   };
   const ok = await setSessionCookie(user);
   if (!ok) {

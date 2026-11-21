@@ -64,11 +64,13 @@ export async function resolveAnchor(
   return email;
 }
 
-/** Attach a provider id to the anchor (moves it from any other anchor first). */
+/** Attach a provider id to the anchor (moves it from any other anchor first).
+ *  Optionally stores the display name + avatar URL (Telegram flow 21.11). */
 export async function attachProvider(
   anchorEmail: string,
   provider: AuthProvider,
-  providerId: string
+  providerId: string,
+  profile?: { displayName?: string; picture?: string }
 ): Promise<void> {
   if (!dbConfigured()) return;
   const col = PROVIDER_COL[provider];
@@ -77,9 +79,13 @@ export async function attachProvider(
     [providerId, anchorEmail]
   ).catch(() => {});
   await db(
-    `INSERT INTO auth_links (email, ${col}, updated_at) VALUES ($1, $2, now())
-     ON CONFLICT (email) DO UPDATE SET ${col} = $2, updated_at = now()`,
-    [anchorEmail, providerId]
+    `INSERT INTO auth_links (email, ${col}, display_name, picture, updated_at)
+     VALUES ($1, $2, $3, $4, now())
+     ON CONFLICT (email) DO UPDATE SET ${col} = $2,
+       display_name = COALESCE($3, auth_links.display_name),
+       picture = COALESCE($4, auth_links.picture),
+       updated_at = now()`,
+    [anchorEmail, providerId, profile?.displayName ?? null, profile?.picture ?? null]
   ).catch(() => {});
 }
 

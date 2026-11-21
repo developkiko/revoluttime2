@@ -17,8 +17,7 @@ export function dbConfigured(): boolean {
 /**
  * Self-healing schema for the Ultra APIs (ported from ultra-proxy-next-main).
  * Runs once per process before the first query, so a fresh database
- * works without a separate migration step. Data lives as-is; the official
- * backfill is scripts/ultra/migrate-kv-to-neon.mjs.
+ * works without a separate migration step.
  */
 const SCHEMA_DDL = `
 CREATE TABLE IF NOT EXISTS users (

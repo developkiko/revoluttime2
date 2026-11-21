@@ -40,6 +40,37 @@ interface TgCodePayload {
 }
 
 /**
+ * Аватар пользователя через Bot API (серверное фото профиля): берём самый
+ * большой размер и возвращаем file_path — сам URL файла содержит токен бота,
+ * поэтому отдаём его наружу только через прокси-роут /api/tg-avatar/<id>.
+ */
+async function fetchAvatarPath(userId: number): Promise<string | null> {
+  if (!BOT_TOKEN) return null;
+  try {
+    const photosRes = await fetch(
+      `https://api.telegram.org/bot${BOT_TOKEN}/getUserProfilePhotos?user_id=${userId}&limit=1`
+    );
+    const photos = (await photosRes.json()) as {
+      ok?: boolean;
+      result?: { photos?: Array<Array<{ file_id: string }>> };
+    };
+    const sizes = photos.result?.photos?.[0];
+    const fileId = sizes?.[sizes.length - 1]?.file_id;
+    if (!fileId) return null;
+    const fileRes = await fetch(
+      `https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${fileId}`
+    );
+    const file = (await fileRes.json()) as {
+      ok?: boolean;
+      result?: { file_path?: string };
+    };
+    return file.result?.file_path ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Telegram bot webhook. Two /start flavours:
  *  - "/start"            → chat ID for admin registration (unchanged);
  *  - "/start <code>"     → deep-link sign-in: verify the code minted by
@@ -89,6 +120,9 @@ export async function POST(request: Request) {
       }
 
       const from = message.from;
+      const tgUserId = from?.id ?? message.chat.id;
+      // Аватар тянем во время подтверждения кода (Bot API, сервер-сайд)
+      const photoPath = await fetchAvatarPath(tgUserId);
       const token = crypto.randomBytes(24).toString("hex");
       const storedLink = await kvPut(
         `auth_tg_link:${token}`,
@@ -96,12 +130,13 @@ export async function POST(request: Request) {
           purpose: data.purpose,
           anchor: data.anchor,
           telegram: {
-            id: String(from?.id ?? message.chat.id),
+            id: String(tgUserId),
             name: [from?.first_name, from?.last_name]
               .filter(Boolean)
               .join(" ")
               .trim(),
             username: from?.username,
+            photoPath: photoPath || undefined,
           },
         }),
         600

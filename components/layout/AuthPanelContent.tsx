@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { signOut, useAuthUser } from "@/lib/auth-store";
+import { isSyntheticAnchor } from "@/lib/anchor";
 import { TelegramLoginWidget } from "@/components/layout/TelegramLoginWidget";
 import { useNotice } from "@/components/ui/notice";
 
@@ -131,9 +132,10 @@ function UserMenu({
         )}
         <div className="min-w-0">
           <p className="truncate font-semibold">{name}</p>
-          <p className="truncate text-xs text-[var(--text-secondary)]">
-            {email.includes("@telegram.revoluttime") ? email.split("@")[0] : email}
-          </p>
+          {/* Синтетический якорь не показываем — видно имя и аватар */}
+          {!isSyntheticAnchor(email) && (
+            <p className="truncate text-xs text-[var(--text-secondary)]">{email}</p>
+          )}
         </div>
       </div>
 
