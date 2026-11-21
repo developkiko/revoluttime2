@@ -1,4 +1,10 @@
 import { dbConfigured, dbOne } from "@/lib/ultra/db";
+import {
+  NAV_PULSE_DEFAULT_INTERVAL_SECONDS,
+  NAV_PULSE_DEFAULT_WORDS,
+  NAV_PULSE_MAX_SECONDS,
+  NAV_PULSE_MIN_SECONDS,
+} from "@/lib/nav-pulse";
 
 /**
  * Настройки владельца (`owner_settings` в site_config.config, row id=1) —
@@ -33,8 +39,8 @@ export const OWNER_SETTINGS_DEFAULTS: Required<
   Pick<OwnerSettings, "nav_pulse" | "encyclopedia_tips_mobile" | "income_block" | "income_weights" | "external_links" | "partner_network">
 > = {
   nav_pulse: {
-    words: ["Энергия", "Долголетие", "Молодость", "Выносливость", "Биохакинг"],
-    interval_seconds: 5,
+    words: [...NAV_PULSE_DEFAULT_WORDS],
+    interval_seconds: NAV_PULSE_DEFAULT_INTERVAL_SECONDS,
   },
   encyclopedia_tips_mobile: false,
   income_block: {
@@ -74,8 +80,14 @@ export function sanitizeOwnerSettings(
     }
     const interval = next.nav_pulse.interval_seconds;
     if (interval !== undefined) {
-      if (!Number.isFinite(interval) || interval < 2 || interval > 60) {
-        return { error: "nav_pulse.interval_seconds: 2–60" };
+      if (
+        !Number.isFinite(interval) ||
+        interval < NAV_PULSE_MIN_SECONDS ||
+        interval > NAV_PULSE_MAX_SECONDS
+      ) {
+        return {
+          error: `nav_pulse.interval_seconds: ${NAV_PULSE_MIN_SECONDS}–${NAV_PULSE_MAX_SECONDS}`,
+        };
       }
       out.nav_pulse = { ...out.nav_pulse, interval_seconds: interval };
     }

@@ -104,7 +104,8 @@ export default async function PartnerPage({
         </div>
       </section>
 
-      <section data-spotlight className="border-t bg-muted/40">
+      {/* id/scroll-mt — якоря дропдауна «Программа» в шапке (Фаза D) */}
+      <section id="benefits" data-spotlight className="border-t bg-muted/40 scroll-mt-[var(--header-height)]">
         <div className="mx-auto w-full max-w-6xl px-4 py-16">
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
             {t("benefits.title")}
@@ -129,7 +130,7 @@ export default async function PartnerPage({
         </div>
       </section>
 
-      <section className="border-t" data-spotlight>
+      <section id="levels" className="border-t scroll-mt-[var(--header-height)]" data-spotlight>
         <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 lg:grid-cols-2">
           <div>
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">

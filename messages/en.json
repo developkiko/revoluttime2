@@ -43,7 +43,17 @@
       "recreation": "Conference and Recreation",
       "partner": "Partners",
       "contact": "Contact",
-      "encyclopedia": "Encyclopedia"
+      "encyclopedia": "Encyclopedia",
+      "directions": "Направления",
+      "about": "О нас",
+      "program": "Программа",
+      "legal": "Правовая информация",
+      "journey": "Discovery Journey",
+      "certificates": "Сертификаты",
+      "videos": "Видео",
+      "streams": "Стримы",
+      "cashback": "Кеш-бэк 300 €",
+      "levels": "Уровни плана"
     },
     "home": "Home",
     "cart": "Cart",
@@ -51,7 +61,8 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "theme": "Theme",
-    "login": "Sign in"
+    "login": "Sign in",
+    "cabinetBack": "Главное меню"
   },
   "home": {
     "hero": {

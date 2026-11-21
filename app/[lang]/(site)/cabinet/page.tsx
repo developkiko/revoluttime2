@@ -24,7 +24,7 @@ import { formatPrice, type Locale } from "@/lib/products";
 import { ProfileCard } from "@/components/cabinet/ProfileCard";
 import { ReferralLink } from "@/components/cabinet/ReferralLink";
 import { WithdrawButton } from "@/components/cabinet/WithdrawButton";
-import { CabinetHeader } from "@/components/cabinet/CabinetHeader";
+import { CabinetStatusBridge } from "@/components/cabinet/CabinetStatusBridge";
 import { BalanceTopUp } from "@/components/cabinet/BalanceTopUp";
 import { CabinetTabs, type CabinetTabDef } from "@/components/cabinet/CabinetTabs";
 import { PartnerNetworkLazy } from "@/components/partner/PartnerNetworkLazy";
@@ -358,7 +358,9 @@ export default async function CabinetPage({
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6">
-      <CabinetHeader
+      {/* Фаза D (владелец 21.11): баланс/пополнить/имя ушли в кабинет-режим
+          шапки; мост кладёт значения в стор для Header. */}
+      <CabinetStatusBridge
         balanceLabel={formatPrice(DEMO_BALANCE_CENTS, locale)}
         partnersCount={DEMO_PARTNERS.length}
         userName={user.name ?? user.email}
