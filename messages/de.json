@@ -136,6 +136,30 @@
         }
       }
     },
+    "online": {
+      "title": "Online",
+      "subtitle": "Schauen Sie: Live-Streams und Videos über Wasserstoffwasser von RevolutTIME.",
+      "watchOnYoutube": "Auf YouTube ansehen"
+    },
+    "events": {
+      "title": "Gerade jetzt",
+      "subtitle": "Nächste Termine: Badminton, Thermen, Wanderungen. Plätze sind begrenzt — bitte vorab buchen.",
+      "newBadge": "neu",
+      "statusOpen": "Anmeldung offen",
+      "statusClosed": "Anmeldung geschlossen",
+      "costTotal": "Platz: {cost} €",
+      "maxPlayers": "bis {count} Plätze",
+      "seeAll": "Alle Termine & Buchung"
+    },
+    "earnings": {
+      "title": "Hier wird schon jetzt verdient",
+      "subtitle": "Echte Gutschriften an RevolutTIME-Partner — Verkaufsprovisionen und 300 € Cashback pro Geworbenem.",
+      "typePercent": "Partnerprovision",
+      "typeCashback": "Cashback",
+      "justNow": "gerade eben",
+      "realEmpty": "Die ersten Auszahlungen sind schon unterwegs — hier erscheinen echte Partner-Gutschriften.",
+      "note": "Partnernamen sind verborgen — wir zeigen nur Art und Höhe der Gutschrift."
+    },
     "diagram": {
       "you": "Sie",
       "referral1": "Partner 1",
@@ -146,7 +170,9 @@
       "sub1": "Partner 1.1",
       "sub2": "Partner 1.2",
       "sub3": "Partner 1.1.1",
-      "sub4": "Partner 3.1"
+      "sub4": "Partner 3.1",
+      "demoBadge": "Demo-Struktur: Partner nur als Beispiel",
+      "beFirst": "Noch niemand — werden Sie der erste Partner im Netzwerk."
     },
     "partnerTeaser": {
       "title": "Geld macht Geld",

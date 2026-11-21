@@ -136,6 +136,30 @@
         }
       }
     },
+    "online": {
+      "title": "Online",
+      "subtitle": "Watch: live streams and videos about RevolutTIME hydrogen water.",
+      "watchOnYoutube": "Watch on YouTube"
+    },
+    "events": {
+      "title": "Right now",
+      "subtitle": "Upcoming events: badminton, thermal spas, hikes. Spots are limited — book ahead.",
+      "newBadge": "new",
+      "statusOpen": "Registration open",
+      "statusClosed": "Registration closed",
+      "costTotal": "Court: €{cost}",
+      "maxPlayers": "up to {count} spots",
+      "seeAll": "All events & booking"
+    },
+    "earnings": {
+      "title": "Earning right now",
+      "subtitle": "Real payouts to RevolutTIME partners — sales commissions and a €300 cashback per referral.",
+      "typePercent": "partner commission",
+      "typeCashback": "cashback",
+      "justNow": "just now",
+      "realEmpty": "The first payouts are already on their way — real partner earnings will appear here.",
+      "note": "Partner names are hidden — we only show the type and amount of each payout."
+    },
     "diagram": {
       "you": "You",
       "referral1": "Partner 1",
@@ -146,7 +170,9 @@
       "sub1": "Partner 1.1",
       "sub2": "Partner 1.2",
       "sub3": "Partner 1.1.1",
-      "sub4": "Partner 3.1"
+      "sub4": "Partner 3.1",
+      "demoBadge": "Demo structure: partners shown for illustration",
+      "beFirst": "Nobody yet — become the first partner in the network."
     },
     "partnerTeaser": {
       "title": "Money makes money",

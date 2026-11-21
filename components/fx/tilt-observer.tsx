@@ -17,10 +17,15 @@ export function TiltObserver() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
-    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt]"));
-    if (els.length === 0) return;
+    // Обработанные элементы — WeakSet: PPR-секции (Фаза C) прилетают в DOM
+    // позже монтирования, поэтому наблюдаем за новыми [data-tilt] и вешаем
+    // обработчики на них тоже, не дублируя на старые.
+    const processed = new WeakSet<HTMLElement>();
+    const cleanups: Array<() => void> = [];
 
-    const cleanups = els.map((el) => {
+    const attach = (el: HTMLElement) => {
+      if (processed.has(el)) return;
+      processed.add(el);
       let resetTimer: ReturnType<typeof setTimeout> | undefined;
 
       const onEnter = () => {
@@ -46,17 +51,33 @@ export function TiltObserver() {
       el.addEventListener("pointerenter", onEnter);
       el.addEventListener("pointermove", onMove, { passive: true });
       el.addEventListener("pointerleave", onLeave);
-      return () => {
+      cleanups.push(() => {
         window.clearTimeout(resetTimer);
         el.removeEventListener("pointerenter", onEnter);
         el.removeEventListener("pointermove", onMove);
         el.removeEventListener("pointerleave", onLeave);
         el.style.transform = "";
         el.style.transition = "";
-      };
-    });
+      });
+    };
 
-    return () => cleanups.forEach((fn) => fn());
+    document.querySelectorAll<HTMLElement>("[data-tilt]").forEach(attach);
+
+    const mo = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        mutation.addedNodes.forEach((node) => {
+          if (!(node instanceof HTMLElement)) return;
+          if (node.matches("[data-tilt]")) attach(node);
+          node.querySelectorAll<HTMLElement>("[data-tilt]").forEach(attach);
+        });
+      }
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      mo.disconnect();
+      cleanups.forEach((fn) => fn());
+    };
   }, [pathname]);
 
   return null;
