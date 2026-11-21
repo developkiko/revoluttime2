@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import {
   BookOpenIcon,
-  GiftIcon,
   LogOutIcon,
   NetworkIcon,
   ShieldCheckIcon,
@@ -146,21 +145,18 @@ function UserMenu({
         <UserRoundIcon className="w-4 h-4 shrink-0" />
         {t("cabinet")}
       </Link>
+      {/* Владелец 22.11 №7: партнёрка — отдельная страница */}
+      <Link href="/partner/dashboard" className={MENU_ROW_CLASS} onClick={onDone}>
+        <NetworkIcon className="w-4 h-4 shrink-0" />
+        {t("partnerLink")}
+      </Link>
       <Link href="/cabinet#profile" className={MENU_ROW_CLASS} onClick={onDone}>
         <UserIcon className="w-4 h-4 shrink-0" />
         {t("profile")}
       </Link>
-      <Link href="/cabinet#purchases" className={MENU_ROW_CLASS} onClick={onDone}>
+      <Link href="/cabinet#billing" className={MENU_ROW_CLASS} onClick={onDone}>
         <ShoppingBagIcon className="w-4 h-4 shrink-0" />
-        {t("purchasesLink")}
-      </Link>
-      <Link href="/cabinet#bonuses" className={MENU_ROW_CLASS} onClick={onDone}>
-        <GiftIcon className="w-4 h-4 shrink-0" />
-        {t("bonusesLink")}
-      </Link>
-      <Link href="/cabinet#network" className={MENU_ROW_CLASS} onClick={onDone}>
-        <NetworkIcon className="w-4 h-4 shrink-0" />
-        {t("networkLink")}
+        {t("billingLink")}
       </Link>
       <Link href="/encyclopedia" className={MENU_ROW_CLASS} onClick={onDone}>
         <BookOpenIcon className="w-4 h-4 shrink-0" />

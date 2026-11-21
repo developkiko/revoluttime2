@@ -13,6 +13,8 @@ export interface ProfileOverlay {
   displayName?: string;
   /** Uploaded avatar (resized 256px JPEG data URL) — beats provider photo. */
   avatarDataUrl?: string;
+  /** «О себе» (владелец 22.11 №7 — настройки профиля). */
+  about?: string;
 }
 
 const keyFor = (email: string) => `revoluttime-profile-v1:${email.toLowerCase()}`;

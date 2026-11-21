@@ -29,6 +29,8 @@ export function CabinetTabs({ tabs, ariaLabel }: { tabs: CabinetTabDef[]; ariaLa
   const [active, setActive] = React.useState<string>(tabs[0]?.id ?? "");
   const navRef = React.useRef<HTMLElement>(null);
   const btnRefs = React.useRef(new Map<string, HTMLButtonElement>());
+  const panelRefs = React.useRef(new Map<string, HTMLDivElement>());
+  const prevActiveRef = React.useRef<string | null>(null);
   const [glider, setGlider] = React.useState<{ left: number; width: number } | null>(null);
 
   React.useEffect(() => {
@@ -69,6 +71,25 @@ export function CabinetTabs({ tabs, ariaLabel }: { tabs: CabinetTabDef[]; ariaLa
     window.history.replaceState(null, "", `#${tab.hash}`);
   };
 
+  /* Контент едет НАВСТРЕЧУ глайдеру (владелец 22.11 №5): глайдер ушёл
+     слева-направо → панель въезжает справа-налево. Панели остаются
+     смонтированными (состояние форм не теряется) — анимацию перезапускаем
+     классом + reflow, а не перемонтированием. */
+  React.useEffect(() => {
+    const prev = prevActiveRef.current;
+    prevActiveRef.current = active;
+    if (prev === null || prev === active) return;
+    const panel = panelRefs.current.get(active);
+    if (!panel) return;
+    const prevIdx = tabs.findIndex((tb) => tb.id === prev);
+    const nextIdx = tabs.findIndex((tb) => tb.id === active);
+    const dir = nextIdx > prevIdx ? "right" : "left"; // куда уехал глайдер
+    panel.classList.remove("tab-panel--in-right", "tab-panel--in-left");
+    // reflow — чтобы анимация перезапускалась при повторном открытии панели
+    void panel.offsetWidth;
+    panel.classList.add(dir === "right" ? "tab-panel--in-right" : "tab-panel--in-left");
+  }, [active, tabs]);
+
   return (
     <div>
       <nav ref={navRef} className="tabs" role="tablist" aria-label={ariaLabel}>
@@ -106,6 +127,10 @@ export function CabinetTabs({ tabs, ariaLabel }: { tabs: CabinetTabDef[]; ariaLa
           role="tabpanel"
           hidden={tab.id !== active}
           className="mt-8"
+          ref={(el) => {
+            if (el) panelRefs.current.set(tab.id, el);
+            else panelRefs.current.delete(tab.id);
+          }}
         >
           {tab.content}
         </div>

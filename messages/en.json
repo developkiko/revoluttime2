@@ -538,7 +538,10 @@
       "profile": "Profile",
       "purchases": "Purchases",
       "bonuses": "Bonuses",
-      "network": "Network"
+      "network": "Network",
+      "settings": "Настройки",
+      "billing": "Оплата",
+      "friends": "Друзья"
     },
     "subtitle": "How to get started with RevolutTIME",
     "header": {
@@ -583,6 +586,50 @@
       "title": "Привяжите email, чтобы не потерять доступ к аккаунту",
       "text": "Оплаты уже проходили, но email у аккаунта нет — вход сейчас только через {provider}. Привяжите Google: email добавится автоматически, и доступ к аккаунту можно будет восстановить.",
       "cta": "Привязать Google"
+    },
+    "registeredAt": "Дата регистрации",
+    "profileInfo": {
+      "title": "О профиле",
+      "text": "Профиль синхронизирован через {provider}. Отображаемое имя и аватар можно изменить в настройках — они видны партнёрам и в отзывах.",
+      "provider": "Сервис входа",
+      "partnerProgram": "Партнёрская программа",
+      "partnerProgramCta": "Открыть кабинет партнёра",
+      "edit": "Изменить"
+    },
+    "settings": {
+      "title": "Настройки профиля",
+      "uploadAvatar": "Сменить аватар",
+      "avatarSaved": "Аватар обновлён",
+      "avatarError": "Не удалось обработать изображение",
+      "displayName": "Отображаемое имя",
+      "displayNameHint": "Показывается вместо имени из сервиса входа.",
+      "about": "О себе",
+      "aboutPlaceholder": "Пара строк о себе — по желанию",
+      "edit": "Редактировать",
+      "save": "Сохранить",
+      "cancel": "Отмена",
+      "saved": "Сохранено"
+    },
+    "billing": {
+      "lastMethod": "Последний способ оплаты",
+      "methodCard": "Банковская карта",
+      "methodMask": "•• ••••",
+      "noPayments": "Оплат ещё не было",
+      "date": "Дата",
+      "item": "Позиция",
+      "amount": "Сумма",
+      "toggle": "Подробнее",
+      "orderId": "Код заказа",
+      "qty": "Количество",
+      "status_label": "Статус",
+      "methodLabel": "Способ оплаты",
+      "status_delivered": "Доставлено",
+      "status_confirmed": "Подтверждено",
+      "status_processing": "В обработке"
+    },
+    "friendsEmpty": {
+      "title": "Друзья",
+      "text": "Раздел в разработке — заявки в друзья и список друзей появятся здесь позже."
     }
   },
   "admin": {
@@ -748,7 +795,9 @@
     "purchasesLink": "Purchases",
     "bonusesLink": "Bonuses",
     "networkLink": "Partner network",
-    "encyclopediaLink": "Encyclopedia"
+    "encyclopediaLink": "Encyclopedia",
+    "partnerLink": "Партнёрка",
+    "billingLink": "Оплаты"
   },
   "sport": {
     "hero": {

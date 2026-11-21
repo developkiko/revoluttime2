@@ -1,79 +1,30 @@
 import type { Metadata } from "next";
-import {
-  CheckCircle2Icon,
-  CircleAlertIcon,
-  CircleDotIcon,
-  LayoutDashboardIcon,
-  MailWarningIcon,
-  NetworkIcon,
-  PercentIcon,
-  ShoppingBagIcon,
-  TrendingUpIcon,
-  UserIcon,
-  UsersIcon,
-} from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-
+import { connection } from "next/server";
 import {
-  DEMO_BALANCE_CENTS,
-  DEMO_BONUSES,
-  DEMO_NETWORK_CHILDREN,
-  DEMO_PARTNERS,
-  DEMO_PURCHASES,
-} from "@/lib/partner-demo";
+  CreditCardIcon,
+  MailWarningIcon,
+  UserRoundIcon,
+  UsersIcon,
+  SettingsIcon,
+  HeartHandshakeIcon,
+} from "lucide-react";
+
 import { formatPrice, type Locale } from "@/lib/products";
-import { ProfileCard } from "@/components/cabinet/ProfileCard";
-import { ReferralLink } from "@/components/cabinet/ReferralLink";
-import { WithdrawButton } from "@/components/cabinet/WithdrawButton";
+import { dbConfigured, dbOne } from "@/lib/ultra/db";
+// вторая строка db-импортов ниже — из предыдущей версии страницы, удаляем дубль
+import { ProfileSummaryCard } from "@/components/cabinet/ProfileSummaryCard";
+import { ProfileSettingsCard } from "@/components/cabinet/ProfileSettingsCard";
+import { AccountSecurityPanel } from "@/components/cabinet/AccountSecurityPanel";
+import { BillingPanel } from "@/components/cabinet/BillingPanel";
 import { CabinetStatusBridge } from "@/components/cabinet/CabinetStatusBridge";
-import { BalanceTopUp } from "@/components/cabinet/BalanceTopUp";
 import { CabinetTabs, type CabinetTabDef } from "@/components/cabinet/CabinetTabs";
-import { PartnerNetworkLazy } from "@/components/partner/PartnerNetworkLazy";
 import { getSessionUser } from "@/lib/auth-session";
+import { isSyntheticAnchor } from "@/lib/anchor";
 import {
   getAccountEmailStatus,
   shouldOfferEmailLink,
 } from "@/lib/account-status";
-
-const LEVEL_CHIP: Record<string, string> = {
-  I: "bg-sky-500",
-  II: "bg-violet-500",
-  III: "bg-amber-500",
-  IV: "bg-emerald-500",
-  V: "bg-rose-500",
-};
-
-const STATUS_CHIP: Record<string, string> = {
-  delivered: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  confirmed: "bg-sky-500/10 text-sky-600 dark:text-sky-400",
-  processing: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-  active: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  pending: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-};
-
-/** Downline stats for the referral card (joined dates are ISO YYYY-MM-DD). */
-function computeReferralStats(): {
-  total: number;
-  yesterday: number;
-  lastWeek: number;
-} {
-  const downline: { id: string; joined: string }[] = [];
-  const queue = [...(DEMO_NETWORK_CHILDREN.you ?? [])];
-  while (queue.length > 0) {
-    const node = queue.shift()!;
-    downline.push(node);
-    queue.push(...(DEMO_NETWORK_CHILDREN[node.id] ?? []));
-  }
-  const dayMs = 24 * 60 * 60 * 1000;
-  const now = Date.now(); // per-request: fine for this dynamic server page
-  const iso = (offsetDays: number) =>
-    new Date(now - offsetDays * dayMs).toISOString().slice(0, 10);
-  return {
-    total: downline.length,
-    yesterday: downline.filter((n) => n.joined === iso(1)).length,
-    lastWeek: downline.filter((n) => n.joined >= iso(7)).length,
-  };
-}
 
 export async function generateMetadata(
   props: PageProps<"/[lang]/cabinet">
@@ -81,6 +32,27 @@ export async function generateMetadata(
   const { lang } = await props.params;
   const t = await getTranslations({ locale: lang, namespace: "cabinet.meta" });
   return { title: t("title"), robots: { index: false } };
+}
+
+/** Дата регистрации + реальный баланс (users); грейсфул без БД. */
+async function readUserInfo(
+  email: string
+): Promise<{ registeredAt: string | null; balanceCents: number | null }> {
+  if (!dbConfigured()) return { registeredAt: null, balanceCents: null };
+  try {
+    await connection();
+    const row = await dbOne<{ created_at: string | null; balance: number | null }>(
+      `SELECT created_at, balance FROM users WHERE email = $1`,
+      [email]
+    );
+    const balance = row?.balance;
+    return {
+      registeredAt: row?.created_at ?? null,
+      balanceCents: balance != null ? Math.round(Number(balance) * 100) : null,
+    };
+  } catch {
+    return { registeredAt: null, balanceCents: null };
+  }
 }
 
 export default async function CabinetPage({
@@ -104,277 +76,132 @@ export default async function CabinetPage({
     );
   }
 
-  const activePartners = DEMO_PARTNERS.filter((p) => p.status === "active").length;
-  const totalEarned = DEMO_BONUSES.reduce((s, b) => s + b.amountCents, 0);
-
-  const referralStats = computeReferralStats();
-
-  // Фаза E (владелец 21.11): баннер «привяжите email» — якорь синтетический,
-  // реального email (Google/login_email) нет и оплата уже была. Без БД или
-  // без оплат баннер не показывается (проверка грейсфул).
-  const emailBanner = shouldOfferEmailLink(await getAccountEmailStatus(user.email));
+  // Владелец 22.11 №7: кабинет = Профиль / Настройки / Оплата / Друзья.
+  // Партнёрская часть переехала на /partner/dashboard (Сводка/Сеть/Платежи).
+  const { registeredAt, balanceCents } = await readUserInfo(user.email);
+  const emailLinked = !isSyntheticAnchor(user.email);
   const providerLabel =
     user.provider === "google" ? "Google" : user.provider === "facebook" ? "Facebook" : "Telegram";
 
+  // Фаза E (владелец 21.11): баннер «привяжите email» после первой оплаты.
+  const emailBanner = shouldOfferEmailLink(await getAccountEmailStatus(user.email));
+
   const tabs: CabinetTabDef[] = [
-    {
-      id: "overview",
-      hash: "balance",
-      label: t("tabs.overview"),
-      icon: <LayoutDashboardIcon className="size-4" />,
-      content: (
-        <div className="flex flex-col gap-10">
-          {/* Ultra dashboard welcome: huge centered title + onboarding checklist */}
-          <div>
-            <h1 className="text-[2rem] font-bold text-foreground text-center mb-3 sm:text-[2.5rem]">
-              {t("title")}
-            </h1>
-            <h2 className="mb-10 text-center text-base font-medium text-muted-foreground sm:text-lg">
-              {t("subtitle")}
-            </h2>
-
-            {/* Three onboarding steps — one equal-height row of columns */}
-            <div className="mx-auto grid max-w-[1100px] gap-4 md:grid-cols-3 md:items-stretch">
-              {/* Step 1 — registration ✅ */}
-              <div className="flex flex-col items-center gap-3 rounded-xl border border-green-500/20 bg-green-500/[0.03] p-5 text-center opacity-70">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-green-500/15">
-                  <CheckCircle2Icon className="size-6 text-green-400" />
-                </div>
-                <div className="flex-1">
-                  <div className="text-sm font-semibold text-green-400">{t("steps.done.title")}</div>
-                  <div className="mt-1 text-xs leading-relaxed text-muted-foreground">{t("steps.done.desc")}</div>
-                </div>
-                <span className="mt-auto inline-flex items-center gap-1 whitespace-nowrap font-mono text-xs text-green-500/70">
-                  <CheckCircle2Icon className="size-3" /> {t("steps.done.flag")}
-                </span>
-              </div>
-
-              {/* Step 2 — partner activation 🟠 (balance top-up, not the shop) */}
-              <div className="flex flex-col items-center gap-3 rounded-xl border border-orange-500/30 bg-orange-500/[0.06] p-5 text-center">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-orange-500/15">
-                  <CircleDotIcon className="size-6 text-orange-400" />
-                </div>
-                <div className="flex-1">
-                  <div className="text-sm font-semibold text-orange-400">{t("steps.activate.title")}</div>
-                  <div className="mt-1 text-xs leading-relaxed text-muted-foreground">{t("steps.activate.desc")}</div>
-                </div>
-                <BalanceTopUp className="mt-auto inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg border border-orange-500/30 bg-orange-500/20 px-4 py-2 text-sm font-semibold text-orange-400 transition-colors hover:bg-orange-500/30" />
-              </div>
-
-              {/* Step 3 — invite partners 🔴 */}
-              <div className="flex flex-col items-center gap-3 rounded-xl border border-red-500/20 bg-red-500/[0.03] p-5 text-center opacity-70">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-500/10">
-                  <CircleAlertIcon className="size-6 text-red-400/70" />
-                </div>
-                <div className="flex-1">
-                  <div className="text-sm font-semibold text-red-400/70">{t("steps.invite.title")}</div>
-                  <div className="mt-1 text-xs leading-relaxed text-muted-foreground">{t("steps.invite.desc")}</div>
-                </div>
-                <a
-                  href="#network"
-                  className="mt-auto shrink-0 rounded-lg border border-red-500/25 bg-red-500/15 px-4 py-2 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500/25"
-                >
-                  {t("steps.invite.btn")}
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-2xl border bg-card p-5">
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {t("balance")}
-            </p>
-            <p className="mt-2 text-3xl font-bold tabular-nums">
-              {formatPrice(DEMO_BALANCE_CENTS, locale)}
-            </p>
-            <WithdrawButton />
-          </div>
-          <div className="rounded-2xl border bg-card p-5">
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {t("partnersCount")}
-            </p>
-            <p className="mt-2 flex items-center gap-2 text-3xl font-bold tabular-nums">
-              <UsersIcon className="size-6 text-primary" />
-              {DEMO_PARTNERS.length}
-            </p>
-            <p className="mt-3 text-xs text-muted-foreground">
-              {t("partnersActive", { count: activePartners })}
-            </p>
-          </div>
-          <div className="rounded-2xl border bg-card p-5">
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {t("ordersCount")}
-            </p>
-            <p className="mt-2 flex items-center gap-2 text-3xl font-bold tabular-nums">
-              <ShoppingBagIcon className="size-6 text-primary" />
-              {DEMO_PURCHASES.length}
-            </p>
-          </div>
-          <div className="rounded-2xl border bg-card p-5">
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              {t("earnedTotal")}
-            </p>
-            <p className="mt-2 flex items-center gap-2 text-3xl font-bold tabular-nums">
-              <TrendingUpIcon className="size-6 text-emerald-500" />
-              {formatPrice(totalEarned, locale)}
-            </p>
-            <p className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground">
-              <PercentIcon className="size-3" />
-              {t("commissionNote")}
-            </p>
-          </div>
-          </div>
-        </div>
-      ),
-    },
     {
       id: "profile",
       hash: "profile",
       label: t("tabs.profile"),
-      icon: <UserIcon className="size-4" />,
+      icon: <UserRoundIcon className="size-4" />,
       content: (
+        // №7: две колонки — карточка профиля | описание и инфа + «Изменить»
         <div className="grid items-stretch gap-6 lg:grid-cols-2">
-          <ProfileCard user={user} />
-          <ReferralLink email={user.email} stats={referralStats} />
-        </div>
-      ),
-    },
-    {
-      id: "purchases",
-      hash: "purchases",
-      label: t("tabs.purchases"),
-      icon: <ShoppingBagIcon className="size-4" />,
-      content: (
-        <div className="overflow-hidden rounded-2xl border">
-          <table className="w-full text-sm">
-            <thead className="bg-muted/60 text-left text-xs uppercase tracking-wide text-muted-foreground">
-              <tr>
-                <th className="px-4 py-2.5 font-medium">{t("date")}</th>
-                <th className="px-4 py-2.5 font-medium">{t("item")}</th>
-                <th className="px-4 py-2.5 font-medium">{t("qty")}</th>
-                <th className="px-4 py-2.5 font-medium">{t("status")}</th>
-                <th className="px-4 py-2.5 text-right font-medium">{t("amount")}</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {DEMO_PURCHASES.map((p) => (
-                <tr key={p.id} className="bg-card">
-                  <td className="whitespace-nowrap px-4 py-3 tabular-nums text-muted-foreground">
-                    {new Intl.DateTimeFormat(locale).format(new Date(`${p.date}T00:00:00`))}
-                  </td>
-                  <td className="px-4 py-3 font-medium">{p.title[locale]}</td>
-                  <td className="px-4 py-3 tabular-nums">{p.qty}</td>
-                  <td className="px-4 py-3">
-                    <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${STATUS_CHIP[p.status]}`}>
-                      {t(`status_${p.status}`)}
-                    </span>
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3 text-right font-semibold tabular-nums">
-                    {formatPrice(p.amountCents, locale)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ),
-    },
-    {
-      id: "network",
-      hash: "network",
-      extraHashes: ["partners"],
-      label: t("tabs.network"),
-      icon: <NetworkIcon className="size-4" />,
-      content: (
-        <>
-          <PartnerNetworkLazy
-            me={{
-              id: "you",
-              name: user.name ?? "RevolutTIME",
-              joined: "2026-09-01", // TODO(profile API): real registration date
-              avatar: user.picture,
-            }}
-            childrenByNode={DEMO_NETWORK_CHILDREN}
-            profileHref="/cabinet#network"
-            youActions={[
-              { label: t("balance"), href: "/cabinet#balance" },
-              { label: t("purchases"), href: "/cabinet#purchases" },
-              { label: t("partnerAccruals"), href: "/cabinet#network" },
-              { label: t("myPartners"), href: "/cabinet#network" },
-            ]}
+          <ProfileSummaryCard
+            user={user}
+            registeredAt={registeredAt}
+            emailLinked={emailLinked}
+            registeredLabel={t("registeredAt")}
+            providerLabel={providerLabel}
           />
-
-          <h2 className="mt-8 text-xl font-bold tracking-tight">{t("myPartners")}</h2>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {DEMO_PARTNERS.map((p) => (
-              <div key={p.id} className="flex items-center gap-3 rounded-2xl border bg-card p-4">
-                <span className={`flex size-9 items-center justify-center rounded-full text-sm font-bold text-white ${LEVEL_CHIP[p.level]}`}>
-                  {p.level}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate font-medium">{p.name}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {new Intl.DateTimeFormat(locale).format(new Date(`${p.joined}T00:00:00`))}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="font-semibold tabular-nums">
-                    {formatPrice(p.earnedCents, locale)}
-                  </p>
-                  <span className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-medium ${STATUS_CHIP[p.status]}`}>
-                    {t(`status_${p.status}`)}
-                  </span>
-                </div>
+          <div className="flex flex-col gap-4 rounded-3xl border bg-card p-6">
+            <div>
+              <h2 className="text-xl font-bold tracking-tight">{t("profileInfo.title")}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {t("profileInfo.text", { provider: providerLabel })}
+              </p>
+            </div>
+            <dl className="flex flex-col gap-2 border-t pt-4 text-sm">
+              <div className="flex justify-between gap-3">
+                <dt className="text-muted-foreground">{t("registeredAt")}</dt>
+                <dd className="font-medium tabular-nums">
+                  {registeredAt
+                    ? new Intl.DateTimeFormat("de-DE", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      }).format(new Date(registeredAt))
+                    : "—"}
+                </dd>
               </div>
-            ))}
+              <div className="flex justify-between gap-3">
+                <dt className="text-muted-foreground">{t("profileInfo.provider")}</dt>
+                <dd className="font-medium">{providerLabel}</dd>
+              </div>
+              <div className="flex justify-between gap-3">
+                <dt className="text-muted-foreground">{t("profileInfo.partnerProgram")}</dt>
+                <dd>
+                  <a
+                    href={`/${lang}/partner/dashboard`}
+                    className="font-medium text-primary underline-offset-4 hover:underline"
+                  >
+                    {t("profileInfo.partnerProgramCta")}
+                  </a>
+                </dd>
+              </div>
+            </dl>
+            {/* Кнопка «Изменить» → вкладка настроек (№7) */}
+            <div className="mt-auto border-t pt-4">
+              <a
+                href="#settings"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--primary)] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary-hover)]"
+              >
+                <SettingsIcon className="size-4" />
+                {t("profileInfo.edit")}
+              </a>
+            </div>
           </div>
-
-          {/* Партнёрские начисления — бывшая вкладка «Бонусы» */}
-          <h2 className="mt-10 text-xl font-bold tracking-tight">{t("partnerAccruals")}</h2>
-          <div className="mt-4 overflow-hidden rounded-2xl border">
-            <table className="w-full text-sm">
-              <thead className="bg-muted/60 text-left text-xs uppercase tracking-wide text-muted-foreground">
-                <tr>
-                  <th className="px-4 py-2.5 font-medium">{t("date")}</th>
-                  <th className="px-4 py-2.5 font-medium">{t("from")}</th>
-                  <th className="px-4 py-2.5 font-medium">{t("level")}</th>
-                  <th className="px-4 py-2.5 text-right font-medium">{t("amount")}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
-                {DEMO_BONUSES.map((b) => (
-                  <tr key={b.id} className="bg-card">
-                    <td className="whitespace-nowrap px-4 py-3 tabular-nums text-muted-foreground">
-                      {new Intl.DateTimeFormat(locale).format(new Date(`${b.date}T00:00:00`))}
-                    </td>
-                    <td className="px-4 py-3 font-medium">{b.fromName}</td>
-                    <td className="px-4 py-3">
-                      <span className={`inline-flex size-6 items-center justify-center rounded-full text-xs font-bold text-white ${LEVEL_CHIP[b.level]}`}>
-                        {b.level}
-                      </span>
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-right font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">
-                      +{formatPrice(b.amountCents, locale)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-3 text-xs text-muted-foreground">{t("demoNote")}</p>
-        </>
+        </div>
+      ),
+    },
+    {
+      id: "settings",
+      hash: "settings",
+      extraHashes: ["links"],
+      label: t("tabs.settings"),
+      icon: <SettingsIcon className="size-4" />,
+      content: (
+        // №7: слева карточка с карандашами, справа — сервисы/пароль/email,
+        // ниже отдельным блоком одной колонкой — экспорт и удаление.
+        <div className="grid items-stretch gap-6 lg:grid-cols-2">
+          <ProfileSettingsCard user={user} />
+          <AccountSecurityPanel user={user} />
+        </div>
+      ),
+    },
+    {
+      id: "billing",
+      hash: "billing",
+      extraHashes: ["purchases"],
+      label: t("tabs.billing"),
+      icon: <CreditCardIcon className="size-4" />,
+      content: (
+        <BillingPanel onDemoNote={t("demoNote")} />
+      ),
+    },
+    {
+      id: "friends",
+      hash: "friends",
+      label: t("tabs.friends"),
+      icon: <HeartHandshakeIcon className="size-4" />,
+      content: (
+        // №7: пустая вкладка — компонент друзей появится позже
+        <div className="flex flex-col items-center gap-3 rounded-3xl border border-dashed px-4 py-20 text-center">
+          <UsersIcon className="size-10 text-muted-foreground/40" />
+          <h2 className="text-lg font-semibold">{t("friendsEmpty.title")}</h2>
+          <p className="max-w-md text-sm text-muted-foreground">
+            {t("friendsEmpty.text")}
+          </p>
+        </div>
       ),
     },
   ];
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6">
-      {/* Фаза D (владелец 21.11): баланс/пополнить/имя ушли в кабинет-режим
-          шапки; мост кладёт значения в стор для Header. */}
+      {/* Кабинет-режим шапки: мост кладёт значения в стор для Header.
+          Баланс — реальный из users (null → чип скрыт). */}
       <CabinetStatusBridge
-        balanceLabel={formatPrice(DEMO_BALANCE_CENTS, locale)}
-        partnersCount={DEMO_PARTNERS.length}
+        balanceLabel={balanceCents != null ? formatPrice(balanceCents, locale) : null}
+        partnersCount={null}
         userName={user.name ?? user.email}
       />
 
@@ -386,10 +213,12 @@ export default async function CabinetPage({
               {t("emailBanner.title")}
             </p>
             <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-              {t("emailBanner.text", { provider: providerLabel })}
+              {t("emailBanner.text", {
+                provider: user.provider === "google" ? "Google" : user.provider === "facebook" ? "Facebook" : "Telegram",
+              })}
             </p>
           </div>
-          {/* API-эндпоинт OAuth — <a> корректен (см. коммент в ProfileCard). */}
+          {/* API-эндпоинт OAuth — <a> корректен */}
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a
             href="/api/auth/google/start?link=1"

@@ -105,3 +105,20 @@ export const DEMO_NETWORK_CHILDREN: Record<
     { id: "p3a", name: "Oleg V.", joined: "2026-11-06", badge: "I" },
   ],
 };
+
+export interface DemoOwnOp {
+  id: string;
+  date: string;
+  kind: "topup" | "withdraw";
+  amountCents: number;
+  status: "completed" | "pending" | "cancelled";
+}
+
+/** Собственные пополнения и выводы (вкладка «Платежи» кабинета партнёра). */
+export const DEMO_OWN_OPS: DemoOwnOp[] = [
+  { id: "op1", date: "2026-11-18", kind: "withdraw", amountCents: 30000, status: "pending" },
+  { id: "op2", date: "2026-11-02", kind: "topup", amountCents: 60000, status: "completed" },
+  { id: "op3", date: "2026-10-21", kind: "withdraw", amountCents: 15000, status: "completed" },
+  { id: "op4", date: "2026-09-30", kind: "topup", amountCents: 120000, status: "completed" },
+  { id: "op5", date: "2026-09-12", kind: "topup", amountCents: 60000, status: "cancelled" },
+];

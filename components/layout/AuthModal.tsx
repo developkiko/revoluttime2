@@ -115,6 +115,13 @@ export function AuthModal({
   const [tgStep, setTgStep] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  // №5: контент въезжает навстречу глайдеру (login→register = глайдер
+  // вправо → форма справа-налево).
+  const [dir, setDir] = React.useState<"right" | "left">("right");
+  const changeTab = (next: AuthTab) => {
+    setDir(next === "register" ? "right" : "left");
+    setTab(next);
+  };
 
   React.useEffect(() => {
     if (open) {
@@ -151,14 +158,17 @@ export function AuthModal({
             <ModalGliderTabs
               ariaLabel={t("signInTitle")}
               active={tab}
-              onChange={setTab}
+              onChange={changeTab}
               tabs={[
                 { id: "login", label: t("tabLogin"), icon: <LogInIcon /> },
                 { id: "register", label: t("tabRegister"), icon: <UserPlusIcon /> },
               ]}
             />
 
-            {/* Email / login + password — placeholder until the accounts API */}
+            {/* Email / login + password — placeholder until the accounts API.
+                key пересоздаёт форму на смене вкладки — контент «переезжает»
+                навстречу глайдеру (№5). */}
+            <div key={tab} className={dir === "right" ? "tab-panel--in-right" : "tab-panel--in-left"}>
             <form className="flex flex-col gap-3" onSubmit={submitEmail}>
               <label className="flex flex-col gap-1.5">
                 <span className="text-xs font-medium text-[var(--text-secondary)]">
@@ -202,6 +212,7 @@ export function AuthModal({
                 {t("emailLaterHint")}
               </p>
             </form>
+            </div>
 
             <div className="flex items-center gap-2 text-[10px] uppercase tracking-wide text-[var(--text-muted)]">
               <span className="h-px flex-1 bg-[var(--border-default)]" />

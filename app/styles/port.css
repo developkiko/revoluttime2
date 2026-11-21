@@ -642,3 +642,39 @@
 .rb-dots span:nth-child(3) {
   animation-delay: 0.36s;
 }
+
+/* ==== Анимация контента вкладок (владелец 22.11 №5) ====
+   Панель въезжает НАВСТРЕЧУ глайдеру: глайдер ушёл вправо → контент
+   въезжает справа-налево (и наоборот). motion-reduce отключает. */
+@keyframes tab-panel-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(44px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes tab-panel-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-44px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.tab-panel--in-right {
+  animation: tab-panel-in-right 0.32s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+.tab-panel--in-left {
+  animation: tab-panel-in-left 0.32s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tab-panel--in-right,
+  .tab-panel--in-left {
+    animation: none;
+  }
+}
