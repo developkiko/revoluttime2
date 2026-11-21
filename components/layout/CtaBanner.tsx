@@ -2,6 +2,7 @@ import { ArrowRightIcon, ExternalLinkIcon } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { ExternalLink } from "@/components/layout/ExternalLink";
 
 interface CtaBannerProps {
   title: string;
@@ -31,10 +32,10 @@ export function CtaBanner({
         </div>
         <Button size="lg" className="shrink-0" asChild>
           {external ? (
-            <a href={href} target="_blank" rel="noopener noreferrer">
+            <ExternalLink href={href}>
               {buttonLabel}
               <ExternalLinkIcon data-icon="inline-end" />
-            </a>
+            </ExternalLink>
           ) : (
             <Link href={href}>
               {buttonLabel}

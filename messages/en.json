@@ -29,6 +29,10 @@
     "streams": {
       "title": "Streams — RevolutTIME",
       "description": "Live streams and recordings by RevolutTIME about hydrogen water and health."
+    },
+    "redirect": {
+      "title": "Leaving for an external site — RevolutTIME",
+      "description": "Warning page before navigating to an external site."
     }
   },
   "brand": {
@@ -1391,5 +1395,24 @@
     "streamsEmpty": "No recordings yet — the next stream will be announced on the homepage and in Telegram.",
     "durationLabel": "Duration:",
     "watchOnYoutube": "Watch on YouTube"
+  },
+  "redirect": {
+    "leavingTitle": "You are leaving our site",
+    "leavingText": "We will redirect you to an external resource whose content we do not control. Please check the address before continuing.",
+    "redirectIn": "Redirecting in {seconds, plural, one {# second} other {# seconds}}",
+    "goNow": "Go now",
+    "stay": "Stay on the site",
+    "notApprovedTitle": "Link not approved yet",
+    "notApprovedText": "This domain is not on the administrator-approved list. No automatic redirect will happen — you can return to the site.",
+    "invalidLink": "Invalid or incomplete link."
+  },
+  "externalLink": {
+    "tooltipTitle": "External link (admin)",
+    "approved": "Domain approved — the link passes the warning page without whitelist checks.",
+    "notApproved": "Domain is not in the whitelist yet — the warning page will not redirect automatically.",
+    "allow": "Approve",
+    "cancel": "Cancel",
+    "allowedToast": "Domain {domain} added to the whitelist",
+    "errorToast": "Could not update the whitelist — please try again"
   }
 }

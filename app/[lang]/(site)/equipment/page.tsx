@@ -10,6 +10,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { ExternalLink } from "@/components/layout/ExternalLink";
 import { ContactWidgetLazy } from "@/components/contact/ContactWidgetLazy";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 import { WikiLink } from "@/components/encyclopedia/WikiLink";
@@ -95,16 +96,14 @@ export default async function EquipmentPage({
                 {item.suppliers && item.suppliers.length > 0 && (
                   <div className="flex flex-wrap gap-2">
                     {item.suppliers.map((supplier) => (
-                      <a
+                      <ExternalLink
                         key={supplier.url}
                         href={supplier.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 rounded-lg border bg-muted/60 px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
                       >
                         {supplier.name}
                         <ArrowUpRightIcon className="size-3" />
-                      </a>
+                      </ExternalLink>
                     ))}
                   </div>
                 )}

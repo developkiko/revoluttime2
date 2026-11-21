@@ -29,6 +29,10 @@
     "streams": {
       "title": "Streams — RevolutTIME",
       "description": "Live-Streams und Aufzeichnungen von RevolutTIME über Wasserstoffwasser und Gesundheit."
+    },
+    "redirect": {
+      "title": "Weiterleitung auf eine externe Website — RevolutTIME",
+      "description": "Warnseite vor dem Übergang auf eine externe Website."
     }
   },
   "brand": {
@@ -1391,5 +1395,24 @@
     "streamsEmpty": "Noch keine Aufzeichnungen — den nächsten Stream kündigen wir auf der Startseite und in Telegram an.",
     "durationLabel": "Dauer:",
     "watchOnYoutube": "Auf YouTube ansehen"
+  },
+  "redirect": {
+    "leavingTitle": "Sie verlassen unsere Website",
+    "leavingText": "Wir leiten Sie in Kürze zu einer externen Ressource weiter, deren Inhalte wir nicht kontrollieren. Bitte prüfen Sie die Adresse, bevor Sie fortfahren.",
+    "redirectIn": "Weiterleitung in {seconds, plural, one {# Sekunde} other {# Sekunden}}",
+    "goNow": "Jetzt weiterleiten",
+    "stay": "Auf der Website bleiben",
+    "notApprovedTitle": "Link noch nicht genehmigt",
+    "notApprovedText": "Diese Domain steht nicht auf der vom Administrator freigegebenen Liste. Es erfolgt keine automatische Weiterleitung — Sie können zur Website zurückkehren.",
+    "invalidLink": "Ungültiger oder unvollständiger Link."
+  },
+  "externalLink": {
+    "tooltipTitle": "Externer Link (Admin)",
+    "approved": "Domain genehmigt — der Link läuft ohne Whitelist-Verzögerung über die Warnseite.",
+    "notApproved": "Domain noch nicht in der Whitelist — auf der Warnseite erfolgt keine automatische Weiterleitung.",
+    "allow": "Genehmigen",
+    "cancel": "Abbrechen",
+    "allowedToast": "Domain {domain} zur Whitelist hinzugefügt",
+    "errorToast": "Whitelist konnte nicht aktualisiert werden — bitte erneut versuchen"
   }
 }

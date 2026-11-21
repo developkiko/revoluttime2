@@ -11,6 +11,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useI18n } from "@/lib/ultra/i18n-context";
 import { useSiteConfig } from "@/lib/ultra/site-config-context";
+import { ExternalLink } from "@/components/layout/ExternalLink";
 import { Mail, ChevronUp, Plus, MessageCircle } from "lucide-react";
 import { SITE } from "@/lib/products";
 
@@ -188,17 +189,15 @@ export function SupportFAB() {
               {btn.icon}
             </button>
           ) : (
-            <a
+            <ExternalLink
               key={btn.href}
-              href={btn.href}
+              href={btn.href!}
               title={btn.label}
-              target="_blank"
-              rel="noopener noreferrer"
               className={`fab-item flex h-11 w-11 items-center justify-center rounded-full shadow-lg transition-transform hover:scale-110 ${contactClass(btn.style)}`}
               style={{ animationDelay: `${i * 60}ms` }}
             >
               {btn.icon}
-            </a>
+            </ExternalLink>
           )
         )}
       </div>

@@ -6,6 +6,7 @@
 
 import { useState, useEffect, FormEvent, useRef, useCallback } from "react";
 import { useI18n } from "@/lib/ultra/i18n-context";
+import { ExternalLink } from "@/components/layout/ExternalLink";
 import { useSiteConfig } from "@/lib/ultra/site-config-context";
 import { Mail, MessageCircle, Clock, Send } from "lucide-react";
 
@@ -254,9 +255,9 @@ export function ContactForm() {
                 <div>
                   <strong className="block text-sm text-[var(--text-heading)] mb-0.5">{item.label}</strong>
                   {isLink ? (
-                    <a href={item.href!} target="_blank" rel="noopener noreferrer" className={`${textClass} hover:text-[var(--color-primary)] transition-colors underline underline-offset-2`}>
+                    <ExternalLink href={item.href!} className={`${textClass} hover:text-[var(--color-primary)] transition-colors underline underline-offset-2`}>
                       {item.value}
-                    </a>
+                    </ExternalLink>
                   ) : (
                     <span className={textClass}>{item.value}</span>
                   )}

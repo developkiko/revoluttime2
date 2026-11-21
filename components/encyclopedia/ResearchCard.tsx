@@ -4,6 +4,7 @@ import {
   STUDY_TYPE_LABEL_KEYS,
   type ResearchPaper,
 } from "@/lib/encyclopedia";
+import { ExternalLink } from "@/components/layout/ExternalLink";
 import { useTranslations } from "next-intl";
 
 /** Evidence-per-claim card (blueprint § 4.2/4.3): a PubMed paper as a badge. */
@@ -11,10 +12,8 @@ export function ResearchCard({ paper }: { paper: ResearchPaper }) {
   const t = useTranslations("encyclopedia");
 
   return (
-    <a
+    <ExternalLink
       href={paper.sourceUrl}
-      target="_blank"
-      rel="noopener noreferrer"
       className="group block rounded-xl border bg-card p-4 transition-colors hover:border-primary/40"
     >
       <div className="flex items-start justify-between gap-3">
@@ -35,6 +34,6 @@ export function ResearchCard({ paper }: { paper: ResearchPaper }) {
         DOI: {paper.doiPmid}
         {paper.sampleSize != null && ` · n = ${paper.sampleSize}`}
       </p>
-    </a>
+    </ExternalLink>
   );
 }

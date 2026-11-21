@@ -5,6 +5,7 @@
 // ══════════════════════════════════════════════════════════════
 
 import { Link } from "@/i18n/navigation";
+import { ExternalLink } from "@/components/layout/ExternalLink";
 import { useState } from "react";
 import { useI18n } from "@/lib/ultra/i18n-context";
 import { PolicyModal, type PolicyType } from "@/components/ultra/ui/PolicyModal";
@@ -80,9 +81,9 @@ export function Footer() {
                 </a>
               )}
               {fc?.telegram_link && (
-                <a href={fc.telegram_link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[var(--text-muted)] py-1.5 hover:text-[var(--text-primary)] transition-colors">
+                <ExternalLink href={fc.telegram_link} className="inline-flex items-center gap-2 text-sm text-[var(--text-muted)] py-1.5 hover:text-[var(--text-primary)] transition-colors">
                   <Send className="w-3.5 h-3.5 shrink-0" />{fc.telegram_text || fc.telegram_link}
-                </a>
+                </ExternalLink>
               )}
             </div>
           </div>

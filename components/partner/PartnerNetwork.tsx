@@ -7,6 +7,7 @@ import { ArrowUpIcon, CalendarIcon, XIcon } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { ExternalLink } from "@/components/layout/ExternalLink";
 
 export interface NetworkPerson {
   id: string;
@@ -399,9 +400,7 @@ export function PartnerNetwork({
                   (action) =>
                     action.href.startsWith("http") ? (
                       <Button key={action.href + action.label} size="sm" asChild>
-                        <a href={action.href} target="_blank" rel="noreferrer">
-                          {action.label}
-                        </a>
+                        <ExternalLink href={action.href}>{action.label}</ExternalLink>
                       </Button>
                     ) : (
                       <Button key={action.href + action.label} size="sm" asChild>
