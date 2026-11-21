@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { ImagePlusIcon, KeyRoundIcon, MailIcon, Trash2Icon } from "lucide-react";
 
 import {
@@ -37,7 +37,7 @@ const labelClass = "text-xs font-medium text-muted-foreground";
 
 export function ProfileCard({ user }: { user: SessionUser }) {
   const t = useTranslations("cabinet.profile");
-  const locale = useLocale();
+  
   const { notice } = useNotice();
   const overlay = useProfileOverlay(user.email);
   // null = untouched, fall back to the saved overlay/provider name
@@ -121,9 +121,10 @@ export function ProfileCard({ user }: { user: SessionUser }) {
   async function handleDelete() {
     if (!window.confirm(t("deleteConfirm"))) return;
     await signOut();
-    // Full reload is intentional: it drops all client-side state after deletion.
-    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-    window.location.assign(`/${locale}`);
+    // Полную перезагрузку оставили (сброс всего клиентского состояния),
+    // но БЕЗ увода на главную — остаёмся на текущей странице
+    // (владелец 22.11 №2); страница покажет своё «войдите» состояние.
+    window.location.reload();
   }
 
   return (

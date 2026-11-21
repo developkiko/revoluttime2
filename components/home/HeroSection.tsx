@@ -152,6 +152,11 @@ export function HeroSection() {
 
   const onPointerDown = React.useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
+    // setPointerCapture ретаргетит последующий click на захвативший div —
+    // ссылки/кнопки слайда переставали кликаться (владелец 22.11 №4).
+    // Не захватываем pointer, когда нажатие началось на интерактивном
+    // элементе: драг от CTA — редкий случай, клик — главный.
+    if ((event.target as HTMLElement).closest("a, button")) return;
     dragStart.current = { x: event.clientX, y: event.clientY };
     dragDistance.current = 0;
     event.currentTarget.setPointerCapture(event.pointerId);

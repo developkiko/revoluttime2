@@ -66,7 +66,8 @@
     "closeMenu": "Close menu",
     "theme": "Theme",
     "login": "Sign in",
-    "cabinetBack": "Главное меню"
+    "cabinetBack": "Главное меню",
+    "userMenu": "User menu"
   },
   "home": {
     "hero": {
@@ -173,7 +174,8 @@
       "typeCashback": "cashback",
       "justNow": "just now",
       "realEmpty": "The first payouts are already on their way — real partner earnings will appear here.",
-      "note": "Partner names are hidden — we only show the type and amount of each payout."
+      "note": "Partner names are hidden — we only show the type and amount of each payout.",
+      "testAdd": "Add event"
     },
     "diagram": {
       "you": "You",
@@ -211,6 +213,12 @@
       "title": "Reviews",
       "subtitle": "What customers who already drink magnesium + hydrogen water say.",
       "cta": "Order tablets"
+    },
+    "live": {
+      "title": "Happening now",
+      "eventsEmpty": "Events will appear here very soon — stay tuned for announcements.",
+      "booking": "Book",
+      "join": "Join"
     }
   },
   "hydrogen": {

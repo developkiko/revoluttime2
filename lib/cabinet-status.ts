@@ -55,3 +55,42 @@ export function useCabinetStatus(): CabinetStatus | null {
 export function writeCabinetStatus(next: CabinetStatus): void {
   cabinetStore.write(next);
 }
+
+/* ── Режим шапки: «свернуть кабинет-меню» (владелец 22.11, №13) ──────────
+   «Главное меню» НЕ уводит с страницы, а временно возвращает обычное меню;
+   в конце навигации появляется кнопка «Юзер-меню» (стрелка вперёд),
+   возвращающая кабинет-режим. Данные статуса при этом не теряются. */
+
+const dismissStore = (() => {
+  let dismissed = false;
+  const listeners = new Set<() => void>();
+  return {
+    subscribe(listener: () => void): () => void {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+    getSnapshot(): boolean {
+      return dismissed;
+    },
+    getServerSnapshot(): boolean {
+      return false;
+    },
+    set(next: boolean) {
+      if (dismissed === next) return;
+      dismissed = next;
+      listeners.forEach((listener) => listener());
+    },
+  };
+})();
+
+export function useCabinetDismissed(): boolean {
+  return React.useSyncExternalStore(
+    dismissStore.subscribe,
+    dismissStore.getSnapshot,
+    dismissStore.getServerSnapshot
+  );
+}
+
+export function setCabinetDismissed(next: boolean): void {
+  dismissStore.set(next);
+}

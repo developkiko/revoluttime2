@@ -7,6 +7,7 @@ import {
   GiftIcon,
   LogOutIcon,
   NetworkIcon,
+  ShieldCheckIcon,
   ShoppingBagIcon,
   UserIcon,
   UserRoundIcon,
@@ -114,6 +115,7 @@ function UserMenu({
   onDone?: () => void;
 }) {
   const t = useTranslations("auth");
+  const router = useRouter();
   const { notice } = useNotice();
 
   return (
@@ -169,9 +171,11 @@ function UserMenu({
           href="https://adm-rt.vercel.app/"
           target="_blank"
           rel="noopener noreferrer"
-          className={MENU_ROW_CLASS}
+          // Владелец 22.11 №8: «Админка» выделена среди пунктов
+          className={`${MENU_ROW_CLASS} !text-[var(--color-primary)] bg-[var(--primary)]/10 border border-[var(--color-primary)]/30 font-semibold`}
           onClick={onDone}
         >
+          <ShieldCheckIcon className="w-4 h-4 shrink-0" />
           {t("adminLink")}
         </a>
       )}
@@ -181,6 +185,9 @@ function UserMenu({
         className={`${MENU_DANGER_CLASS} mt-1`}
         onClick={async () => {
           await signOut();
+          // Оставляем юзера на месте: серверные компоненты обновляются
+          // локально (владелец 22.11 №2 — без редиректа на главную).
+          router.refresh();
           notice({ text: t("signedOutToast"), variant: "success" });
           onDone?.();
         }}

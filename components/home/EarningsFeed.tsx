@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
+import { PlusCircleIcon } from "lucide-react";
 
 import { dateLocaleFor } from "@/lib/i18n-date";
 import {
@@ -56,12 +57,16 @@ export function EarningsFeed({
   config,
   baseSeed,
   live,
+  allowTestAdd,
 }: {
   initialEntries: EarningEntry[];
   config: EarningsConfig;
   baseSeed: number;
   /** dummy → тикаем новые записи; real → статичная лента из ledger. */
   live: boolean;
+  /** Кнопка «добавить событие» (владелец 22.11 №11): тестовая запись
+   *  сверху ленты, чтобы посмотреть анимацию добавления. */
+  allowTestAdd?: boolean;
 }) {
   const t = useTranslations("home.earnings");
   const locale = useLocale();
@@ -70,6 +75,24 @@ export function EarningsFeed({
   // ОТРИЦАТЕЛЬНУЮ сторону (−1, −2, …). Плюс-направление повторяло шаги,
   // которые сервер уже отрисовал в начальном фиде (дубли записей).
   const nextStepRef = React.useRef(-1);
+
+  /** Тестовое событие: ближайший непаузный шаг с живым временем. */
+  const addTestEntry = () => {
+    let step = nextStepRef.current;
+    let entry = entryForStep(baseSeed, step, config);
+    // паузные шаги пропускаем — кнопка должна всегда что-то показать
+    while (!entry && step > nextStepRef.current - 12) {
+      step -= 1;
+      entry = entryForStep(baseSeed, step, config);
+    }
+    nextStepRef.current = step - 1;
+    if (entry) {
+      setEntries((prev) => [
+        { ...entry!, index: step, ts: Date.now() },
+        ...prev.slice(0, MAX_VISIBLE - 1),
+      ]);
+    }
+  };
 
   // Относительные времена: «−1» до гидрации → не рендерятся; после —
   // снапшот меняется раз в 30 с → лента перерисовывает «только что»/«N мин».
@@ -123,42 +146,58 @@ export function EarningsFeed({
   );
 
   return (
-    <ul className="mx-auto flex max-w-2xl flex-col gap-2.5" aria-live="polite">
-      <AnimatePresence initial={false}>
-        {entries.slice(0, MAX_VISIBLE).map((entry) => (
-          <motion.li
-            key={`${entry.index}-${entry.ts}`}
-            layout
-            initial={{ opacity: 0, y: -10, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="flex items-center gap-3 rounded-2xl border bg-card px-4 py-3"
+    <div className="flex flex-col">
+      <ul className="mx-auto flex max-w-2xl flex-col gap-2.5" aria-live="polite">
+        <AnimatePresence initial={false}>
+          {entries.slice(0, MAX_VISIBLE).map((entry) => (
+            <motion.li
+              key={`${entry.index}-${entry.ts}`}
+              layout
+              initial={{ opacity: 0, y: -10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="flex items-center gap-3 rounded-2xl border bg-card px-4 py-3"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element -- tiny static avatar, no next/image config needed */}
+              <img
+                src={entry.avatar}
+                alt=""
+                loading="lazy"
+                className="size-10 shrink-0 rounded-full object-cover ring-1 ring-border"
+              />
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium">
+                  {entry.maskedName}
+                  <span className="ms-2 text-xs font-normal text-muted-foreground">
+                    {entry.type === "cashback" ? t("typeCashback") : t("typePercent")}
+                  </span>
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {timeRedrawTick >= 0 ? timeAgo(entry.ts) : ""}
+                </p>
+              </div>
+              <p className="shrink-0 text-sm font-semibold text-primary">
+                +{centsFmt.format(entry.amountCents / 100)}
+              </p>
+            </motion.li>
+          ))}
+        </AnimatePresence>
+      </ul>
+
+      {/* Владелец 22.11 №11: тестовое событие с анимацией добавления */}
+      {allowTestAdd && (
+        <div className="mt-3 flex justify-center">
+          <button
+            type="button"
+            onClick={addTestEntry}
+            className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary transition-colors hover:bg-primary/10"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element -- tiny static avatar, no next/image config needed */}
-            <img
-              src={entry.avatar}
-              alt=""
-              loading="lazy"
-              className="size-10 shrink-0 rounded-full object-cover ring-1 ring-border"
-            />
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium">
-                {entry.maskedName}
-                <span className="ms-2 text-xs font-normal text-muted-foreground">
-                  {entry.type === "cashback" ? t("typeCashback") : t("typePercent")}
-                </span>
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {timeRedrawTick >= 0 ? timeAgo(entry.ts) : ""}
-              </p>
-            </div>
-            <p className="shrink-0 text-sm font-semibold text-primary">
-              +{centsFmt.format(entry.amountCents / 100)}
-            </p>
-          </motion.li>
-        ))}
-      </AnimatePresence>
-    </ul>
+            <PlusCircleIcon className="size-3.5" />
+            {t("testAdd")}
+          </button>
+        </div>
+      )}
+    </div>
   );
 }

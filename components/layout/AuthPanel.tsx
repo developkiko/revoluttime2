@@ -21,15 +21,47 @@ const AuthPanelContent = dynamic(
 
 /* Trigger styles — exact Ultra template header classes:
    logged-in = user pill (header-user-link), logged-out = two header buttons
-   (owner request: "Sign up" highlighted + "Sign in") opening auth modals. */
+   (owner request: "Sign up" highlighted + "Sign in") opening auth modals.
+   Компактные отступы + shrink-0 (владелец 22.11 №1: на 1280px кнопки
+   налезали на меню, №12: у пульса жал шеврон в новую строку). */
 const USER_PILL_CLASS =
-  "rt-header-user-link inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-link)] hover:text-[var(--text-heading)] transition-colors px-3 py-1.5 rounded-lg hover:bg-[var(--hover-bg)] border border-[var(--color-primary)]/40 hover:border-[var(--color-primary)]/70 whitespace-nowrap";
+  "rt-header-user-link inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-link)] hover:text-[var(--text-heading)] transition-colors px-2 py-1.5 rounded-lg hover:bg-[var(--hover-bg)] border border-[var(--color-primary)]/40 hover:border-[var(--color-primary)]/70 whitespace-nowrap shrink-0";
 
 const REGISTER_BUTTON_CLASS =
-  "inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg transition-colors whitespace-nowrap bg-[var(--primary)] text-white hover:bg-[var(--color-primary-hover)] border border-[var(--color-primary-border)]";
+  "inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold rounded-lg transition-colors whitespace-nowrap bg-[var(--primary)] text-white hover:bg-[var(--color-primary-hover)] border border-[var(--color-primary-border)] shrink-0";
 
 const LOGIN_BUTTON_CLASS =
-  "inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg transition-colors whitespace-nowrap border border-[var(--border-default)] text-[var(--text-heading)] hover:bg-[var(--hover-bg)]";
+  "inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold rounded-lg transition-colors whitespace-nowrap border border-[var(--border-default)] text-[var(--text-heading)] hover:bg-[var(--hover-bg)] shrink-0";
+
+/** Компактный баланс слева от аватара в пилюле (владелец 22.11 №10). */
+function BalanceChip() {
+  const [cents, setCents] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    fetch("/api/balance", { cache: "no-store" })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: { balanceCents?: number | null } | null) => {
+        if (data?.balanceCents != null) setCents(data.balanceCents);
+      })
+      .catch(() => undefined);
+  }, []);
+
+  if (cents === null) return null;
+  const label = new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: cents % 100 === 0 ? 0 : 2,
+  }).format(cents / 100);
+
+  return (
+    <span
+      className="me-1 inline-flex items-center rounded-full bg-[var(--primary)]/10 px-2 py-0.5 text-xs font-bold tabular-nums text-[var(--color-primary)]"
+      title={label}
+    >
+      {label}
+    </span>
+  );
+}
 
 export function AuthPanel() {
   const t = useTranslations("auth");
@@ -50,6 +82,8 @@ export function AuthPanel() {
             title={user.email}
             className={USER_PILL_CLASS}
           >
+            {/* Баланс — слева от аватара (владелец 22.11 №10) */}
+            <BalanceChip />
             {user.picture ? (
               // eslint-disable-next-line @next/next/no-img-element -- provider CDN hosts are not known at build time
               <img

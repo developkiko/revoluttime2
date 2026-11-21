@@ -109,9 +109,9 @@
   --bg-elevated: #eef0f7;
   --bg-input: #ffffff;
   --color-primary-hover: #0a63c2;
-  --color-accent: #7c3aed;
-  --color-accent-hover: #6d28d9;
-  --color-accent-soft: #a78bfa;
+  --color-accent: #1084fa; /* Фаза владельца 22.11 №3: violet ultra-proxy → наш primary */
+  --color-accent-hover: #0a63c2;
+  --color-accent-soft: #6aa8f7;
   --color-success: #16a34a;
   --color-error: #dc2626;
   --color-warning: #d97706;
@@ -179,9 +179,9 @@
   --bg-elevated: #1a1a2e;
   --bg-input: #0a0a0f;
   --color-primary-hover: #3a9bff;
-  --color-accent: #7c3aed;
-  --color-accent-hover: #6d28d9;
-  --color-accent-soft: #a78bfa;
+  --color-accent: #1084fa;
+  --color-accent-hover: #0a63c2;
+  --color-accent-soft: #6aa8f7;
   --color-success: #22c55e;
   --color-error: #ef4444;
   --color-warning: #f59e0b;

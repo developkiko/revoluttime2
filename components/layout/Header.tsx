@@ -1,18 +1,25 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
   ArrowLeftIcon,
+  ArrowRightIcon,
   LayoutDashboardIcon,
   LogOutIcon,
   ShoppingCartIcon,
+  ShieldCheckIcon,
 } from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import { useCart } from "@/components/cart/CartProvider";
 import { signOut, useAuthUser } from "@/lib/auth-store";
-import { useCabinetStatus } from "@/lib/cabinet-status";
+import {
+  setCabinetDismissed,
+  useCabinetDismissed,
+  useCabinetStatus,
+} from "@/lib/cabinet-status";
 import { AuthPanel } from "@/components/layout/AuthPanel";
 import { BalanceTopUp } from "@/components/cabinet/BalanceTopUp";
 import { LanguageMenu } from "@/components/layout/LanguageMenu";
@@ -26,7 +33,7 @@ import { useNotice } from "@/components/ui/notice";
 /* ═══ Exact Ultra template styles (Header.tsx / LangSwitcher.tsx) ═══ */
 
 const NAV_LINK_CLASS =
-  "text-sm text-[var(--text-link)] hover:text-[var(--text-heading)] transition-colors px-3 py-1.5 rounded-lg hover:bg-[var(--hover-bg)] font-medium whitespace-nowrap";
+  "text-sm text-[var(--text-link)] hover:text-[var(--text-heading)] transition-colors px-2 py-1.5 rounded-lg hover:bg-[var(--hover-bg)] font-medium whitespace-nowrap shrink-0";
 
 const ICON_CONTROL_CLASS =
   "inline-flex items-center justify-center size-9 rounded-lg border border-[var(--border-default)] text-[var(--text-secondary)] hover:text-[var(--text-heading)] hover:bg-[var(--hover-bg)] transition-colors shrink-0";
@@ -106,6 +113,8 @@ export function Header() {
   const tCabinetBar = useTranslations("cabinet.header");
   const user = useAuthUser();
   const status = useCabinetStatus();
+  const dismissed = useCabinetDismissed();
+  const router = useRouter();
   const { notice } = useNotice();
   const { openCart } = useCart();
   const [menuOpen, setMenuOpen] = React.useState(false);
@@ -115,12 +124,19 @@ export function Header() {
   /* Кабинет-режим шапки («← Главное меню» + баланс/пополнить/имя/выйти —
      решение владельца): стор наполняет страница кабинета через мост.
      usePathname здесь нельзя — он вне Suspense валит пререндер [slug]
-     (project.md, грабли Next 16 №7). */
-  const cabinetMode = status !== null && user !== null;
+     (project.md, грабли Next 16 №7).
+     Свернуть меню (владелец 22.11 №13): «Главное меню» НЕ уводит со
+     страницы — временно возвращает обычное меню; в конце навигации
+     появляется кнопка «Юзер-меню» (стрелка вперёд) для возврата. */
+  const cabinetMode = status !== null && user !== null && !dismissed;
 
   const handleLogout = async () => {
     closeMenu();
     await signOut();
+    // Обновляем серверные компоненты на месте: охраняемые страницы
+    // показывают своё «войдите» состояние, БЕЗ перехода на главную
+    // (владелец 22.11 №2).
+    router.refresh();
     notice({ text: ta("signedOutToast"), variant: "success" });
   };
 
@@ -143,30 +159,56 @@ export function Header() {
             <Logo />
           </Link>
 
-          {/* Desktop center — кабинет-режим или дропдауны */}
-          {cabinetMode ? (
-            <div className="hidden xl:flex flex-1 items-center gap-1 min-w-0">
-              <Link href="/" className={`${NAV_LINK_CLASS} inline-flex items-center gap-1`}>
-                <ArrowLeftIcon className="size-4 shrink-0" aria-hidden />
-                {t("cabinetBack")}
-              </Link>
-            </div>
-          ) : (
-            <div className="hidden xl:flex flex-1 items-center justify-center gap-1 min-w-0">
-              <NavDropdown label={t("nav.directions")} items={toItems(DIRECTION_NAV)} />
-              <NavDropdown label={t("nav.about")} items={toItems(ABOUT_NAV)} />
-              {/* Динамическая кнопка «Программы» — слово-пульс из админки */}
-              <NavDropdown
-                label={<NavPulseLabel />}
-                items={toItems(PROGRAM_NAV)}
-                triggerClassName={`${NAV_LINK_CLASS} !text-[var(--text-heading)] font-semibold inline-flex items-center gap-1`}
-              />
-              <NavDropdown label={t("nav.legal")} items={legalItems} />
-              <Link href="/contact" className={NAV_LINK_CLASS}>
-                {t("nav.contact")}
-              </Link>
-            </div>
-          )}
+          {/* Desktop center — кабинет-режим или дропдауны. Смена режима —
+              с мягкой анимацией (key пересоздаёт контейнер → animate-in). */}
+          <div className="hidden xl:flex flex-1 items-center justify-center gap-1 min-w-0">
+            {cabinetMode ? (
+              <React.Fragment key="cabinet">
+                <button
+                  type="button"
+                  className={`${NAV_LINK_CLASS} inline-flex items-center gap-1`}
+                  onClick={() => {
+                    // Владелец 22.11 №13: не уводим со страницы — только
+                    // переключаем режим шапки.
+                    setCabinetDismissed(true);
+                  }}
+                >
+                  <ArrowLeftIcon className="size-4 shrink-0" aria-hidden />
+                  {t("cabinetBack")}
+                </button>
+              </React.Fragment>
+            ) : (
+              <React.Fragment key="site">
+                <NavDropdown label={t("nav.directions")} items={toItems(DIRECTION_NAV)} />
+                <NavDropdown label={t("nav.about")} items={toItems(ABOUT_NAV)} />
+                {/* Динамическая кнопка «Программы» — слово-пульс из админки */}
+                <NavDropdown
+                  label={<NavPulseLabel />}
+                  items={toItems(PROGRAM_NAV)}
+                  triggerClassName={`${NAV_LINK_CLASS} !text-[var(--text-heading)] font-semibold inline-flex items-center gap-1`}
+                />
+                <NavDropdown label={t("nav.legal")} items={legalItems} />
+                <Link href="/contact" className={NAV_LINK_CLASS}>
+                  {t("nav.contact")}
+                </Link>
+                {/* Свернутый кабинет: кнопка возврата в юзер-меню (№13) —
+                    стрелка вперёд, зеркально «Главному меню» */}
+                {status !== null && user !== null && (
+                  <button
+                    type="button"
+                    className={`${NAV_LINK_CLASS} ms-2 inline-flex items-center gap-1 border border-[var(--color-primary)]/40 text-[var(--color-primary)]`}
+                    onClick={() => setCabinetDismissed(false)}
+                    aria-label={t("userMenu")}
+                    data-tip={t("userMenu")}
+                    data-tip-pos="bottom"
+                  >
+                    <LayoutDashboardIcon className="size-4 shrink-0" aria-hidden />
+                    <ArrowRightIcon className="size-4 shrink-0" aria-hidden />
+                  </button>
+                )}
+              </React.Fragment>
+            )}
+          </div>
 
           {/* Desktop controls — template layout: auth/cabinet + divider + theme + lang, cart last */}
           <div className="hidden xl:flex items-center gap-2">
@@ -236,15 +278,38 @@ export function Header() {
           Фаза D: полная навигация группами (те же пункты, что на десктопе). */}
       <div className={`rt-mobile-nav xl:hidden ${menuOpen ? "open" : ""}`}>
         {cabinetMode && (
-          <Link href="/" className={MOBILE_LINK_CLASS} onClick={closeMenu}>
+          <button
+            type="button"
+            className={MOBILE_LINK_CLASS}
+            onClick={() => {
+              closeMenu();
+              setCabinetDismissed(true);
+            }}
+          >
             <ArrowLeftIcon className="w-4 h-4" />
             {t("cabinetBack")}
-          </Link>
+          </button>
         )}
         {!cabinetMode && (
-          <Link href="/" className={MOBILE_LINK_CLASS} onClick={closeMenu}>
-            {t("home")}
-          </Link>
+          <>
+            <Link href="/" className={MOBILE_LINK_CLASS} onClick={closeMenu}>
+              {t("home")}
+            </Link>
+            {/* Свернутый кабинет: возврат в юзер-меню (№13) */}
+            {status !== null && user !== null && (
+              <button
+                type="button"
+                className={MOBILE_LINK_CLASS}
+                onClick={() => {
+                  closeMenu();
+                  setCabinetDismissed(false);
+                }}
+              >
+                <ArrowRightIcon className="w-4 h-4" />
+                {t("userMenu")}
+              </button>
+            )}
+          </>
         )}
 
         <DrawerLabel>{t("nav.directions")}</DrawerLabel>
