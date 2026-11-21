@@ -18,6 +18,15 @@ import { UltraPagesSection } from "@/components/home/UltraPagesSection";
 import { SitePagesList } from "@/components/dummy/SitePagesList";
 import { FxDemo } from "@/components/dummy/fx-demo";
 import { PortDemo } from "@/components/dummy/port-demo";
+import {
+  SnippetImageLoader,
+  SnippetGlowCards,
+  SnippetAccordions,
+  SnippetPagination,
+  SnippetTradingCard,
+  SnippetIconHovers,
+  SnippetQuantityPicker,
+} from "@/components/dummy/snippets";
 import { getOffer } from "@/lib/catalog";
 import { BookingWidgetLazy } from "@/components/booking/BookingWidgetLazy";
 
@@ -180,6 +189,20 @@ export default async function DummyPage({
           <div className="mt-6">
             <BookingWidgetLazy offer={badminton} />
           </div>
+        </div>
+      </section>
+
+      {/* Сниппеты из snippets-bundle (адаптировано под dummy) */}
+      <section className="border-y bg-muted/40">
+        <div className="mx-auto w-full max-w-6xl px-4 py-12">
+          <h2 className="text-xl font-bold tracking-tight mb-6">{t("snippetsTitle")}</h2>
+          <SnippetImageLoader />
+          <SnippetGlowCards />
+          <SnippetAccordions />
+          <SnippetPagination />
+          <SnippetTradingCard />
+          <SnippetIconHovers />
+          <SnippetQuantityPicker />
         </div>
       </section>
 

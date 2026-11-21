@@ -648,7 +648,8 @@
     "diagramTitle": "Referral-Pentagon",
     "levelsTitle": "Ebenen I–V (Farbe + Hover)",
     "bookingTitle": "Buchung (Ticket in den Warenkorb)",
-    "logoShimmerLabel": "Header-Variante (Gradient + Shimmer wie im Header)"
+    "logoShimmerLabel": "Header-Variante (Gradient + Shimmer wie im Header)",
+    "snippetsTitle": "Schnipsel (snippets-bundle)"
   },
   "contact": {
     "infoTitle": "Kontakt",

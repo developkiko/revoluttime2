@@ -648,7 +648,8 @@
     "diagramTitle": "Пентагон рефералов",
     "levelsTitle": "Уровни I–V (цвет + ховер)",
     "bookingTitle": "Бронирование (билет в корзину)",
-    "logoShimmerLabel": "Вариант шапки (градиент + шиммер как в Header)"
+    "logoShimmerLabel": "Вариант шапки (градиент + шиммер как в Header)",
+    "snippetsTitle": "Сниппеты (snippets-bundle)"
   },
   "contact": {
     "infoTitle": "Связаться с нами",
