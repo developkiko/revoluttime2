@@ -89,7 +89,10 @@ export function NavDropdown({
         className={triggerClassName ?? TRIGGER_CLASS}
         aria-haspopup="menu"
         aria-expanded={open}
-        onClick={() => setOpen((value) => !value)}
+        /* Клик всегда ОТКРЫВАЕТ: hover уже мог открыть панель, и toggle
+           закрывал её сразу после открытия (поймано в проверке мыши).
+           Закрытие — выбор пункта, клик вне, Esc, уход мыши. */
+        onClick={() => setOpen(true)}
         onKeyDown={(event) => {
           if (event.key === "ArrowDown") {
             event.preventDefault();
